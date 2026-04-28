@@ -23,18 +23,17 @@
 </head>
 <body>
 
-  <!-- HERO: Zola as visual protagonist -->
-  <section class="hero-parallax">
+  <!-- HERO: Full-bleed Zola with text overlay -->
+  <section class="hero-parallax" style="min-height:100vh;">
     <div class="hero-bg-layer" style="background-image: url('assets/images/zola-hero-home.jpg'); background-size:cover; background-position:30% center;"></div>
-    <div class="hero-overlay-gradient"></div>
-    <div class="hero-split">
-      <!-- Zola lives in the background hero image -->
-      <div class="zola-col"></div>
-      <!-- Headline column -->
-      <div class="text-col">
+    <!-- Gradient: transparent on left, dark green on right -->
+    <div style="position:absolute;inset:0;background:linear-gradient(to right, rgba(27,67,50,0) 0%, rgba(27,67,50,0) 40%, rgba(27,67,50,0.7) 60%, rgba(27,67,50,0.95) 100%);"></div>
+    <!-- Text anchored to right side -->
+    <div style="position:relative;z-index:2;max-width:var(--max-width);margin:0 auto;padding:0 1.5rem;width:100%;min-height:100vh;display:flex;align-items:center;justify-content:flex-end;">
+      <div style="max-width:480px;padding:2rem 0;">
         <span class="hero-eyebrow" data-i18n="home.eyebrow">Democratic Republic of Congo</span>
-        <h1 data-i18n="home.h1">Building Systems.<br><em>Growing Futures.</em></h1>
-        <p class="lead">Palm Leaf Partners is a DRC-rooted infrastructure and technology firm constructing the foundational systems — address mapping, data centers, call centers, and fiber backbone — that power a modern nation.</p>
+        <h1 style="color:var(--white);font-size:clamp(2.4rem,4.5vw,4.2rem);line-height:1.1;margin-bottom:1.25rem;" data-i18n="home.h1">Building Systems.<br><em style="color:var(--gold-pale);font-style:normal;">Growing Futures.</em></h1>
+        <p style="color:rgba(245,240,232,0.88);font-size:1.1rem;line-height:1.8;margin-bottom:2.5rem;">Palm Leaf Partners is a DRC-rooted infrastructure and technology firm constructing the foundational systems — address mapping, data centers, call centers, and fiber backbone — that power a modern nation.</p>
         <div class="hero-actions">
           <a href="pages/about.html" class="btn btn-primary" data-i18n="home.btn.mission">Our Mission</a>
           <a href="pages/mapping.html" class="btn btn-outline" data-i18n="home.btn.explore">Explore Projects</a>
