@@ -153,7 +153,9 @@
 }
 .zola-guide img {
   width: 120px; flex-shrink: 0;
-  filter: drop-shadow(0 8px 20px rgba(27,67,50,0.2));
+  background: transparent;
+  filter: drop-shadow(0 8px 24px rgba(27,67,50,0.25));
+  /* PNG transparency renders directly onto the section background */
 }
 .zola-guide-bubble {
   background: var(--green); color: var(--cream);
