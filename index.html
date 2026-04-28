@@ -6,224 +6,144 @@
   <title>Palm Leaf Partners — Building Systems. Growing Futures.</title>
   <meta name="description" content="Palm Leaf Partners is a DRC-rooted infrastructure and technology firm building the address mapping, data centers, call centers, and fiber backbone the Democratic Republic of Congo needs to grow." />
   <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/cinematic.css" />
   <style>
-    /* Home-specific styles */
-    .projects-section { background: var(--cream); }
-    .project-card {
-      position: relative; border-radius: var(--radius-lg); overflow: hidden;
-      box-shadow: var(--shadow-md); transition: all var(--transition);
-    }
-    .project-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
-    .project-card-img {
-      width: 100%; height: 240px; object-fit: cover;
-      transition: transform 0.5s ease;
-    }
-    .project-card:hover .project-card-img { transform: scale(1.04); }
-    .project-card-body { padding: 1.75rem; background: var(--white); }
-    .project-card-body .tag {
-      display: inline-block; font-size: 0.68rem; font-weight: 600;
-      color: var(--gold); letter-spacing: 0.15em; text-transform: uppercase;
-      margin-bottom: 0.5rem;
-    }
-    .project-card-body h3 { font-size: 1.25rem; margin-bottom: 0.6rem; }
-    .project-card-body p { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.25rem; }
-    .project-card-body .card-link {
-      font-size: 0.85rem; font-weight: 600; color: var(--green);
-      display: inline-flex; align-items: center; gap: 0.4rem;
-      transition: gap var(--transition);
-    }
-    .project-card-body .card-link:hover { gap: 0.7rem; color: var(--gold); }
-
-    .zola-section {
-      background: linear-gradient(135deg, var(--cream) 0%, var(--cream-dark) 100%);
-      padding: 6rem 0;
-    }
-    .zola-section .zola-img {
-      max-width: 420px; margin: 0 auto;
-      filter: drop-shadow(0 20px 60px rgba(27,67,50,0.25));
-    }
-    .zola-section .zola-text { padding-left: 2rem; }
-    .zola-section .zola-text h2 { margin-bottom: 1rem; }
-    .zola-section .zola-text .lead { font-size: 1.05rem; color: var(--text-muted); margin-bottom: 1.5rem; }
-
-    .narrative-section { background: var(--green); padding: 5rem 0; }
-    .narrative-section h2 { color: var(--white); margin-bottom: 1rem; }
-    .narrative-section p { color: rgba(245,240,232,0.82); font-size: 1.05rem; max-width: 800px; margin: 0 auto 1rem; text-align: center; }
-    .narrative-chain {
-      display: flex; align-items: center; justify-content: center;
-      gap: 0; flex-wrap: wrap; margin-top: 3rem;
-    }
-    .chain-item {
-      background: rgba(255,255,255,0.08); border: 1px solid rgba(184,134,11,0.3);
-      border-radius: var(--radius-md); padding: 1.5rem 1.75rem;
-      text-align: center; min-width: 160px;
-    }
-    .chain-item .chain-icon { font-size: 2rem; margin-bottom: 0.5rem; }
-    .chain-item h4 { color: var(--gold); font-size: 0.95rem; margin-bottom: 0.25rem; }
-    .chain-item p { color: rgba(245,240,232,0.7); font-size: 0.78rem; margin: 0; }
-    .chain-arrow {
-      color: var(--gold); font-size: 1.5rem; padding: 0 0.5rem;
-      opacity: 0.6;
-    }
+    .project-card { position:relative; border-radius:var(--radius-lg); overflow:hidden; box-shadow:var(--shadow-md); transition:all var(--transition); background:var(--white); }
+    .project-card:hover { transform:translateY(-6px); box-shadow:var(--shadow-lg); }
+    .project-card-img { width:100%; height:260px; object-fit:cover; transition:transform 0.5s ease; display:block; }
+    .project-card:hover .project-card-img { transform:scale(1.04); }
+    .project-card-body { padding:1.75rem; }
+    .project-card-body .tag { font-size:0.68rem; font-weight:600; color:var(--gold); letter-spacing:0.15em; text-transform:uppercase; display:block; margin-bottom:0.4rem; }
+    .project-card-body h3 { font-size:1.2rem; margin-bottom:0.6rem; }
+    .project-card-body p { font-size:0.9rem; color:var(--text-muted); margin-bottom:1.25rem; }
+    .project-card-body .card-link { font-size:0.85rem; font-weight:600; color:var(--green); display:inline-flex; align-items:center; gap:0.4rem; transition:gap var(--transition); }
+    .project-card-body .card-link:hover { gap:0.7rem; color:var(--gold); }
   </style>
 </head>
 <body>
 
-  <!-- Navigation injected by JS -->
-
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-bg" style="background-image: url('assets/images/hero-home.jpg');"></div>
-    <div class="hero-overlay"></div>
-    <div class="hero-content">
-      <span class="hero-eyebrow">Democratic Republic of Congo</span>
-      <h1>Building Systems.<br><span>Growing Futures.</span></h1>
-      <p class="lead">Palm Leaf Partners is a DRC-rooted infrastructure and technology firm constructing the foundational systems — address mapping, data centers, call centers, and fiber backbone — that power a modern nation.</p>
-      <div class="hero-actions">
-        <a href="pages/about.html" class="btn btn-primary">Our Mission</a>
-        <a href="pages/mapping.html" class="btn btn-outline">Explore Projects</a>
+  <!-- HERO: Zola as visual protagonist -->
+  <section class="hero-parallax">
+    <div class="hero-bg-layer" style="background-image: url('assets/images/zola-hero-home.jpg'); background-size:cover; background-position:center;"></div>
+    <div class="hero-overlay-gradient"></div>
+    <div class="hero-split">
+      <!-- Zola column: takes 55% of the hero -->
+      <div class="zola-col">
+        <img src="assets/images/zola-mascot.png" alt="Zola — Palm Leaf Partners" class="zola-parallax-img" />
+      </div>
+      <!-- Headline column -->
+      <div class="text-col">
+        <span class="hero-eyebrow">Democratic Republic of Congo</span>
+        <h1>Building Systems.<br><em>Growing Futures.</em></h1>
+        <p class="lead">Palm Leaf Partners is a DRC-rooted infrastructure and technology firm constructing the foundational systems — address mapping, data centers, call centers, and fiber backbone — that power a modern nation.</p>
+        <div class="hero-actions">
+          <a href="pages/about.html" class="btn btn-primary">Our Mission</a>
+          <a href="pages/mapping.html" class="btn btn-outline">Explore Projects</a>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- STATS BAR -->
-  <div class="stats-bar">
-    <div class="container">
-      <div class="stats-grid">
-        <div class="stat-item slide-up">
-          <div class="stat-number">$<span data-target="257" data-suffix="M">0</span></div>
-          <div class="stat-label">Total MOU Value</div>
-        </div>
-        <div class="stat-item slide-up">
-          <div class="stat-number"><span data-target="20" data-suffix="M">0</span></div>
-          <div class="stat-label">Addresses to Map</div>
-        </div>
-        <div class="stat-item slide-up">
-          <div class="stat-number"><span data-target="100">0</span></div>
-          <div class="stat-label">Post Office Hubs</div>
-        </div>
-        <div class="stat-item slide-up">
-          <div class="stat-number"><span data-target="25">0</span></div>
-          <div class="stat-label">Year Program</div>
-        </div>
+  <!-- SCALE STATS — capability language, no dollar figures -->
+  <div class="scale-bar">
+    <div class="scale-grid">
+      <div class="scale-item slide-up">
+        <div class="scale-number"><span data-target="20" data-suffix="M">0</span></div>
+        <div class="scale-label">Addresses Mapped<br>for the First Time</div>
+      </div>
+      <div class="scale-item slide-up">
+        <div class="scale-number"><span data-target="100">0</span>+</div>
+        <div class="scale-label">Post Offices<br>Connected by Starlink</div>
+      </div>
+      <div class="scale-item slide-up">
+        <div class="scale-number"><span data-target="5">0</span>–<span data-target="10">0</span></div>
+        <div class="scale-label">Regional Call Centers<br>Across the DRC</div>
+      </div>
+      <div class="scale-item slide-up">
+        <div class="scale-number"><span data-target="25">0</span></div>
+        <div class="scale-label">Year Partnership<br>Program</div>
       </div>
     </div>
   </div>
 
-  <!-- FOUR PILLARS -->
-  <section class="section" style="background: var(--white);">
+  <!-- FOUR PILLARS — badge icon style -->
+  <section class="section" style="background:var(--white);">
     <div class="container">
       <div class="section-header fade-in">
         <span class="eyebrow">Our Four Pillars</span>
         <h2>Infrastructure That Connects a Nation</h2>
-        <p>Every pillar is designed to reinforce the others — together they form a complete national infrastructure ecosystem.</p>
+        <p>Every pillar reinforces the others — together they form a complete national infrastructure ecosystem.</p>
         <div class="divider-gold"></div>
       </div>
-      <div class="pillars-grid">
-        <div class="pillar-card slide-up">
-          <div class="pillar-icon-wrap">
-            <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M18 4 C18 4 8 10 8 18 C8 24 12 29 18 31 C24 29 28 24 28 18 C28 10 18 4 18 4Z" fill="#B8860B" opacity="0.85"/>
-              <path d="M18 4 L18 31" stroke="#F5F0E8" stroke-width="1.5"/>
-              <circle cx="18" cy="18" r="3" fill="#F5F0E8"/>
-              <circle cx="10" cy="16" r="2" fill="#F5F0E8" opacity="0.6"/>
-              <circle cx="26" cy="16" r="2" fill="#F5F0E8" opacity="0.6"/>
-              <circle cx="12" cy="24" r="2" fill="#F5F0E8" opacity="0.6"/>
-              <circle cx="24" cy="24" r="2" fill="#F5F0E8" opacity="0.6"/>
+      <div class="pillars-badge-grid">
+        <!-- Growth -->
+        <div class="pillar-badge-card slide-up">
+          <div class="pillar-badge-icon">
+            <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M20 6 C20 6 12 12 12 20 C12 26 15.5 30.5 20 32 C24.5 30.5 28 26 28 20 C28 12 20 6 20 6Z" fill="#B8860B" opacity="0.9"/>
+              <path d="M20 6 L20 32" stroke="#F5F0E8" stroke-width="2"/>
+              <path d="M14 16 C14 16 10 14 9 18 C10 20 14 19 16 18Z" fill="#B8860B" opacity="0.6"/>
+              <path d="M26 16 C26 16 30 14 31 18 C30 20 26 19 24 18Z" fill="#B8860B" opacity="0.6"/>
             </svg>
           </div>
-          <h4>Address Mapping</h4>
-          <p>20 million addresses. 100 post office hubs. $9 per address. The foundation that makes everything else possible.</p>
-          <a href="pages/mapping.html" style="font-size:0.82rem; font-weight:600; color:var(--gold); margin-top:0.75rem; display:inline-block;">Learn more →</a>
+          <div class="pillar-name">Growth</div>
+          <p class="pillar-desc">Nurturing potential and building for the future — in our projects, our partnerships, and our people.</p>
         </div>
-        <div class="pillar-card slide-up" style="transition-delay:0.1s">
-          <div class="pillar-icon-wrap">
-            <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect x="6" y="8" width="24" height="20" rx="2" stroke="#B8860B" stroke-width="1.5" fill="none"/>
-              <rect x="9" y="11" width="4" height="14" rx="1" fill="#B8860B" opacity="0.7"/>
-              <rect x="15" y="11" width="4" height="14" rx="1" fill="#B8860B" opacity="0.7"/>
-              <rect x="21" y="11" width="4" height="14" rx="1" fill="#B8860B" opacity="0.7"/>
-              <circle cx="11" cy="13" r="1" fill="#F5F0E8"/>
-              <circle cx="17" cy="13" r="1" fill="#F5F0E8"/>
-              <circle cx="23" cy="13" r="1" fill="#F5F0E8"/>
-              <line x1="6" y1="28" x2="30" y2="28" stroke="#B8860B" stroke-width="1.5"/>
+        <!-- Partnership -->
+        <div class="pillar-badge-card slide-up" style="transition-delay:0.1s">
+          <div class="pillar-badge-icon">
+            <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8 22 C8 22 10 18 14 17 L17 19 L20 17 L23 19 L26 17 C30 18 32 22 32 22" stroke="#B8860B" stroke-width="2" fill="none"/>
+              <path d="M14 17 L14 28 M26 17 L26 28" stroke="#B8860B" stroke-width="1.5"/>
+              <path d="M10 28 C10 28 14 24 20 24 C26 24 30 28 30 28" stroke="#B8860B" stroke-width="2" fill="none"/>
+              <circle cx="14" cy="13" r="4" stroke="#B8860B" stroke-width="1.5" fill="none"/>
+              <circle cx="26" cy="13" r="4" stroke="#B8860B" stroke-width="1.5" fill="none"/>
             </svg>
           </div>
-          <h4>Data Center</h4>
-          <p>Tier-IV sovereign data infrastructure with a Security Operations Center, built to host the DRC's most critical national systems.</p>
-          <a href="pages/data-center.html" style="font-size:0.82rem; font-weight:600; color:var(--gold); margin-top:0.75rem; display:inline-block;">Learn more →</a>
+          <div class="pillar-name">Partnership</div>
+          <p class="pillar-desc">Working together for lasting impact. We build with the DRC, not for it.</p>
         </div>
-        <div class="pillar-card slide-up" style="transition-delay:0.2s">
-          <div class="pillar-icon-wrap">
-            <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="18" cy="14" r="5" stroke="#B8860B" stroke-width="1.5" fill="none"/>
-              <path d="M8 28 C8 22 12 19 18 19 C24 19 28 22 28 28" stroke="#B8860B" stroke-width="1.5" fill="none"/>
-              <path d="M24 10 C26 11 28 13 28 16" stroke="#F5F0E8" stroke-width="1.2" opacity="0.6"/>
-              <path d="M26 8 C29 10 31 13 31 17" stroke="#F5F0E8" stroke-width="1.2" opacity="0.4"/>
+        <!-- Empowerment -->
+        <div class="pillar-badge-card slide-up" style="transition-delay:0.2s">
+          <div class="pillar-badge-icon">
+            <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="13" cy="12" r="4" stroke="#B8860B" stroke-width="1.5" fill="none"/>
+              <circle cx="20" cy="10" r="4" stroke="#B8860B" stroke-width="1.5" fill="none"/>
+              <circle cx="27" cy="12" r="4" stroke="#B8860B" stroke-width="1.5" fill="none"/>
+              <path d="M6 30 C6 24 9 21 13 21" stroke="#B8860B" stroke-width="1.5" fill="none"/>
+              <path d="M27 21 C31 21 34 24 34 30" stroke="#B8860B" stroke-width="1.5" fill="none"/>
+              <path d="M13 21 C13 21 16 19 20 19 C24 19 27 21 27 21" stroke="#B8860B" stroke-width="1.5" fill="none"/>
+              <path d="M20 19 L20 30" stroke="#B8860B" stroke-width="1.5"/>
+              <path d="M16 26 L20 30 L24 26" stroke="#B8860B" stroke-width="1.5" fill="none"/>
             </svg>
           </div>
-          <h4>Call Centers</h4>
-          <p>5–10 regional dispatch centers operating in 6 languages, powered by the address mapping system for precise emergency response.</p>
-          <a href="pages/call-centers.html" style="font-size:0.82rem; font-weight:600; color:var(--gold); margin-top:0.75rem; display:inline-block;">Learn more →</a>
+          <div class="pillar-name">Empowerment</div>
+          <p class="pillar-desc">Uplifting women and strengthening communities across all 26 provinces.</p>
         </div>
-        <div class="pillar-card slide-up" style="transition-delay:0.3s">
-          <div class="pillar-icon-wrap">
-            <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M6 18 Q10 10 18 10 Q26 10 30 18" stroke="#B8860B" stroke-width="1.5" fill="none"/>
-              <path d="M6 18 Q10 26 18 26 Q26 26 30 18" stroke="#B8860B" stroke-width="1.5" fill="none"/>
-              <circle cx="6" cy="18" r="2.5" fill="#B8860B"/>
-              <circle cx="30" cy="18" r="2.5" fill="#B8860B"/>
-              <circle cx="18" cy="10" r="2" fill="#F5F0E8" opacity="0.7"/>
-              <circle cx="18" cy="26" r="2" fill="#F5F0E8" opacity="0.7"/>
-              <line x1="18" y1="10" x2="18" y2="26" stroke="#F5F0E8" stroke-width="1" opacity="0.5"/>
+        <!-- DRC Proud -->
+        <div class="pillar-badge-card slide-up" style="transition-delay:0.3s">
+          <div class="pillar-badge-icon">
+            <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M20 6 C15 6 9 9 7 14 C5 19 7 24 10 27 C13 30 16 32 20 33 C24 32 27 30 30 27 C33 24 35 19 33 14 C31 9 25 6 20 6Z" fill="#B8860B" opacity="0.85"/>
+              <path d="M20 6 C20 6 16 12 17 19 L20 33 L23 19 C24 12 20 6 20 6Z" fill="#1B4332" opacity="0.6"/>
             </svg>
           </div>
-          <h4>Fiber Backbone</h4>
-          <p>A national fiber optic network connecting major DRC cities, with Starlink integration for last-mile rural connectivity.</p>
-          <a href="pages/fiber-backbone.html" style="font-size:0.82rem; font-weight:600; color:var(--gold); margin-top:0.75rem; display:inline-block;">Learn more →</a>
+          <div class="pillar-name">DRC Proud</div>
+          <p class="pillar-desc">Rooted in the Congo. Governed under Congolese law. Accountable to the Congolese people.</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- CROSS-PROJECT NARRATIVE -->
-  <section class="narrative-section">
+  <section class="pull-quote">
     <div class="container">
-      <div class="section-header fade-in">
-        <span class="eyebrow" style="color:var(--gold-pale);">The Connected Story</span>
-        <h2 style="color:var(--white);">Four Projects. One System.</h2>
-        <p>Each project is engineered to feed the next. The address map is not just a database — it is the operating system on which every other service runs.</p>
-      </div>
-      <div class="narrative-chain fade-in">
-        <div class="chain-item">
-          <div class="chain-icon">📍</div>
-          <h4>Address Mapping</h4>
-          <p>20M precise locations assigned to every address in the DRC</p>
-        </div>
-        <div class="chain-arrow">→</div>
-        <div class="chain-item">
-          <div class="chain-icon">📡</div>
-          <h4>Fiber Backbone</h4>
-          <p>High-speed connectivity carries data between every node</p>
-        </div>
-        <div class="chain-arrow">→</div>
-        <div class="chain-item">
-          <div class="chain-icon">🏢</div>
-          <h4>Data Center</h4>
-          <p>Sovereign Tier-IV infrastructure stores and processes it all</p>
-        </div>
-        <div class="chain-arrow">→</div>
-        <div class="chain-item">
-          <div class="chain-icon">🚨</div>
-          <h4>Call Centers</h4>
-          <p>Address data enables precise emergency dispatch — saving lives</p>
-        </div>
-      </div>
+      <blockquote class="fade-in">"The address map is not just a database — it is the <em>operating system</em> of a modern nation. The call centers run on it. The data center holds it. The fiber carries it."</blockquote>
     </div>
   </section>
 
   <!-- PROJECT CARDS -->
-  <section class="section projects-section">
+  <section class="section" style="background:var(--cream);">
     <div class="container">
       <div class="section-header fade-in">
         <span class="eyebrow">Active Projects</span>
@@ -232,82 +152,39 @@
       </div>
       <div class="grid-2" style="gap:2rem;">
         <div class="project-card slide-left">
-          <img src="assets/images/hero-mapping.jpg" alt="Address Mapping" class="project-card-img" />
+          <img src="assets/images/zola-hero-mapping.jpg" alt="Address Mapping" class="project-card-img" />
           <div class="project-card-body">
             <span class="tag">Phase 1 · Active</span>
             <h3>National Address Mapping</h3>
-            <p>Assigning unique, standardized addresses to 20 million locations across the DRC — delivered through 100 SCPT post office hubs at $9 per address over a 25-year program.</p>
+            <p>20 million addresses mapped at 95% accuracy — for the first time in DRC history. Delivered through up to 100 modernized post offices, every one connected by Starlink.</p>
             <a href="pages/mapping.html" class="card-link">Explore project <span>→</span></a>
           </div>
         </div>
         <div class="project-card slide-right">
-          <img src="assets/images/hero-fiber.jpg" alt="Fiber Backbone" class="project-card-img" />
+          <img src="assets/images/zola-hero-fiber.jpg" alt="Fiber Backbone" class="project-card-img" />
           <div class="project-card-body">
             <span class="tag">Phase 2 · Development</span>
             <h3>National Fiber Backbone</h3>
-            <p>A high-capacity fiber optic network connecting Kinshasa, Lubumbashi, Goma, Kisangani, and Mbuji-Mayi — with Starlink integration for rural last-mile coverage.</p>
+            <p>A national fiber backbone connecting six major cities, with microwave reach to 100+ remote sites — and Starlink for last-mile rural coverage across the world's second-largest country.</p>
             <a href="pages/fiber-backbone.html" class="card-link">Explore project <span>→</span></a>
           </div>
         </div>
         <div class="project-card slide-left">
-          <img src="assets/images/hero-datacenter.jpg" alt="Data Center" class="project-card-img" />
+          <img src="assets/images/zola-hero-datacenter.jpg" alt="Data Center" class="project-card-img" />
           <div class="project-card-body">
             <span class="tag">Phase 2 · Development</span>
             <h3>Sovereign Data Center</h3>
-            <p>A Tier-IV data center with a Security Operations Center, built to host the DRC's national address registry, government systems, and enterprise cloud services.</p>
+            <p>A two-site sovereign cloud — Kinshasa primary, Lubumbashi disaster-recovery — Tier-IV certified, with a 24/7 Security Operations Center. The DRC's data stays in the DRC.</p>
             <a href="pages/data-center.html" class="card-link">Explore project <span>→</span></a>
           </div>
         </div>
         <div class="project-card slide-right">
-          <img src="assets/images/hero-callcenter.jpg" alt="Call Centers" class="project-card-img" />
+          <img src="assets/images/zola-hero-callcenter.jpg" alt="Call Centers" class="project-card-img" />
           <div class="project-card-body">
             <span class="tag">Phase 3 · Planned</span>
             <h3>Regional Call Centers</h3>
-            <p>5–10 regional emergency dispatch and citizen services centers operating in French, Lingala, Swahili, Kikongo, Tshiluba, and English — built on the address mapping foundation.</p>
+            <p>Five to ten regional call centers covering every region of the DRC, operating in six languages — built on the address mapping foundation that makes precise emergency dispatch possible.</p>
             <a href="pages/call-centers.html" class="card-link">Explore project <span>→</span></a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ZOLA SECTION -->
-  <section class="zola-section">
-    <div class="container">
-      <div class="grid-2">
-        <div class="slide-left">
-          <img src="assets/images/zola-mascot.png" alt="Zola — Palm Leaf Partners Mascot" class="zola-img" />
-        </div>
-        <div class="zola-text slide-right">
-          <span style="font-size:0.72rem; font-weight:600; color:var(--gold); letter-spacing:0.2em; text-transform:uppercase;">Meet Zola</span>
-          <h2>The Symbol of Strength, Growth &amp; Partnership</h2>
-          <p class="lead">Zola is rooted in the land of the DRC. She represents our commitment to building sustainable infrastructure and empowering communities — especially women.</p>
-          <p style="color:var(--text-muted); font-size:0.95rem;">Her palm leaves reach upward, signifying progress, while her roots stay deep, honoring our people and our purpose. She stands at the intersection of tradition and transformation.</p>
-          <div style="display:flex; gap:1.5rem; margin-top:2rem; flex-wrap:wrap;">
-            <div style="text-align:center;">
-              <div style="width:48px; height:48px; border-radius:50%; background:var(--green); display:flex; align-items:center; justify-content:center; margin:0 auto 0.5rem;">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="#B8860B"><path d="M12 2C12 2 7 6 7 11C7 14.5 9 17 12 18C15 17 17 14.5 17 11C17 6 12 2 12 2Z"/></svg>
-              </div>
-              <span style="font-size:0.72rem; font-weight:600; color:var(--green); text-transform:uppercase; letter-spacing:0.1em;">Growth</span>
-            </div>
-            <div style="text-align:center;">
-              <div style="width:48px; height:48px; border-radius:50%; background:var(--green); display:flex; align-items:center; justify-content:center; margin:0 auto 0.5rem;">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="#B8860B"><path d="M4 12 C4 8 7 5 12 5 C17 5 20 8 20 12 C20 16 17 19 12 19 C7 19 4 16 4 12Z" fill="none" stroke="#B8860B" stroke-width="1.5"/><path d="M8 12 L11 15 L16 9" stroke="#B8860B" stroke-width="1.5" fill="none"/></svg>
-              </div>
-              <span style="font-size:0.72rem; font-weight:600; color:var(--green); text-transform:uppercase; letter-spacing:0.1em;">Partnership</span>
-            </div>
-            <div style="text-align:center;">
-              <div style="width:48px; height:48px; border-radius:50%; background:var(--green); display:flex; align-items:center; justify-content:center; margin:0 auto 0.5rem;">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="9" cy="8" r="3" stroke="#B8860B" stroke-width="1.5"/><circle cx="15" cy="8" r="3" stroke="#B8860B" stroke-width="1.5"/><path d="M3 20 C3 16 5.5 14 9 14" stroke="#B8860B" stroke-width="1.5"/><path d="M15 14 C18.5 14 21 16 21 20" stroke="#B8860B" stroke-width="1.5"/></svg>
-              </div>
-              <span style="font-size:0.72rem; font-weight:600; color:var(--green); text-transform:uppercase; letter-spacing:0.1em;">Empowerment</span>
-            </div>
-            <div style="text-align:center;">
-              <div style="width:48px; height:48px; border-radius:50%; background:var(--green); display:flex; align-items:center; justify-content:center; margin:0 auto 0.5rem;">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="#B8860B" opacity="0.9"><path d="M12 3 C8 3 4 5 3 8 C2 11 3 14 5 16 C7 18 9 19 12 20 C15 19 17 18 19 16 C21 14 22 11 21 8 C20 5 16 3 12 3Z"/></svg>
-              </div>
-              <span style="font-size:0.72rem; font-weight:600; color:var(--green); text-transform:uppercase; letter-spacing:0.1em;">DRC Proud</span>
-            </div>
           </div>
         </div>
       </div>
@@ -319,26 +196,11 @@
     <div class="container">
       <p class="trust-label">Governed &amp; Authorized Under</p>
       <div class="trust-logos">
-        <div class="trust-badge">
-          <div class="badge-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="#B8860B"><path d="M12 2L2 7V12C2 16.5 6.5 20.7 12 22C17.5 20.7 22 16.5 22 12V7L12 2Z"/></svg></div>
-          <span>SCPT<br>MOU</span>
-        </div>
-        <div class="trust-badge">
-          <div class="badge-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="#B8860B"><rect x="3" y="3" width="18" height="18" rx="2" fill="none" stroke="#B8860B" stroke-width="1.5"/><path d="M7 12H17M12 7V17" stroke="#B8860B" stroke-width="1.5"/></svg></div>
-          <span>UPTWB<br>SAS</span>
-        </div>
-        <div class="trust-badge">
-          <div class="badge-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="#B8860B"><circle cx="12" cy="12" r="9" fill="none" stroke="#B8860B" stroke-width="1.5"/><path d="M12 6V12L16 14" stroke="#B8860B" stroke-width="1.5" fill="none"/></svg></div>
-          <span>UPTW<br>USA</span>
-        </div>
-        <div class="trust-badge">
-          <div class="badge-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="#B8860B"><path d="M4 6H20M4 10H20M4 14H14M4 18H11" stroke="#B8860B" stroke-width="1.5" fill="none"/></svg></div>
-          <span>OHADA<br>Law</span>
-        </div>
-        <div class="trust-badge">
-          <div class="badge-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="#B8860B"><path d="M12 2L3 7V12C3 16.5 7 20.5 12 22C17 20.5 21 16.5 21 12V7L12 2Z" fill="none" stroke="#B8860B" stroke-width="1.5"/><path d="M9 12L11 14L15 10" stroke="#B8860B" stroke-width="1.5" fill="none"/></svg></div>
-          <span>DRC PPP<br>Law 20/018</span>
-        </div>
+        <div class="trust-badge"><div class="badge-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="#B8860B"><path d="M12 2L2 7V12C2 16.5 6.5 20.7 12 22C17.5 20.7 22 16.5 22 12V7L12 2Z"/></svg></div><span>SCPT<br>MOU</span></div>
+        <div class="trust-badge"><div class="badge-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="#B8860B"><rect x="3" y="3" width="18" height="18" rx="2" fill="none" stroke="#B8860B" stroke-width="1.5"/><path d="M7 12H17M12 7V17" stroke="#B8860B" stroke-width="1.5"/></svg></div><span>UPTWB<br>SAS</span></div>
+        <div class="trust-badge"><div class="badge-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="#B8860B"><circle cx="12" cy="12" r="9" fill="none" stroke="#B8860B" stroke-width="1.5"/><path d="M12 6V12L16 14" stroke="#B8860B" stroke-width="1.5" fill="none"/></svg></div><span>UPTW<br>USA</span></div>
+        <div class="trust-badge"><div class="badge-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="#B8860B"><path d="M4 6H20M4 10H20M4 14H14M4 18H11" stroke="#B8860B" stroke-width="1.5" fill="none"/></svg></div><span>OHADA<br>Law</span></div>
+        <div class="trust-badge"><div class="badge-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="#B8860B"><path d="M12 2L3 7V12C3 16.5 7 20.5 12 22C17 20.5 21 16.5 21 12V7L12 2Z" fill="none" stroke="#B8860B" stroke-width="1.5"/><path d="M9 12L11 14L15 10" stroke="#B8860B" stroke-width="1.5" fill="none"/></svg></div><span>DRC PPP<br>Law 20/018</span></div>
       </div>
     </div>
   </div>
@@ -354,9 +216,6 @@
 
   <script src="js/components.js"></script>
   <script src="js/main.js"></script>
-  <script>
-    renderHomeNav();
-    renderFooter(true);
-  </script>
+  <script>renderHomeNav(); renderFooter(true);</script>
 </body>
 </html>

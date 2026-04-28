@@ -4,131 +4,156 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Fiber Backbone — Palm Leaf Partners</title>
-  <meta name="description" content="Palm Leaf Partners is building a national fiber optic backbone connecting major DRC cities, with Starlink integration for rural last-mile connectivity." />
+  <meta name="description" content="A national fiber backbone connecting six major cities, with microwave reach to 100+ remote sites and Starlink for last-mile rural coverage." />
   <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/cinematic.css" />
   <style>
-    .route-card { background: var(--white); border-radius: var(--radius-md); padding: 1.5rem; border-left: 4px solid var(--green); box-shadow: var(--shadow-sm); }
-    .route-card .route-cities { font-family: var(--font-heading); font-size: 1.1rem; color: var(--green); margin-bottom: 0.4rem; }
-    .route-card .route-detail { font-size: 0.85rem; color: var(--text-muted); }
-    .starlink-box { background: linear-gradient(135deg, #0a0a1a 0%, #0d1f2d 100%); border-radius: var(--radius-lg); padding: 3rem; color: var(--cream); border: 1px solid rgba(184,134,11,0.3); }
-    .starlink-box h3 { color: var(--gold); margin-bottom: 1rem; }
-    .starlink-box p { color: rgba(245,240,232,0.82); }
-    .starlink-box .star { display: inline-block; width: 4px; height: 4px; background: var(--gold-pale); border-radius: 50%; margin: 0 2px; opacity: 0.7; }
+    .route-card { background:var(--white); border-radius:var(--radius-md); padding:1.5rem; border-left:4px solid var(--green); box-shadow:var(--shadow-sm); }
+    .route-card .route-cities { font-family:var(--font-heading); font-size:1.05rem; color:var(--green); margin-bottom:0.4rem; }
+    .route-card .route-detail { font-size:0.85rem; color:var(--text-muted); }
+    .starlink-box { background:linear-gradient(135deg,#0a0a1a 0%,#0d1f2d 100%); border-radius:var(--radius-lg); padding:2.5rem; color:var(--cream); border:1px solid rgba(184,134,11,0.3); }
+    .starlink-box h3 { color:var(--gold); margin-bottom:1rem; }
+    .starlink-box p { color:rgba(245,240,232,0.82); }
   </style>
 </head>
 <body>
 
-  <div class="page-hero">
-    <div class="page-hero-bg" style="background-image: url('../assets/images/hero-fiber.jpg');"></div>
-    <div class="page-hero-overlay"></div>
-    <div class="page-hero-content">
+  <div class="page-hero-fullbleed">
+    <img src="../assets/images/zola-hero-fiber.jpg" alt="Zola holding glowing fiber strands over the DRC at night" class="bg-img" />
+    <div class="overlay"></div>
+    <div class="hero-text-block">
       <span class="eyebrow">Project 04 · Phase 2 Development</span>
       <h1>National Fiber Backbone</h1>
-      <p class="lead">A high-capacity fiber optic network connecting the DRC's major cities — with Starlink satellite integration for last-mile rural connectivity across the world's second-largest country.</p>
+      <p class="lead">Six cities connected. One hundred remote sites reached. A 25-year partnership that lights up the DRC.</p>
     </div>
   </div>
 
-  <div class="breadcrumb">
-    <div class="breadcrumb-inner">
-      <a href="../index.html">Home</a><span class="sep">›</span><span>Fiber Backbone</span>
-    </div>
-  </div>
+  <div class="breadcrumb"><div class="breadcrumb-inner"><a href="../index.html">Home</a><span class="sep">›</span><span>Fiber Backbone</span></div></div>
 
-  <!-- OVERVIEW -->
+  <!-- OPENING -->
   <section class="section" style="background:var(--white);">
     <div class="container">
       <div class="grid-2">
         <div class="slide-left">
-          <span style="font-size:0.72rem; font-weight:600; color:var(--gold); letter-spacing:0.2em; text-transform:uppercase;">National Connectivity</span>
+          <span style="font-size:0.72rem;font-weight:600;color:var(--gold);letter-spacing:0.2em;text-transform:uppercase;">National Connectivity</span>
           <h2>Lighting Up the DRC</h2>
-          <p>The Democratic Republic of Congo spans 2.3 million square kilometers — larger than Western Europe. Its cities are separated by vast stretches of rainforest, river, and savanna. Today, high-speed internet connectivity is available to only a small fraction of the population, concentrated in Kinshasa and a handful of other urban centers.</p>
-          <p>Palm Leaf Partners' National Fiber Backbone changes this. A high-capacity fiber optic network will connect the DRC's five major cities — Kinshasa, Lubumbashi, Goma, Kisangani, and Mbuji-Mayi — creating the arterial network on which all other digital services depend.</p>
+          <p>The Democratic Republic of Congo spans 2.3 million square kilometers — larger than Western Europe. Its cities are separated by vast stretches of rainforest, river, and savanna. Today, high-speed internet connectivity is available to only a fraction of the population.</p>
+          <p>Palm Leaf Partners' National Fiber Backbone changes this. A high-capacity fiber optic network connects six major cities — Kinshasa, Lubumbashi, Goma, Kisangani, Mbuji-Mayi, and Bukavu — creating the arterial network on which all other digital services depend.</p>
           <p>For the vast rural areas between these cities, <strong>Starlink satellite integration</strong> provides last-mile connectivity — ensuring that the benefits of the fiber backbone reach communities that ground-based infrastructure cannot economically serve.</p>
         </div>
         <div class="slide-right">
-          <img src="../assets/images/hero-fiber.jpg" alt="Fiber Backbone Network" style="border-radius:var(--radius-lg); box-shadow:var(--shadow-lg);" />
+          <img src="../assets/images/zola-hero-fiber.jpg" alt="Fiber backbone night map" style="border-radius:var(--radius-lg);box-shadow:var(--shadow-lg);" />
         </div>
       </div>
     </div>
   </section>
 
-  <!-- NETWORK ROUTES -->
-  <section class="section" style="background:var(--cream);">
-    <div class="container">
-      <div class="section-header fade-in">
-        <span class="eyebrow">Network Architecture</span>
-        <h2>Primary Fiber Routes</h2>
-        <p>The backbone follows the DRC's major population corridors, connecting the five largest cities and creating a resilient ring topology.</p>
-        <div class="divider-gold"></div>
-      </div>
-      <div class="grid-3 fade-in">
-        <div class="route-card"><div class="route-cities">Kinshasa → Lubumbashi</div><div class="route-detail">Southern corridor — the DRC's economic spine connecting the capital to the mining heartland of Katanga.</div></div>
-        <div class="route-card"><div class="route-cities">Kinshasa → Kisangani</div><div class="route-detail">Northern corridor following the Congo River — connecting the capital to the country's geographic center.</div></div>
-        <div class="route-card"><div class="route-cities">Kisangani → Goma</div><div class="route-detail">Eastern corridor connecting the northern hub to the Great Lakes region and the Rwanda border.</div></div>
-        <div class="route-card"><div class="route-cities">Goma → Lubumbashi</div><div class="route-detail">Southeastern corridor completing the eastern ring and connecting the two major economic hubs.</div></div>
-        <div class="route-card"><div class="route-cities">Mbuji-Mayi Hub</div><div class="route-detail">Central node connecting to Kinshasa, Lubumbashi, and Kisangani — serving the Kasai diamond provinces.</div></div>
-        <div class="route-card" style="border-left-color:var(--gold);"><div class="route-cities">International Gateways</div><div class="route-detail">Connections to submarine cable landing stations and regional fiber networks for international bandwidth.</div></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- STARLINK -->
-  <section class="section" style="background:var(--white);">
+  <!-- BEAT 1 -->
+  <section class="story-section">
     <div class="container">
       <div class="grid-2">
         <div class="slide-left">
-          <div class="starlink-box">
-            <h3>★ Starlink Integration: Last-Mile Rural Connectivity</h3>
-            <p>The DRC's rural communities — home to tens of millions of people — are separated from major cities by distances that make ground-based fiber economically unfeasible. Palm Leaf Partners is integrating Starlink low-Earth-orbit satellite connectivity to bridge this gap.</p>
-            <p style="margin-top:1rem;">Starlink terminals deployed at SCPT post office hubs, schools, health centers, and community points provide broadband-speed internet access to communities that have never had reliable connectivity — extending the reach of the national fiber backbone to every corner of the DRC.</p>
-            <div style="margin-top:1.5rem; display:flex; gap:2rem; flex-wrap:wrap;">
-              <div><div style="font-family:var(--font-heading); font-size:1.5rem; color:var(--gold);">100+</div><div style="font-size:0.75rem; color:rgba(245,240,232,0.6); text-transform:uppercase; letter-spacing:0.1em;">Starlink Nodes</div></div>
-              <div><div style="font-family:var(--font-heading); font-size:1.5rem; color:var(--gold);">&lt;50ms</div><div style="font-size:0.75rem; color:rgba(245,240,232,0.6); text-transform:uppercase; letter-spacing:0.1em;">Latency</div></div>
-              <div><div style="font-family:var(--font-heading); font-size:1.5rem; color:var(--gold);">200Mbps</div><div style="font-size:0.75rem; color:rgba(245,240,232,0.6); text-transform:uppercase; letter-spacing:0.1em;">Download Speed</div></div>
-            </div>
+          <span class="beat-number">01</span>
+          <span class="beat-label">The arteries of a nation.</span>
+          <h2 class="beat-headline">Six cities. One ring. No single point of failure.</h2>
+          <p class="beat-body">The backbone follows the DRC's major population corridors — Kinshasa to Lubumbashi, Kinshasa to Kisangani, Kisangani to Goma, Goma to Bukavu, Bukavu to Lubumbashi, and Mbuji-Mayi as the central hub. A ring topology means that if any single cable is cut, traffic automatically reroutes within milliseconds. The country stays connected.</p>
+        </div>
+        <div class="beat-image slide-right">
+          <img src="../assets/images/hero-fiber.jpg" alt="Glowing fiber network over DRC at night" />
+        </div>
+      </div>
+      <div class="zola-guide fade-in">
+        <img src="../assets/images/zola-guide-gesture.png" alt="Zola" />
+        <div class="zola-guide-bubble">
+          <p>"A ring means no single break can silence a city. We designed for resilience because the DRC deserves infrastructure that holds."</p>
+          <span class="guide-attr">Zola · Palm Leaf Partners</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BEAT 2 -->
+  <section class="story-section">
+    <div class="container">
+      <div class="grid-2">
+        <div class="beat-image slide-left">
+          <img src="../assets/images/hero-mapping.jpg" alt="Satellite view of DRC connectivity" />
+        </div>
+        <div class="slide-right">
+          <span class="beat-number">02</span>
+          <span class="beat-label">Where fiber ends, Starlink begins.</span>
+          <h2 class="beat-headline">Microwave reach to 100+ remote sites. Starlink for the last mile.</h2>
+          <p class="beat-body">The DRC's rural communities — home to tens of millions of people — are separated from major cities by distances that make ground-based fiber economically unfeasible. Palm Leaf Partners integrates Starlink low-Earth-orbit satellite connectivity to bridge this gap. Terminals deployed at SCPT post office hubs, schools, health centers, and community points provide broadband-speed internet to communities that have never had reliable connectivity.</p>
+        </div>
+      </div>
+      <div class="zola-guide fade-in" style="flex-direction:row-reverse;">
+        <img src="../assets/images/zola-guide-gesture.png" alt="Zola" style="transform:scaleX(-1);" />
+        <div class="zola-guide-bubble" style="border-radius:var(--radius-lg) 0 var(--radius-lg) var(--radius-lg);">
+          <p>"The fiber reaches the cities. The satellites reach everyone else. No community is left behind."</p>
+          <span class="guide-attr">Zola · Palm Leaf Partners</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BEAT 3 -->
+  <section class="story-section">
+    <div class="container">
+      <div class="grid-2">
+        <div class="slide-left">
+          <span class="beat-number">03</span>
+          <span class="beat-label">The network that carries everything.</span>
+          <h2 class="beat-headline">The address registry. The data center. The call centers. All carried on this backbone.</h2>
+          <p class="beat-body">The fiber backbone is not just an internet service — it is the circulatory system of the entire Palm Leaf Partners infrastructure ecosystem. The national address registry flows through it. The data center's redundant links run on it. The call centers' low-latency dispatch connections depend on it. Government services, financial inclusion, telemedicine, and remote education all ride this network.</p>
+        </div>
+        <div class="beat-image slide-right">
+          <img src="../assets/images/zola-hero-fiber.jpg" alt="Zola with fiber connections" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STARLINK CALLOUT -->
+  <section class="section" style="background:var(--charcoal);">
+    <div class="container">
+      <div class="grid-2">
+        <div class="starlink-box slide-left">
+          <h3>★ Starlink Integration</h3>
+          <p>Low-Earth-orbit satellite connectivity deployed at SCPT post office hubs, schools, health centers, and community points — providing broadband-speed internet to communities that have never had reliable connectivity.</p>
+          <div style="display:flex;gap:2rem;flex-wrap:wrap;margin-top:1.5rem;">
+            <div><div style="font-family:var(--font-heading);font-size:1.5rem;color:var(--gold);">100+</div><div style="font-size:0.72rem;color:rgba(245,240,232,0.5);text-transform:uppercase;letter-spacing:0.1em;">Starlink Nodes</div></div>
+            <div><div style="font-family:var(--font-heading);font-size:1.5rem;color:var(--gold);">&lt;50ms</div><div style="font-size:0.72rem;color:rgba(245,240,232,0.5);text-transform:uppercase;letter-spacing:0.1em;">Latency</div></div>
+            <div><div style="font-family:var(--font-heading);font-size:1.5rem;color:var(--gold);">200Mbps</div><div style="font-size:0.72rem;color:rgba(245,240,232,0.5);text-transform:uppercase;letter-spacing:0.1em;">Download Speed</div></div>
           </div>
         </div>
         <div class="slide-right">
-          <span style="font-size:0.72rem; font-weight:600; color:var(--gold); letter-spacing:0.2em; text-transform:uppercase;">What the Backbone Enables</span>
-          <h2>Connectivity as Infrastructure</h2>
-          <ul class="feature-list" style="margin-top:1rem;">
-            <li><div class="check"><svg viewBox="0 0 11 11" fill="#B8860B"><path d="M2 6L4.5 8.5L9 3"/></svg></div><span><strong>Data Center Connectivity</strong> — High-capacity links to the Tier-IV data center in Kinshasa</span></li>
-            <li><div class="check"><svg viewBox="0 0 11 11" fill="#B8860B"><path d="M2 6L4.5 8.5L9 3"/></svg></div><span><strong>Call Center Network</strong> — Low-latency connections between all regional dispatch centers</span></li>
-            <li><div class="check"><svg viewBox="0 0 11 11" fill="#B8860B"><path d="M2 6L4.5 8.5L9 3"/></svg></div><span><strong>Address Registry Access</strong> — Real-time access to the national address database from any connected point</span></li>
-            <li><div class="check"><svg viewBox="0 0 11 11" fill="#B8860B"><path d="M2 6L4.5 8.5L9 3"/></svg></div><span><strong>Government Services</strong> — Digital government services accessible from all 26 provinces</span></li>
-            <li><div class="check"><svg viewBox="0 0 11 11" fill="#B8860B"><path d="M2 6L4.5 8.5L9 3"/></svg></div><span><strong>Financial Inclusion</strong> — Mobile banking and fintech services reaching unbanked rural communities</span></li>
-            <li><div class="check"><svg viewBox="0 0 11 11" fill="#B8860B"><path d="M2 6L4.5 8.5L9 3"/></svg></div><span><strong>Education &amp; Health</strong> — Telemedicine and remote education for communities across the DRC</span></li>
+          <h3 style="color:var(--cream);margin-bottom:1.5rem;">What the Backbone Enables</h3>
+          <ul class="feature-list">
+            <li><div class="check"><svg viewBox="0 0 11 11" fill="#B8860B"><path d="M2 6L4.5 8.5L9 3"/></svg></div><span style="color:rgba(245,240,232,0.8);">High-capacity links to the Tier-IV data center in Kinshasa</span></li>
+            <li><div class="check"><svg viewBox="0 0 11 11" fill="#B8860B"><path d="M2 6L4.5 8.5L9 3"/></svg></div><span style="color:rgba(245,240,232,0.8);">Low-latency connections between all regional call centers</span></li>
+            <li><div class="check"><svg viewBox="0 0 11 11" fill="#B8860B"><path d="M2 6L4.5 8.5L9 3"/></svg></div><span style="color:rgba(245,240,232,0.8);">Real-time access to the national address database from any point</span></li>
+            <li><div class="check"><svg viewBox="0 0 11 11" fill="#B8860B"><path d="M2 6L4.5 8.5L9 3"/></svg></div><span style="color:rgba(245,240,232,0.8);">Digital government services accessible from all 26 provinces</span></li>
+            <li><div class="check"><svg viewBox="0 0 11 11" fill="#B8860B"><path d="M2 6L4.5 8.5L9 3"/></svg></div><span style="color:rgba(245,240,232,0.8);">Mobile banking and fintech services reaching unbanked communities</span></li>
+            <li><div class="check"><svg viewBox="0 0 11 11" fill="#B8860B"><path d="M2 6L4.5 8.5L9 3"/></svg></div><span style="color:rgba(245,240,232,0.8);">Telemedicine and remote education for communities across the DRC</span></li>
           </ul>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- TECHNICAL -->
-  <section class="section" style="background:var(--cream);">
+  <!-- INSIDE THE BUILD -->
+  <section class="section-sm" style="background:var(--cream);">
     <div class="container">
-      <div class="section-header fade-in">
-        <span class="eyebrow">Technical Specifications</span>
-        <h2>Built for the Long Term</h2>
-        <div class="divider-gold"></div>
-      </div>
-      <div class="grid-3 fade-in">
-        <div class="card">
-          <div class="card-icon"><svg viewBox="0 0 28 28" fill="#B8860B"><path d="M4 14 Q8 6 14 6 Q20 6 24 14 Q20 22 14 22 Q8 22 4 14Z" fill="none" stroke="#B8860B" stroke-width="2"/><circle cx="14" cy="14" r="3" fill="#B8860B"/></svg></div>
-          <h3>Single-Mode Fiber</h3>
-          <p>G.652D single-mode fiber optic cable deployed in armored conduit — designed for 40+ year operational life with minimal signal degradation.</p>
+      <details class="inside-build">
+        <summary>Inside the Build — Technical Specifications</summary>
+        <div class="inside-build-body">
+          <div class="grid-3" style="margin-top:1.5rem;gap:1.5rem;">
+            <div class="card"><h4>Single-Mode Fiber</h4><p style="font-size:0.88rem;color:var(--text-muted);">G.652D single-mode fiber optic cable in armored conduit — designed for 40+ year operational life with minimal signal degradation.</p></div>
+            <div class="card"><h4>DWDM Technology</h4><p style="font-size:0.88rem;color:var(--text-muted);">Dense Wavelength Division Multiplexing enables multiple simultaneous high-capacity data streams on a single fiber pair.</p></div>
+            <div class="card"><h4>Redundant Ring Topology</h4><p style="font-size:0.88rem;color:var(--text-muted);">Automatic failover ensures that no single cable cut can disrupt the network — traffic reroutes within milliseconds.</p></div>
+          </div>
         </div>
-        <div class="card">
-          <div class="card-icon"><svg viewBox="0 0 28 28" fill="#B8860B"><path d="M6 10C6 10 8 6 14 6C20 6 22 10 22 10" stroke="#B8860B" stroke-width="2" fill="none"/><path d="M8 14C8 14 10 11 14 11C18 11 20 14 20 14" stroke="#B8860B" stroke-width="2" fill="none"/><circle cx="14" cy="18" r="3" fill="#B8860B"/></svg></div>
-          <h3>DWDM Technology</h3>
-          <p>Dense Wavelength Division Multiplexing enables multiple simultaneous high-capacity data streams on a single fiber pair — maximizing bandwidth efficiency.</p>
-        </div>
-        <div class="card">
-          <div class="card-icon"><svg viewBox="0 0 28 28" fill="#B8860B"><rect x="4" y="8" width="20" height="12" rx="2" fill="none" stroke="#B8860B" stroke-width="2"/><path d="M10 14H18" stroke="#B8860B" stroke-width="2"/><circle cx="10" cy="14" r="2" fill="#B8860B"/><circle cx="18" cy="14" r="2" fill="#B8860B"/></svg></div>
-          <h3>Redundant Routing</h3>
-          <p>Ring topology with automatic failover ensures that no single cable cut can disrupt the network — traffic automatically reroutes within milliseconds.</p>
-        </div>
-      </div>
+      </details>
     </div>
   </section>
 

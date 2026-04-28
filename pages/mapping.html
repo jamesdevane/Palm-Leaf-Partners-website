@@ -4,155 +4,182 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Address Mapping — Palm Leaf Partners</title>
-  <meta name="description" content="Palm Leaf Partners is assigning unique, standardized addresses to 20 million locations across the DRC through 100 SCPT post office hubs at $9 per address." />
+  <meta name="description" content="Palm Leaf Partners is assigning unique, standardized addresses to 20 million locations across the DRC — for the first time in the country's history." />
   <link rel="stylesheet" href="../css/style.css" />
-  <style>
-    .map-detail { background: var(--white); border-radius: var(--radius-lg); padding: 2.5rem; box-shadow: var(--shadow-sm); border: 1px solid rgba(27,67,50,0.08); }
-    .hub-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; }
-    .hub-card { background: var(--cream); border-radius: var(--radius-md); padding: 1.5rem; border-left: 4px solid var(--gold); }
-    .hub-card h4 { color: var(--green); font-size: 1rem; margin-bottom: 0.4rem; }
-    .hub-card p { font-size: 0.85rem; color: var(--text-muted); margin: 0; }
-    .lang-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; }
-    .lang-badge { background: var(--green); color: var(--cream); border-radius: var(--radius-md); padding: 1rem; text-align: center; }
-    .lang-badge .lang-name { font-family: var(--font-heading); font-size: 1.1rem; font-weight: 600; color: var(--gold); }
-    .lang-badge .lang-region { font-size: 0.75rem; color: rgba(245,240,232,0.7); margin-top: 0.25rem; }
-    @media(max-width:768px){ .hub-grid, .lang-grid { grid-template-columns: 1fr 1fr; } }
-  </style>
+  <link rel="stylesheet" href="../css/cinematic.css" />
 </head>
 <body>
 
-  <!-- PAGE HERO -->
-  <div class="page-hero">
-    <div class="page-hero-bg" style="background-image: url('../assets/images/hero-mapping.jpg');"></div>
-    <div class="page-hero-overlay"></div>
-    <div class="page-hero-content">
+  <!-- FULL-BLEED HERO with Zola -->
+  <div class="page-hero-fullbleed">
+    <img src="../assets/images/zola-hero-mapping.jpg" alt="Zola with holographic DRC map" class="bg-img" />
+    <div class="overlay"></div>
+    <div class="hero-text-block">
       <span class="eyebrow">Project 01 · Phase 1 Active</span>
       <h1>National Address Mapping</h1>
-      <p class="lead">Assigning a unique, standardized address to every location in the Democratic Republic of Congo — 20 million addresses, 100 post office hubs, 25 years.</p>
+      <p class="lead">20 million addresses. Mapped at 95% accuracy. For the first time in DRC history.</p>
     </div>
   </div>
 
-  <!-- BREADCRUMB -->
-  <div class="breadcrumb">
-    <div class="breadcrumb-inner">
-      <a href="../index.html">Home</a>
-      <span class="sep">›</span>
-      <span>Address Mapping</span>
-    </div>
-  </div>
+  <div class="breadcrumb"><div class="breadcrumb-inner"><a href="../index.html">Home</a><span class="sep">›</span><span>Address Mapping</span></div></div>
 
-  <!-- OVERVIEW -->
+  <!-- OPENING STATEMENT -->
   <section class="section" style="background:var(--white);">
     <div class="container">
       <div class="grid-2">
         <div class="slide-left">
-          <span style="font-size:0.72rem; font-weight:600; color:var(--gold); letter-spacing:0.2em; text-transform:uppercase;">The Foundation</span>
-          <h2>Why Address Mapping Comes First</h2>
-          <p>The DRC is the second-largest country in Africa, home to over 100 million people — yet the vast majority of its addresses are informal, inconsistent, or entirely absent. Without a standardized address system, emergency services cannot find you, commerce cannot reach you, and government cannot serve you.</p>
-          <p>Palm Leaf Partners' National Address Mapping program is the foundational layer on which every other infrastructure project is built. It is not merely a database — it is the operating system of a modern nation.</p>
-          <p>Critically, <strong>the call center emergency dispatch system depends entirely on this address map</strong>. When a citizen dials for help, the dispatcher needs a precise, verified location. That precision is what this project delivers.</p>
+          <span style="font-size:0.72rem;font-weight:600;color:var(--gold);letter-spacing:0.2em;text-transform:uppercase;">The Foundation</span>
+          <h2>A Country That Couldn't Find Itself</h2>
+          <p>The DRC is the second-largest country in Africa, home to over 100 million people. Yet the vast majority of its addresses are informal, inconsistent, or entirely absent. Without a standardized address system, emergency services cannot find you, commerce cannot reach you, and government cannot serve you.</p>
+          <p>Palm Leaf Partners' National Address Mapping program changes this. It is the foundational layer on which every other infrastructure project is built — not merely a database, but the operating system of a modern nation.</p>
+          <p>And critically: <strong>the call center emergency dispatch system depends entirely on this map.</strong> When a citizen dials for help, the dispatcher needs a precise, verified location. That precision is what this project delivers.</p>
         </div>
         <div class="slide-right">
-          <div class="stats-bar" style="border-radius:var(--radius-lg); overflow:hidden;">
-            <div class="stats-grid" style="grid-template-columns:1fr 1fr;">
-              <div class="stat-item"><div class="stat-number">$<span data-target="180" data-suffix="M">0</span></div><div class="stat-label">Mapping MOU Value</div></div>
-              <div class="stat-item"><div class="stat-number"><span data-target="20" data-suffix="M">0</span></div><div class="stat-label">Addresses to Assign</div></div>
-              <div class="stat-item"><div class="stat-number">$<span data-target="9">0</span></div><div class="stat-label">Per Address</div></div>
-              <div class="stat-item"><div class="stat-number"><span data-target="100">0</span></div><div class="stat-label">Post Office Hubs</div></div>
+          <div class="scale-bar" style="border-radius:var(--radius-lg);overflow:hidden;">
+            <div class="scale-grid" style="grid-template-columns:1fr 1fr;max-width:100%;">
+              <div class="scale-item"><div class="scale-number"><span data-target="20" data-suffix="M">0</span></div><div class="scale-label">Addresses to Assign</div></div>
+              <div class="scale-item"><div class="scale-number">95%</div><div class="scale-label">Accuracy Target</div></div>
+              <div class="scale-item"><div class="scale-number"><span data-target="100">0</span>+</div><div class="scale-label">Post Office Hubs</div></div>
+              <div class="scale-item"><div class="scale-number"><span data-target="25">0</span></div><div class="scale-label">Year Partnership</div></div>
             </div>
           </div>
-          <div style="background:var(--cream); border-radius:var(--radius-md); padding:1.5rem; margin-top:1.5rem; border-left:4px solid var(--gold);">
-            <p style="font-size:0.88rem; color:var(--text-muted); margin:0; font-style:italic;">"The address mapping program is authorized under the Memorandum of Understanding with SCPT (Société Congolaise des Postes et Télécommunications), the DRC's national postal authority, and governed under DRC PPP Law 20/018."</p>
+          <div style="background:var(--cream);border-radius:var(--radius-md);padding:1.5rem;margin-top:1.5rem;border-left:4px solid var(--gold);">
+            <p style="font-size:0.9rem;color:var(--text-muted);margin:0;font-style:italic;">"Authorized under the Memorandum of Understanding with SCPT — the DRC's national postal authority — and governed under DRC PPP Law 20/018 (2020)."</p>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- HOW IT WORKS -->
-  <section class="section" style="background:var(--cream);">
+  <!-- BEAT 1 -->
+  <section class="story-section">
     <div class="container">
-      <div class="section-header fade-in">
-        <span class="eyebrow">Methodology</span>
-        <h2>How the Program Works</h2>
-        <div class="divider-gold"></div>
+      <div class="grid-2">
+        <div class="slide-left">
+          <span class="beat-number">01</span>
+          <span class="beat-label">We start in orbit.</span>
+          <h2 class="beat-headline">Satellite imagery and LiDAR drones give us the canvas.</h2>
+          <p class="beat-body">Before a single field collector steps out of a vehicle, we have already seen the country from above. High-resolution satellite imagery and LiDAR drone surveys map every structure, road, and landmark across all 26 provinces — giving our teams a verified canvas to work from. Nothing is assumed. Everything is confirmed.</p>
+        </div>
+        <div class="beat-image slide-right">
+          <img src="../assets/images/hero-mapping.jpg" alt="Satellite view of DRC with mapping pins" />
+        </div>
       </div>
-      <div class="grid-3">
-        <div class="card slide-up">
-          <div class="card-icon"><svg viewBox="0 0 28 28" fill="#B8860B"><circle cx="14" cy="10" r="4"/><path d="M14 14 L14 24" stroke="#B8860B" stroke-width="2"/><circle cx="14" cy="24" r="2"/></svg></div>
-          <h3>Field Survey &amp; GPS Capture</h3>
-          <p>Trained field teams equipped with GPS devices and mobile data collection tools survey every structure, road, and landmark — capturing precise coordinates for each location.</p>
-        </div>
-        <div class="card slide-up" style="transition-delay:0.1s">
-          <div class="card-icon"><svg viewBox="0 0 28 28" fill="#B8860B"><rect x="4" y="4" width="20" height="20" rx="2" fill="none" stroke="#B8860B" stroke-width="2"/><path d="M8 14H20M14 8V20" stroke="#B8860B" stroke-width="2"/></svg></div>
-          <h3>Standardized Address Assignment</h3>
-          <p>Each location receives a unique, standardized address code following a national schema — province, territory, commune, street, and number — registered in the national address registry.</p>
-        </div>
-        <div class="card slide-up" style="transition-delay:0.2s">
-          <div class="card-icon"><svg viewBox="0 0 28 28" fill="#B8860B"><path d="M4 8H24M4 14H18M4 20H14" stroke="#B8860B" stroke-width="2" fill="none"/></svg></div>
-          <h3>Post Office Hub Distribution</h3>
-          <p>100 SCPT post office locations serve as the physical distribution and registration points, making the address system accessible to citizens in every province of the DRC.</p>
-        </div>
-        <div class="card slide-up" style="transition-delay:0.3s">
-          <div class="card-icon"><svg viewBox="0 0 28 28" fill="#B8860B"><circle cx="14" cy="14" r="9" fill="none" stroke="#B8860B" stroke-width="2"/><path d="M10 14L13 17L18 11" stroke="#B8860B" stroke-width="2" fill="none"/></svg></div>
-          <h3>Data Center Integration</h3>
-          <p>All address data is stored in the Palm Leaf Partners sovereign Tier-IV Data Center, ensuring the national registry is secure, redundant, and accessible to authorized systems.</p>
-        </div>
-        <div class="card slide-up" style="transition-delay:0.4s">
-          <div class="card-icon"><svg viewBox="0 0 28 28" fill="#B8860B"><path d="M14 4L4 9V14C4 19 8 23 14 24C20 23 24 19 24 14V9L14 4Z" fill="none" stroke="#B8860B" stroke-width="2"/></svg></div>
-          <h3>Emergency Services Linkage</h3>
-          <p>The completed address database is the backbone of the regional call center dispatch system — enabling emergency responders to locate callers with precision for the first time in DRC history.</p>
-        </div>
-        <div class="card slide-up" style="transition-delay:0.5s">
-          <div class="card-icon"><svg viewBox="0 0 28 28" fill="#B8860B"><path d="M6 20C6 16 9 13 14 13C19 13 22 16 22 20" stroke="#B8860B" stroke-width="2" fill="none"/><circle cx="14" cy="9" r="4" fill="none" stroke="#B8860B" stroke-width="2"/></svg></div>
-          <h3>Citizen Registration</h3>
-          <p>Citizens register their address through post office hubs, receiving a physical address card and digital record — creating a formal identity anchor for commerce, banking, and government services.</p>
+      <!-- Zola guide -->
+      <div class="zola-guide fade-in">
+        <img src="../assets/images/zola-guide-gesture.png" alt="Zola guides you through the project" />
+        <div class="zola-guide-bubble">
+          <p>"We see the whole country before we touch a single door. That's how you build something that lasts."</p>
+          <span class="guide-attr">Zola · Palm Leaf Partners</span>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- POST OFFICE HUBS -->
-  <section class="section" style="background:var(--white);">
+  <!-- BEAT 2 -->
+  <section class="story-section">
     <div class="container">
-      <div class="section-header fade-in">
-        <span class="eyebrow">SCPT Partnership</span>
-        <h2>100 Post Office Hubs Across the DRC</h2>
-        <p>The SCPT network provides the physical infrastructure for address registration, distribution, and citizen services across all 26 provinces.</p>
-        <div class="divider-gold"></div>
+      <div class="grid-2">
+        <div class="beat-image slide-left">
+          <img src="../assets/images/hero-about.jpg" alt="Field collector at a doorstep in the DRC" />
+        </div>
+        <div class="slide-right">
+          <span class="beat-number">02</span>
+          <span class="beat-label">We finish at the front door.</span>
+          <h2 class="beat-headline">Three thousand field collectors. Every address. Validated in person.</h2>
+          <p class="beat-body">Field teams — trained, equipped, and locally hired — visit every structure. They capture precise GPS coordinates, photograph the location, assign a standardized address code, and affix a QR-coded placard at the door. Every address is validated twice: once in the field, once in the national registry. No shortcuts. No estimates.</p>
+          <p class="beat-body">Up to 100 modernized SCPT post office hubs serve as the physical registration points — every one connected by Starlink, every one staffed to serve citizens in their own language.</p>
+        </div>
       </div>
-      <div class="hub-grid fade-in">
-        <div class="hub-card"><h4>Kinshasa Region</h4><p>Capital city hub network covering all 24 communes of Kinshasa with dedicated urban mapping teams.</p></div>
-        <div class="hub-card"><h4>Katanga / Lubumbashi</h4><p>Mining belt coverage including Lubumbashi, Kolwezi, Likasi, and surrounding territories.</p></div>
-        <div class="hub-card"><h4>North Kivu / Goma</h4><p>Eastern DRC coverage including Goma, Butembo, and Beni — critical for humanitarian coordination.</p></div>
-        <div class="hub-card"><h4>Kasai / Mbuji-Mayi</h4><p>Central DRC coverage serving the Kasai provinces and the diamond capital Mbuji-Mayi.</p></div>
-        <div class="hub-card"><h4>Orientale / Kisangani</h4><p>Northern DRC coverage anchored by Kisangani, extending into Ituri and Haut-Uélé territories.</p></div>
-        <div class="hub-card"><h4>Équateur / Mbandaka</h4><p>Northwestern DRC coverage including Mbandaka and the vast Équateur province river communities.</p></div>
+      <div class="zola-guide fade-in" style="flex-direction:row-reverse;">
+        <img src="../assets/images/zola-guide-gesture.png" alt="Zola" style="transform:scaleX(-1);" />
+        <div class="zola-guide-bubble" style="border-radius:var(--radius-lg) 0 var(--radius-lg) var(--radius-lg);">
+          <p>"Every address is a person. Every person deserves to be found — by their family, by their doctor, by emergency services."</p>
+          <span class="guide-attr">Zola · Palm Leaf Partners</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BEAT 3 -->
+  <section class="story-section">
+    <div class="container">
+      <div class="grid-2">
+        <div class="slide-left">
+          <span class="beat-number">03</span>
+          <span class="beat-label">And the country gets a new map.</span>
+          <h2 class="beat-headline">A bilingual analytics dashboard. Postal facilities going live. A public address-verification API.</h2>
+          <p class="beat-body">When the field work is done, the DRC has something it has never had before: a complete, verified, publicly accessible national address registry. Bilingual (French + local language) analytics dashboards give government agencies real-time visibility. Post offices go live as citizen service centers. And a public address-verification API opens the registry to commerce, banking, healthcare, and logistics — for the first time.</p>
+        </div>
+        <div class="beat-image slide-right">
+          <img src="../assets/images/zola-hero-mapping.jpg" alt="Zola with the DRC holographic map" />
+        </div>
       </div>
     </div>
   </section>
 
   <!-- LANGUAGES -->
-  <section class="section" style="background:var(--cream);">
+  <section class="section" style="background:var(--green);">
     <div class="container">
       <div class="section-header fade-in">
-        <span class="eyebrow">Multilingual Program</span>
-        <h2>Six Languages. One Nation.</h2>
-        <p>The address mapping program and all citizen-facing materials are delivered in the DRC's six primary languages, ensuring no community is left behind.</p>
+        <span class="eyebrow" style="color:var(--gold-pale);">Multilingual Program</span>
+        <h2 style="color:var(--white);">Six Languages. One Nation.</h2>
         <div class="divider-gold"></div>
       </div>
-      <div class="lang-grid fade-in">
-        <div class="lang-badge"><div class="lang-name">Français</div><div class="lang-region">Official National Language</div></div>
-        <div class="lang-badge"><div class="lang-name">Lingala</div><div class="lang-region">Kinshasa &amp; Northwest DRC</div></div>
-        <div class="lang-badge"><div class="lang-name">Swahili</div><div class="lang-region">Eastern DRC</div></div>
-        <div class="lang-badge"><div class="lang-name">Kikongo</div><div class="lang-region">Kongo Central &amp; Southwest</div></div>
-        <div class="lang-badge"><div class="lang-name">Tshiluba</div><div class="lang-region">Kasai Provinces</div></div>
-        <div class="lang-badge"><div class="lang-name">English</div><div class="lang-region">International &amp; Business</div></div>
+      <div class="grid-3 fade-in">
+        <div style="background:rgba(255,255,255,0.08);border-radius:var(--radius-md);padding:1.5rem;text-align:center;border:1px solid rgba(184,134,11,0.2);">
+          <div style="font-family:var(--font-heading);font-size:1.2rem;color:var(--gold);margin-bottom:0.3rem;">Français</div>
+          <div style="font-size:0.78rem;color:rgba(245,240,232,0.6);">Official National Language</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.08);border-radius:var(--radius-md);padding:1.5rem;text-align:center;border:1px solid rgba(184,134,11,0.2);">
+          <div style="font-family:var(--font-heading);font-size:1.2rem;color:var(--gold);margin-bottom:0.3rem;">Lingala</div>
+          <div style="font-size:0.78rem;color:rgba(245,240,232,0.6);">Kinshasa &amp; Northwest DRC</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.08);border-radius:var(--radius-md);padding:1.5rem;text-align:center;border:1px solid rgba(184,134,11,0.2);">
+          <div style="font-family:var(--font-heading);font-size:1.2rem;color:var(--gold);margin-bottom:0.3rem;">Swahili</div>
+          <div style="font-size:0.78rem;color:rgba(245,240,232,0.6);">Eastern DRC</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.08);border-radius:var(--radius-md);padding:1.5rem;text-align:center;border:1px solid rgba(184,134,11,0.2);">
+          <div style="font-family:var(--font-heading);font-size:1.2rem;color:var(--gold);margin-bottom:0.3rem;">Kikongo</div>
+          <div style="font-size:0.78rem;color:rgba(245,240,232,0.6);">Kongo Central &amp; Southwest</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.08);border-radius:var(--radius-md);padding:1.5rem;text-align:center;border:1px solid rgba(184,134,11,0.2);">
+          <div style="font-family:var(--font-heading);font-size:1.2rem;color:var(--gold);margin-bottom:0.3rem;">Tshiluba</div>
+          <div style="font-size:0.78rem;color:rgba(245,240,232,0.6);">Kasai Provinces</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.08);border-radius:var(--radius-md);padding:1.5rem;text-align:center;border:1px solid rgba(184,134,11,0.2);">
+          <div style="font-family:var(--font-heading);font-size:1.2rem;color:var(--gold);margin-bottom:0.3rem;">English</div>
+          <div style="font-size:0.78rem;color:rgba(245,240,232,0.6);">International &amp; Business</div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- CTA -->
+  <!-- INSIDE THE BUILD (expandable) -->
+  <section class="section-sm" style="background:var(--cream);">
+    <div class="container">
+      <details class="inside-build">
+        <summary>Inside the Build — Technical Details</summary>
+        <div class="inside-build-body">
+          <div class="grid-2" style="margin-top:1.5rem;gap:2rem;">
+            <ul class="feature-list">
+              <li><div class="check"><svg viewBox="0 0 11 11" fill="#B8860B"><path d="M2 6L4.5 8.5L9 3"/></svg></div><span>GPS field capture with dual-validation protocol</span></li>
+              <li><div class="check"><svg viewBox="0 0 11 11" fill="#B8860B"><path d="M2 6L4.5 8.5L9 3"/></svg></div><span>National address schema: province · territory · commune · street · number</span></li>
+              <li><div class="check"><svg viewBox="0 0 11 11" fill="#B8860B"><path d="M2 6L4.5 8.5L9 3"/></svg></div><span>QR-coded physical address placards at every registered location</span></li>
+              <li><div class="check"><svg viewBox="0 0 11 11" fill="#B8860B"><path d="M2 6L4.5 8.5L9 3"/></svg></div><span>Stored in sovereign Tier-IV Data Center, Kinshasa</span></li>
+            </ul>
+            <ul class="feature-list">
+              <li><div class="check"><svg viewBox="0 0 11 11" fill="#B8860B"><path d="M2 6L4.5 8.5L9 3"/></svg></div><span>Public address-verification API for commerce, banking &amp; logistics</span></li>
+              <li><div class="check"><svg viewBox="0 0 11 11" fill="#B8860B"><path d="M2 6L4.5 8.5L9 3"/></svg></div><span>Bilingual analytics dashboards for government agencies</span></li>
+              <li><div class="check"><svg viewBox="0 0 11 11" fill="#B8860B"><path d="M2 6L4.5 8.5L9 3"/></svg></div><span>Direct integration with call center emergency dispatch system</span></li>
+              <li><div class="check"><svg viewBox="0 0 11 11" fill="#B8860B"><path d="M2 6L4.5 8.5L9 3"/></svg></div><span>Citizen registration via 100+ SCPT post offices, all Starlink-connected</span></li>
+            </ul>
+          </div>
+        </div>
+      </details>
+    </div>
+  </section>
+
   <section class="callout">
     <div class="container">
       <h2>The Map That Makes Everything Possible</h2>
