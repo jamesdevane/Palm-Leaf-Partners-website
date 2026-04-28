@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact — Palm Leaf Partners</title>
+  <meta name="description" content="Contact Palm Leaf Partners to discuss investment, partnership, or collaboration opportunities in DRC infrastructure." />
+  <link rel="stylesheet" href="../css/style.css" />
+  <style>
+    .contact-form { background: var(--white); border-radius: var(--radius-lg); padding: 2.5rem; box-shadow: var(--shadow-md); }
+    .form-group { margin-bottom: 1.5rem; }
+    .form-group label { display: block; font-size: 0.82rem; font-weight: 600; color: var(--green); margin-bottom: 0.5rem; letter-spacing: 0.04em; text-transform: uppercase; }
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%; padding: 0.85rem 1rem; border: 1.5px solid rgba(27,67,50,0.2);
+      border-radius: var(--radius-sm); font-family: var(--font-body); font-size: 0.95rem;
+      color: var(--text-body); background: var(--cream); transition: border-color var(--transition);
+      outline: none;
+    }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--green); background: var(--white); }
+    .form-group textarea { resize: vertical; min-height: 140px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    .contact-info-card { background: var(--green); border-radius: var(--radius-lg); padding: 2.5rem; color: var(--cream); }
+    .contact-info-card h3 { color: var(--gold); margin-bottom: 1.5rem; }
+    .info-item { display: flex; gap: 1rem; margin-bottom: 1.5rem; align-items: flex-start; }
+    .info-icon { width: 40px; height: 40px; border-radius: 50%; background: rgba(184,134,11,0.2); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .info-icon svg { width: 20px; height: 20px; fill: var(--gold); }
+    .info-text h4 { color: var(--gold-pale); font-size: 0.82rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.25rem; }
+    .info-text p { color: rgba(245,240,232,0.82); font-size: 0.92rem; margin: 0; }
+    @media(max-width:600px){ .form-row { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+  <div class="page-hero">
+    <div class="page-hero-bg" style="background-image: url('../assets/images/hero-contact.jpg');"></div>
+    <div class="page-hero-overlay"></div>
+    <div class="page-hero-content">
+      <span class="eyebrow">Get in Touch</span>
+      <h1>Let's Build Together</h1>
+      <p class="lead">Whether you are an investor, a government partner, a technology provider, or an organization aligned with our mission — we want to hear from you.</p>
+    </div>
+  </div>
+
+  <div class="breadcrumb">
+    <div class="breadcrumb-inner">
+      <a href="../index.html">Home</a><span class="sep">›</span><span>Contact</span>
+    </div>
+  </div>
+
+  <section class="section" style="background:var(--cream);">
+    <div class="container">
+      <div class="grid-2" style="align-items:flex-start;">
+        <div class="slide-left">
+          <div class="contact-form">
+            <span style="font-size:0.72rem; font-weight:600; color:var(--gold); letter-spacing:0.2em; text-transform:uppercase;">Send a Message</span>
+            <h2 style="margin-bottom:2rem;">How Can We Help?</h2>
+            <form id="contactForm" onsubmit="handleSubmit(event)">
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="firstName">First Name</label>
+                  <input type="text" id="firstName" name="firstName" placeholder="Jean" required />
+                </div>
+                <div class="form-group">
+                  <label for="lastName">Last Name</label>
+                  <input type="text" id="lastName" name="lastName" placeholder="Kabila" required />
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" placeholder="you@organization.com" required />
+              </div>
+              <div class="form-group">
+                <label for="organization">Organization</label>
+                <input type="text" id="organization" name="organization" placeholder="Your organization or company" />
+              </div>
+              <div class="form-group">
+                <label for="subject">Subject</label>
+                <select id="subject" name="subject" required>
+                  <option value="">Select a topic...</option>
+                  <option value="investment">Investment Opportunity</option>
+                  <option value="partnership">Strategic Partnership</option>
+                  <option value="government">Government / Institutional</option>
+                  <option value="technology">Technology Partnership</option>
+                  <option value="media">Media Inquiry</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" placeholder="Tell us about your interest in Palm Leaf Partners and how you'd like to engage..." required></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center;">Send Message</button>
+            </form>
+            <div id="formSuccess" style="display:none; background:rgba(27,67,50,0.08); border-radius:var(--radius-md); padding:1.5rem; text-align:center; margin-top:1rem;">
+              <p style="color:var(--green); font-weight:600; margin:0;">✓ Message sent. We'll be in touch shortly.</p>
+            </div>
+          </div>
+        </div>
+        <div class="slide-right">
+          <div class="contact-info-card">
+            <h3>Contact Information</h3>
+            <div class="info-item">
+              <div class="info-icon"><svg viewBox="0 0 20 20"><path d="M10 2C7 2 4 4.5 4 8C4 12 10 18 10 18C10 18 16 12 16 8C16 4.5 13 2 10 2ZM10 10C8.9 10 8 9.1 8 8C8 6.9 8.9 6 10 6C11.1 6 12 6.9 12 8C12 9.1 11.1 10 10 10Z"/></svg></div>
+              <div class="info-text">
+                <h4>Kinshasa Office</h4>
+                <p>Democratic Republic of Congo<br>Kinshasa, DRC</p>
+              </div>
+            </div>
+            <div class="info-item">
+              <div class="info-icon"><svg viewBox="0 0 20 20"><path d="M10 2C7 2 4 4.5 4 8C4 12 10 18 10 18C10 18 16 12 16 8C16 4.5 13 2 10 2ZM10 10C8.9 10 8 9.1 8 8C8 6.9 8.9 6 10 6C11.1 6 12 6.9 12 8C12 9.1 11.1 10 10 10Z"/></svg></div>
+              <div class="info-text">
+                <h4>United States Office</h4>
+                <p>UPTW USA<br>United States of America</p>
+              </div>
+            </div>
+            <div class="info-item">
+              <div class="info-icon"><svg viewBox="0 0 20 20"><path d="M3 5C3 4 4 3 5 3H7L9 7L7.5 8.5C8.5 10.5 9.5 11.5 11.5 12.5L13 11L17 13V15C17 16 16 17 15 17C8 17 3 12 3 5Z"/></svg></div>
+              <div class="info-text">
+                <h4>General Inquiries</h4>
+                <p>info@palmleafpartners.com</p>
+              </div>
+            </div>
+            <div class="info-item">
+              <div class="info-icon"><svg viewBox="0 0 20 20"><path d="M10 2C5.6 2 2 5.6 2 10C2 14.4 5.6 18 10 18C14.4 18 18 14.4 18 10C18 5.6 14.4 2 10 2ZM10 5V10L13 12L12 13.5L8.5 11V5H10Z"/></svg></div>
+              <div class="info-text">
+                <h4>Response Time</h4>
+                <p>We aim to respond to all inquiries within 2 business days.</p>
+              </div>
+            </div>
+          </div>
+
+          <div style="background:var(--white); border-radius:var(--radius-lg); padding:2rem; margin-top:1.5rem; box-shadow:var(--shadow-sm);">
+            <h4 style="color:var(--green); margin-bottom:1rem;">Governance &amp; Legal</h4>
+            <p style="font-size:0.88rem; color:var(--text-muted); margin-bottom:0.75rem;">All Palm Leaf Partners programs operate under:</p>
+            <ul style="list-style:none; font-size:0.85rem; color:var(--text-muted);">
+              <li style="padding:0.4rem 0; border-bottom:1px solid rgba(27,67,50,0.06);">✦ OHADA Business Law Framework</li>
+              <li style="padding:0.4rem 0; border-bottom:1px solid rgba(27,67,50,0.06);">✦ DRC PPP Law 20/018</li>
+              <li style="padding:0.4rem 0; border-bottom:1px solid rgba(27,67,50,0.06);">✦ SCPT MOU — National Address Mapping</li>
+              <li style="padding:0.4rem 0; border-bottom:1px solid rgba(27,67,50,0.06);">✦ UPTWB SAS — DRC Operating Entity</li>
+              <li style="padding:0.4rem 0;">✦ UPTW USA — International Operations</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="../js/components.js"></script>
+  <script src="../js/main.js"></script>
+  <script>
+    renderNav();
+    renderFooter();
+    function handleSubmit(e) {
+      e.preventDefault();
+      document.getElementById('contactForm').style.display = 'none';
+      document.getElementById('formSuccess').style.display = 'block';
+    }
+  </script>
+</body>
+</html>

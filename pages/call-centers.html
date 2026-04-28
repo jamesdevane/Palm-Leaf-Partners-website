@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Call Centers — Palm Leaf Partners</title>
+  <meta name="description" content="Palm Leaf Partners is building 5–10 regional emergency dispatch and citizen services call centers across the DRC, operating in 6 languages and powered by the national address mapping system." />
+  <link rel="stylesheet" href="../css/style.css" />
+  <style>
+    .dependency-banner {
+      background: linear-gradient(135deg, var(--green) 0%, var(--green-mid) 100%);
+      border-radius: var(--radius-lg); padding: 2.5rem; margin-bottom: 3rem;
+      border-left: 6px solid var(--gold);
+    }
+    .dependency-banner h3 { color: var(--gold); margin-bottom: 0.75rem; }
+    .dependency-banner p { color: rgba(245,240,232,0.88); margin: 0; font-size: 1.05rem; }
+    .center-map { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; }
+    .center-pin { background: var(--white); border-radius: var(--radius-md); padding: 1.5rem; border-top: 4px solid var(--green); box-shadow: var(--shadow-sm); }
+    .center-pin .pin-label { font-size: 0.7rem; font-weight: 600; color: var(--gold); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.4rem; }
+    .center-pin h4 { color: var(--green); font-size: 1.05rem; margin-bottom: 0.4rem; }
+    .center-pin p { font-size: 0.85rem; color: var(--text-muted); margin: 0; }
+    .lang-row { display: flex; align-items: center; gap: 1.5rem; padding: 1rem 0; border-bottom: 1px solid rgba(27,67,50,0.08); }
+    .lang-row:last-child { border-bottom: none; }
+    .lang-flag { width: 48px; height: 48px; border-radius: 50%; background: var(--green); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .lang-flag span { font-size: 1.4rem; }
+    .lang-info h4 { color: var(--green); font-size: 1rem; margin-bottom: 0.2rem; }
+    .lang-info p { font-size: 0.85rem; color: var(--text-muted); margin: 0; }
+    @media(max-width:768px){ .center-map { grid-template-columns: 1fr 1fr; } }
+  </style>
+</head>
+<body>
+
+  <div class="page-hero">
+    <div class="page-hero-bg" style="background-image: url('../assets/images/hero-callcenter.jpg');"></div>
+    <div class="page-hero-overlay"></div>
+    <div class="page-hero-content">
+      <span class="eyebrow">Project 03 · Phase 3 Planned</span>
+      <h1>Regional Call Centers</h1>
+      <p class="lead">5–10 regional emergency dispatch and citizen services centers operating in 6 languages — built on the address mapping foundation that makes precise dispatch possible for the first time.</p>
+    </div>
+  </div>
+
+  <div class="breadcrumb">
+    <div class="breadcrumb-inner">
+      <a href="../index.html">Home</a><span class="sep">›</span><span>Call Centers</span>
+    </div>
+  </div>
+
+  <!-- THE CRITICAL LINK -->
+  <section class="section" style="background:var(--white);">
+    <div class="container">
+      <div class="dependency-banner fade-in">
+        <h3>Why the Address Map Comes First</h3>
+        <p>The call center emergency dispatch system is only as good as the address data behind it. When a citizen calls for help, the dispatcher needs a precise, verified location — not a vague description. The National Address Mapping program's 20 million registered addresses are the foundation that makes accurate emergency dispatch possible in the DRC for the first time in history. <strong>The call centers are built on the map.</strong></p>
+      </div>
+      <div class="grid-2">
+        <div class="slide-left">
+          <span style="font-size:0.72rem; font-weight:600; color:var(--gold); letter-spacing:0.2em; text-transform:uppercase;">The Mission</span>
+          <h2>Emergency Services That Know Where You Are</h2>
+          <p>In much of the DRC today, calling for emergency help is an exercise in frustration. Without standardized addresses, dispatchers cannot accurately direct police, fire, or medical responders. Response times are measured in hours, not minutes. Lives are lost that could be saved.</p>
+          <p>Palm Leaf Partners' regional call center network changes this. Each center is equipped with real-time access to the national address registry, enabling dispatchers to pinpoint a caller's location instantly and route the nearest available responder with precision.</p>
+          <p>Beyond emergency services, the centers also provide citizen services — government information, utility reporting, and community support — in all six of the DRC's major languages.</p>
+        </div>
+        <div class="slide-right">
+          <div class="stats-bar" style="border-radius:var(--radius-lg); overflow:hidden;">
+            <div class="stats-grid" style="grid-template-columns:1fr 1fr;">
+              <div class="stat-item"><div class="stat-number"><span data-target="5">0</span>–<span data-target="10">0</span></div><div class="stat-label">Regional Centers</div></div>
+              <div class="stat-item"><div class="stat-number"><span data-target="6">0</span></div><div class="stat-label">Languages Served</div></div>
+              <div class="stat-item"><div class="stat-number">24/7</div><div class="stat-label">Operations</div></div>
+              <div class="stat-item"><div class="stat-number">20M</div><div class="stat-label">Addresses in System</div></div>
+            </div>
+          </div>
+          <img src="../assets/images/hero-callcenter.jpg" alt="Call Center Operations" style="border-radius:var(--radius-lg); box-shadow:var(--shadow-md); margin-top:1.5rem;" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PLANNED LOCATIONS -->
+  <section class="section" style="background:var(--cream);">
+    <div class="container">
+      <div class="section-header fade-in">
+        <span class="eyebrow">Regional Coverage</span>
+        <h2>Planned Center Locations</h2>
+        <p>Centers are strategically positioned to maximize coverage across the DRC's most populated regions, with each center serving multiple provinces.</p>
+        <div class="divider-gold"></div>
+      </div>
+      <div class="center-map fade-in">
+        <div class="center-pin"><div class="pin-label">Center 01</div><h4>Kinshasa</h4><p>Capital region hub serving Kinshasa and Kongo Central provinces. Largest center by call volume.</p></div>
+        <div class="center-pin"><div class="pin-label">Center 02</div><h4>Lubumbashi</h4><p>Katanga region hub serving Haut-Katanga, Lualaba, and Tanganyika provinces.</p></div>
+        <div class="center-pin"><div class="pin-label">Center 03</div><h4>Goma</h4><p>Eastern DRC hub serving North Kivu and South Kivu — critical for humanitarian coordination.</p></div>
+        <div class="center-pin"><div class="pin-label">Center 04</div><h4>Kisangani</h4><p>Northern hub serving Tshopo, Ituri, Haut-Uélé, and Bas-Uélé provinces.</p></div>
+        <div class="center-pin"><div class="pin-label">Center 05</div><h4>Mbuji-Mayi</h4><p>Central hub serving Kasai Oriental, Kasai Central, Kasai, Lomami, and Sankuru provinces.</p></div>
+        <div class="center-pin" style="border-top-color:var(--gold-light); border-style:dashed;"><div class="pin-label">Centers 06–10</div><h4>Expansion Phase</h4><p>Additional centers to be determined based on population density analysis and Phase 1 operational data.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LANGUAGES -->
+  <section class="section" style="background:var(--white);">
+    <div class="container">
+      <div class="grid-2">
+        <div class="slide-left">
+          <span style="font-size:0.72rem; font-weight:600; color:var(--gold); letter-spacing:0.2em; text-transform:uppercase;">Multilingual Operations</span>
+          <h2>Six Languages. Every Citizen Served.</h2>
+          <p>The DRC is one of the most linguistically diverse nations on earth. Palm Leaf Partners' call centers are staffed with agents fluent in all six of the country's major languages, ensuring that no citizen is turned away because of a language barrier — especially in an emergency.</p>
+          <div class="lang-row">
+            <div class="lang-flag"><span>🇫🇷</span></div>
+            <div class="lang-info"><h4>Français</h4><p>Official national language — all formal government and legal communications</p></div>
+          </div>
+          <div class="lang-row">
+            <div class="lang-flag"><span>🌿</span></div>
+            <div class="lang-info"><h4>Lingala</h4><p>Kinshasa, Équateur, and northwestern DRC — spoken by over 15 million people</p></div>
+          </div>
+          <div class="lang-row">
+            <div class="lang-flag"><span>🌍</span></div>
+            <div class="lang-info"><h4>Swahili</h4><p>Eastern DRC — the lingua franca of the Great Lakes region</p></div>
+          </div>
+          <div class="lang-row">
+            <div class="lang-flag"><span>🌱</span></div>
+            <div class="lang-info"><h4>Kikongo</h4><p>Kongo Central and southwestern DRC — spoken by the Bakongo people</p></div>
+          </div>
+          <div class="lang-row">
+            <div class="lang-flag"><span>💛</span></div>
+            <div class="lang-info"><h4>Tshiluba</h4><p>Kasai provinces — the language of the diamond heartland</p></div>
+          </div>
+          <div class="lang-row">
+            <div class="lang-flag"><span>🌐</span></div>
+            <div class="lang-info"><h4>English</h4><p>International business, NGO coordination, and cross-border communications</p></div>
+          </div>
+        </div>
+        <div class="slide-right">
+          <span style="font-size:0.72rem; font-weight:600; color:var(--gold); letter-spacing:0.2em; text-transform:uppercase;">Center Capabilities</span>
+          <h2>What Each Center Does</h2>
+          <ul class="feature-list" style="margin-top:1rem;">
+            <li><div class="check"><svg viewBox="0 0 11 11" fill="#B8860B"><path d="M2 6L4.5 8.5L9 3"/></svg></div><span><strong>Emergency Dispatch</strong> — Police, fire, and medical response with GPS-precise address lookup</span></li>
+            <li><div class="check"><svg viewBox="0 0 11 11" fill="#B8860B"><path d="M2 6L4.5 8.5L9 3"/></svg></div><span><strong>Address Verification</strong> — Real-time lookup against the national address registry</span></li>
+            <li><div class="check"><svg viewBox="0 0 11 11" fill="#B8860B"><path d="M2 6L4.5 8.5L9 3"/></svg></div><span><strong>Citizen Services</strong> — Government information, utility reporting, and community support</span></li>
+            <li><div class="check"><svg viewBox="0 0 11 11" fill="#B8860B"><path d="M2 6L4.5 8.5L9 3"/></svg></div><span><strong>Incident Tracking</strong> — Live incident management with wall-map visualization</span></li>
+            <li><div class="check"><svg viewBox="0 0 11 11" fill="#B8860B"><path d="M2 6L4.5 8.5L9 3"/></svg></div><span><strong>Multi-Agency Coordination</strong> — Shared situational awareness across police, fire, and medical agencies</span></li>
+            <li><div class="check"><svg viewBox="0 0 11 11" fill="#B8860B"><path d="M2 6L4.5 8.5L9 3"/></svg></div><span><strong>Data Center Integration</strong> — All call data stored and processed in the sovereign Tier-IV facility</span></li>
+            <li><div class="check"><svg viewBox="0 0 11 11" fill="#B8860B"><path d="M2 6L4.5 8.5L9 3"/></svg></div><span><strong>24/7 Operations</strong> — Round-the-clock staffing with shift supervisors and quality monitoring</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="callout">
+    <div class="container">
+      <h2>Precision Dispatch Starts with the Address Map</h2>
+      <p>The call center system is built on the foundation of 20 million registered addresses. See how the mapping program makes this possible.</p>
+      <a href="mapping.html" class="btn btn-primary">See Address Mapping →</a>
+    </div>
+  </section>
+
+  <script src="../js/components.js"></script>
+  <script src="../js/main.js"></script>
+  <script>renderNav(); renderFooter();</script>
+</body>
+</html>
