@@ -16,6 +16,7 @@ const translations = {
   'nav.about':          { en: 'About',                   fr: 'À Propos' },
   'nav.partnership':    { en: 'Partnership',             fr: 'Partenariat' },
   'nav.contact':        { en: 'Contact',                 fr: 'Contact' },
+  'nav.projects':       { en: 'Projects',                fr: 'Projets' },
   'nav.brand.name':     { en: 'PALM LEAF',               fr: 'PALM LEAF' },
   'nav.brand.sub':      { en: '— PARTNERS —',            fr: '— PARTENAIRES —' },
 

@@ -15,10 +15,15 @@ function renderNav() {
       </a>
       <ul class="navbar-nav">
         <li><a href="../index.html" data-i18n="nav.home">Home</a></li>
-        <li><a href="mapping.html" data-i18n="nav.mapping">Mapping</a></li>
-        <li><a href="data-center.html" data-i18n="nav.datacenter">Data Center</a></li>
-        <li><a href="call-centers.html" data-i18n="nav.callcenters">Call Centers</a></li>
-        <li><a href="fiber-backbone.html" data-i18n="nav.fiber">Fiber Backbone</a></li>
+        <li class="nav-dropdown">
+          <a href="#" class="nav-dropdown-toggle" data-i18n="nav.projects">Projects <span class="nav-arrow">▾</span></a>
+          <ul class="nav-dropdown-menu">
+            <li><a href="mapping.html" data-i18n="nav.mapping">Mapping</a></li>
+            <li><a href="data-center.html" data-i18n="nav.datacenter">Data Center</a></li>
+            <li><a href="call-centers.html" data-i18n="nav.callcenters">Call Centers</a></li>
+            <li><a href="fiber-backbone.html" data-i18n="nav.fiber">Fiber Backbone</a></li>
+          </ul>
+        </li>
         <li><a href="about.html" data-i18n="nav.about">About</a></li>
         <li><a href="partnership.html" data-i18n="nav.partnership">Partnership</a></li>
         <li><a href="contact.html" class="nav-cta" data-i18n="nav.contact">Contact</a></li>
