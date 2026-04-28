@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Memorial City — Palm Leaf Partners</title>
+  <meta name="description" content="The Never Again in the DRC Memorial City — a 5 km² living memorial to peace, reconciliation, and the future of the Congo and Rwanda. Hotels, museums, cultural centers, and gardens." />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/cinematic.css" />
+  <link rel="stylesheet" href="../css/mobile.css" />
+  <style>
+    /* Memorial-specific styles */
+    .memorial-quote {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      padding: 5rem 0; text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .memorial-quote::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: url('../assets/images/memorial-monument.jpg') center/cover no-repeat;
+      opacity: 0.12;
+    }
+    .memorial-quote blockquote {
+      position: relative; z-index: 2;
+      font-family: var(--font-heading);
+      font-size: clamp(1.4rem, 3vw, 2.2rem);
+      color: var(--cream); font-weight: 600;
+      max-width: 800px; margin: 0 auto;
+      line-height: 1.5; font-style: italic;
+    }
+    .memorial-quote blockquote em { color: var(--gold-pale); font-style: normal; }
+    .memorial-quote .quote-source {
+      position: relative; z-index: 2;
+      font-size: 0.78rem; font-weight: 600;
+      color: var(--gold); letter-spacing: 0.15em;
+      text-transform: uppercase; margin-top: 1.5rem;
+    }
+
+    .facility-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+    .facility-card {
+      background: var(--white); border-radius: var(--radius-lg);
+      overflow: hidden; box-shadow: var(--shadow-md);
+      transition: all var(--transition);
+    }
+    .facility-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
+    .facility-card img { width: 100%; height: 200px; object-fit: cover; }
+    .facility-card-body { padding: 1.5rem; }
+    .facility-card-body .facility-num {
+      font-family: var(--font-heading); font-size: 2.5rem; font-weight: 900;
+      color: rgba(27,67,50,0.08); line-height: 1; margin-bottom: -0.5rem;
+    }
+    .facility-card-body h3 { color: var(--green); font-size: 1.1rem; margin-bottom: 0.5rem; }
+    .facility-card-body p { font-size: 0.88rem; color: var(--text-muted); margin: 0; }
+
+    .partner-row {
+      display: flex; align-items: center; gap: 1.5rem;
+      padding: 1.25rem 0; border-bottom: 1px solid rgba(27,67,50,0.08);
+    }
+    .partner-row:last-child { border-bottom: none; }
+    .partner-icon {
+      width: 52px; height: 52px; border-radius: 50%;
+      background: var(--green); display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .partner-icon svg { width: 26px; height: 26px; fill: var(--gold); }
+    .partner-info h4 { color: var(--green); margin-bottom: 0.2rem; font-size: 1rem; }
+    .partner-info p { font-size: 0.85rem; color: var(--text-muted); margin: 0; }
+
+    .never-again-banner {
+      background: var(--green); padding: 4rem 0;
+      border-top: 4px solid var(--gold);
+      border-bottom: 4px solid var(--gold);
+      text-align: center;
+    }
+    .never-again-banner h2 { color: var(--gold); font-size: clamp(2rem, 5vw, 3.5rem); margin-bottom: 0.5rem; }
+    .never-again-banner p { color: rgba(245,240,232,0.85); max-width: 600px; margin: 0 auto; font-size: 1.05rem; }
+
+    @media (max-width: 768px) {
+      .facility-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 900px) {
+      .facility-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- FULL-BLEED HERO with Zola in memorial setting -->
+  <div class="page-hero-fullbleed" style="height:80vh; min-height:580px;">
+    <img src="../assets/images/zola-hero-memorial.jpg" alt="Zola at the Memorial City" class="bg-img" style="object-position: center 30%;" />
+    <div class="overlay" style="background:linear-gradient(to top, rgba(27,67,50,0.97) 0%, rgba(27,67,50,0.65) 45%, rgba(27,67,50,0.2) 100%);"></div>
+    <div class="hero-text-block">
+      <span class="eyebrow" data-i18n="mem.eyebrow">Project 05 · Vision</span>
+      <h1 data-i18n="mem.h1">The Memorial City</h1>
+      <p class="lead" data-i18n="mem.lead">A 5 km² living memorial to peace, reconciliation, and the future — honoring those lost in the Congo and Rwanda conflicts, and building a world where it never happens again.</p>
+    </div>
+  </div>
+
+  <div class="breadcrumb">
+    <div class="breadcrumb-inner">
+      <a href="../index.html" data-i18n="breadcrumb.home">Home</a>
+      <span class="sep">›</span>
+      <span data-i18n="mem.breadcrumb">Memorial City</span>
+    </div>
+  </div>
+
+  <!-- NEVER AGAIN BANNER -->
+  <div class="never-again-banner">
+    <div class="container">
+      <h2 data-i18n="mem.banner.h2">"Never Again in the DRC"</h2>
+      <p data-i18n="mem.banner.p">A solemn commitment by the women of the Democratic Republic of Congo — and the world — to ensure that the horrors of conflict are never repeated, and that peace is built to last.</p>
+    </div>
+  </div>
+
+  <!-- OPENING — The Vision -->
+  <section class="section" style="background:var(--white);">
+    <div class="container">
+      <div class="grid-2">
+        <div class="slide-left">
+          <span style="font-size:0.72rem;font-weight:600;color:var(--gold);letter-spacing:0.2em;text-transform:uppercase;" data-i18n="mem.vision.eyebrow">The Vision</span>
+          <h2 data-i18n="mem.vision.h2">A City Built for Healing, Memory, and Hope</h2>
+          <p data-i18n="mem.vision.p1">The conflicts in the Congo and Rwanda left millions of lives shattered. Entire communities were destroyed. Children lost parents. Parents lost children. The wounds are deep — and they deserve more than silence.</p>
+          <p data-i18n="mem.vision.p2">The Memorial City is not a monument to grief. It is a monument to resilience. A living, breathing space of 5 square kilometers where the past is honored, the present is healed, and the future is built. Hotels, museums, cultural centers, gardens, and memorials — all woven together into a destination that draws the world to witness, to learn, and to commit.</p>
+          <p data-i18n="mem.vision.p3">Led by the Universal Palm Tree Women (UPTW) in partnership with the DRC government, UN Women, UNICEF, UNESCO, and international foundations, this is one of the most significant humanitarian and cultural projects on the African continent.</p>
+        </div>
+        <div class="slide-right">
+          <div style="background:var(--green);border-radius:var(--radius-lg);padding:2.5rem;color:var(--cream);">
+            <h3 style="color:var(--gold);margin-bottom:1.5rem;" data-i18n="mem.scale.h3">The Scale of the Vision</h3>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;">
+              <div><div style="font-family:var(--font-heading);font-size:2rem;color:var(--gold);">5 km²</div><div style="font-size:0.72rem;color:rgba(245,240,232,0.6);text-transform:uppercase;letter-spacing:0.1em;" data-i18n="mem.scale.area">Memorial City Area</div></div>
+              <div><div style="font-family:var(--font-heading);font-size:2rem;color:var(--gold);">6</div><div style="font-size:0.72rem;color:rgba(245,240,232,0.6);text-transform:uppercase;letter-spacing:0.1em;" data-i18n="mem.scale.facilities">Major Facilities</div></div>
+              <div><div style="font-family:var(--font-heading);font-size:2rem;color:var(--gold);">UN</div><div style="font-size:0.72rem;color:rgba(245,240,232,0.6);text-transform:uppercase;letter-spacing:0.1em;" data-i18n="mem.scale.partners">International Partners</div></div>
+              <div><div style="font-family:var(--font-heading);font-size:2rem;color:var(--gold);">∞</div><div style="font-size:0.72rem;color:rgba(245,240,232,0.6);text-transform:uppercase;letter-spacing:0.1em;" data-i18n="mem.scale.legacy">Generations of Legacy</div></div>
+            </div>
+          </div>
+          <img src="../assets/images/zola-hero-memorial.jpg" alt="Memorial City vision" style="border-radius:var(--radius-lg);box-shadow:var(--shadow-lg);margin-top:1.5rem;width:100%;" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MEMORIAL QUOTE -->
+  <div class="memorial-quote">
+    <div class="container">
+      <blockquote data-i18n="mem.quote">"We do not build this city to dwell in sorrow. We build it so that every generation that comes after us will know what was lost — and will choose, every day, to build something better."</blockquote>
+      <p class="quote-source" data-i18n="mem.quote.source">Universal Palm Tree Women (UPTW) · Democratic Republic of Congo</p>
+    </div>
+  </div>
+
+  <!-- BEAT 1: The Memorials -->
+  <section class="story-section">
+    <div class="container">
+      <div class="grid-2">
+        <div class="slide-left">
+          <span class="beat-number">01</span>
+          <span class="beat-label" data-i18n="mem.beat1.label">We remember.</span>
+          <h2 class="beat-headline" data-i18n="mem.beat1.h2">A soaring peace monument. Walls of names. Gardens of remembrance.</h2>
+          <p class="beat-body" data-i18n="mem.beat1.p1">At the heart of the Memorial City stands the Peace Monument — a 60-meter white marble obelisk inscribed with African geometric carvings, rising above a circular reflecting pool. It is visible from every corner of the city. It is the first thing visitors see. It is the last thing they remember.</p>
+          <p class="beat-body" data-i18n="mem.beat1.p2">Flanking the central axis: the Walls of Names — long marble panels bearing the names of those lost to conflict in the DRC and Rwanda. Not statistics. Not numbers. Names. Every one of them. Surrounded by indigenous Congolese and Rwandan flowering gardens, benches for contemplation, and quiet pathways for reflection.</p>
+        </div>
+        <div class="beat-image slide-right">
+          <img src="../assets/images/memorial-monument.jpg" alt="Peace Monument at golden hour" />
+        </div>
+      </div>
+      <div class="zola-guide fade-in">
+        <img src="../assets/images/zola-guide-gesture-transparent.png" alt="Zola" />
+        <div class="zola-guide-bubble">
+          <p data-i18n="guide.mem.1">"We say their names so they are never forgotten. That is the first act of peace."</p>
+          <span class="guide-attr" data-i18n="guide.attr">Zola · Palm Leaf Partners</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BEAT 2: The Museum & Education -->
+  <section class="story-section">
+    <div class="container">
+      <div class="grid-2">
+        <div class="beat-image slide-left">
+          <img src="../assets/images/memorial-museum.jpg" alt="Museum of Peace and Reconciliation" />
+        </div>
+        <div class="slide-right">
+          <span class="beat-number">02</span>
+          <span class="beat-label" data-i18n="mem.beat2.label">We educate.</span>
+          <h2 class="beat-headline" data-i18n="mem.beat2.h2">The Museum of Peace and Reconciliation — a world-class institution for truth and understanding.</h2>
+          <p class="beat-body" data-i18n="mem.beat2.p1">The museum is not a place of accusation. It is a place of truth. Designed by African architects with African materials, it houses permanent and rotating exhibitions telling the full story of the Congo and Rwanda conflicts — from their roots to their resolution — with unflinching honesty and profound humanity.</p>
+          <p class="beat-body" data-i18n="mem.beat2.p2">Interactive galleries, oral history archives, children's education programs, and a research library serve students, scholars, diplomats, and families from across the world. UNESCO-partnered. Internationally accredited. Permanently staffed by Congolese and Rwandan historians and educators.</p>
+        </div>
+      </div>
+      <div class="zola-guide fade-in" style="flex-direction:row-reverse;">
+        <img src="../assets/images/zola-guide-gesture-transparent.png" alt="Zola" style="transform:scaleX(-1);" />
+        <div class="zola-guide-bubble" style="border-radius:var(--radius-lg) 0 var(--radius-lg) var(--radius-lg);">
+          <p data-i18n="guide.mem.2">"The truth, told with dignity, is the most powerful tool for peace we have."</p>
+          <span class="guide-attr" data-i18n="guide.attr">Zola · Palm Leaf Partners</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BEAT 3: Hotels, Entertainment & Cultural Life -->
+  <section class="story-section">
+    <div class="container">
+      <div class="grid-2">
+        <div class="slide-left">
+          <span class="beat-number">03</span>
+          <span class="beat-label" data-i18n="mem.beat3.label">We celebrate life.</span>
+          <h2 class="beat-headline" data-i18n="mem.beat3.h2">Luxury hotels. A cultural amphitheater. Restaurants, galleries, and gardens alive with Congolese culture.</h2>
+          <p class="beat-body" data-i18n="mem.beat3.p1">A memorial city that only mourns is incomplete. The Memorial City is also a destination — a place where the world comes to stay, to eat, to listen to music, to watch dance, to buy art, and to experience the extraordinary richness of Congolese and Central African culture.</p>
+          <p class="beat-body" data-i18n="mem.beat3.p2">The Memorial Hotel offers luxury accommodation with views over the memorial grounds. The open-air cultural amphitheater seats 2,000 and hosts Congolese music, dance, theater, and international performances year-round. Art galleries, craft markets, restaurants serving Congolese cuisine, and a conference center for international peace summits complete the vision.</p>
+          <p class="beat-body" data-i18n="mem.beat3.p3">This is how peace is sustained — not only through memory, but through joy. Through culture. Through the undeniable vitality of a people who survived, and who are building something extraordinary from what remains.</p>
+        </div>
+        <div class="beat-image slide-right">
+          <img src="../assets/images/memorial-entertainment.jpg" alt="Cultural amphitheater at the Memorial City" />
+        </div>
+      </div>
+      <div class="zola-guide fade-in">
+        <img src="../assets/images/zola-guide-gesture-transparent.png" alt="Zola" />
+        <div class="zola-guide-bubble">
+          <p data-i18n="guide.mem.3">"Joy is not the opposite of grief. It is the proof that life continues — and that it is worth protecting."</p>
+          <span class="guide-attr" data-i18n="guide.attr">Zola · Palm Leaf Partners</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SIX FACILITIES -->
+  <section class="section" style="background:var(--cream);">
+    <div class="container">
+      <div class="section-header fade-in">
+        <span class="eyebrow" data-i18n="mem.facilities.eyebrow">Six Major Facilities</span>
+        <h2 data-i18n="mem.facilities.h2">What the Memorial City Contains</h2>
+        <p data-i18n="mem.facilities.p">Five square kilometers of purposefully designed space — each facility serving a distinct role in the mission of peace, memory, and renewal.</p>
+        <div class="divider-gold"></div>
+      </div>
+      <div class="facility-grid fade-in">
+        <div class="facility-card">
+          <img src="../assets/images/memorial-monument.jpg" alt="Peace Monument" />
+          <div class="facility-card-body">
+            <div class="facility-num">01</div>
+            <h3 data-i18n="mem.fac1.h3">Peace Monument &amp; Reflecting Pool</h3>
+            <p data-i18n="mem.fac1.p">A 60-meter marble obelisk with African carvings, circular reflecting pool, and the Walls of Names — the emotional and spiritual heart of the Memorial City.</p>
+          </div>
+        </div>
+        <div class="facility-card">
+          <img src="../assets/images/memorial-museum.jpg" alt="Museum of Peace" />
+          <div class="facility-card-body">
+            <div class="facility-num">02</div>
+            <h3 data-i18n="mem.fac2.h3">Museum of Peace &amp; Reconciliation</h3>
+            <p data-i18n="mem.fac2.p">UNESCO-partnered world-class museum with permanent exhibitions, oral history archives, children's education programs, and an international research library.</p>
+          </div>
+        </div>
+        <div class="facility-card">
+          <img src="../assets/images/memorial-hotel.jpg" alt="Memorial Hotel" />
+          <div class="facility-card-body">
+            <div class="facility-num">03</div>
+            <h3 data-i18n="mem.fac3.h3">The Memorial Hotel</h3>
+            <p data-i18n="mem.fac3.p">Luxury boutique accommodation with views over the memorial grounds, rooftop garden, African art collection, and a restaurant serving Congolese cuisine.</p>
+          </div>
+        </div>
+        <div class="facility-card">
+          <img src="../assets/images/memorial-entertainment.jpg" alt="Cultural Amphitheater" />
+          <div class="facility-card-body">
+            <div class="facility-num">04</div>
+            <h3 data-i18n="mem.fac4.h3">Cultural Amphitheater &amp; Arts Center</h3>
+            <p data-i18n="mem.fac4.p">A 2,000-seat open-air amphitheater for Congolese music, dance, theater, and international performances. Art galleries, craft markets, and cultural programming year-round.</p>
+          </div>
+        </div>
+        <div class="facility-card">
+          <img src="../assets/images/zola-hero-memorial.jpg" alt="Gardens of Remembrance" />
+          <div class="facility-card-body">
+            <div class="facility-num">05</div>
+            <h3 data-i18n="mem.fac5.h3">Gardens of Remembrance</h3>
+            <p data-i18n="mem.fac5.p">Extensive botanical gardens with indigenous Congolese and Rwandan plants, walking paths, meditation spaces, a children's garden, and an interfaith chapel.</p>
+          </div>
+        </div>
+        <div class="facility-card">
+          <img src="../assets/images/hero-about.jpg" alt="International Peace Conference Center" />
+          <div class="facility-card-body">
+            <div class="facility-num">06</div>
+            <h3 data-i18n="mem.fac6.h3">International Peace Conference Center</h3>
+            <p data-i18n="mem.fac6.p">A state-of-the-art conference facility hosting UN summits, peace dialogues, academic conferences, and diplomatic gatherings from across the world.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTERNATIONAL PARTNERS -->
+  <section class="section" style="background:var(--white);">
+    <div class="container">
+      <div class="grid-2">
+        <div class="slide-left">
+          <span style="font-size:0.72rem;font-weight:600;color:var(--gold);letter-spacing:0.2em;text-transform:uppercase;" data-i18n="mem.partners.eyebrow">International Partners</span>
+          <h2 data-i18n="mem.partners.h2">The World Stands With the DRC</h2>
+          <p data-i18n="mem.partners.p">The Memorial City is not a local project. It is a global commitment. UPTW works alongside the world's leading humanitarian organizations to ensure this project meets the highest standards of accountability, cultural sensitivity, and lasting impact.</p>
+          <div style="margin-top:1.5rem;">
+            <div class="partner-row">
+              <div class="partner-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="#B8860B" stroke-width="1.5"/><path d="M12 3C12 3 8 7 8 12C8 17 12 21 12 21C12 21 16 17 16 12C16 7 12 3 12 3Z" stroke="#B8860B" stroke-width="1.5" fill="none"/><path d="M3 12H21" stroke="#B8860B" stroke-width="1.5"/></svg></div>
+              <div class="partner-info"><h4 data-i18n="mem.partner1.h4">UN Women</h4><p data-i18n="mem.partner1.p">United Nations Entity for Gender Equality and the Empowerment of Women</p></div>
+            </div>
+            <div class="partner-row">
+              <div class="partner-icon"><svg viewBox="0 0 24 24"><path d="M12 2L3 7V12C3 16.5 7 20.5 12 22C17 20.5 21 16.5 21 12V7L12 2Z" fill="none" stroke="#B8860B" stroke-width="1.5"/></svg></div>
+              <div class="partner-info"><h4 data-i18n="mem.partner2.h4">UNICEF</h4><p data-i18n="mem.partner2.p">United Nations Children's Fund — protecting children's rights in the DRC</p></div>
+            </div>
+            <div class="partner-row">
+              <div class="partner-icon"><svg viewBox="0 0 24 24"><path d="M4 6H20M4 10H20M4 14H14M4 18H11" stroke="#B8860B" stroke-width="1.5" fill="none"/></svg></div>
+              <div class="partner-info"><h4 data-i18n="mem.partner3.h4">UNESCO</h4><p data-i18n="mem.partner3.p">United Nations Educational, Scientific and Cultural Organization</p></div>
+            </div>
+            <div class="partner-row">
+              <div class="partner-icon"><svg viewBox="0 0 24 24"><path d="M9 12L11 14L15 10M12 2L3 7V12C3 16.5 7 20.5 12 22C17 20.5 21 16.5 21 12V7L12 2Z" stroke="#B8860B" stroke-width="1.5" fill="none"/></svg></div>
+              <div class="partner-info"><h4 data-i18n="mem.partner4.h4">UN Human Rights Office</h4><p data-i18n="mem.partner4.p">Monitoring and reporting on human rights in the DRC</p></div>
+            </div>
+            <div class="partner-row">
+              <div class="partner-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" stroke="#B8860B" stroke-width="1.5" fill="none"/><path d="M4 20C4 16 7.5 13 12 13C16.5 13 20 16 20 20" stroke="#B8860B" stroke-width="1.5" fill="none"/></svg></div>
+              <div class="partner-info"><h4 data-i18n="mem.partner5.h4">Ministry of Foreign Affairs · DRC</h4><p data-i18n="mem.partner5.p">National coordination and government authorization for the Memorial City</p></div>
+            </div>
+          </div>
+        </div>
+        <div class="slide-right">
+          <img src="../assets/images/memorial-hotel.jpg" alt="Memorial Hotel" style="border-radius:var(--radius-lg);box-shadow:var(--shadow-lg);margin-bottom:1.5rem;" />
+          <div style="background:var(--cream);border-radius:var(--radius-lg);padding:2rem;border-left:4px solid var(--gold);">
+            <h4 style="color:var(--green);margin-bottom:0.75rem;" data-i18n="mem.governance.h4">Governance &amp; Accountability</h4>
+            <p style="font-size:0.9rem;color:var(--text-muted);margin:0;" data-i18n="mem.governance.p">UPTW operates through a transparent, multi-stakeholder governance structure with independent oversight from international fiduciaries (NANN), independent auditors, and international legal counsel — ensuring accountability at every level of the project.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PALM LEAF PARTNERS ROLE -->
+  <section class="section" style="background:var(--green);">
+    <div class="container">
+      <div class="section-header fade-in">
+        <span class="eyebrow" style="color:var(--gold-pale);" data-i18n="mem.plp.eyebrow">Palm Leaf Partners' Role</span>
+        <h2 style="color:var(--white);" data-i18n="mem.plp.h2">The Infrastructure That Makes It Possible</h2>
+        <div class="divider-gold"></div>
+      </div>
+      <div class="grid-3 fade-in">
+        <div style="background:rgba(255,255,255,0.08);border-radius:var(--radius-lg);padding:2rem;border:1px solid rgba(184,134,11,0.2);">
+          <div style="width:48px;height:48px;border-radius:50%;background:rgba(184,134,11,0.2);display:flex;align-items:center;justify-content:center;margin-bottom:1rem;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="#B8860B"><circle cx="10" cy="10" r="4"/><path d="M10 14L10 22" stroke="#B8860B" stroke-width="1.5"/><circle cx="10" cy="22" r="1.5"/></svg>
+          </div>
+          <h4 style="color:var(--gold);margin-bottom:0.5rem;" data-i18n="mem.plp.addr.h4">Address Mapping</h4>
+          <p style="color:rgba(245,240,232,0.75);font-size:0.88rem;" data-i18n="mem.plp.addr.p">Every location within the Memorial City is registered in the national address system — enabling emergency services, logistics, and visitor navigation with precision.</p>
+        </div>
+        <div style="background:rgba(255,255,255,0.08);border-radius:var(--radius-lg);padding:2rem;border:1px solid rgba(184,134,11,0.2);">
+          <div style="width:48px;height:48px;border-radius:50%;background:rgba(184,134,11,0.2);display:flex;align-items:center;justify-content:center;margin-bottom:1rem;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="#B8860B"><rect x="3" y="3" width="18" height="18" rx="2" fill="none" stroke="#B8860B" stroke-width="1.5"/><path d="M7 12H17M12 7V17" stroke="#B8860B" stroke-width="1.5"/></svg>
+          </div>
+          <h4 style="color:var(--gold);margin-bottom:0.5rem;" data-i18n="mem.plp.dc.h4">Data Center</h4>
+          <p style="color:rgba(245,240,232,0.75);font-size:0.88rem;" data-i18n="mem.plp.dc.p">The museum's digital archives, oral history databases, and visitor management systems are hosted in the sovereign Tier-IV data center — secure, permanent, and on Congolese soil.</p>
+        </div>
+        <div style="background:rgba(255,255,255,0.08);border-radius:var(--radius-lg);padding:2rem;border:1px solid rgba(184,134,11,0.2);">
+          <div style="width:48px;height:48px;border-radius:50%;background:rgba(184,134,11,0.2);display:flex;align-items:center;justify-content:center;margin-bottom:1rem;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="#B8860B"><path d="M4 14 Q8 6 14 6 Q20 6 24 14" stroke="#B8860B" stroke-width="1.5" fill="none"/><path d="M4 14 Q8 22 14 22 Q20 22 24 14" stroke="#B8860B" stroke-width="1.5" fill="none"/></svg>
+          </div>
+          <h4 style="color:var(--gold);margin-bottom:0.5rem;" data-i18n="mem.plp.fiber.h4">Fiber &amp; Connectivity</h4>
+          <p style="color:rgba(245,240,232,0.75);font-size:0.88rem;" data-i18n="mem.plp.fiber.p">High-speed fiber connectivity throughout the Memorial City enables live-streaming of events, digital exhibitions, international conference calls, and visitor WiFi across all 5 km².</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="callout">
+    <div class="container">
+      <h2 data-i18n="mem.cta.h2">Be Part of Something That Lasts</h2>
+      <p data-i18n="mem.cta.p">The Memorial City is a vision that requires partners, investors, and allies who believe that peace is worth building — and that the DRC deserves a monument worthy of its people.</p>
+      <a href="partnership.html" class="btn btn-primary" data-i18n="mem.cta.btn">Explore Partnership →</a>
+    </div>
+  </section>
+
+  <script src="../js/i18n.js"></script>
+  <script src="../js/i18n-extended.js"></script>
+  <script src="../js/i18n-final.js"></script>
+  <script src="../js/i18n-patch.js"></script>
+  <script src="../js/i18n-memorial.js"></script>
+  <script src="../js/components.js"></script>
+  <script src="../js/main.js"></script>
+  <script>renderNav(); renderFooter();</script>
+</body>
+</html>

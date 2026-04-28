@@ -22,6 +22,7 @@ function renderNav() {
             <li><a href="data-center.html" data-i18n="nav.datacenter">Data Center</a></li>
             <li><a href="call-centers.html" data-i18n="nav.callcenters">Call Centers</a></li>
             <li><a href="fiber-backbone.html" data-i18n="nav.fiber">Fiber Backbone</a></li>
+            <li><a href="memorial-city.html" data-i18n="nav.memorial">Memorial City</a></li>
           </ul>
         </li>
         <li><a href="about.html" data-i18n="nav.about">About</a></li>
@@ -93,6 +94,7 @@ function renderHomeNav() {
       <li><a href="pages/data-center.html" data-i18n="nav.datacenter">Data Center</a></li>
       <li><a href="pages/call-centers.html" data-i18n="nav.callcenters">Call Centers</a></li>
       <li><a href="pages/fiber-backbone.html" data-i18n="nav.fiber">Fiber Backbone</a></li>
+      <li><a href="pages/memorial-city.html" data-i18n="nav.memorial">Memorial City</a></li>
       <li><a href="pages/about.html" data-i18n="nav.about">About</a></li>
       <li><a href="pages/partnership.html" data-i18n="nav.partnership">Partnership &amp; Governance</a></li>
       <li><a href="pages/contact.html" data-i18n="nav.contact">Contact</a></li>
