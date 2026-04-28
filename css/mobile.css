@@ -32,7 +32,7 @@ img, video {
     padding: 1.5rem 0 !important;
   }
   .zola-guide img {
-    width: 90px !important;  /* keep original size */
+    width: 120px !important;
     flex-shrink: 0;
     align-self: flex-start;
   }
