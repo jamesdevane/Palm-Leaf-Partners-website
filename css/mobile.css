@@ -24,6 +24,43 @@ img, video {
 /* ── 2. TABLET (≤ 768px) ── */
 @media (max-width: 768px) {
 
+  /* --- Zola guide: side by side, bubble taller with generous padding --- */
+  .zola-guide {
+    flex-direction: row !important;
+    align-items: flex-start !important;
+    gap: 1rem !important;
+    padding: 1.5rem 0 !important;
+  }
+  .zola-guide img {
+    width: 90px !important;  /* keep original size */
+    flex-shrink: 0;
+    align-self: flex-start;
+  }
+  .zola-guide-bubble {
+    border-radius: var(--radius-md) !important;
+    padding: 1.25rem 1.25rem 1rem !important;  /* taller top/bottom */
+    flex: 1;  /* fill remaining width */
+  }
+  .zola-guide-bubble p {
+    font-size: 0.88rem !important;
+    line-height: 1.65 !important;
+    margin: 0 0 0.5rem !important;
+  }
+  .zola-guide-bubble .guide-attr {
+    font-size: 0.68rem !important;
+    margin-top: 0.5rem !important;
+  }
+  /* Restore speech bubble arrow */
+  .zola-guide-bubble::before {
+    display: block !important;
+    left: -12px; top: 16px;
+    border-width: 6px;
+  }
+  /* Reversed guide: hide arrow (Zola on right) */
+  .zola-guide[style*="row-reverse"] .zola-guide-bubble::before {
+    display: none !important;
+  }
+
   /* --- Mobile hero: swap to portrait image, center Zola --- */
   .hero-parallax .hero-bg-layer {
     background-image: url('../assets/images/zola-hero-home-mobile.jpg') !important;
@@ -286,6 +323,10 @@ img, video {
 
 /* ── 3. LARGE PHONE (≤ 480px) ── */
 @media (max-width: 480px) {
+
+  /* Zola guide: even smaller on small phones */
+  .zola-guide img { width: 60px !important; }
+  .zola-guide-bubble p { font-size: 0.84rem !important; }
 
   /* Hero: show Zola's face centered */
   .hero-parallax .hero-bg-layer {
