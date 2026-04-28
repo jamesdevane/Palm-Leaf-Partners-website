@@ -45,6 +45,7 @@ function renderNav() {
       <li><a href="data-center.html" data-i18n="nav.datacenter">Data Center</a></li>
       <li><a href="call-centers.html" data-i18n="nav.callcenters">Call Centers</a></li>
       <li><a href="fiber-backbone.html" data-i18n="nav.fiber">Fiber Backbone</a></li>
+      <li><a href="memorial-city.html" data-i18n="nav.memorial">Memorial City</a></li>
       <li><a href="about.html" data-i18n="nav.about">About</a></li>
       <li><a href="partnership.html" data-i18n="nav.partnership">Partnership &amp; Governance</a></li>
       <li><a href="contact.html" data-i18n="nav.contact">Contact</a></li>
@@ -69,13 +70,19 @@ function renderHomeNav() {
         </div>
       </a>
       <ul class="navbar-nav">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="pages/mapping.html">Mapping</a></li>
-        <li><a href="pages/data-center.html">Data Center</a></li>
-        <li><a href="pages/call-centers.html">Call Centers</a></li>
-        <li><a href="pages/fiber-backbone.html">Fiber Backbone</a></li>
-        <li><a href="pages/about.html">About</a></li>
-        <li><a href="pages/partnership.html">Partnership</a></li>
+        <li><a href="index.html" data-i18n="nav.home">Home</a></li>
+        <li class="nav-dropdown">
+          <a href="#" class="nav-dropdown-toggle" data-i18n="nav.projects">Projects <span class="nav-arrow">▾</span></a>
+          <ul class="nav-dropdown-menu">
+            <li><a href="pages/mapping.html" data-i18n="nav.mapping">Mapping</a></li>
+            <li><a href="pages/data-center.html" data-i18n="nav.datacenter">Data Center</a></li>
+            <li><a href="pages/call-centers.html" data-i18n="nav.callcenters">Call Centers</a></li>
+            <li><a href="pages/fiber-backbone.html" data-i18n="nav.fiber">Fiber Backbone</a></li>
+            <li><a href="pages/memorial-city.html" data-i18n="nav.memorial">Memorial City</a></li>
+          </ul>
+        </li>
+        <li><a href="pages/about.html" data-i18n="nav.about">About</a></li>
+        <li><a href="pages/partnership.html" data-i18n="nav.partnership">Partnership</a></li>
         <li><a href="pages/contact.html" class="nav-cta" data-i18n="nav.contact">Contact</a></li>
       </ul>
       <div class="lang-toggle" role="group" aria-label="Language selector">
