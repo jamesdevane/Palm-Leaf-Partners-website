@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hero Options Preview</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/cinematic.css" />
+  <link rel="stylesheet" href="css/mobile.css" />
+  <style>
+    body { margin: 0; padding: 0; background: #1B4332; }
+    .option-label {
+      background: #B8860B; color: #1B4332;
+      font-family: 'Inter', sans-serif; font-size: 1rem; font-weight: 700;
+      padding: 0.75rem 2rem; text-align: center; letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    /* Option B pillar stack */
+    .pillar-stack {
+      display: flex; flex-direction: column; gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    .pillar-row {
+      display: flex; align-items: center; gap: 1rem;
+    }
+    .pillar-dot {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: rgba(184,134,11,0.25); border: 1px solid rgba(184,134,11,0.5);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .pillar-dot svg { width: 20px; height: 20px; }
+    .pillar-text strong {
+      display: block; color: #B8860B; font-size: 0.78rem;
+      font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+    }
+    .pillar-text span { color: rgba(245,240,232,0.7); font-size: 0.82rem; }
+  </style>
+</head>
+<body>
+
+  <div class="option-label">⬇ OPTION A — New Wide Image (Landscape fills full frame)</div>
+
+  <!-- OPTION A -->
+  <section class="hero-parallax" style="min-height:100vh;">
+    <div class="hero-bg-layer" style="background-image: url('assets/images/zola-hero-home-wide.jpg'); background-size:cover; background-position:25% center;"></div>
+    <div style="position:absolute;inset:0;background:linear-gradient(to right, rgba(27,67,50,0) 0%, rgba(27,67,50,0) 45%, rgba(27,67,50,0.65) 62%, rgba(27,67,50,0.92) 100%);"></div>
+    <div style="position:relative;z-index:2;max-width:1200px;margin:0 auto;padding:0 1.5rem;width:100%;min-height:100vh;display:flex;align-items:center;justify-content:flex-end;">
+      <div style="max-width:460px;padding:2rem 0;">
+        <span style="display:inline-block;font-size:0.72rem;font-weight:600;color:#B8860B;letter-spacing:0.22em;text-transform:uppercase;border:1px solid rgba(184,134,11,0.5);padding:0.35rem 1rem;border-radius:2px;margin-bottom:1.5rem;">Democratic Republic of Congo</span>
+        <h1 style="color:#fff;font-size:clamp(2.4rem,4.5vw,4.2rem);line-height:1.1;margin-bottom:1.25rem;">Building Systems.<br><em style="color:#F0D080;font-style:normal;">Growing Futures.</em></h1>
+        <p style="color:rgba(245,240,232,0.88);font-size:1.05rem;line-height:1.8;margin-bottom:2.5rem;">Palm Leaf Partners is a DRC-rooted infrastructure and technology firm constructing the foundational systems — address mapping, data centers, call centers, and fiber backbone — that power a modern nation.</p>
+        <div style="display:flex;gap:1rem;flex-wrap:wrap;">
+          <a href="pages/about.html" class="btn btn-primary">Our Mission</a>
+          <a href="pages/mapping.html" class="btn btn-outline">Explore Projects</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="option-label">⬇ OPTION B — Original Image + Four Pillars on Right</div>
+
+  <!-- OPTION B -->
+  <section class="hero-parallax" style="min-height:100vh;">
+    <div class="hero-bg-layer" style="background-image: url('assets/images/zola-hero-home.jpg'); background-size:cover; background-position:30% center;"></div>
+    <div style="position:absolute;inset:0;background:linear-gradient(to right, rgba(27,67,50,0) 0%, rgba(27,67,50,0) 40%, rgba(27,67,50,0.7) 58%, rgba(27,67,50,0.96) 100%);"></div>
+    <div style="position:relative;z-index:2;max-width:1200px;margin:0 auto;padding:0 1.5rem;width:100%;min-height:100vh;display:flex;align-items:center;justify-content:flex-end;">
+      <div style="max-width:460px;padding:2rem 0;">
+        <span style="display:inline-block;font-size:0.72rem;font-weight:600;color:#B8860B;letter-spacing:0.22em;text-transform:uppercase;border:1px solid rgba(184,134,11,0.5);padding:0.35rem 1rem;border-radius:2px;margin-bottom:1.5rem;">Democratic Republic of Congo</span>
+        <h1 style="color:#fff;font-size:clamp(2.4rem,4.5vw,4.2rem);line-height:1.1;margin-bottom:1.25rem;">Building Systems.<br><em style="color:#F0D080;font-style:normal;">Growing Futures.</em></h1>
+        <p style="color:rgba(245,240,232,0.88);font-size:1.05rem;line-height:1.8;margin-bottom:2rem;">Palm Leaf Partners is a DRC-rooted infrastructure and technology firm constructing the foundational systems — address mapping, data centers, call centers, and fiber backbone — that power a modern nation.</p>
+
+        <!-- Four Pillars -->
+        <div class="pillar-stack">
+          <div class="pillar-row">
+            <div class="pillar-dot"><svg viewBox="0 0 40 40" fill="none"><path d="M20 6 C20 6 12 12 12 20 C12 26 15.5 30.5 20 32 C24.5 30.5 28 26 28 20 C28 12 20 6 20 6Z" fill="#B8860B" opacity="0.9"/><path d="M20 6 L20 32" stroke="#F5F0E8" stroke-width="2"/></svg></div>
+            <div class="pillar-text"><strong>Growth</strong><span>Nurturing potential and building for the future</span></div>
+          </div>
+          <div class="pillar-row">
+            <div class="pillar-dot"><svg viewBox="0 0 40 40" fill="none"><path d="M8 22 C8 22 10 18 14 17 L17 19 L20 17 L23 19 L26 17 C30 18 32 22 32 22" stroke="#B8860B" stroke-width="2" fill="none"/><circle cx="14" cy="13" r="4" stroke="#B8860B" stroke-width="1.5" fill="none"/><circle cx="26" cy="13" r="4" stroke="#B8860B" stroke-width="1.5" fill="none"/></svg></div>
+            <div class="pillar-text"><strong>Partnership</strong><span>Working together for lasting impact</span></div>
+          </div>
+          <div class="pillar-row">
+            <div class="pillar-dot"><svg viewBox="0 0 40 40" fill="none"><circle cx="13" cy="12" r="4" stroke="#B8860B" stroke-width="1.5" fill="none"/><circle cx="20" cy="10" r="4" stroke="#B8860B" stroke-width="1.5" fill="none"/><circle cx="27" cy="12" r="4" stroke="#B8860B" stroke-width="1.5" fill="none"/><path d="M13 21 C13 21 16 19 20 19 C24 19 27 21 27 21" stroke="#B8860B" stroke-width="1.5" fill="none"/></svg></div>
+            <div class="pillar-text"><strong>Empowerment</strong><span>Uplifting women and strengthening communities</span></div>
+          </div>
+          <div class="pillar-row">
+            <div class="pillar-dot"><svg viewBox="0 0 40 40" fill="none"><path d="M20 6 C15 6 9 9 7 14 C5 19 7 24 10 27 C13 30 16 32 20 33 C24 32 27 30 30 27 C33 24 35 19 33 14 C31 9 25 6 20 6Z" fill="#B8860B" opacity="0.85"/></svg></div>
+            <div class="pillar-text"><strong>DRC Proud</strong><span>Rooted in the Congo. Committed to its people.</span></div>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-top:2rem;">
+          <a href="pages/about.html" class="btn btn-primary">Our Mission</a>
+          <a href="pages/mapping.html" class="btn btn-outline">Explore Projects</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>

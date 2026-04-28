@@ -29,19 +29,31 @@ img, video {
     background-position: 35% center !important;
   }
 
-  /* --- Full-bleed hero: text moves to bottom on mobile --- */
+  /* --- Full-bleed hero: Zola visible top, text at bottom on mobile --- */
+  /* Background: show Zola's face (position from left) */
+  .hero-parallax .hero-bg-layer {
+    background-position: 35% top !important;
+    background-size: cover !important;
+  }
+  /* Text block: anchored to bottom, full width */
   .hero-parallax > div:last-child {
     align-items: flex-end !important;
     justify-content: flex-start !important;
-    padding-bottom: 3rem;
+    padding: 0 0 2.5rem !important;
   }
   .hero-parallax > div:last-child > div {
     max-width: 100% !important;
     padding: 1.5rem 0 !important;
   }
-  /* Mobile gradient: dark at bottom for text readability */
+  /* Mobile gradient: transparent top (show Zola), dark bottom (readable text) */
   .hero-parallax > div:nth-child(2) {
-    background: linear-gradient(to top, rgba(27,67,50,0.95) 0%, rgba(27,67,50,0.6) 50%, rgba(27,67,50,0) 100%) !important;
+    background: linear-gradient(
+      to top,
+      rgba(27,67,50,0.97) 0%,
+      rgba(27,67,50,0.85) 35%,
+      rgba(27,67,50,0.2) 65%,
+      rgba(27,67,50,0) 100%
+    ) !important;
   }
 
   /* --- Navigation --- */
