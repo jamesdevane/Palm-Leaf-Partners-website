@@ -509,6 +509,34 @@ footer {
 }
 .zola-float:hover { transform: scale(1.08) translateY(-4px); }
 
+/* ── Language Toggle ── */
+.lang-toggle {
+  display: flex; align-items: center;
+  background: rgba(255,255,255,0.1);
+  border-radius: 20px;
+  padding: 3px;
+  gap: 0;
+  margin-left: 0.5rem;
+  border: 1px solid rgba(184,134,11,0.3);
+  flex-shrink: 0;
+}
+.lang-toggle button {
+  background: none; border: none; cursor: pointer;
+  font-family: var(--font-body); font-size: 0.75rem; font-weight: 700;
+  color: rgba(245,240,232,0.55); letter-spacing: 0.08em;
+  padding: 0.3rem 0.7rem; border-radius: 16px;
+  transition: all 0.25s ease;
+  line-height: 1;
+}
+.lang-toggle button.active {
+  background: var(--gold);
+  color: var(--green);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+}
+.lang-toggle button:hover:not(.active) {
+  color: var(--cream);
+}
+
 /* ── Responsive ── */
 @media (max-width: 1024px) {
   .grid-4, .pillars-grid, .stats-grid { grid-template-columns: repeat(2, 1fr); }

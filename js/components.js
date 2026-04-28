@@ -17,20 +17,24 @@ function renderNav() {
           <path d="M27 14 C27 14 31 11 32 15 C31 17 27 16 25 15Z" fill="#B8860B" opacity="0.5"/>
         </svg>
         <div class="navbar-logo-text">
-          <span class="brand-name">PALM LEAF</span>
-          <span class="brand-sub">— PARTNERS —</span>
+          <span class="brand-name" data-i18n="nav.brand.name">PALM LEAF</span>
+          <span class="brand-sub" data-i18n="nav.brand.sub">— PARTNERS —</span>
         </div>
       </a>
       <ul class="navbar-nav">
-        <li><a href="../index.html">Home</a></li>
-        <li><a href="mapping.html">Mapping</a></li>
-        <li><a href="data-center.html">Data Center</a></li>
-        <li><a href="call-centers.html">Call Centers</a></li>
-        <li><a href="fiber-backbone.html">Fiber Backbone</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="partnership.html">Partnership</a></li>
-        <li><a href="contact.html" class="nav-cta">Contact</a></li>
+        <li><a href="../index.html" data-i18n="nav.home">Home</a></li>
+        <li><a href="mapping.html" data-i18n="nav.mapping">Mapping</a></li>
+        <li><a href="data-center.html" data-i18n="nav.datacenter">Data Center</a></li>
+        <li><a href="call-centers.html" data-i18n="nav.callcenters">Call Centers</a></li>
+        <li><a href="fiber-backbone.html" data-i18n="nav.fiber">Fiber Backbone</a></li>
+        <li><a href="about.html" data-i18n="nav.about">About</a></li>
+        <li><a href="partnership.html" data-i18n="nav.partnership">Partnership</a></li>
+        <li><a href="contact.html" class="nav-cta" data-i18n="nav.contact">Contact</a></li>
       </ul>
+      <div class="lang-toggle" role="group" aria-label="Language selector">
+        <button data-lang="en" onclick="I18N.setLang('en')" class="active">EN</button>
+        <button data-lang="fr" onclick="I18N.setLang('fr')">FR</button>
+      </div>
       <button class="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">
         <span></span><span></span><span></span>
       </button>
@@ -38,15 +42,19 @@ function renderNav() {
   </nav>
   <div class="mobile-menu" id="mobile-nav" role="navigation" aria-label="Mobile navigation">
     <ul>
-      <li><a href="../index.html">Home</a></li>
-      <li><a href="mapping.html">Mapping</a></li>
-      <li><a href="data-center.html">Data Center</a></li>
-      <li><a href="call-centers.html">Call Centers</a></li>
-      <li><a href="fiber-backbone.html">Fiber Backbone</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="partnership.html">Partnership &amp; Governance</a></li>
-      <li><a href="contact.html">Contact</a></li>
+      <li><a href="../index.html" data-i18n="nav.home">Home</a></li>
+      <li><a href="mapping.html" data-i18n="nav.mapping">Mapping</a></li>
+      <li><a href="data-center.html" data-i18n="nav.datacenter">Data Center</a></li>
+      <li><a href="call-centers.html" data-i18n="nav.callcenters">Call Centers</a></li>
+      <li><a href="fiber-backbone.html" data-i18n="nav.fiber">Fiber Backbone</a></li>
+      <li><a href="about.html" data-i18n="nav.about">About</a></li>
+      <li><a href="partnership.html" data-i18n="nav.partnership">Partnership &amp; Governance</a></li>
+      <li><a href="contact.html" data-i18n="nav.contact">Contact</a></li>
     </ul>
+    <div class="lang-toggle" style="margin-top:1rem;" role="group" aria-label="Language selector">
+      <button data-lang="en" onclick="I18N.setLang('en')" class="active">EN</button>
+      <button data-lang="fr" onclick="I18N.setLang('fr')">FR</button>
+    </div>
   </div>`;
   document.body.insertAdjacentHTML('afterbegin', nav);
 }
@@ -78,8 +86,12 @@ function renderHomeNav() {
         <li><a href="pages/fiber-backbone.html">Fiber Backbone</a></li>
         <li><a href="pages/about.html">About</a></li>
         <li><a href="pages/partnership.html">Partnership</a></li>
-        <li><a href="pages/contact.html" class="nav-cta">Contact</a></li>
+        <li><a href="pages/contact.html" class="nav-cta" data-i18n="nav.contact">Contact</a></li>
       </ul>
+      <div class="lang-toggle" role="group" aria-label="Language selector">
+        <button data-lang="en" onclick="I18N.setLang('en')" class="active">EN</button>
+        <button data-lang="fr" onclick="I18N.setLang('fr')">FR</button>
+      </div>
       <button class="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav-home">
         <span></span><span></span><span></span>
       </button>
@@ -87,15 +99,19 @@ function renderHomeNav() {
   </nav>
   <div class="mobile-menu" id="mobile-nav-home" role="navigation" aria-label="Mobile navigation">
     <ul>
-      <li><a href="index.html">Home</a></li>
-      <li><a href="pages/mapping.html">Mapping</a></li>
-      <li><a href="pages/data-center.html">Data Center</a></li>
-      <li><a href="pages/call-centers.html">Call Centers</a></li>
-      <li><a href="pages/fiber-backbone.html">Fiber Backbone</a></li>
-      <li><a href="pages/about.html">About</a></li>
-      <li><a href="pages/partnership.html">Partnership &amp; Governance</a></li>
-      <li><a href="pages/contact.html">Contact</a></li>
+      <li><a href="index.html" data-i18n="nav.home">Home</a></li>
+      <li><a href="pages/mapping.html" data-i18n="nav.mapping">Mapping</a></li>
+      <li><a href="pages/data-center.html" data-i18n="nav.datacenter">Data Center</a></li>
+      <li><a href="pages/call-centers.html" data-i18n="nav.callcenters">Call Centers</a></li>
+      <li><a href="pages/fiber-backbone.html" data-i18n="nav.fiber">Fiber Backbone</a></li>
+      <li><a href="pages/about.html" data-i18n="nav.about">About</a></li>
+      <li><a href="pages/partnership.html" data-i18n="nav.partnership">Partnership &amp; Governance</a></li>
+      <li><a href="pages/contact.html" data-i18n="nav.contact">Contact</a></li>
     </ul>
+    <div class="lang-toggle" style="margin-top:1rem;" role="group" aria-label="Language selector">
+      <button data-lang="en" onclick="I18N.setLang('en')" class="active">EN</button>
+      <button data-lang="fr" onclick="I18N.setLang('fr')">FR</button>
+    </div>
   </div>`;
   document.body.insertAdjacentHTML('afterbegin', nav);
 }

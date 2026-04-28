@@ -37,8 +37,8 @@
     <div class="page-hero-bg" style="background-image: url('../assets/images/hero-contact.jpg');"></div>
     <div class="page-hero-overlay"></div>
     <div class="page-hero-content">
-      <span class="eyebrow">Get in Touch</span>
-      <h1>Let's Build Together</h1>
+      <span class="eyebrow" data-i18n="contact.eyebrow">Get in Touch</span>
+      <h1 data-i18n="contact.h1">Let's Build Together</h1>
       <p class="lead">Whether you are an investor, a government partner, a technology provider, or an organization aligned with our mission — we want to hear from you.</p>
     </div>
   </div>
@@ -54,29 +54,29 @@
       <div class="grid-2" style="align-items:flex-start;">
         <div class="slide-left">
           <div class="contact-form">
-            <span style="font-size:0.72rem; font-weight:600; color:var(--gold); letter-spacing:0.2em; text-transform:uppercase;">Send a Message</span>
-            <h2 style="margin-bottom:2rem;">How Can We Help?</h2>
+            <span style="font-size:0.72rem; font-weight:600; color:var(--gold); letter-spacing:0.2em; text-transform:uppercase;" data-i18n="contact.form.eyebrow">Send a Message</span>
+            <h2 style="margin-bottom:2rem;" data-i18n="contact.form.h2">How Can We Help?</h2>
             <form id="contactForm" onsubmit="handleSubmit(event)">
               <div class="form-row">
                 <div class="form-group">
-                  <label for="firstName">First Name</label>
+                  <label for="firstName" data-i18n="contact.label.first">First Name</label>
                   <input type="text" id="firstName" name="firstName" placeholder="Jean" required />
                 </div>
                 <div class="form-group">
-                  <label for="lastName">Last Name</label>
+                  <label for="lastName" data-i18n="contact.label.last">Last Name</label>
                   <input type="text" id="lastName" name="lastName" placeholder="Kabila" required />
                 </div>
               </div>
               <div class="form-group">
-                <label for="email">Email Address</label>
+                <label for="email" data-i18n="contact.label.email">Email Address</label>
                 <input type="email" id="email" name="email" placeholder="you@organization.com" required />
               </div>
               <div class="form-group">
-                <label for="organization">Organization</label>
+                <label for="organization" data-i18n="contact.label.org">Organization</label>
                 <input type="text" id="organization" name="organization" placeholder="Your organization or company" />
               </div>
               <div class="form-group">
-                <label for="subject">Subject</label>
+                <label for="subject" data-i18n="contact.label.subject">Subject</label>
                 <select id="subject" name="subject" required>
                   <option value="">Select a topic...</option>
                   <option value="investment">Investment Opportunity</option>
@@ -88,13 +88,13 @@
                 </select>
               </div>
               <div class="form-group">
-                <label for="message">Message</label>
+                <label for="message" data-i18n="contact.label.message">Message</label>
                 <textarea id="message" name="message" placeholder="Tell us about your interest in Palm Leaf Partners and how you'd like to engage..." required></textarea>
               </div>
-              <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center;">Send Message</button>
+              <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center;" data-i18n="contact.btn.send">Send Message</button>
             </form>
             <div id="formSuccess" style="display:none; background:rgba(27,67,50,0.08); border-radius:var(--radius-md); padding:1.5rem; text-align:center; margin-top:1rem;">
-              <p style="color:var(--green); font-weight:600; margin:0;">✓ Message sent. We'll be in touch shortly.</p>
+              <p style="color:var(--green); font-weight:600; margin:0;" data-i18n="contact.success">✓ Message sent. We'll be in touch shortly.</p>
             </div>
           </div>
         </div>
@@ -147,6 +147,7 @@
     </div>
   </section>
 
+  <script src="../js/i18n.js"></script>
   <script src="../js/components.js"></script>
   <script src="../js/main.js"></script>
   <script>
