@@ -31,12 +31,12 @@ function renderNav() {
         <li><a href="partnership.html">Partnership</a></li>
         <li><a href="contact.html" class="nav-cta">Contact</a></li>
       </ul>
-      <button class="hamburger" aria-label="Menu">
+      <button class="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">
         <span></span><span></span><span></span>
       </button>
     </div>
   </nav>
-  <div class="mobile-menu">
+  <div class="mobile-menu" id="mobile-nav" role="navigation" aria-label="Mobile navigation">
     <ul>
       <li><a href="../index.html">Home</a></li>
       <li><a href="mapping.html">Mapping</a></li>
@@ -80,12 +80,12 @@ function renderHomeNav() {
         <li><a href="pages/partnership.html">Partnership</a></li>
         <li><a href="pages/contact.html" class="nav-cta">Contact</a></li>
       </ul>
-      <button class="hamburger" aria-label="Menu">
+      <button class="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav-home">
         <span></span><span></span><span></span>
       </button>
     </div>
   </nav>
-  <div class="mobile-menu">
+  <div class="mobile-menu" id="mobile-nav-home" role="navigation" aria-label="Mobile navigation">
     <ul>
       <li><a href="index.html">Home</a></li>
       <li><a href="pages/mapping.html">Mapping</a></li>

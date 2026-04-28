@@ -10,8 +10,13 @@ document.addEventListener('DOMContentLoaded', () => {
   if (hamburger && mobileMenu) {
     hamburger.addEventListener('click', () => {
       mobileMenu.classList.toggle('open');
+      const isOpen = mobileMenu.classList.contains('open');
+      hamburger.setAttribute('aria-expanded', isOpen);
+      hamburger.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
+      // Prevent body scroll when menu is open
+      document.body.style.overflow = isOpen ? 'hidden' : '';
       const spans = hamburger.querySelectorAll('span');
-      if (mobileMenu.classList.contains('open')) {
+      if (isOpen) {
         spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
         spans[1].style.opacity = '0';
         spans[2].style.transform = 'rotate(-45deg) translate(5px, -5px)';
@@ -24,6 +29,9 @@ document.addEventListener('DOMContentLoaded', () => {
     mobileMenu.querySelectorAll('a').forEach(a => {
       a.addEventListener('click', () => {
         mobileMenu.classList.remove('open');
+        hamburger.setAttribute('aria-expanded', 'false');
+        hamburger.setAttribute('aria-label', 'Open menu');
+        document.body.style.overflow = '';
         hamburger.querySelectorAll('span').forEach(s => { s.style.transform = ''; s.style.opacity = ''; });
       });
     });
@@ -39,22 +47,24 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   /* ── Parallax: hero background moves slower than scroll ── */
+  /* Disabled on touch devices for performance and motion sensitivity */
   const heroBgLayer = document.querySelector('.hero-bg-layer');
   const zolaParallax = document.querySelector('.zola-parallax-img');
+  const isTouchDevice = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isMobile = window.innerWidth <= 768;
 
   function handleParallax() {
     const scrollY = window.scrollY;
     if (heroBgLayer) {
-      // Background moves at 40% of scroll speed
       heroBgLayer.style.transform = `translateY(${scrollY * 0.4}px)`;
     }
     if (zolaParallax) {
-      // Zola moves at 25% of scroll speed (slower than headline = depth effect)
       zolaParallax.style.transform = `translateY(${scrollY * 0.25}px)`;
     }
   }
 
-  if (heroBgLayer || zolaParallax) {
+  if ((heroBgLayer || zolaParallax) && !isTouchDevice && !prefersReducedMotion && !isMobile) {
     window.addEventListener('scroll', handleParallax, { passive: true });
   }
 
