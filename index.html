@@ -67,72 +67,56 @@
     </div>
   </div>
 
-  <!-- FOUR PILLARS — badge icon style -->
+  <!-- MEET ZOLA — brand sheet + pillars -->
   <section class="section" style="background:var(--white);">
     <div class="container">
-      <div class="section-header fade-in">
-        <span class="eyebrow" data-i18n="home.pillars.eyebrow">Our Four Pillars</span>
-        <h2 data-i18n="home.pillars.h2">Infrastructure That Connects a Nation</h2>
-        <p>Every pillar reinforces the others — together they form a complete national infrastructure ecosystem.</p>
-        <div class="divider-gold"></div>
-      </div>
-      <div class="pillars-badge-grid">
-        <!-- Growth -->
-        <div class="pillar-badge-card slide-up">
-          <div class="pillar-badge-icon">
-            <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M20 6 C20 6 12 12 12 20 C12 26 15.5 30.5 20 32 C24.5 30.5 28 26 28 20 C28 12 20 6 20 6Z" fill="#B8860B" opacity="0.9"/>
-              <path d="M20 6 L20 32" stroke="#F5F0E8" stroke-width="2"/>
-              <path d="M14 16 C14 16 10 14 9 18 C10 20 14 19 16 18Z" fill="#B8860B" opacity="0.6"/>
-              <path d="M26 16 C26 16 30 14 31 18 C30 20 26 19 24 18Z" fill="#B8860B" opacity="0.6"/>
-            </svg>
+
+      <!-- Two-column: text left, brand sheet right -->
+      <div class="grid-2" style="align-items:flex-start; gap:4rem; margin-bottom:4rem;">
+        <div class="slide-left">
+          <span style="font-size:0.72rem;font-weight:600;color:var(--gold);letter-spacing:0.2em;text-transform:uppercase;" data-i18n="about.zola.eyebrow">Meet Zola</span>
+          <h2 style="margin-top:0.5rem;" data-i18n="about.zola.h2">The Symbol of Strength, Growth &amp; Partnership</h2>
+          <p style="color:var(--text-muted);font-size:1.05rem;line-height:1.8;" data-i18n="about.zola.p1">Zola is more than a mascot. She is the embodiment of everything Palm Leaf Partners stands for — strength, growth, partnership, and deep roots in the soil of the DRC.</p>
+          <p style="color:var(--text-muted);font-size:1.05rem;line-height:1.8;" data-i18n="about.zola.p2">Her palm leaves reach upward, signifying progress and aspiration. Her roots stay deep, honoring the land, the people, and the purpose that grounds everything we do.</p>
+          <!-- Four pillar mini-list -->
+          <div style="margin-top:2rem;display:flex;flex-direction:column;gap:1rem;">
+            <div style="display:flex;align-items:center;gap:1rem;">
+              <div style="width:44px;height:44px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                <svg width="22" height="22" viewBox="0 0 40 40" fill="none"><path d="M20 6 C20 6 12 12 12 20 C12 26 15.5 30.5 20 32 C24.5 30.5 28 26 28 20 C28 12 20 6 20 6Z" fill="#B8860B" opacity="0.9"/><path d="M20 6 L20 32" stroke="#F5F0E8" stroke-width="2"/></svg>
+              </div>
+              <div><strong style="color:var(--green);font-size:0.9rem;text-transform:uppercase;letter-spacing:0.08em;" data-i18n="pillar.growth.name">Growth</strong><span style="color:var(--text-muted);font-size:0.88rem;"> — <span data-i18n="pillar.growth.desc">Nurturing potential and building for the future.</span></span></div>
+            </div>
+            <div style="display:flex;align-items:center;gap:1rem;">
+              <div style="width:44px;height:44px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                <svg width="22" height="22" viewBox="0 0 40 40" fill="none"><path d="M8 22 C8 22 10 18 14 17 L17 19 L20 17 L23 19 L26 17 C30 18 32 22 32 22" stroke="#B8860B" stroke-width="2" fill="none"/><circle cx="14" cy="13" r="4" stroke="#B8860B" stroke-width="1.5" fill="none"/><circle cx="26" cy="13" r="4" stroke="#B8860B" stroke-width="1.5" fill="none"/></svg>
+              </div>
+              <div><strong style="color:var(--green);font-size:0.9rem;text-transform:uppercase;letter-spacing:0.08em;" data-i18n="pillar.partnership.name">Partnership</strong><span style="color:var(--text-muted);font-size:0.88rem;"> — <span data-i18n="pillar.partnership.desc">Working together for lasting impact.</span></span></div>
+            </div>
+            <div style="display:flex;align-items:center;gap:1rem;">
+              <div style="width:44px;height:44px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                <svg width="22" height="22" viewBox="0 0 40 40" fill="none"><circle cx="13" cy="12" r="4" stroke="#B8860B" stroke-width="1.5" fill="none"/><circle cx="20" cy="10" r="4" stroke="#B8860B" stroke-width="1.5" fill="none"/><circle cx="27" cy="12" r="4" stroke="#B8860B" stroke-width="1.5" fill="none"/><path d="M13 21 C13 21 16 19 20 19 C24 19 27 21 27 21" stroke="#B8860B" stroke-width="1.5" fill="none"/></svg>
+              </div>
+              <div><strong style="color:var(--green);font-size:0.9rem;text-transform:uppercase;letter-spacing:0.08em;" data-i18n="pillar.empowerment.name">Empowerment</strong><span style="color:var(--text-muted);font-size:0.88rem;"> — <span data-i18n="pillar.empowerment.desc">Uplifting women and strengthening communities.</span></span></div>
+            </div>
+            <div style="display:flex;align-items:center;gap:1rem;">
+              <div style="width:44px;height:44px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                <svg width="22" height="22" viewBox="0 0 40 40" fill="none"><path d="M20 6 C15 6 9 9 7 14 C5 19 7 24 10 27 C13 30 16 32 20 33 C24 32 27 30 30 27 C33 24 35 19 33 14 C31 9 25 6 20 6Z" fill="#B8860B" opacity="0.85"/></svg>
+              </div>
+              <div><strong style="color:var(--green);font-size:0.9rem;text-transform:uppercase;letter-spacing:0.08em;" data-i18n="pillar.drc.name">DRC Proud</strong><span style="color:var(--text-muted);font-size:0.88rem;"> — <span data-i18n="pillar.drc.desc">Rooted in the Congo. Committed to its people.</span></span></div>
+            </div>
           </div>
-          <div class="pillar-name" data-i18n="pillar.growth.name">Growth</div>
-          <p class="pillar-desc">Nurturing potential and building for the future — in our projects, our partnerships, and our people.</p>
+          <a href="pages/about.html" class="btn btn-green" style="margin-top:2rem;" data-i18n="home.btn.mission">Our Mission</a>
         </div>
-        <!-- Partnership -->
-        <div class="pillar-badge-card slide-up" style="transition-delay:0.1s">
-          <div class="pillar-badge-icon">
-            <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M8 22 C8 22 10 18 14 17 L17 19 L20 17 L23 19 L26 17 C30 18 32 22 32 22" stroke="#B8860B" stroke-width="2" fill="none"/>
-              <path d="M14 17 L14 28 M26 17 L26 28" stroke="#B8860B" stroke-width="1.5"/>
-              <path d="M10 28 C10 28 14 24 20 24 C26 24 30 28 30 28" stroke="#B8860B" stroke-width="2" fill="none"/>
-              <circle cx="14" cy="13" r="4" stroke="#B8860B" stroke-width="1.5" fill="none"/>
-              <circle cx="26" cy="13" r="4" stroke="#B8860B" stroke-width="1.5" fill="none"/>
-            </svg>
-          </div>
-          <div class="pillar-name" data-i18n="pillar.partnership.name">Partnership</div>
-          <p class="pillar-desc">Working together for lasting impact. We build with the DRC, not for it.</p>
-        </div>
-        <!-- Empowerment -->
-        <div class="pillar-badge-card slide-up" style="transition-delay:0.2s">
-          <div class="pillar-badge-icon">
-            <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="13" cy="12" r="4" stroke="#B8860B" stroke-width="1.5" fill="none"/>
-              <circle cx="20" cy="10" r="4" stroke="#B8860B" stroke-width="1.5" fill="none"/>
-              <circle cx="27" cy="12" r="4" stroke="#B8860B" stroke-width="1.5" fill="none"/>
-              <path d="M6 30 C6 24 9 21 13 21" stroke="#B8860B" stroke-width="1.5" fill="none"/>
-              <path d="M27 21 C31 21 34 24 34 30" stroke="#B8860B" stroke-width="1.5" fill="none"/>
-              <path d="M13 21 C13 21 16 19 20 19 C24 19 27 21 27 21" stroke="#B8860B" stroke-width="1.5" fill="none"/>
-              <path d="M20 19 L20 30" stroke="#B8860B" stroke-width="1.5"/>
-              <path d="M16 26 L20 30 L24 26" stroke="#B8860B" stroke-width="1.5" fill="none"/>
-            </svg>
-          </div>
-          <div class="pillar-name" data-i18n="pillar.empowerment.name">Empowerment</div>
-          <p class="pillar-desc">Uplifting women and strengthening communities across all 26 provinces.</p>
-        </div>
-        <!-- DRC Proud -->
-        <div class="pillar-badge-card slide-up" style="transition-delay:0.3s">
-          <div class="pillar-badge-icon">
-            <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M20 6 C15 6 9 9 7 14 C5 19 7 24 10 27 C13 30 16 32 20 33 C24 32 27 30 30 27 C33 24 35 19 33 14 C31 9 25 6 20 6Z" fill="#B8860B" opacity="0.85"/>
-              <path d="M20 6 C20 6 16 12 17 19 L20 33 L23 19 C24 12 20 6 20 6Z" fill="#1B4332" opacity="0.6"/>
-            </svg>
-          </div>
-          <div class="pillar-name" data-i18n="pillar.drc.name">DRC Proud</div>
-          <p class="pillar-desc">Rooted in the Congo. Governed under Congolese law. Accountable to the Congolese people.</p>
+
+        <!-- Brand sheet on the right -->
+        <div class="slide-right" style="position:relative;">
+          <img src="assets/images/zola-mascot.png"
+               alt="Zola — Palm Leaf Partners brand identity"
+               style="width:100%;max-width:520px;border-radius:var(--radius-lg);box-shadow:var(--shadow-lg);display:block;margin:0 auto;"
+          />
         </div>
       </div>
+
     </div>
   </section>
 
@@ -155,37 +139,37 @@
         <div class="project-card slide-left">
           <img src="assets/images/zola-hero-mapping.jpg" alt="Address Mapping" class="project-card-img" />
           <div class="project-card-body">
-            <span class="tag" data-i18n="home.card.mapping.tag">Phase 1 · Active</span>
+            <span class="tag" data-i18n="tag.phase1">Phase 1 · Active</span>
             <h3 data-i18n="home.card.mapping.h3">National Address Mapping</h3>
             <p data-i18n="home.card.mapping.p">20 million addresses mapped at 95% accuracy — for the first time in DRC history. Delivered through up to 100 modernized post offices, every one connected by Starlink.</p>
-            <a href="pages/mapping.html" class="card-link">Explore project <span>→</span></a>
+            <a href="pages/mapping.html" class="card-link"><span data-i18n="card.explore">Explore project</span> <span>→</span></a>
           </div>
         </div>
         <div class="project-card slide-right">
           <img src="assets/images/zola-hero-fiber.jpg" alt="Fiber Backbone" class="project-card-img" />
           <div class="project-card-body">
-            <span class="tag" data-i18n="home.card.fiber.tag">Phase 2 · Development</span>
+            <span class="tag" data-i18n="tag.phase2">Phase 2 · Development</span>
             <h3 data-i18n="home.card.fiber.h3">National Fiber Backbone</h3>
             <p data-i18n="home.card.fiber.p">A national fiber backbone connecting six major cities, with microwave reach to 100+ remote sites — and Starlink for last-mile rural coverage across the world's second-largest country.</p>
-            <a href="pages/fiber-backbone.html" class="card-link">Explore project <span>→</span></a>
+            <a href="pages/fiber-backbone.html" class="card-link"><span data-i18n="card.explore">Explore project</span> <span>→</span></a>
           </div>
         </div>
         <div class="project-card slide-left">
           <img src="assets/images/zola-hero-datacenter.jpg" alt="Data Center" class="project-card-img" />
           <div class="project-card-body">
-            <span class="tag">Phase 2 · Development</span>
+            <span class="tag" data-i18n="tag.phase2">Phase 2 · Development</span>
             <h3 data-i18n="home.card.dc.h3">Sovereign Data Center</h3>
             <p data-i18n="home.card.dc.p">A two-site sovereign cloud — Kinshasa primary, Lubumbashi disaster-recovery — Tier-IV certified, with a 24/7 Security Operations Center. The DRC's data stays in the DRC.</p>
-            <a href="pages/data-center.html" class="card-link">Explore project <span>→</span></a>
+            <a href="pages/data-center.html" class="card-link"><span data-i18n="card.explore">Explore project</span> <span>→</span></a>
           </div>
         </div>
         <div class="project-card slide-right">
           <img src="assets/images/zola-hero-callcenter.jpg" alt="Call Centers" class="project-card-img" />
           <div class="project-card-body">
-            <span class="tag" data-i18n="home.card.cc.tag">Phase 3 · Planned</span>
+            <span class="tag" data-i18n="tag.phase3">Phase 3 · Planned</span>
             <h3 data-i18n="home.card.cc.h3">Regional Call Centers</h3>
             <p data-i18n="home.card.cc.p">Five to ten regional call centers covering every region of the DRC, operating in six languages — built on the address mapping foundation that makes precise emergency dispatch possible.</p>
-            <a href="pages/call-centers.html" class="card-link">Explore project <span>→</span></a>
+            <a href="pages/call-centers.html" class="card-link"><span data-i18n="card.explore">Explore project</span> <span>→</span></a>
           </div>
         </div>
       </div>
@@ -195,7 +179,7 @@
   <!-- TRUST STACK -->
   <div class="trust-bar">
     <div class="container">
-      <p class="trust-label">Governed &amp; Authorized Under</p>
+      <p class="trust-label" data-i18n="home.trust.label">Governed &amp; Authorized Under</p>
       <div class="trust-logos">
         <div class="trust-badge"><div class="badge-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="#B8860B"><path d="M12 2L2 7V12C2 16.5 6.5 20.7 12 22C17.5 20.7 22 16.5 22 12V7L12 2Z"/></svg></div><span>SCPT<br>MOU</span></div>
         <div class="trust-badge"><div class="badge-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="#B8860B"><rect x="3" y="3" width="18" height="18" rx="2" fill="none" stroke="#B8860B" stroke-width="1.5"/><path d="M7 12H17M12 7V17" stroke="#B8860B" stroke-width="1.5"/></svg></div><span>UPTWB<br>SAS</span></div>
@@ -210,7 +194,7 @@
   <section class="callout">
     <div class="container">
       <h2 class="fade-in" data-i18n="home.cta.h2">Ready to Build the Future of the DRC?</h2>
-      <p class="fade-in">Whether you are an investor, a government partner, or an organization aligned with our mission — we want to hear from you.</p>
+      <p class="fade-in" data-i18n="home.cta.lead">Whether you are an investor, a government partner, or an organization aligned with our mission — we want to hear from you.</p>
       <a href="pages/contact.html" class="btn btn-primary fade-in" data-i18n="home.cta.btn">Get in Touch</a>
     </div>
   </section>
@@ -218,6 +202,7 @@
   <script src="js/i18n.js"></script>
   <script src="js/i18n-extended.js"></script>
   <script src="js/i18n-final.js"></script>
+  <script src="js/i18n-patch.js"></script>
   <script src="js/components.js"></script>
   <script src="js/main.js"></script>
   <script>renderHomeNav(); renderFooter(true);</script>
