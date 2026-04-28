@@ -24,6 +24,11 @@ img, video {
 /* ── 2. TABLET (≤ 768px) ── */
 @media (max-width: 768px) {
 
+  /* --- Hero background centering on mobile --- */
+  .hero-parallax .hero-bg-layer {
+    background-position: 35% center !important;
+  }
+
   /* --- Navigation --- */
   .navbar {
     padding: 0 1rem;
@@ -255,6 +260,11 @@ img, video {
 
 /* ── 3. LARGE PHONE (≤ 480px) ── */
 @media (max-width: 480px) {
+
+  /* Hero: show Zola's face centered */
+  .hero-parallax .hero-bg-layer {
+    background-position: 38% center !important;
+  }
 
   /* --- Container padding --- */
   .container { padding: 0 1rem; }
