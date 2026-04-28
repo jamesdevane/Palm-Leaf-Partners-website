@@ -9,6 +9,14 @@
   <link rel="stylesheet" href="css/cinematic.css" />
   <link rel="stylesheet" href="css/mobile.css" />
   <style>
+    /* Homepage-specific mobile hero image path fix */
+    @media (max-width: 768px) {
+      .hero-parallax .hero-bg-layer {
+        background-image: url('assets/images/zola-hero-home-mobile.jpg') !important;
+      }
+    }
+  </style>
+  <style>
     .project-card { position:relative; border-radius:var(--radius-lg); overflow:hidden; box-shadow:var(--shadow-md); transition:all var(--transition); background:var(--white); }
     .project-card:hover { transform:translateY(-6px); box-shadow:var(--shadow-lg); }
     .project-card-img { width:100%; height:260px; object-fit:cover; transition:transform 0.5s ease; display:block; }

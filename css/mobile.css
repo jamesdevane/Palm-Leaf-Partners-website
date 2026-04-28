@@ -24,15 +24,10 @@ img, video {
 /* ── 2. TABLET (≤ 768px) ── */
 @media (max-width: 768px) {
 
-  /* --- Hero background centering on mobile --- */
+  /* --- Mobile hero: swap to portrait image, center Zola --- */
   .hero-parallax .hero-bg-layer {
-    background-position: 35% center !important;
-  }
-
-  /* --- Full-bleed hero: Zola visible top, text at bottom on mobile --- */
-  /* Background: show Zola's face (position from left) */
-  .hero-parallax .hero-bg-layer {
-    background-position: 35% top !important;
+    background-image: url('../assets/images/zola-hero-home-mobile.jpg') !important;
+    background-position: center top !important;
     background-size: cover !important;
   }
   /* Text block: anchored to bottom, full width */
