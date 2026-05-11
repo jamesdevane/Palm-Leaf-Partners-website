@@ -69,7 +69,7 @@ Object.assign(translations, {
 
   /* ── PARTNERSHIP — all remaining ── */
   'part.eyebrow.main':   { en: 'Partnership &amp; Governance', fr: 'Partenariat &amp; Gouvernance' },
-  'part.lead':           { en: 'Palm Leaf Partners operates under a robust legal and governance framework — OHADA law, DRC PPP Law 20/018, and formal MOUs with the DRC\'s national institutions — ensuring every project is authorized, transparent, and accountable.', fr: 'Palm Leaf Partners opère dans un cadre juridique et de gouvernance solide — droit OHADA, Loi PPP RDC 20/018, et MOU formels avec les institutions nationales de la RDC — garantissant que chaque projet est autorisé, transparent et responsable.' },
+  'part.lead':           { en: 'Palm Leaf Partners, a US company, conducts its DRC operations through UPTWB SAS under a robust legal framework — OHADA law, DRC PPP Law 20/018, and formal MOUs with the DRC\'s national institutions — ensuring every project is authorized, transparent, and accountable.', fr: 'Palm Leaf Partners, entreprise américaine, conduit ses opérations en RDC à travers UPTWB SAS dans un cadre juridique solide — droit OHADA, Loi PPP RDC 20/018, et MOU formels avec les institutions nationales de la RDC — garantissant que chaque projet est autorisé, transparent et responsable.' },
   'part.legal.eyebrow':  { en: 'Legal Framework', fr: 'Cadre Juridique' },
   'part.mou.eyebrow':    { en: 'Memoranda of Understanding', fr: 'Mémorandums d\'Entente' },
   'part.invest.eyebrow': { en: 'Investment Opportunities', fr: 'Opportunités d\'Investissement' },

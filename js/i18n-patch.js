@@ -16,7 +16,7 @@ Object.assign(translations, {
 
   /* ── SISTER BRAND / FOOTER ── */
   'sister.ptwo.tagline':{ en: 'Empowering Women · Transforming Communities', fr: 'Autonomiser les Femmes · Transformer les Communautés' },
-  'sister.ptwo.title':  { en: 'PALM TREE<br>WOMEN ORGANIZATION', fr: 'ORGANISATION DES FEMMES<br>PALM TREE' },
+  'sister.ptwo.title':  { en: 'UNIVERSAL PALM TREE<br>WOMEN ORGANIZATION', fr: 'ORGANISATION UNIVERSELLE DES FEMMES<br>PALM TREE' },
 
   /* ── CALL CENTERS — scale labels & beat 2 paragraph ── */
   'cc.scale.centers':   { en: 'Regional Centers',        fr: 'Centres Régionaux' },
@@ -50,8 +50,8 @@ Object.assign(translations, {
     fr: 'Travailler ensemble pour un impact durable. Nous ne construisons pas pour la RDC — nous construisons avec la RDC. Chaque MOU, chaque accord, chaque projet est un partenariat.'
   },
   'about.val.empower.p': {
-    en: 'Uplifting women and strengthening communities. Our sister organization, Palm Tree Women Organization, ensures that women are at the center of everything we build.',
-    fr: 'Élever les femmes et renforcer les communautés. Notre organisation sœur, l\'Organisation des Femmes Palm Tree, veille à ce que les femmes soient au cœur de tout ce que nous construisons.'
+    en: 'Uplifting women and strengthening communities. Our sister organization, Universal Palm Tree Women Organization, ensures that women are at the center of everything we build.',
+    fr: 'Élever les femmes et renforcer les communautés. Notre organisation sœur, l\'Organisation Universelle des Femmes Palm Tree, veille à ce que les femmes soient au cœur de tout ce que nous construisons.'
   },
   'about.val.drc.p': {
     en: 'Rooted in the Congo. Committed to its people. We are not a foreign firm operating in the DRC — we are a DRC firm, governed under DRC law, accountable to the Congolese people.',
@@ -80,7 +80,7 @@ Object.assign(translations, {
 
   /* ── ABOUT — sister brand section ── */
   'about.sister.eyebrow':{ en: 'Brand Family',            fr: 'Famille de Marque' },
-  'about.sister.h2':    { en: 'Palm Tree Women Organization', fr: 'Organisation des Femmes Palm Tree' },
+  'about.sister.h2':    { en: 'Universal Palm Tree Women Organization', fr: 'Organisation Universelle des Femmes Palm Tree' },
   'about.sister.feat1': { en: 'Women-led community address registration programs', fr: 'Programmes d\'enregistrement d\'adresses communautaires dirigés par des femmes' },
   'about.sister.feat2': { en: 'Female employment priority in call center staffing', fr: 'Priorité à l\'emploi féminin dans le personnel des centres d\'appel' },
   'about.sister.feat3': { en: 'Women\'s digital literacy programs at post office hubs', fr: 'Programmes d\'alphabétisation numérique pour les femmes dans les bureaux de poste' },

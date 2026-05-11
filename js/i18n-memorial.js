@@ -35,7 +35,7 @@ Object.assign(translations, {
     fr: 'La Cité Mémoriale n\'est pas un monument au deuil. C\'est un monument à la résilience. Un espace vivant de 5 kilomètres carrés où le passé est honoré, le présent est guéri et l\'avenir est construit. Hôtels, musées, centres culturels, jardins et mémoriaux — tous tissés ensemble en une destination qui attire le monde pour témoigner, apprendre et s\'engager.'
   },
   'mem.vision.p3': {
-    en: 'Led by the Universal Palm Tree Women (UPTW) in partnership with the DRC government, UN Women, UNICEF, UNESCO, and international foundations, this is one of the most significant humanitarian and cultural projects on the African continent.',
+    en: 'Led by the Universal Palm Tree Women Organization (UPTW) in partnership with the DRC government, UN Women, UNICEF, UNESCO, and international foundations, this is one of the most significant humanitarian and cultural projects on the African continent.',
     fr: 'Dirigé par l\'Organisation Universelle des Femmes Palm Tree (UPTW) en partenariat avec le gouvernement de la RDC, ONU Femmes, l\'UNICEF, l\'UNESCO et des fondations internationales, c\'est l\'un des projets humanitaires et culturels les plus importants du continent africain.'
   },
 
@@ -51,7 +51,7 @@ Object.assign(translations, {
     en: '"We do not build this city to dwell in sorrow. We build it so that every generation that comes after us will know what was lost — and will choose, every day, to build something better."',
     fr: '"Nous ne construisons pas cette ville pour nous complaire dans la tristesse. Nous la construisons pour que chaque génération qui vient après nous sache ce qui a été perdu — et choisisse, chaque jour, de construire quelque chose de meilleur."'
   },
-  'mem.quote.source': { en: 'Universal Palm Tree Women (UPTW) · Democratic Republic of Congo', fr: 'Organisation Universelle des Femmes Palm Tree (UPTW) · République Démocratique du Congo' },
+  'mem.quote.source': { en: 'Universal Palm Tree Women Organization (UPTW) · Democratic Republic of Congo', fr: 'Organisation Universelle des Femmes Palm Tree (UPTW) · République Démocratique du Congo' },
 
   /* ── BEAT 1 ── */
   'mem.beat1.label': { en: 'We remember.', fr: 'Nous nous souvenons.' },

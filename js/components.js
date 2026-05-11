@@ -147,7 +147,7 @@ function renderFooter(isHome = false) {
             <circle cx="22" cy="33" r="3" fill="#B8860B" opacity="0.5"/>
           </svg>
         </div>
-        <div class="brand-title">PALM TREE<br>WOMEN ORGANIZATION</div>
+        <div class="brand-title">UNIVERSAL PALM TREE<br>WOMEN ORGANIZATION</div>
         <div class="brand-tagline">Empowering Women · Transforming Communities</div>
       </div>
     </div>
@@ -165,7 +165,7 @@ function renderFooter(isHome = false) {
             </div>
           </div>
           <p data-i18n="footer.desc">Palm Leaf Partners is a DRC-rooted infrastructure and technology firm building the foundational systems — address mapping, data centers, call centers, and fiber backbone — that the Democratic Republic of Congo needs to grow.</p>
-          <p style="font-size:0.78rem; color: rgba(245,240,232,0.4);" data-i18n="footer.legal">Governed under OHADA law · DRC PPP Law 20/018 · SCPT MOU · UPTWB SAS</p>
+          <p style="font-size:0.78rem; color: rgba(245,240,232,0.4);" data-i18n="footer.legal">US company · DRC operations under OHADA law · DRC PPP Law 20/018 · SCPT MOU · UPTWB SAS</p>
         </div>
         <div class="footer-col">
           <h5 data-i18n="footer.projects">Projects</h5>
@@ -196,10 +196,10 @@ function renderFooter(isHome = false) {
         </div>
       </div>
       <div class="footer-bottom">
-        <p data-i18n="footer.copyright">&copy; 2025 Palm Leaf Partners. All rights reserved. Kinshasa, DRC.</p>
+        <p data-i18n="footer.copyright">&copy; 2026 Palm Leaf Partners LLC. All rights reserved.</p>
         <div class="footer-legal">
-          <a href="#" data-i18n="footer.privacy">Privacy Policy</a>
-          <a href="#" data-i18n="footer.terms">Terms of Use</a>
+          <a href="${base}privacy.html" data-i18n="footer.privacy">Privacy Policy</a>
+          <a href="${base}terms.html" data-i18n="footer.terms">Terms of Use</a>
         </div>
       </div>
     </div>

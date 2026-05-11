@@ -216,8 +216,8 @@ Object.assign(translations, {
     fr: 'Zola est plus qu\'une mascotte. Elle est l\'incarnation de tout ce que Palm Leaf Partners représente — force, croissance, partenariat et racines profondes dans le sol de la RDC.'
   },
   'about.sister.p': {
-    en: 'Palm Leaf Partners and Palm Tree Women Organization share the same roots — and the same purpose. While Palm Leaf Partners builds the physical and digital infrastructure of the DRC, Palm Tree Women Organization ensures that women are not just beneficiaries of that infrastructure, but builders, leaders, and owners of it.',
-    fr: 'Palm Leaf Partners et l\'Organisation des Femmes Palm Tree partagent les mêmes racines — et le même objectif. Tandis que Palm Leaf Partners construit l\'infrastructure physique et numérique de la RDC, l\'Organisation des Femmes Palm Tree veille à ce que les femmes ne soient pas seulement bénéficiaires de cette infrastructure, mais aussi bâtisseuses, dirigeantes et propriétaires.'
+    en: 'Palm Leaf Partners and Universal Palm Tree Women Organization share the same roots — and the same purpose. While Palm Leaf Partners builds the physical and digital infrastructure of the DRC, Universal Palm Tree Women Organization ensures that women are not just beneficiaries of that infrastructure, but builders, leaders, and owners of it.',
+    fr: 'Palm Leaf Partners et l\'Organisation Universelle des Femmes Palm Tree partagent les mêmes racines — et le même objectif. Tandis que Palm Leaf Partners construit l\'infrastructure physique et numérique de la RDC, l\'Organisation Universelle des Femmes Palm Tree veille à ce que les femmes ne soient pas seulement bénéficiaires de cette infrastructure, mais aussi bâtisseuses, dirigeantes et propriétaires.'
   },
 
   /* ── CONTACT — additional ── */

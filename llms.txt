@@ -2,7 +2,7 @@
 
 > A DRC-rooted infrastructure and technology firm building the foundational systems — national address mapping, sovereign data centers, regional emergency call centers, and fiber backbone — that the Democratic Republic of the Congo needs to grow. 25-year partnership with SCPT, the Congolese national post and telecommunications company.
 
-Palm Leaf Partners (PLP) is a Wyoming LLC governed under OHADA Uniform Acts and the DRC's Public-Private Partnership Law 20/018 (2020). PLP operates in coordination with UPTWB SAS (DRC-side workforce engagement) and UPTW USA, LLC (USA-side fund management). The partnership counterparty is SCPT — Société Congolaise des Postes et Télécommunications.
+Palm Leaf Partners (PLP) is a Wyoming LLC (USA). Its DRC operations are conducted through UPTWB SAS, a DRC-registered Société par Actions Simplifiée under OHADA Uniform Acts and the DRC's Public-Private Partnership Law 20/018 (2020). UPTW USA, LLC provides USA-side fund management. The partnership counterparty is SCPT — Société Congolaise des Postes et Télécommunications.
 
 Tagline: Building Systems. Growing Futures.
 
@@ -14,7 +14,7 @@ Tagline: Building Systems. Growing Futures.
 - [Regional Call Centers](https://palmleafpartners.com/pages/call-centers.html): Five to ten regional emergency-dispatch + multi-service centers in six languages (French, Lingala, Swahili, Kikongo, Tshiluba, English)
 - [National Fiber Backbone](https://palmleafpartners.com/pages/fiber-backbone.html): Fiber connecting Kinshasa, Lubumbashi, Goma, Kisangani, Mbuji-Mayi, Bukavu, with Starlink + microwave reach to 100+ remote sites
 - [Memorial City](https://palmleafpartners.com/pages/memorial-city.html): A planned memorial and cultural city honoring the Congolese people
-- [About](https://palmleafpartners.com/pages/about.html): Mission, values, the Zola mascot, brand family including Palm Tree Women Organization
+- [About](https://palmleafpartners.com/pages/about.html): Mission, values, the Zola mascot, brand family including Universal Palm Tree Women Organization
 - [Partnership & Governance](https://palmleafpartners.com/pages/partnership.html): Legal framework, MOUs, governance structure
 - [Contact](https://palmleafpartners.com/pages/contact.html): Inquiry form for investors, governments, partners, and press
 
@@ -24,4 +24,4 @@ Zola is the brand's symbolic figure — a Congolese woman in green ceremonial dr
 
 ## Sister organization
 
-Palm Tree Women Organization — empowering women, transforming communities. Operates alongside Palm Leaf Partners under the shared theme "Shared Roots. Shared Purpose."
+Universal Palm Tree Women Organization — empowering women, transforming communities. Operates alongside Palm Leaf Partners under the shared theme "Shared Roots. Shared Purpose."
