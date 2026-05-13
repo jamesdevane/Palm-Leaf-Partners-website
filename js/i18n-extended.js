@@ -165,8 +165,8 @@ Object.assign(translations, {
   'part.ohada.badge': { en: 'OHADA Law', fr: 'Droit OHADA' },
   'part.ohada.h3': { en: 'Organisation pour l\'Harmonisation en Afrique du Droit des Affaires', fr: 'Organisation pour l\'Harmonisation en Afrique du Droit des Affaires' },
   'part.ohada.p1': {
-    en: 'Palm Leaf Partners is incorporated and operates under OHADA — the harmonized business law framework adopted by 17 African nations, including the DRC. OHADA provides a modern, internationally recognized legal structure for commercial entities, contracts, and dispute resolution.',
-    fr: 'Palm Leaf Partners est constituée et opère sous OHADA — le cadre de droit des affaires harmonisé adopté par 17 nations africaines, dont la RDC. L\'OHADA fournit une structure juridique moderne et internationalement reconnue pour les entités commerciales, les contrats et la résolution des litiges.'
+    en: 'OHADA — the harmonized business law framework adopted by 17 African nations including the DRC — governs UPTWB SAS, the DRC entity at the head of our operational direction chain. OHADA provides a modern, internationally recognized legal structure for commercial entities, contracts, and dispute resolution.',
+    fr: 'L\'OHADA — le cadre de droit des affaires harmonisé adopté par 17 nations africaines dont la RDC — régit UPTWB SAS, l\'entité de la RDC à la tête de notre chaîne de direction opérationnelle. L\'OHADA fournit une structure juridique moderne et internationalement reconnue pour les entités commerciales, les contrats et la résolution des litiges.'
   },
   'part.ppp.badge': { en: 'DRC PPP Law 20/018', fr: 'Loi PPP RDC 20/018' },
   'part.ppp.h3': { en: 'Loi sur les Partenariats Public-Privé', fr: 'Loi sur les Partenariats Public-Privé' },
@@ -175,16 +175,16 @@ Object.assign(translations, {
     fr: 'Tous les projets d\'infrastructure de Palm Leaf Partners sont structurés sous la Loi RDC 20/018 — la loi sur les Partenariats Public-Privé qui régit la manière dont les entités privées peuvent investir dans et exploiter les infrastructures nationales en République Démocratique du Congo.'
   },
   'part.uptwb.badge': { en: 'UPTWB SAS', fr: 'UPTWB SAS' },
-  'part.uptwb.h3': { en: 'Société par Actions Simplifiée — DRC Entity', fr: 'Société par Actions Simplifiée — Entité RDC' },
+  'part.uptwb.h3': { en: 'Société par Actions Simplifiée — DRC (OHADA)', fr: 'Société par Actions Simplifiée — RDC (OHADA)' },
   'part.uptwb.p': {
-    en: 'UPTWB SAS is the DRC-registered operating entity through which Palm Leaf Partners executes its programs on Congolese soil. As a Société par Actions Simplifiée under OHADA law, it provides the legal structure for local operations, employment, and government partnerships.',
-    fr: 'UPTWB SAS est l\'entité opérationnelle enregistrée en RDC par laquelle Palm Leaf Partners exécute ses programmes sur le sol congolais. En tant que Société par Actions Simplifiée sous le droit OHADA, elle fournit la structure juridique pour les opérations locales, l\'emploi et les partenariats gouvernementaux.'
+    en: 'UPTWB SAS is the DRC-registered Société par Actions Simplifiée at the head of our operational direction chain. Constituted under OHADA law, UPTWB SAS sets strategic direction for UPTW USA, LLC, which in turn directs Palm Leaf Partners LLC. This structure ensures that DRC priorities, government relationships, and on-the-ground operational realities shape every layer of our work.',
+    fr: 'UPTWB SAS est la Société par Actions Simplifiée enregistrée en RDC à la tête de notre chaîne de direction opérationnelle. Constituée sous le droit OHADA, UPTWB SAS fixe la direction stratégique pour UPTW USA, LLC, qui à son tour dirige Palm Leaf Partners LLC. Cette structure garantit que les priorités de la RDC, les relations gouvernementales et les réalités opérationnelles sur le terrain façonnent chaque niveau de notre travail.'
   },
   'part.uptw.badge': { en: 'UPTW USA', fr: 'UPTW USA' },
-  'part.uptw.h3': { en: 'United States Entity — International Operations', fr: 'Entité États-Unis — Opérations Internationales' },
+  'part.uptw.h3': { en: 'United States LLC — Operating Under UPTWB SAS', fr: 'Société américaine — Opérant sous la direction d\'UPTWB SAS' },
   'part.uptw.p': {
-    en: 'UPTW USA is the US-registered entity that manages international partnerships, investor relations, and cross-border coordination. It operates in full compliance with US law and serves as the primary interface for international investors and partners.',
-    fr: 'UPTW USA est l\'entité enregistrée aux États-Unis qui gère les partenariats internationaux, les relations avec les investisseurs et la coordination transfrontalière. Elle opère en pleine conformité avec la loi américaine et sert d\'interface principale pour les investisseurs et partenaires internationaux.'
+    en: 'UPTW USA, LLC is the US-registered entity that directs Palm Leaf Partners LLC. UPTW USA receives strategic direction from UPTWB SAS and translates it into the operational, financial, and contractual decisions that govern PLP\'s day-to-day work. It operates in full compliance with US law and serves as the primary interface for international investors and partners.',
+    fr: 'UPTW USA, LLC est l\'entité enregistrée aux États-Unis qui dirige Palm Leaf Partners LLC. UPTW USA reçoit la direction stratégique d\'UPTWB SAS et la traduit en décisions opérationnelles, financières et contractuelles qui régissent le travail quotidien de PLP. Elle opère en pleine conformité avec la loi américaine et sert d\'interface principale pour les investisseurs et partenaires internationaux.'
   },
   'part.mou.desc': {
     en: 'Our MOUs are not letters of intent — they are formal, legally binding agreements with DRC national institutions, authorized under PPP Law 20/018.',

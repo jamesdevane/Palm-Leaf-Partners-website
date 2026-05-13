@@ -75,8 +75,8 @@ Object.assign(translations, {
   'part.invest.eyebrow': { en: 'Investment Opportunities', fr: 'Opportunités d\'Investissement' },
   'part.timeline.eyebrow':{ en: '25-Year Program', fr: 'Programme de 25 Ans' },
   'part.ohada.p2': {
-    en: 'Operating under OHADA means our contracts are enforceable, our governance is transparent, and our investors have the legal protections of a mature, internationally recognized framework.',
-    fr: 'Opérer sous OHADA signifie que nos contrats sont exécutoires, notre gouvernance est transparente et nos investisseurs bénéficient des protections juridiques d\'un cadre mature et internationalement reconnu.'
+    en: 'This means our DRC contracts are enforceable under OHADA, our governance is transparent on both sides of the Atlantic, and our investors have the protections of both US corporate law and a mature, internationally recognized African legal framework.',
+    fr: 'Cela signifie que nos contrats RDC sont exécutoires sous OHADA, notre gouvernance est transparente des deux côtés de l\'Atlantique, et nos investisseurs bénéficient des protections du droit américain des sociétés et d\'un cadre juridique africain mature et internationalement reconnu.'
   },
   'part.ppp.p2': {
     en: 'PPP Law 20/018 provides the legal basis for our MOUs with SCPT and other government entities, establishes the revenue-sharing framework for the 25-year program, and ensures that the DRC government retains appropriate oversight and ownership rights.',
