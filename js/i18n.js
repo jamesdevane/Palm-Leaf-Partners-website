@@ -22,7 +22,7 @@ const translations = {
 
   'footer.tagline':     { en: 'Building Systems. Growing Futures.', fr: 'Construire des Systèmes. Cultiver l\'Avenir.' },
   'footer.desc':        { en: 'Palm Leaf Partners is a DRC-rooted infrastructure and technology firm building the foundational systems — address mapping, data centers, call centers, and fiber backbone — that the Democratic Republic of Congo needs to grow.', fr: 'Palm Leaf Partners est une entreprise d\'infrastructure et de technologie enracinée en RDC, construisant les systèmes fondamentaux — cartographie d\'adresses, centres de données, centres d\'appel et réseau fibre — dont la République Démocratique du Congo a besoin pour se développer.' },
-  'footer.legal':       { en: 'US company · DRC operations under OHADA law · DRC PPP Law 20/018 · SCPT MOU · UPTWB SAS', fr: 'Entreprise américaine · Opérations en RDC sous droit OHADA · Loi PPP RDC 20/018 · MOU SCPT · UPTWB SAS' },
+  'footer.legal':       { en: 'Palm Leaf Partners LLC (Wyoming, USA) · DRC operations conducted by UPTWB SAS under OHADA law · DRC PPP Law 20/018 · MOU with SCPT', fr: 'Palm Leaf Partners LLC (Wyoming, USA) · Opérations en RDC conduites par UPTWB SAS sous droit OHADA · Loi PPP RDC 20/018 · MOU avec SCPT' },
   'footer.projects':    { en: 'Projects',                fr: 'Projets' },
   'footer.company':     { en: 'Company',                 fr: 'Entreprise' },
   'footer.legal.title': { en: 'Legal Framework',        fr: 'Cadre Juridique' },

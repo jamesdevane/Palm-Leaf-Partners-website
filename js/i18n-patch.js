@@ -54,8 +54,8 @@ Object.assign(translations, {
     fr: 'Élever les femmes et renforcer les communautés. Notre organisation sœur, l\'Organisation Universelle des Femmes Palm Tree, veille à ce que les femmes soient au cœur de tout ce que nous construisons.'
   },
   'about.val.drc.p': {
-    en: 'Rooted in the Congo. Committed to its people. We are not a foreign firm operating in the DRC — we are a DRC firm, governed under DRC law, accountable to the Congolese people.',
-    fr: 'Enraciné au Congo. Engagé envers son peuple. Nous ne sommes pas une entreprise étrangère opérant en RDC — nous sommes une entreprise de la RDC, régie par le droit congolais, responsable devant le peuple congolais.'
+    en: 'Rooted in the Congo. Committed to its people. We are not a parachuted-in foreign operator — we are a US-incorporated firm whose DRC programs are executed through UPTWB SAS, a Congolese OHADA entity operating on Congolese soil, employing Congolese teams, and accountable to the institutions that authorize it.',
+    fr: 'Enraciné au Congo. Engagé envers son peuple. Nous ne sommes pas un opérateur étranger parachuté — nous sommes une société constituée aux États-Unis dont les programmes en RDC sont exécutés par UPTWB SAS, une entité congolaise OHADA opérant sur le sol congolais, employant des équipes congolaises, et responsable devant les institutions qui l\'autorisent.'
   },
 
   /* ── ABOUT — Zola description paragraphs ── */

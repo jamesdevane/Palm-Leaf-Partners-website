@@ -187,8 +187,8 @@ Object.assign(translations, {
     fr: 'UPTW USA, LLC est l\'entité enregistrée aux États-Unis qui dirige Palm Leaf Partners LLC. UPTW USA reçoit la direction stratégique d\'UPTWB SAS et la traduit en décisions opérationnelles, financières et contractuelles qui régissent le travail quotidien de PLP. Elle opère en pleine conformité avec la loi américaine et sert d\'interface principale pour les investisseurs et partenaires internationaux.'
   },
   'part.mou.desc': {
-    en: 'Our MOUs are not letters of intent — they are formal, legally binding agreements with DRC national institutions, authorized under PPP Law 20/018.',
-    fr: 'Nos MOU ne sont pas des lettres d\'intention — ce sont des accords formels et juridiquement contraignants avec les institutions nationales de la RDC, autorisés sous la Loi PPP 20/018.'
+    en: 'Our framework with SCPT and other national institutions is anchored by Memoranda of Understanding executed under DRC PPP Law 20/018. The MOUs establish exclusivity, good-faith negotiation obligations, governance milestones, and the scope of work; the full commercial terms — pricing, addresses covered, deliverables — are indicative and will be confirmed in Definitive Agreements.',
+    fr: 'Notre cadre avec SCPT et les autres institutions nationales est ancré par des Mémorandums d\'Entente conclus sous la Loi PPP RDC 20/018. Les MOU établissent l\'exclusivité, les obligations de négociation de bonne foi, les jalons de gouvernance et la portée des travaux ; les conditions commerciales complètes — prix, adresses couvertes, livrables — sont indicatives et seront confirmées dans des Accords Définitifs.'
   },
   'part.scpt.h4': { en: 'SCPT — National Address Mapping Program', fr: 'SCPT — Programme de Cartographie Nationale des Adresses' },
   'part.dc.h4': { en: 'Data Center &amp; Fiber Backbone Authorization', fr: 'Autorisation Centre de Données &amp; Réseau Fibre' },

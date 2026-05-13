@@ -169,7 +169,7 @@ function renderFooter(isHome = false) {
             </div>
           </div>
           <p data-i18n="footer.desc">Palm Leaf Partners is a DRC-rooted infrastructure and technology firm building the foundational systems — address mapping, data centers, call centers, and fiber backbone — that the Democratic Republic of Congo needs to grow.</p>
-          <p style="font-size:0.78rem; color: rgba(245,240,232,0.4);" data-i18n="footer.legal">US company · DRC operations under OHADA law · DRC PPP Law 20/018 · SCPT MOU · UPTWB SAS</p>
+          <p style="font-size:0.78rem; color: rgba(245,240,232,0.4);" data-i18n="footer.legal">Palm Leaf Partners LLC (Wyoming, USA) · DRC operations conducted by UPTWB SAS under OHADA law · DRC PPP Law 20/018 · MOU with SCPT</p>
         </div>
         <div class="footer-col">
           <h5 data-i18n="footer.projects">Projects</h5>
