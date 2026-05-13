@@ -37,8 +37,10 @@
     @media (max-width: 768px) {
       .hero-cellular .hero-bg-layer {
         background-image: url('../assets/images/zola-hero-cellular.jpg') !important;
-        background-position: 38% center !important;
-        background-size: cover !important;
+        /* Zoom out to show Zola's full body + phone: 150% width shows the left
+           portion of the wide image where Zola stands with the phone */
+        background-size: 200% auto !important;
+        background-position: 18% 30% !important;
       }
       /* On mobile: gradient fades from bottom so text is readable */
       .hero-cellular > div:nth-child(2) {
