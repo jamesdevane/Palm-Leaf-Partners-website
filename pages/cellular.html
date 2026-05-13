@@ -245,15 +245,23 @@
 <body>
 
   <!-- HERO -->
-  <div class="page-hero-fullbleed">
-    <img src="../assets/images/zola-hero-cellular.jpg" alt="Zola holding a Samsung Galaxy S26 with the SCPT logo over Kinshasa at sunset" class="bg-img" />
-    <div class="overlay"></div>
-    <div class="hero-text-block">
-      <span class="eyebrow" data-i18n="cellular.eyebrow">SCPT · Post Office Cellular Service</span>
-      <h1 data-i18n="cellular.h1">SCPT Mobile</h1>
-      <p class="lead" data-i18n="cellular.lead">Full-service mobile connectivity — Samsung devices, data plans, and customer care — delivered through 100 modernized post offices across every province of the DRC.</p>
+  <section class="hero-parallax" style="min-height:100vh;">
+    <div class="hero-bg-layer" style="background-image: url('../assets/images/zola-hero-cellular.jpg'); background-size:cover; background-position:25% center;"></div>
+    <!-- Gradient: transparent on left, dark green on right -->
+    <div style="position:absolute;inset:0;background:linear-gradient(to right, rgba(27,67,50,0) 0%, rgba(27,67,50,0) 38%, rgba(27,67,50,0.65) 55%, rgba(27,67,50,0.95) 100%);"></div>
+    <!-- Text anchored to right side -->
+    <div style="position:relative;z-index:2;max-width:var(--max-width);margin:0 auto;padding:0 1.5rem;width:100%;min-height:100vh;display:flex;align-items:center;justify-content:flex-end;">
+      <div style="max-width:500px;padding:2rem 0;">
+        <span class="hero-eyebrow" data-i18n="cellular.eyebrow">SCPT · Post Office Cellular Service</span>
+        <h1 style="color:var(--white);font-size:clamp(2.4rem,4.5vw,4.2rem);line-height:1.1;margin-bottom:1.25rem;" data-i18n="cellular.h1">SCPT Mobile</h1>
+        <p style="color:rgba(245,240,232,0.88);font-size:1.1rem;line-height:1.8;margin-bottom:2.5rem;" data-i18n="cellular.lead">Full-service mobile connectivity — Samsung devices, data plans, and customer care — delivered through 100 modernized post offices across every province of the DRC.</p>
+        <div class="hero-actions">
+          <a href="#plans" class="btn btn-primary" data-i18n="cellular.plan.cta">View Plans</a>
+          <a href="../pages/contact.html" class="btn btn-outline" data-i18n="nav.contact">Contact Us</a>
+        </div>
+      </div>
     </div>
-  </div>
+  </section>
 
   <div class="breadcrumb">
     <div class="breadcrumb-inner">
@@ -340,7 +348,7 @@
   </section>
 
   <!-- SERVICE PLANS -->
-  <section class="section" style="background:var(--white);">
+  <section id="plans" class="section" style="background:var(--white);">
     <div class="container">
       <div class="text-center" style="margin-bottom:3rem;">
         <span style="font-size:0.72rem;font-weight:600;color:var(--gold);letter-spacing:0.2em;text-transform:uppercase;" data-i18n="cellular.plans.eyebrow">Service Plans</span>
