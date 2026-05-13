@@ -10,15 +10,15 @@ Object.assign(translations, {
   'cellular.eyebrow': { en: 'SCPT · Post Office Cellular Service', fr: 'SCPT · Service Mobile des Bureaux de Poste' },
   'cellular.h1':      { en: 'SCPT Mobile', fr: 'SCPT Mobile' },
   'cellular.lead':    {
-    en: 'Full-service mobile connectivity — Samsung devices, data plans, and customer care — delivered through 100 modernized post offices across every province of the DRC.',
-    fr: 'Connectivité mobile complète — appareils Samsung, forfaits data et service client — disponible dans 100 bureaux de poste modernisés à travers toutes les provinces de la RDC.'
+    en: 'Full-service mobile connectivity — smartphones, data plans, and customer care — delivered through 100 modernized post offices across every province of the DRC.',
+    fr: 'Connectivité mobile complète — smartphones, forfaits data et service client — disponible dans 100 bureaux de poste modernisés à travers toutes les provinces de la RDC.'
   },
 
   /* ── PARTNERSHIP BANNER ── */
   'cellular.banner.h3': { en: 'A Partnership Built on National Infrastructure', fr: 'Un Partenariat Fondé sur l\'Infrastructure Nationale' },
   'cellular.banner.body': {
-    en: 'SCPT Mobile is a joint initiative between Palm Leaf Partners and the Société Congolaise des Postes et Télécommunications (SCPT) — the DRC\'s national postal and telecommunications authority. By transforming post offices into full-service cellular storefronts, we bring T-Mobile-style mobile retail to every corner of the Congo, backed by the trust and reach of a national institution.',
-    fr: 'SCPT Mobile est une initiative conjointe entre Palm Leaf Partners et la Société Congolaise des Postes et Télécommunications (SCPT) — l\'autorité nationale postale et de télécommunications de la RDC. En transformant les bureaux de poste en points de vente mobiles complets, nous apportons une expérience de vente au détail mobile de style T-Mobile dans chaque coin du Congo.'
+    en: 'SCPT Mobile is a joint initiative between Palm Leaf Partners and the Société Congolaise des Postes et Télécommunications (SCPT) — the DRC\'s national postal and telecommunications authority. By transforming post offices into full-service cellular storefronts, we bring modern carrier-grade mobile retail to every corner of the Congo, backed by the trust and reach of a national institution.',
+    fr: 'SCPT Mobile est une initiative conjointe entre Palm Leaf Partners et la Société Congolaise des Postes et Télécommunications (SCPT) — l\'autorité nationale postale et de télécommunications de la RDC. En transformant les bureaux de poste en points de vente mobiles complets, nous apportons une expérience de vente au détail mobile moderne et professionnelle dans chaque coin du Congo.'
   },
 
   /* ── OPEN SECTION ── */
@@ -29,8 +29,8 @@ Object.assign(translations, {
     fr: 'Aux États-Unis, T-Mobile, Verizon et AT&T exploitent des milliers de magasins de détail où les citoyens peuvent entrer, choisir un appareil, sélectionner un forfait et repartir connectés. La RDC mérite la même chose. SCPT Mobile offre exactement cela — à travers le réseau de bâtiments publics le plus fiable et le plus répandu du pays : le bureau de poste.'
   },
   'cellular.body.p2': {
-    en: 'Every one of the 100 post offices modernized under the Palm Leaf Partners program becomes a full-service SCPT Mobile storefront — staffed, stocked with Samsung devices, and equipped to activate service, process payments, and provide ongoing customer support in French, Lingala, Swahili, and local languages.',
-    fr: 'Chacun des 100 bureaux de poste modernisés dans le cadre du programme Palm Leaf Partners devient un point de vente SCPT Mobile à service complet — avec du personnel, des appareils Samsung en stock, et équipé pour activer le service, traiter les paiements et fournir un support client continu en français, lingala, swahili et langues locales.'
+    en: 'Every one of the 100 post offices modernized under the Palm Leaf Partners program becomes a full-service SCPT Mobile storefront — staffed, stocked with smartphones, and equipped to activate service, process payments, and provide ongoing customer support in French, Lingala, Swahili, and local languages.',
+    fr: 'Chacun des 100 bureaux de poste modernisés dans le cadre du programme Palm Leaf Partners devient un point de vente SCPT Mobile à service complet — avec du personnel, des smartphones en stock, et équipé pour activer le service, traiter les paiements et fournir un support client continu en français, lingala, swahili et langues locales.'
   },
 
   /* ── SCALE STATS ── */
@@ -43,16 +43,16 @@ Object.assign(translations, {
   'cellular.beat1.label': { en: 'The Storefront.', fr: 'Le Magasin.' },
   'cellular.beat1.h2':    { en: 'Walk in. Choose your phone. Walk out connected.', fr: 'Entrez. Choisissez votre téléphone. Repartez connecté.' },
   'cellular.beat1.body':  {
-    en: 'Each SCPT Mobile location inside a modernized post office is designed to the same standard as a premium retail cell phone store. Display cases showcase the latest Samsung Galaxy devices. Trained staff assist customers in selecting the right plan. Activations happen on the spot. The experience is modern, professional, and welcoming — for first-time smartphone buyers and experienced users alike.',
-    fr: 'Chaque emplacement SCPT Mobile dans un bureau de poste modernisé est conçu selon les mêmes normes qu\'un magasin de téléphonie haut de gamme. Les vitrines présentent les derniers appareils Samsung Galaxy. Le personnel formé aide les clients à choisir le bon forfait. Les activations se font sur place. L\'expérience est moderne, professionnelle et accueillante.'
+    en: 'Each SCPT Mobile location inside a modernized post office is designed to the same standard as a premium retail cell phone store. Display cases showcase the latest smartphone models. Trained staff assist customers in selecting the right plan. Activations happen on the spot. The experience is modern, professional, and welcoming — for first-time smartphone buyers and experienced users alike.',
+    fr: 'Chaque emplacement SCPT Mobile dans un bureau de poste modernisé est conçu selon les mêmes normes qu\'un magasin de téléphonie haut de gamme. Les vitrines présentent les derniers modèles de smartphones. Le personnel formé aide les clients à choisir le bon forfait. Les activations se font sur place. L\'expérience est moderne, professionnelle et accueillante.'
   },
 
   /* ── BEAT 2 ── */
   'cellular.beat2.label': { en: 'The Devices.', fr: 'Les Appareils.' },
-  'cellular.beat2.h2':    { en: 'Samsung Galaxy. The world\'s most trusted smartphone — now available at your post office.', fr: 'Samsung Galaxy. Le smartphone le plus fiable au monde — maintenant disponible à votre bureau de poste.' },
+  'cellular.beat2.h2':    { en: 'Premium smartphones. Now available at every post office.', fr: 'Smartphones haut de gamme. Maintenant disponibles dans chaque bureau de poste.' },
   'cellular.beat2.body':  {
-    en: 'SCPT Mobile carries the full Samsung Galaxy lineup — from the flagship Galaxy S26 to affordable entry-level devices — ensuring every Congolese family can find a phone that fits their needs and their budget. Each device is sold with an SCPT Mobile SIM pre-installed and ready to activate. Financing options make premium devices accessible to all income levels.',
-    fr: 'SCPT Mobile propose toute la gamme Samsung Galaxy — du flagship Galaxy S26 aux appareils d\'entrée de gamme abordables — garantissant que chaque famille congolaise peut trouver un téléphone adapté à ses besoins et à son budget. Chaque appareil est vendu avec une SIM SCPT Mobile préinstallée et prête à activer.'
+    en: 'SCPT Mobile carries a full range of smartphones — from premium flagship models to affordable entry-level handsets — ensuring every Congolese family can find a phone that fits their needs and their budget. Each device is sold with an SCPT Mobile SIM pre-installed and ready to activate. Financing options make premium devices accessible to all income levels.',
+    fr: 'SCPT Mobile propose une gamme complète de smartphones — des modèles haut de gamme aux appareils d\'entrée de gamme abordables — garantissant que chaque famille congolaise peut trouver un téléphone adapté à ses besoins et à son budget. Chaque appareil est vendu avec une SIM SCPT Mobile préinstallée et prête à activer.'
   },
 
   /* ── PLANS ── */
@@ -85,8 +85,8 @@ Object.assign(translations, {
 
   /* ── DEVICES ── */
   'cellular.devices.eyebrow': { en: 'Available Devices', fr: 'Appareils Disponibles' },
-  'cellular.devices.h2':      { en: 'Samsung Galaxy. Every Budget.', fr: 'Samsung Galaxy. Tous les Budgets.' },
-  'cellular.devices.desc':    { en: 'From the flagship Galaxy S26 to affordable entry-level models — every device sold at SCPT Mobile comes with a warranty and full post-sale support at any post office location.', fr: 'Du flagship Galaxy S26 aux modèles d\'entrée de gamme abordables — chaque appareil vendu chez SCPT Mobile est accompagné d\'une garantie et d\'un support complet après-vente dans tout bureau de poste.' },
+  'cellular.devices.h2':      { en: 'Every Budget. Every Device.', fr: 'Tous les budgets. Tous les appareils.' },
+  'cellular.devices.desc':    { en: 'From premium flagship models to affordable entry-level handsets — every device sold at SCPT Mobile comes with a warranty and full post-sale support at any post office location.', fr: 'Des modèles haut de gamme aux appareils d\'entrée de gamme abordables — chaque appareil vendu chez SCPT Mobile est accompagné d\'une garantie et d\'un support complet après-vente dans tout bureau de poste.' },
   'cellular.device.financing': { en: 'or from $50/mo with financing', fr: 'ou à partir de 50$/mois avec financement' },
   'cellular.device.affordable': { en: 'Affordable connectivity for all', fr: 'Connectivité abordable pour tous' },
 
@@ -110,7 +110,7 @@ Object.assign(translations, {
 
   /* ── CAPABILITIES ── */
   'cellular.inside': { en: 'Inside SCPT Mobile — Store Capabilities', fr: 'À l\'Intérieur de SCPT Mobile — Capacités du Magasin' },
-  'cellular.cap1':   { en: 'Full Samsung Galaxy device lineup on display', fr: 'Gamme complète Samsung Galaxy en exposition' },
+  'cellular.cap1':   { en: 'Full smartphone device lineup on display', fr: 'Gamme complète de smartphones en exposition' },
   'cellular.cap2':   { en: 'On-site SIM activation and number porting', fr: 'Activation SIM sur place et portabilité du numéro' },
   'cellular.cap3':   { en: 'Device financing and payment plans', fr: 'Financement d\'appareils et plans de paiement' },
   'cellular.cap4':   { en: 'Plan upgrades and account management', fr: 'Mises à niveau de forfait et gestion de compte' },
