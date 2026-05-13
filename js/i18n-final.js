@@ -51,12 +51,12 @@ Object.assign(translations, {
   'cc.feat.3': { en: 'Live incident tracking with wall-map visualization', fr: 'Suivi des incidents en direct avec visualisation sur carte murale' },
   'cc.feat.4': { en: 'Multi-agency coordination across police, fire, and medical', fr: 'Coordination multi-agences entre police, pompiers et services médicaux' },
   'cc.feat.5': { en: 'Citizen services in 6 languages, 24/7', fr: 'Services aux citoyens en 6 langues, 24h/24 7j/7' },
-  'cc.feat.6': { en: 'All call data stored in sovereign Tier-IV Data Center', fr: 'Toutes les données d\'appel stockées dans le Centre de Données souverain Tier-IV' },
+  'cc.feat.6': { en: 'All call data stored in the planned sovereign data center (designed to Tier IV standards)', fr: 'Toutes les données d\'appel stockées dans le centre de données souverain prévu (conçu selon les normes Tier IV)' },
   'cc.feat.7': { en: 'Shift supervisors and quality monitoring at every center', fr: 'Superviseurs de quart et contrôle qualité dans chaque centre' },
   'cc.feat.8': { en: 'Interconnected via national fiber backbone for low latency', fr: 'Interconnectés via le réseau fibre national pour une faible latence' },
   'cc.cta.p': {
-    en: 'The call center system is built on the foundation of 20 million registered addresses. See how the mapping program makes this possible.',
-    fr: 'Le système de centres d\'appel est construit sur le fondement de 20 millions d\'adresses enregistrées. Voyez comment le programme de cartographie rend cela possible.'
+    en: 'The planned call center system will be built on the foundation of the National Address Registry — targeting up to 20 million addresses. See how the mapping program makes this possible.',
+    fr: 'Le système de centres d\'appel prévu sera construit sur le fondement du registre national des adresses — ciblant jusqu\'à 20 millions d\'adresses. Voyez comment le programme de cartographie rend cela possible.'
   },
 
   /* ── FIBER — inside the build tech specs ── */
@@ -121,8 +121,8 @@ Object.assign(translations, {
   },
   'part.phase2.h4': { en: 'Phase 2 (Years 3–8) · Development', fr: 'Phase 2 (Années 3–8) · Développement' },
   'part.phase2.p': {
-    en: 'Tier-IV data center construction and commissioning. National fiber backbone deployment along primary corridors. Starlink integration for rural last-mile coverage.',
-    fr: 'Construction et mise en service du centre de données Tier-IV. Déploiement du réseau fibre national le long des corridors principaux. Intégration Starlink pour la couverture rurale du dernier kilomètre.'
+    en: 'Construction and commissioning of the data center designed to Uptime Institute Tier IV standards. National fiber backbone deployment along primary corridors. Starlink integration for rural last-mile coverage.',
+    fr: 'Construction et mise en service du centre de données conçu selon les normes Tier IV. Déploiement du réseau fibre national le long des corridors principaux. Intégration Starlink pour la couverture rurale du dernier kilomètre.'
   },
   'part.phase3.h4': { en: 'Phase 3 (Years 5–10) · Planned', fr: 'Phase 3 (Années 5–10) · Planifiée' },
   'part.phase3.p': {
@@ -131,8 +131,8 @@ Object.assign(translations, {
   },
   'part.phase4.h4': { en: 'Phase 4 (Years 10–25) · Vision', fr: 'Phase 4 (Années 10–25) · Vision' },
   'part.phase4.p': {
-    en: 'Full national coverage — all 26 provinces connected, all 20 million addresses registered, 10 call centers operational, enterprise cloud services available nationwide.',
-    fr: 'Couverture nationale complète — les 26 provinces connectées, les 20 millions d\'adresses enregistrées, 10 centres d\'appel opérationnels, services cloud d\'entreprise disponibles à l\'échelle nationale.'
+    en: 'Full national coverage — all 26 provinces connected, the target address register fully built out (up to ~20 million addresses, subject to scope validation), 10 call centers operational, enterprise cloud services available nationwide.',
+    fr: 'Couverture nationale complète — les 26 provinces connectées, le registre cible des adresses entièrement constitué (jusqu\'à ~20 millions d\'adresses, sous réserve de validation du périmètre), 10 centres d\'appel opérationnels, services cloud d\'entreprise disponibles à l\'échelle nationale.'
   },
   'part.glance.h3': { en: 'Program at a Glance', fr: 'Programme en un Coup d\'Œil' },
   'part.cta.p': {

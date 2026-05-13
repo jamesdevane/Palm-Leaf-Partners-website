@@ -35,15 +35,15 @@ Object.assign(translations, {
     fr: 'La Cité Mémoriale n\'est pas un monument au deuil. C\'est un monument à la résilience. Un espace vivant de 5 kilomètres carrés où le passé est honoré, le présent est guéri et l\'avenir est construit. Hôtels, musées, centres culturels, jardins et mémoriaux — tous tissés ensemble en une destination qui attire le monde pour témoigner, apprendre et s\'engager.'
   },
   'mem.vision.p3': {
-    en: 'Led by the Universal Palm Tree Women Organization (UPTW) in partnership with the DRC government, UN Women, UNICEF, UNESCO, and international foundations, this is one of the most significant humanitarian and cultural projects on the African continent.',
-    fr: 'Dirigé par l\'Organisation Universelle des Femmes Palm Tree (UPTW) en partenariat avec le gouvernement de la RDC, ONU Femmes, l\'UNICEF, l\'UNESCO et des fondations internationales, c\'est l\'un des projets humanitaires et culturels les plus importants du continent africain.'
+    en: 'Led by the Universal Palm Tree Women Organization (UPTW) in coordination with the DRC government, the Memorial City is being designed with the intent to seek programmatic partnerships and accreditation with UN agencies such as UN Women, UNICEF and UNESCO, and with international foundations. No formal partnership with any UN agency has been concluded at this stage; references on this page reflect intended partners, not current ones.',
+    fr: 'Dirigé par l\'Organisation Universelle des Femmes Palm Tree (UPTW) en coordination avec le gouvernement de la RDC, la Cité Mémoriale est conçue avec l\'intention de rechercher des partenariats programmatiques et une accréditation auprès d\'agences des Nations Unies telles qu\'ONU Femmes, l\'UNICEF et l\'UNESCO, ainsi qu\'auprès de fondations internationales. Aucun partenariat formel avec une agence de l\'ONU n\'a été conclu à ce stade ; les références sur cette page reflètent des partenaires envisagés, et non actuels.'
   },
 
   /* ── SCALE BOX ── */
   'mem.scale.h3':       { en: 'The Scale of the Vision', fr: 'L\'Échelle de la Vision' },
   'mem.scale.area':     { en: 'Memorial City Area', fr: 'Superficie de la Cité' },
   'mem.scale.facilities':{ en: 'Major Facilities', fr: 'Installations Majeures' },
-  'mem.scale.partners': { en: 'International Partners', fr: 'Partenaires Internationaux' },
+  'mem.scale.partners': { en: 'Intended International Partners', fr: 'Partenaires Internationaux Envisagés' },
   'mem.scale.legacy':   { en: 'Generations of Legacy', fr: 'Générations de Legs' },
 
   /* ── MEMORIAL QUOTE ── */
@@ -73,8 +73,8 @@ Object.assign(translations, {
     fr: 'Le musée n\'est pas un lieu d\'accusation. C\'est un lieu de vérité. Conçu par des architectes africains avec des matériaux africains, il abrite des expositions permanentes et temporaires racontant l\'histoire complète des conflits du Congo et du Rwanda — de leurs origines à leur résolution — avec une honnêteté sans faille et une profonde humanité.'
   },
   'mem.beat2.p2': {
-    en: 'Interactive galleries, oral history archives, children\'s education programs, and a research library serve students, scholars, diplomats, and families from across the world. UNESCO-partnered. Internationally accredited. Permanently staffed by Congolese and Rwandan historians and educators.',
-    fr: 'Des galeries interactives, des archives d\'histoire orale, des programmes d\'éducation pour enfants et une bibliothèque de recherche servent les étudiants, les chercheurs, les diplomates et les familles du monde entier. Partenaire de l\'UNESCO. Accrédité internationalement. Doté en permanence d\'historiens et d\'éducateurs congolais et rwandais.'
+    en: 'Interactive galleries, oral history archives, children\'s education programs, and a research library are planned to serve students, scholars, diplomats, and families from across the world. UPTW intends to seek UNESCO accreditation and international academic partnerships, and to permanently staff the museum with Congolese and Rwandan historians and educators.',
+    fr: 'Des galeries interactives, des archives d\'histoire orale, des programmes d\'éducation pour enfants et une bibliothèque de recherche sont prévues pour servir les étudiants, les chercheurs, les diplomates et les familles du monde entier. UPTW a l\'intention de solliciter une accréditation auprès de l\'UNESCO et des partenariats académiques internationaux, et de doter en permanence le musée d\'historiens et d\'éducateurs congolais et rwandais.'
   },
 
   /* ── BEAT 3 ── */
@@ -100,7 +100,7 @@ Object.assign(translations, {
   'mem.fac1.h3': { en: 'Peace Monument &amp; Reflecting Pool', fr: 'Monument de la Paix &amp; Bassin Réfléchissant' },
   'mem.fac1.p':  { en: 'A 60-meter marble obelisk with African carvings, circular reflecting pool, and the Walls of Names — the emotional and spiritual heart of the Memorial City.', fr: 'Un obélisque de marbre de 60 mètres avec des sculptures africaines, un bassin réfléchissant circulaire et les Murs des Noms — le cœur émotionnel et spirituel de la Cité Mémoriale.' },
   'mem.fac2.h3': { en: 'Museum of Peace &amp; Reconciliation', fr: 'Musée de la Paix &amp; de la Réconciliation' },
-  'mem.fac2.p':  { en: 'UNESCO-partnered world-class museum with permanent exhibitions, oral history archives, children\'s education programs, and an international research library.', fr: 'Musée de classe mondiale partenaire de l\'UNESCO avec des expositions permanentes, des archives d\'histoire orale, des programmes d\'éducation pour enfants et une bibliothèque de recherche internationale.' },
+  'mem.fac2.p':  { en: 'A planned world-class museum with permanent exhibitions, oral history archives, children\'s education programs, and an international research library — designed with the intent to seek UNESCO accreditation.', fr: 'Un musée de classe mondiale prévu avec des expositions permanentes, des archives d\'histoire orale, des programmes d\'éducation pour enfants et une bibliothèque de recherche internationale — conçu avec l\'intention de solliciter une accréditation auprès de l\'UNESCO.' },
   'mem.fac3.h3': { en: 'The Memorial Hotel', fr: 'L\'Hôtel Mémoriale' },
   'mem.fac3.p':  { en: 'Luxury boutique accommodation with views over the memorial grounds, rooftop garden, African art collection, and a restaurant serving Congolese cuisine.', fr: 'Hébergement de luxe boutique avec vue sur les terrains du mémorial, jardin sur le toit, collection d\'art africain et restaurant servant la cuisine congolaise.' },
   'mem.fac4.h3': { en: 'Cultural Amphitheater &amp; Arts Center', fr: 'Amphithéâtre Culturel &amp; Centre des Arts' },
@@ -111,9 +111,9 @@ Object.assign(translations, {
   'mem.fac6.p':  { en: 'A state-of-the-art conference facility hosting UN summits, peace dialogues, academic conferences, and diplomatic gatherings from across the world.', fr: 'Une installation de conférence de pointe accueillant des sommets de l\'ONU, des dialogues de paix, des conférences académiques et des rassemblements diplomatiques du monde entier.' },
 
   /* ── PARTNERS ── */
-  'mem.partners.eyebrow': { en: 'International Partners', fr: 'Partenaires Internationaux' },
+  'mem.partners.eyebrow': { en: 'Intended International Partners', fr: 'Partenaires Internationaux Envisagés' },
   'mem.partners.h2': { en: 'The World Stands With the DRC', fr: 'Le Monde Se Tient Aux Côtés de la RDC' },
-  'mem.partners.p':  { en: 'The Memorial City is not a local project. It is a global commitment. UPTW works alongside the world\'s leading humanitarian organizations to ensure this project meets the highest standards of accountability, cultural sensitivity, and lasting impact.', fr: 'La Cité Mémoriale n\'est pas un projet local. C\'est un engagement mondial. L\'UPTW travaille aux côtés des principales organisations humanitaires mondiales pour s\'assurer que ce projet répond aux normes les plus élevées de responsabilité, de sensibilité culturelle et d\'impact durable.' },
+  'mem.partners.p':  { en: 'The Memorial City is designed as a global commitment. UPTW is engaging — and will continue to engage — with leading humanitarian organizations to ensure this project meets the highest standards of accountability, cultural sensitivity, and lasting impact. The organizations listed below represent intended partners with whom UPTW plans to seek formal cooperation; no binding partnership with any UN agency has been concluded at this stage.', fr: 'La Cité Mémoriale est conçue comme un engagement mondial. L\'UPTW dialogue — et continuera de dialoguer — avec les principales organisations humanitaires afin que ce projet réponde aux normes les plus élevées de responsabilité, de sensibilité culturelle et d\'impact durable. Les organisations listées ci-dessous représentent des partenaires envisagés avec lesquels l\'UPTW prévoit de solliciter une coopération formelle ; aucun partenariat contraignant avec une agence de l\'ONU n\'a été conclu à ce stade.' },
   'mem.partner1.h4': { en: 'UN Women', fr: 'ONU Femmes' },
   'mem.partner1.p':  { en: 'United Nations Entity for Gender Equality and the Empowerment of Women', fr: 'Entité des Nations Unies pour l\'Égalité des Sexes et l\'Autonomisation des Femmes' },
   'mem.partner2.h4': { en: 'UNICEF', fr: 'UNICEF' },

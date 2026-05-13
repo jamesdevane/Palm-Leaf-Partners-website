@@ -63,16 +63,16 @@ Object.assign(translations, {
     fr: 'Aujourd\'hui, les données les plus sensibles de la République Démocratique du Congo — dossiers gouvernementaux, systèmes financiers, infrastructure de télécommunications — sont en grande partie hébergées sur des serveurs hors du pays. Cela crée une vulnérabilité fondamentale : la RDC ne contrôle pas sa propre souveraineté numérique.'
   },
   'dc.body.p2': {
-    en: 'Palm Leaf Partners is building the DRC\'s first Tier-IV certified data center on Congolese soil — with a second disaster-recovery site in Lubumbashi. This facility will host the national address registry, government cloud services, the call center data backbone, and enterprise systems.',
-    fr: 'Palm Leaf Partners construit le premier centre de données certifié Tier-IV de la RDC sur le sol congolais — avec un deuxième site de reprise après sinistre à Lubumbashi. Cette installation hébergera le registre national des adresses, les services cloud gouvernementaux, le backbone de données des centres d\'appel et les systèmes d\'entreprise.'
+    en: 'Palm Leaf Partners is planning the DRC\'s first data center designed to Uptime Institute Tier IV standards on Congolese soil — with a second disaster-recovery site in Lubumbashi. This facility is intended to host the national address registry, government cloud services, the call center data backbone, and enterprise systems. Final certification can only be issued by the Uptime Institute upon completion.',
+    fr: 'Palm Leaf Partners planifie le premier centre de données de la RDC conçu selon les normes Tier IV de l\'Uptime Institute sur le sol congolais — avec un deuxième site de reprise après sinistre à Lubumbashi. Cette installation est destinée à héberger le registre national des adresses, les services cloud gouvernementaux, le backbone de données des centres d\'appel et les systèmes d\'entreprise. La certification définitive ne peut être délivrée que par l\'Uptime Institute après l\'achèvement des travaux.'
   },
   'dc.body.p3': {
-    en: 'Tier-IV certification means 99.995% uptime — the highest standard in the industry, with fully fault-tolerant systems and no single point of failure.',
-    fr: 'La certification Tier-IV signifie 99,995% de disponibilité — le standard le plus élevé de l\'industrie, avec des systèmes entièrement tolérants aux pannes et aucun point de défaillance unique.'
+    en: 'A Tier IV design target corresponds to 99.995% availability — the highest design tier in the Uptime Institute framework, with fully fault-tolerant systems and no single point of failure. Operational uptime will be confirmed only after commissioning.',
+    fr: 'Un objectif de conception Tier IV correspond à 99,995% de disponibilité — le niveau de conception le plus élevé du cadre Uptime Institute, avec des systèmes entièrement tolérants aux pannes et aucun point de défaillance unique. La disponibilité opérationnelle ne sera confirmée qu\'après la mise en service.'
   },
   'dc.beat1.body': {
-    en: 'The primary facility in Kinshasa is designed to Tier-IV standards — the highest in the industry. Fully redundant power, cooling, and network paths mean no single failure can take the system down. The national address registry, government cloud services, and the call center data backbone all live here. Sovereign. Secure. Permanent.',
-    fr: 'L\'installation principale de Kinshasa est conçue selon les normes Tier-IV — les plus élevées de l\'industrie. L\'alimentation électrique, le refroidissement et les chemins réseau entièrement redondants signifient qu\'aucune défaillance unique ne peut faire tomber le système. Le registre national des adresses, les services cloud gouvernementaux et le backbone de données des centres d\'appel résident tous ici. Souverain. Sécurisé. Permanent.'
+    en: 'The primary facility in Kinshasa is designed to Uptime Institute Tier IV standards — the highest design tier in the framework. Fully redundant power, cooling, and network paths mean no single failure can take the system down. The national address registry, government cloud services, and the call center data backbone are intended to live here. Sovereign. Secure. Permanent.',
+    fr: 'L\'installation principale de Kinshasa est conçue selon les normes Tier IV de l\'Uptime Institute — le niveau de conception le plus élevé du cadre. L\'alimentation électrique, le refroidissement et les chemins réseau entièrement redondants signifient qu\'aucune défaillance unique ne peut faire tomber le système. Le registre national des adresses, les services cloud gouvernementaux et le backbone de données des centres d\'appel sont destinés à y résider. Souverain. Sécurisé. Permanent.'
   },
   'dc.beat2.body1': {
     en: 'Embedded within the facility is a dedicated Security Operations Center — a 24/7 command room staffed by cybersecurity professionals monitoring every system, every connection, and every threat in real time. The SOC protects not just the data center itself, but the entire Palm Leaf Partners infrastructure ecosystem — the address registry, the fiber backbone, and the call center network.',
@@ -85,20 +85,20 @@ Object.assign(translations, {
 
   /* ── CALL CENTERS — body paragraphs ── */
   'cc.banner.body': {
-    en: 'The call center emergency dispatch system is only as good as the address data behind it. When a citizen calls for help, the dispatcher needs a precise, verified location — not a vague description. The National Address Mapping program\'s 20 million registered addresses are the foundation that makes accurate emergency dispatch possible in the DRC for the first time in history.',
-    fr: 'Le système de dispatch d\'urgence des centres d\'appel n\'est aussi bon que les données d\'adresses qui le sous-tendent. Quand un citoyen appelle à l\'aide, le dispatcher a besoin d\'un emplacement précis et vérifié — pas d\'une description vague. Les 20 millions d\'adresses enregistrées du programme de Cartographie Nationale des Adresses sont le fondement qui rend possible un dispatch d\'urgence précis en RDC pour la première fois dans l\'histoire.'
+    en: 'The call center emergency dispatch system is only as good as the address data behind it. When a citizen calls for help, the dispatcher needs a precise, verified location — not a vague description. The National Address Mapping program — targeting up to 20 million registered addresses — is intended to provide the foundation that makes accurate emergency dispatch possible in the DRC for the first time in history.',
+    fr: 'Le système de dispatch d\'urgence des centres d\'appel n\'est aussi bon que les données d\'adresses qui le sous-tendent. Quand un citoyen appelle à l\'aide, le dispatcher a besoin d\'un emplacement précis et vérifié — pas d\'une description vague. Le programme de Cartographie Nationale des Adresses — ciblant jusqu\'à 20 millions d\'adresses enregistrées — est destiné à fournir le fondement qui rend possible un dispatch d\'urgence précis en RDC pour la première fois dans l\'histoire.'
   },
   'cc.body.p1': {
     en: 'In much of the DRC today, calling for emergency help is an exercise in frustration. Without standardized addresses, dispatchers cannot accurately direct police, fire, or medical responders. Response times are measured in hours, not minutes. Lives are lost that could be saved.',
     fr: 'Dans une grande partie de la RDC aujourd\'hui, appeler à l\'aide d\'urgence est un exercice de frustration. Sans adresses standardisées, les dispatchers ne peuvent pas diriger avec précision la police, les pompiers ou les secours médicaux. Les temps de réponse se mesurent en heures, pas en minutes. Des vies sont perdues qui pourraient être sauvées.'
   },
   'cc.body.p2': {
-    en: 'Palm Leaf Partners\' regional call center network changes this. Each center is equipped with real-time access to the national address registry, enabling dispatchers to pinpoint a caller\'s location instantly and route the nearest available responder with precision.',
-    fr: 'Le réseau de centres d\'appel régionaux de Palm Leaf Partners change cela. Chaque centre est équipé d\'un accès en temps réel au registre national des adresses, permettant aux dispatchers de localiser instantanément l\'emplacement d\'un appelant et d\'acheminer le premier intervenant disponible avec précision.'
+    en: 'Palm Leaf Partners\' planned regional call center network is designed to change this. Each center will be equipped with real-time access to the national address registry, enabling dispatchers to pinpoint a caller\'s location instantly and route the nearest available responder with precision.',
+    fr: 'Le réseau prévu de centres d\'appel régionaux de Palm Leaf Partners est conçu pour changer cela. Chaque centre sera équipé d\'un accès en temps réel au registre national des adresses, permettant aux dispatchers de localiser instantanément l\'emplacement d\'un appelant et d\'acheminer le premier intervenant disponible avec précision.'
   },
   'cc.beat1.body': {
-    en: 'The moment a call connects, the dispatcher\'s screen shows the caller\'s verified address — pulled instantly from the national address registry. No more "near the big tree" or "behind the market." A precise location, a verified address, a QR code that can be shared with the responding unit in seconds. For the first time in DRC history, emergency dispatch has the data it needs to save lives.',
-    fr: 'Au moment où un appel se connecte, l\'écran du dispatcher affiche l\'adresse vérifiée de l\'appelant — extraite instantanément du registre national des adresses. Plus de "près du grand arbre" ou "derrière le marché". Un emplacement précis, une adresse vérifiée, un code QR qui peut être partagé avec l\'unité d\'intervention en quelques secondes. Pour la première fois dans l\'histoire de la RDC, le dispatch d\'urgence dispose des données dont il a besoin pour sauver des vies.'
+    en: 'The system is designed so that the moment a call connects, the dispatcher\'s screen will show the caller\'s verified address — pulled instantly from the national address registry. No more "near the big tree" or "behind the market." A precise location, a verified address, a QR code that can be shared with the responding unit in seconds. For the first time in DRC history, emergency dispatch is set to have the data it needs to save lives.',
+    fr: 'Le système est conçu pour que, au moment où un appel se connecte, l\'écran du dispatcher affiche l\'adresse vérifiée de l\'appelant — extraite instantanément du registre national des adresses. Plus de "près du grand arbre" ou "derrière le marché". Un emplacement précis, une adresse vérifiée, un code QR qui peut être partagé avec l\'unité d\'intervention en quelques secondes. Pour la première fois dans l\'histoire de la RDC, le dispatch d\'urgence est destiné à disposer des données dont il a besoin pour sauver des vies.'
   },
   'cc.beat2.body': {
     en: 'Centers are positioned in Kinshasa, Lubumbashi, Goma, Kisangani, and Mbuji-Mayi — with additional sites planned as the program scales. Each center is staffed with agents fluent in French, Lingala, Swahili, Kikongo, Tshiluba, and English. No citizen is turned away because of a language barrier — especially not in an emergency.',
@@ -115,12 +115,12 @@ Object.assign(translations, {
     fr: 'La République Démocratique du Congo s\'étend sur 2,3 millions de kilomètres carrés — plus grande que l\'Europe occidentale. Ses villes sont séparées par de vastes étendues de forêt tropicale, de rivières et de savane. Aujourd\'hui, la connectivité Internet haut débit n\'est disponible que pour une fraction de la population.'
   },
   'fb.body.p2': {
-    en: 'Palm Leaf Partners\' National Fiber Backbone changes this. A high-capacity fiber optic network connects six major cities — Kinshasa, Lubumbashi, Goma, Kisangani, Mbuji-Mayi, and Bukavu — creating the arterial network on which all other digital services depend.',
-    fr: 'Le Réseau Fibre National de Palm Leaf Partners change cela. Un réseau de fibres optiques à haute capacité connecte six grandes villes — Kinshasa, Lubumbashi, Goma, Kisangani, Mbuji-Mayi et Bukavu — créant le réseau artériel dont dépendent tous les autres services numériques.'
+    en: 'Palm Leaf Partners\' planned National Fiber Backbone is designed to change this. The proposed high-capacity fiber optic network will connect six major cities — Kinshasa, Lubumbashi, Goma, Kisangani, Mbuji-Mayi, and Bukavu — creating the arterial network on which all other digital services depend. Final routes and rights-of-way will be confirmed in the Definitive Agreement.',
+    fr: 'Le Réseau Fibre National prévu de Palm Leaf Partners est conçu pour changer cela. Le réseau de fibres optiques à haute capacité proposé reliera six grandes villes — Kinshasa, Lubumbashi, Goma, Kisangani, Mbuji-Mayi et Bukavu — créant le réseau artériel dont dépendent tous les autres services numériques. Les tracés finaux et les droits de passage seront confirmés dans l\'accord définitif.'
   },
   'fb.body.p3': {
-    en: 'For the vast rural areas between these cities, Starlink satellite integration provides last-mile connectivity — ensuring that the benefits of the fiber backbone reach communities that ground-based infrastructure cannot economically serve.',
-    fr: 'Pour les vastes zones rurales entre ces villes, l\'intégration satellite Starlink fournit une connectivité du dernier kilomètre — garantissant que les avantages du réseau fibre atteignent les communautés que l\'infrastructure terrestre ne peut pas desservir économiquement.'
+    en: 'For the vast rural areas between these cities, Starlink satellite integration is planned to provide last-mile connectivity — ensuring that the benefits of the fiber backbone reach communities that ground-based infrastructure cannot economically serve. Final scope is subject to applicable DRC regulatory approvals.',
+    fr: 'Pour les vastes zones rurales entre ces villes, l\'intégration satellite Starlink est prévue pour fournir une connectivité du dernier kilomètre — garantissant que les avantages du réseau fibre atteignent les communautés que l\'infrastructure terrestre ne peut pas desservir économiquement. Le périmètre final est soumis aux approbations réglementaires applicables de la RDC.'
   },
   'fb.beat1.body': {
     en: 'The backbone follows the DRC\'s major population corridors — Kinshasa to Lubumbashi, Kinshasa to Kisangani, Kisangani to Goma, Goma to Bukavu, Bukavu to Lubumbashi, and Mbuji-Mayi as the central hub. A ring topology means that if any single cable is cut, traffic automatically reroutes within milliseconds. The country stays connected.',
@@ -235,8 +235,8 @@ Object.assign(translations, {
   'home.card.mapping.tag': { en: 'Phase 1 · Active', fr: 'Phase 1 · Active' },
   'home.card.mapping.h3': { en: 'National Address Mapping', fr: 'Cartographie Nationale des Adresses' },
   'home.card.mapping.p': {
-    en: '20 million addresses mapped at 95% accuracy — for the first time in DRC history. Delivered through up to 100 modernized post offices, every one connected by Starlink.',
-    fr: '20 millions d\'adresses cartographiées à 95% de précision — pour la première fois dans l\'histoire de la RDC. Livrées via jusqu\'à 100 bureaux de poste modernisés, chacun connecté par Starlink.'
+    en: 'A target of up to 20 million addresses at a 95% accuracy goal — for the first time in DRC history. Delivered through up to 100 modernized post offices, every one connected by Starlink. Figures indicative; subject to Definitive Agreement.',
+    fr: 'Une cible allant jusqu\'à 20 millions d\'adresses avec un objectif de précision de 95% — pour la première fois dans l\'histoire de la RDC. Livrées via jusqu\'à 100 bureaux de poste modernisés, chacun connecté par Starlink. Chiffres indicatifs ; sous réserve de l\'accord définitif.'
   },
   'home.card.fiber.tag': { en: 'Phase 2 · Development', fr: 'Phase 2 · Développement' },
   'home.card.fiber.h3': { en: 'National Fiber Backbone', fr: 'Réseau Fibre National' },
@@ -246,8 +246,8 @@ Object.assign(translations, {
   },
   'home.card.dc.h3': { en: 'Sovereign Data Center', fr: 'Centre de Données Souverain' },
   'home.card.dc.p': {
-    en: 'A two-site sovereign cloud — Kinshasa primary, Lubumbashi disaster-recovery — Tier-IV certified, with a 24/7 Security Operations Center. The DRC\'s data stays in the DRC.',
-    fr: 'Un cloud souverain à deux sites — Kinshasa principal, Lubumbashi reprise après sinistre — certifié Tier-IV, avec un Centre des Opérations de Sécurité 24/7. Les données de la RDC restent en RDC.'
+    en: 'A two-site sovereign cloud — Kinshasa primary, Lubumbashi disaster-recovery — designed to Uptime Institute Tier IV standards, with a 24/7 Security Operations Center. The DRC\'s data stays in the DRC.',
+    fr: 'Un cloud souverain à deux sites — Kinshasa principal, Lubumbashi reprise après sinistre — conçu selon les normes Tier IV de l\'Uptime Institute, avec un Centre des Opérations de Sécurité 24/7. Les données de la RDC restent en RDC.'
   },
   'home.card.cc.tag': { en: 'Phase 3 · Planned', fr: 'Phase 3 · Planifiée' },
   'home.card.cc.h3': { en: 'Regional Call Centers', fr: 'Centres d\'Appel Régionaux' },

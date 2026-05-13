@@ -31,6 +31,8 @@ const translations = {
   'footer.copyright':   { en: '© 2026 Palm Leaf Partners LLC. All rights reserved.', fr: '© 2026 Palm Leaf Partners LLC. Tous droits réservés.' },
   'footer.privacy':     { en: 'Privacy Policy',          fr: 'Politique de Confidentialité' },
   'footer.terms':       { en: 'Terms of Use',            fr: 'Conditions d\'Utilisation' },
+  'footer.forward':     { en: 'Forward-Looking Statements', fr: 'Déclarations Prospectives' },
+  'footer.disclaimer':  { en: 'Forward-looking notice: This website describes contemplated infrastructure programs in the Democratic Republic of Congo. Many references — including the 25-year scope, ~20 million address target, 95% accuracy goal, Tier IV data center design, fiber and call-center networks, and SCPT Mobile — are indicative and subject to (i) a Scope Validation Survey, (ii) the Definitive Agreement(s) with the DRC counterparties, and (iii) applicable DRC regulatory approvals. No partnership referenced on this site (including with UN agencies) should be construed as binding unless and until a formal written agreement is executed. See the Forward-Looking Statements section of our Terms of Use.', fr: 'Avis de déclaration prospective : Ce site web décrit des programmes d\'infrastructure envisagés en République Démocratique du Congo. De nombreuses références — y compris la portée de 25 ans, la cible d\'environ 20 millions d\'adresses, l\'objectif de précision de 95%, la conception du centre de données Tier IV, les réseaux fibre et de centres d\'appel, et SCPT Mobile — sont indicatives et soumises à (i) une étude de validation du périmètre, (ii) le ou les accords définitifs avec les contreparties en RDC, et (iii) les approbations réglementaires applicables en RDC. Aucun partenariat mentionné sur ce site (y compris avec des agences de l\'ONU) ne doit être considéré comme contraignant tant qu\'un accord écrit formel n\'a pas été exécuté. Voir la section Déclarations Prospectives de nos Conditions d\'Utilisation.' },
   'sister.shared':      { en: 'Shared Roots<br>Shared Purpose', fr: 'Racines Communes<br>Mission Commune' },
   'sister.plp.tagline': { en: 'Infrastructure · Technology · Investment', fr: 'Infrastructure · Technologie · Investissement' },
   'sister.ptwo.tagline':{ en: 'Empowering Women · Transforming Communities', fr: 'Autonomiser les Femmes · Transformer les Communautés' },
@@ -74,7 +76,7 @@ const translations = {
   /* ── MAPPING PAGE ── */
   'map.eyebrow':        { en: 'Project 01 · Phase 1 Active', fr: 'Projet 01 · Phase 1 Active' },
   'map.h1':             { en: 'National Address Mapping', fr: 'Cartographie Nationale des Adresses' },
-  'map.lead':           { en: '20 million addresses. Mapped at 95% accuracy. For the first time in DRC history.', fr: '20 millions d\'adresses. Cartographiées à 95% de précision. Pour la première fois dans l\'histoire de la RDC.' },
+  'map.lead':           { en: 'A target of up to 20 million addresses. A 95% accuracy goal. For the first time in DRC history.', fr: 'Une cible allant jusqu\'à 20 millions d\'adresses. Un objectif de précision de 95%. Pour la première fois dans l\'histoire de la RDC.' },
   'map.breadcrumb':     { en: 'Address Mapping',          fr: 'Cartographie des Adresses' },
   'map.open.eyebrow':   { en: 'The Foundation',           fr: 'Le Fondement' },
   'map.open.h2':        { en: 'A Country That Couldn\'t Find Itself', fr: 'Un Pays Qui Ne Pouvait Pas Se Trouver' },
@@ -110,7 +112,7 @@ const translations = {
   /* ── CALL CENTERS PAGE ── */
   'cc.eyebrow':         { en: 'Project 03 · Phase 3 Planned', fr: 'Projet 03 · Phase 3 Planifiée' },
   'cc.h1':              { en: 'Regional Call Centers',    fr: 'Centres d\'Appel Régionaux' },
-  'cc.lead':            { en: 'Five to ten regional centers. Every region of the DRC. Six languages. Built on the map that makes precise dispatch possible.', fr: 'Cinq à dix centres régionaux. Chaque région de la RDC. Six langues. Construits sur la carte qui rend possible un dispatch précis.' },
+  'cc.lead':            { en: 'Five to ten planned regional centers. Every region of the DRC. Six languages. To be built on the map that makes precise dispatch possible.', fr: 'Cinq à dix centres régionaux prévus. Chaque région de la RDC. Six langues. À construire sur la carte qui rend possible un dispatch précis.' },
   'cc.breadcrumb':      { en: 'Call Centers',             fr: 'Centres d\'Appel' },
   'cc.banner.h3':       { en: 'Why the Address Map Comes First', fr: 'Pourquoi la Carte d\'Adresses Vient en Premier' },
   'cc.open.eyebrow':    { en: 'The Mission',              fr: 'La Mission' },
@@ -128,7 +130,7 @@ const translations = {
   /* ── FIBER PAGE ── */
   'fb.eyebrow':         { en: 'Project 04 · Phase 2 Development', fr: 'Projet 04 · Phase 2 Développement' },
   'fb.h1':              { en: 'National Fiber Backbone',  fr: 'Réseau Fibre National' },
-  'fb.lead':            { en: 'Six cities connected. One hundred remote sites reached. A 25-year partnership that lights up the DRC.', fr: 'Six villes connectées. Cent sites distants atteints. Un partenariat de 25 ans qui illumine la RDC.' },
+  'fb.lead':            { en: 'Six cities planned to be connected. One hundred remote sites targeted. A proposed 25-year partnership designed to light up the DRC.', fr: 'Six villes prévues d\'être connectées. Cent sites distants ciblés. Un partenariat proposé de 25 ans conçu pour illuminer la RDC.' },
   'fb.breadcrumb':      { en: 'Fiber Backbone',           fr: 'Réseau Fibre' },
   'fb.open.eyebrow':    { en: 'National Connectivity',    fr: 'Connectivité Nationale' },
   'fb.open.h2':         { en: 'Lighting Up the DRC',      fr: 'Illuminer la RDC' },

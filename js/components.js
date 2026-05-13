@@ -205,7 +205,11 @@ function renderFooter(isHome = false) {
         <div class="footer-legal">
           <a href="${base}privacy.html" data-i18n="footer.privacy">Privacy Policy</a>
           <a href="${base}terms.html" data-i18n="footer.terms">Terms of Use</a>
+          <a href="${base}terms.html#forward" data-i18n="footer.forward">Forward-Looking Statements</a>
         </div>
+      </div>
+      <div style="margin-top:1rem; padding-top:1rem; border-top:1px solid rgba(245,240,232,0.08); font-size:0.72rem; color:rgba(245,240,232,0.45); line-height:1.6;">
+        <p data-i18n="footer.disclaimer" style="margin:0;">Forward-looking notice: This website describes contemplated infrastructure programs in the Democratic Republic of Congo. Many references — including the 25-year scope, ~20 million address target, 95% accuracy goal, Tier IV data center design, fiber and call-center networks, and SCPT Mobile — are indicative and subject to (i) a Scope Validation Survey, (ii) the Definitive Agreement(s) with the DRC counterparties, and (iii) applicable DRC regulatory approvals. No partnership referenced on this site (including with UN agencies) should be construed as binding unless and until a formal written agreement is executed. See the <a href="${base}terms.html#forward" style="color:var(--gold);">Forward-Looking Statements</a> section of our Terms of Use.</p>
       </div>
     </div>
   </footer>`;
