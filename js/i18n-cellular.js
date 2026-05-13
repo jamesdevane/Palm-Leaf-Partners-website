@@ -6,6 +6,7 @@ Object.assign(translations, {
   'nav.cellular': { en: 'SCPT Mobile', fr: 'SCPT Mobile' },
 
   /* ── PAGE HERO ── */
+  'cellular.hero.cta1': { en: 'Learn More', fr: 'En Savoir Plus' },
   'cellular.eyebrow': { en: 'SCPT · Post Office Cellular Service', fr: 'SCPT · Service Mobile des Bureaux de Poste' },
   'cellular.h1':      { en: 'SCPT Mobile', fr: 'SCPT Mobile' },
   'cellular.lead':    {
