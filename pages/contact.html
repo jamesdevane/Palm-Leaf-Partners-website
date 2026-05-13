@@ -115,9 +115,10 @@
                 <textarea id="message" name="message" placeholder="Tell us about your interest in Palm Leaf Partners and how you'd like to engage..." required></textarea>
               </div>
               <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center;" data-i18n="contact.btn.send">Send Message</button>
+              <p style="font-size:0.78rem; color:var(--text-muted); margin-top:0.75rem; line-height:1.5;" data-i18n="contact.form.note">Submitting this form will open your email client with the message pre-filled, addressed to <strong>info@palmleafpartners.com</strong>. Your message is sent only when you click Send in your mail client; nothing is transmitted from this page until then. Please do not include sensitive personal information.</p>
             </form>
             <div id="formSuccess" style="display:none; background:rgba(27,67,50,0.08); border-radius:var(--radius-md); padding:1.5rem; text-align:center; margin-top:1rem;">
-              <p style="color:var(--green); font-weight:600; margin:0;" data-i18n="contact.success">✓ Message sent. We'll be in touch shortly.</p>
+              <p style="color:var(--green); font-weight:600; margin:0;" data-i18n="contact.success">✓ Your email client should have opened. Click Send in your mail client to complete the message.</p>
             </div>
           </div>
         </div>
@@ -162,7 +163,8 @@
               <li style="padding:0.4rem 0; border-bottom:1px solid rgba(27,67,50,0.06);">✦ DRC PPP Law 20/018</li>
               <li style="padding:0.4rem 0; border-bottom:1px solid rgba(27,67,50,0.06);">✦ SCPT MOU — National Address Mapping</li>
               <li style="padding:0.4rem 0; border-bottom:1px solid rgba(27,67,50,0.06);">✦ UPTWB SAS — DRC Operating Entity</li>
-              <li style="padding:0.4rem 0;">✦ UPTW USA — International Operations</li>
+              <li style="padding:0.4rem 0; border-bottom:1px solid rgba(27,67,50,0.06);">✦ UPTW USA — International Operations</li>
+              <li style="padding:0.4rem 0;">✦ FCPA, OHADA and DRC anti-corruption compliance</li>
             </ul>
           </div>
         </div>
@@ -182,6 +184,26 @@
     renderFooter();
     function handleSubmit(e) {
       e.preventDefault();
+      var first = document.getElementById('firstName').value.trim();
+      var last = document.getElementById('lastName').value.trim();
+      var email = document.getElementById('email').value.trim();
+      var org = document.getElementById('organization').value.trim();
+      var subjectSel = document.getElementById('subject');
+      var subjectLabel = subjectSel.options[subjectSel.selectedIndex].text;
+      var message = document.getElementById('message').value.trim();
+      var mailSubject = 'Palm Leaf Partners — ' + subjectLabel;
+      var bodyLines = [
+        'Name: ' + first + ' ' + last,
+        'Email: ' + email,
+        'Organization: ' + org,
+        'Subject: ' + subjectLabel,
+        '',
+        message
+      ];
+      var mailto = 'mailto:info@palmleafpartners.com'
+        + '?subject=' + encodeURIComponent(mailSubject)
+        + '&body=' + encodeURIComponent(bodyLines.join('\n'));
+      window.location.href = mailto;
       document.getElementById('contactForm').style.display = 'none';
       document.getElementById('formSuccess').style.display = 'block';
     }
