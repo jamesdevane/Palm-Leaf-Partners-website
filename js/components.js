@@ -23,6 +23,7 @@ function renderNav() {
             <li><a href="call-centers.html" data-i18n="nav.callcenters">Call Centers</a></li>
             <li><a href="fiber-backbone.html" data-i18n="nav.fiber">Fiber Backbone</a></li>
             <li><a href="memorial-city.html" data-i18n="nav.memorial">Memorial City</a></li>
+            <li><a href="cellular.html" data-i18n="nav.cellular">SCPT Mobile</a></li>
           </ul>
         </li>
         <li><a href="about.html" data-i18n="nav.about">About</a></li>
@@ -46,6 +47,7 @@ function renderNav() {
       <li><a href="call-centers.html" data-i18n="nav.callcenters">Call Centers</a></li>
       <li><a href="fiber-backbone.html" data-i18n="nav.fiber">Fiber Backbone</a></li>
       <li><a href="memorial-city.html" data-i18n="nav.memorial">Memorial City</a></li>
+      <li><a href="cellular.html" data-i18n="nav.cellular">SCPT Mobile</a></li>
       <li><a href="about.html" data-i18n="nav.about">About</a></li>
       <li><a href="partnership.html" data-i18n="nav.partnership">Partnership &amp; Governance</a></li>
       <li><a href="contact.html" data-i18n="nav.contact">Contact</a></li>
@@ -79,6 +81,7 @@ function renderHomeNav() {
             <li><a href="pages/call-centers.html" data-i18n="nav.callcenters">Call Centers</a></li>
             <li><a href="pages/fiber-backbone.html" data-i18n="nav.fiber">Fiber Backbone</a></li>
             <li><a href="pages/memorial-city.html" data-i18n="nav.memorial">Memorial City</a></li>
+            <li><a href="pages/cellular.html" data-i18n="nav.cellular">SCPT Mobile</a></li>
           </ul>
         </li>
         <li><a href="pages/about.html" data-i18n="nav.about">About</a></li>
@@ -102,6 +105,7 @@ function renderHomeNav() {
       <li><a href="pages/call-centers.html" data-i18n="nav.callcenters">Call Centers</a></li>
       <li><a href="pages/fiber-backbone.html" data-i18n="nav.fiber">Fiber Backbone</a></li>
       <li><a href="pages/memorial-city.html" data-i18n="nav.memorial">Memorial City</a></li>
+      <li><a href="pages/cellular.html" data-i18n="nav.cellular">SCPT Mobile</a></li>
       <li><a href="pages/about.html" data-i18n="nav.about">About</a></li>
       <li><a href="pages/partnership.html" data-i18n="nav.partnership">Partnership &amp; Governance</a></li>
       <li><a href="pages/contact.html" data-i18n="nav.contact">Contact</a></li>
@@ -174,6 +178,7 @@ function renderFooter(isHome = false) {
             <li><a href="${base}data-center.html" data-i18n="footer.projects.dc">Data Center</a></li>
             <li><a href="${base}call-centers.html" data-i18n="footer.projects.cc">Call Centers</a></li>
             <li><a href="${base}fiber-backbone.html" data-i18n="footer.projects.fiber">Fiber Backbone</a></li>
+            <li><a href="${base}cellular.html" data-i18n="nav.cellular">SCPT Mobile</a></li>
           </ul>
         </div>
         <div class="footer-col">

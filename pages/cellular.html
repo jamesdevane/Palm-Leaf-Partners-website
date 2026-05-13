@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SCPT Mobile — Post Office Cellular Service | Palm Leaf Partners</title>
+  <meta name="description" content="SCPT Mobile brings full-service cellular to every corner of the DRC — Samsung devices, data plans, and mobile connectivity sold through 100 modernized post offices nationwide." />
+  <meta name="keywords" content="SCPT Mobile, DRC cellular service, Congo mobile phones, Samsung DRC, post office cell phone, SCPT telecommunications, Palm Leaf Partners" />
+  <meta name="author" content="Palm Leaf Partners" />
+  <meta name="theme-color" content="#1B4332" />
+  <link rel="canonical" href="https://palmleafpartners.com/pages/cellular.html" />
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Palm Leaf Partners" />
+  <meta property="og:title" content="SCPT Mobile — Post Office Cellular Service" />
+  <meta property="og:description" content="Full-service mobile connectivity through 100 modernized post offices across the DRC. Samsung devices, data plans, and more — powered by SCPT." />
+  <meta property="og:url" content="https://palmleafpartners.com/pages/cellular.html" />
+  <meta property="og:image" content="https://palmleafpartners.com/assets/images/zola-hero-cellular.jpg" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:locale:alternate" content="fr_CD" />
+  <!-- Twitter / X Cards -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="SCPT Mobile — Post Office Cellular Service" />
+  <meta name="twitter:description" content="Full-service mobile connectivity through 100 modernized post offices across the DRC." />
+  <meta name="twitter:image" content="https://palmleafpartners.com/assets/images/zola-hero-cellular.jpg" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/cinematic.css" />
+  <link rel="stylesheet" href="../css/mobile.css" />
+  <style>
+    /* ── SCPT Mobile Page Specific Styles ── */
+    .scpt-logo-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: rgba(27,67,50,0.06);
+      border: 1px solid rgba(184,134,11,0.3);
+      border-radius: var(--radius-md);
+      padding: 0.6rem 1.2rem;
+      margin-bottom: 1.5rem;
+    }
+    .scpt-logo-badge img {
+      width: 48px;
+      height: 48px;
+      object-fit: contain;
+      border-radius: 50%;
+    }
+    .scpt-logo-badge span {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+    .plan-card {
+      background: var(--white);
+      border: 1px solid rgba(27,67,50,0.12);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+      position: relative;
+    }
+    .plan-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+      border-color: rgba(184,134,11,0.4);
+    }
+    .plan-card.featured {
+      border: 2px solid var(--gold);
+      background: linear-gradient(160deg, var(--green) 0%, var(--green-mid) 100%);
+    }
+    .plan-card.featured h3,
+    .plan-card.featured .plan-price,
+    .plan-card.featured .plan-name {
+      color: var(--white);
+    }
+    .plan-card.featured .plan-feature { color: rgba(245,240,232,0.82); }
+    .plan-badge {
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--gold);
+      color: var(--green);
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 0.3rem 1rem;
+      border-radius: 20px;
+    }
+    .plan-name {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+    .plan-price {
+      font-family: var(--font-heading);
+      font-size: 2.4rem;
+      font-weight: 700;
+      color: var(--green);
+      line-height: 1;
+      margin-bottom: 0.25rem;
+    }
+    .plan-price sup {
+      font-size: 1.2rem;
+      vertical-align: top;
+      margin-top: 0.4rem;
+    }
+    .plan-period {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 1.25rem;
+    }
+    .plan-divider {
+      border: none;
+      border-top: 1px solid rgba(27,67,50,0.1);
+      margin: 1.25rem 0;
+    }
+    .plan-feature {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      font-size: 0.9rem;
+      color: var(--text-body);
+      margin-bottom: 0.6rem;
+    }
+    .plan-feature .check-icon {
+      flex-shrink: 0;
+      width: 18px;
+      height: 18px;
+      background: var(--green-light);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 1px;
+    }
+    .plan-card.featured .check-icon { background: var(--gold); }
+    .plan-feature .check-icon svg { width: 10px; height: 10px; }
+    .device-card {
+      background: var(--white);
+      border: 1px solid rgba(27,67,50,0.1);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .device-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+    }
+    .device-card-body {
+      padding: 1.5rem;
+    }
+    .device-tag {
+      display: inline-block;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      margin-bottom: 0.75rem;
+    }
+    .device-tag.new { background: rgba(27,67,50,0.1); color: var(--green); }
+    .device-tag.popular { background: rgba(184,134,11,0.15); color: var(--gold); }
+    .device-tag.value { background: rgba(64,145,108,0.12); color: var(--green-light); }
+    .device-name { font-size: 1rem; font-weight: 600; color: var(--green); margin-bottom: 0.25rem; }
+    .device-price { font-family: var(--font-heading); font-size: 1.4rem; font-weight: 700; color: var(--gold); }
+    .device-sub { font-size: 0.78rem; color: var(--text-muted); margin-top: 0.2rem; }
+    .device-img-wrap {
+      background: linear-gradient(135deg, var(--cream) 0%, var(--cream-dark) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 180px;
+      padding: 1.5rem;
+    }
+    .device-img-wrap svg { opacity: 0.6; }
+    .store-locator-band {
+      background: linear-gradient(135deg, var(--green) 0%, var(--green-mid) 100%);
+      padding: 4rem 0;
+    }
+    .store-locator-band h2,
+    .store-locator-band p { color: var(--white); }
+    .store-locator-band h2 em { color: var(--gold-pale); font-style: normal; }
+    .province-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 0.75rem;
+      margin-top: 2rem;
+    }
+    .province-item {
+      background: rgba(245,240,232,0.1);
+      border: 1px solid rgba(184,134,11,0.25);
+      border-radius: var(--radius-md);
+      padding: 0.75rem 1rem;
+      font-size: 0.82rem;
+      color: rgba(245,240,232,0.85);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .province-item::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--gold);
+      flex-shrink: 0;
+    }
+    .scpt-partnership-banner {
+      background: var(--cream);
+      border-left: 6px solid var(--gold);
+      border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+      padding: 2rem 2.5rem;
+      margin-bottom: 3rem;
+    }
+    .scpt-partnership-banner h3 { color: var(--gold); margin-bottom: 0.75rem; }
+    .scpt-partnership-banner p { color: var(--text-muted); margin: 0; font-size: 1.05rem; }
+    .grid-plans {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      align-items: start;
+    }
+    .grid-devices {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+    }
+    @media (max-width: 900px) {
+      .grid-plans { grid-template-columns: 1fr; }
+      .grid-devices { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 600px) {
+      .grid-devices { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HERO -->
+  <div class="page-hero-fullbleed">
+    <img src="../assets/images/zola-hero-cellular.jpg" alt="Zola holding a Samsung Galaxy S26 with the SCPT logo over Kinshasa at sunset" class="bg-img" />
+    <div class="overlay"></div>
+    <div class="hero-text-block">
+      <span class="eyebrow" data-i18n="cellular.eyebrow">SCPT · Post Office Cellular Service</span>
+      <h1 data-i18n="cellular.h1">SCPT Mobile</h1>
+      <p class="lead" data-i18n="cellular.lead">Full-service mobile connectivity — Samsung devices, data plans, and customer care — delivered through 100 modernized post offices across every province of the DRC.</p>
+    </div>
+  </div>
+
+  <div class="breadcrumb">
+    <div class="breadcrumb-inner">
+      <a href="../index.html">Home</a>
+      <span class="sep">›</span>
+      <span>SCPT Mobile</span>
+    </div>
+  </div>
+
+  <!-- PARTNERSHIP BANNER -->
+  <section class="section" style="background:var(--white);">
+    <div class="container">
+      <div class="scpt-partnership-banner fade-in">
+        <h3 data-i18n="cellular.banner.h3">A Partnership Built on National Infrastructure</h3>
+        <p data-i18n="cellular.banner.body">SCPT Mobile is a joint initiative between Palm Leaf Partners and the Société Congolaise des Postes et Télécommunications (SCPT) — the DRC's national postal and telecommunications authority. By transforming post offices into full-service cellular storefronts, we bring T-Mobile-style mobile retail to every corner of the Congo, backed by the trust and reach of a national institution.</p>
+      </div>
+
+      <!-- INTRO GRID -->
+      <div class="grid-2">
+        <div class="slide-left">
+          <div class="scpt-logo-badge">
+            <img src="../assets/images/scpt-logo.jpg" alt="SCPT Logo" onerror="this.style.display='none'" />
+            <span>SCPT · Official Partner</span>
+          </div>
+          <span style="font-size:0.72rem;font-weight:600;color:var(--gold);letter-spacing:0.2em;text-transform:uppercase;" data-i18n="cellular.open.eyebrow">The Vision</span>
+          <h2 data-i18n="cellular.open.h2">The Post Office as the Nation's Cell Phone Store</h2>
+          <p data-i18n="cellular.body.p1">In the United States, T-Mobile, Verizon, and AT&T operate thousands of retail stores where citizens can walk in, choose a device, select a plan, and walk out connected. The DRC deserves the same. SCPT Mobile delivers exactly that — through the most trusted and widely distributed network of public buildings in the country: the post office.</p>
+          <p data-i18n="cellular.body.p2">Every one of the 100 post offices modernized under the Palm Leaf Partners program becomes a full-service SCPT Mobile storefront — staffed, stocked with Samsung devices, and equipped to activate service, process payments, and provide ongoing customer support in French, Lingala, Swahili, and local languages.</p>
+        </div>
+        <div class="slide-right">
+          <div class="scale-bar" style="border-radius:var(--radius-lg);overflow:hidden;">
+            <div class="scale-grid" style="grid-template-columns:1fr 1fr;max-width:100%;">
+              <div class="scale-item"><div class="scale-number">100</div><div class="scale-label" data-i18n="cellular.scale.stores">Post Office Stores Nationwide</div></div>
+              <div class="scale-item"><div class="scale-number">26</div><div class="scale-label" data-i18n="cellular.scale.provinces">Provinces Covered</div></div>
+              <div class="scale-item"><div class="scale-number">4+</div><div class="scale-label" data-i18n="cellular.scale.languages">Languages of Service</div></div>
+              <div class="scale-item"><div class="scale-number">25</div><div class="scale-label" data-i18n="cellular.scale.years">Year Partnership Program</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BEAT 1 — THE STOREFRONT -->
+  <section class="story-section">
+    <div class="container">
+      <div class="grid-2">
+        <div class="slide-left">
+          <span class="beat-number">01</span>
+          <span class="beat-label" data-i18n="cellular.beat1.label">The Storefront.</span>
+          <h2 class="beat-headline" data-i18n="cellular.beat1.h2">Walk in. Choose your phone. Walk out connected.</h2>
+          <p class="beat-body" data-i18n="cellular.beat1.body">Each SCPT Mobile location inside a modernized post office is designed to the same standard as a premium retail cell phone store. Display cases showcase the latest Samsung Galaxy devices. Trained staff assist customers in selecting the right plan. Activations happen on the spot. The experience is modern, professional, and welcoming — for first-time smartphone buyers and experienced users alike.</p>
+        </div>
+        <div class="beat-image slide-right">
+          <img src="../assets/images/zola-hero-postoffice.jpg" alt="Zola in front of a modern SCPT post office cellular store in the DRC" />
+        </div>
+      </div>
+      <!-- ZOLA GUIDE -->
+      <div class="zola-guide fade-in">
+        <img src="../assets/images/zola-guide-gesture-transparent.png" alt="Zola" />
+        <div class="zola-guide-bubble">
+          <p data-i18n="guide.cellular.1">"Every Congolese citizen deserves to hold the world in their hand. SCPT Mobile makes that possible — one post office at a time."</p>
+          <span class="guide-attr">Zola · Palm Leaf Partners</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BEAT 2 — THE DEVICES -->
+  <section class="story-section">
+    <div class="container">
+      <div class="grid-2">
+        <div class="beat-image slide-left">
+          <img src="../assets/images/zola-hero-cellular.jpg" alt="Zola holding the Samsung Galaxy S26 with SCPT branding over Kinshasa" />
+        </div>
+        <div class="slide-right">
+          <span class="beat-number">02</span>
+          <span class="beat-label" data-i18n="cellular.beat2.label">The Devices.</span>
+          <h2 class="beat-headline" data-i18n="cellular.beat2.h2">Samsung Galaxy. The world's most trusted smartphone — now available at your post office.</h2>
+          <p class="beat-body" data-i18n="cellular.beat2.body">SCPT Mobile carries the full Samsung Galaxy lineup — from the flagship Galaxy S26 to affordable entry-level devices — ensuring every Congolese family can find a phone that fits their needs and their budget. Each device is sold with an SCPT Mobile SIM pre-installed and ready to activate. Financing options make premium devices accessible to all income levels.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICE PLANS -->
+  <section class="section" style="background:var(--white);">
+    <div class="container">
+      <div class="text-center" style="margin-bottom:3rem;">
+        <span style="font-size:0.72rem;font-weight:600;color:var(--gold);letter-spacing:0.2em;text-transform:uppercase;" data-i18n="cellular.plans.eyebrow">Service Plans</span>
+        <h2 style="margin-top:0.5rem;" data-i18n="cellular.plans.h2">Simple Plans. Honest Prices.</h2>
+        <p style="color:var(--text-muted);max-width:560px;margin:0.75rem auto 0;" data-i18n="cellular.plans.desc">All plans include SCPT Mobile SIM, nationwide coverage on the DRC's growing network, and full customer support at any post office location.</p>
+      </div>
+      <div class="grid-plans">
+        <!-- STARTER PLAN -->
+        <div class="plan-card fade-in">
+          <div class="plan-name" data-i18n="cellular.plan1.name">Starter</div>
+          <div class="plan-price"><sup>$</sup>5</div>
+          <div class="plan-period" data-i18n="cellular.plan1.period">per month</div>
+          <hr class="plan-divider" />
+          <div class="plan-feature">
+            <div class="check-icon"><svg viewBox="0 0 10 10" fill="white"><path d="M2 5.5L4 7.5L8 3"/></svg></div>
+            <span data-i18n="cellular.plan1.f1">1 GB mobile data</span>
+          </div>
+          <div class="plan-feature">
+            <div class="check-icon"><svg viewBox="0 0 10 10" fill="white"><path d="M2 5.5L4 7.5L8 3"/></svg></div>
+            <span data-i18n="cellular.plan1.f2">Unlimited local calls</span>
+          </div>
+          <div class="plan-feature">
+            <div class="check-icon"><svg viewBox="0 0 10 10" fill="white"><path d="M2 5.5L4 7.5L8 3"/></svg></div>
+            <span data-i18n="cellular.plan1.f3">100 SMS messages</span>
+          </div>
+          <div class="plan-feature">
+            <div class="check-icon"><svg viewBox="0 0 10 10" fill="white"><path d="M2 5.5L4 7.5L8 3"/></svg></div>
+            <span data-i18n="cellular.plan1.f4">SCPT Mobile SIM included</span>
+          </div>
+          <a href="../pages/contact.html" class="btn btn-outline" style="width:100%;text-align:center;margin-top:1.5rem;" data-i18n="cellular.plan.cta">Get Started</a>
+        </div>
+        <!-- CONNECT PLAN (FEATURED) -->
+        <div class="plan-card featured fade-in">
+          <div class="plan-badge" data-i18n="cellular.plan2.badge">Most Popular</div>
+          <div class="plan-name" data-i18n="cellular.plan2.name">Connect</div>
+          <div class="plan-price"><sup>$</sup>15</div>
+          <div class="plan-period" data-i18n="cellular.plan2.period">per month</div>
+          <hr class="plan-divider" style="border-color:rgba(245,240,232,0.2);" />
+          <div class="plan-feature">
+            <div class="check-icon"><svg viewBox="0 0 10 10" fill="white"><path d="M2 5.5L4 7.5L8 3"/></svg></div>
+            <span data-i18n="cellular.plan2.f1">10 GB mobile data</span>
+          </div>
+          <div class="plan-feature">
+            <div class="check-icon"><svg viewBox="0 0 10 10" fill="white"><path d="M2 5.5L4 7.5L8 3"/></svg></div>
+            <span data-i18n="cellular.plan2.f2">Unlimited calls &amp; SMS</span>
+          </div>
+          <div class="plan-feature">
+            <div class="check-icon"><svg viewBox="0 0 10 10" fill="white"><path d="M2 5.5L4 7.5L8 3"/></svg></div>
+            <span data-i18n="cellular.plan2.f3">WhatsApp &amp; social media</span>
+          </div>
+          <div class="plan-feature">
+            <div class="check-icon"><svg viewBox="0 0 10 10" fill="white"><path d="M2 5.5L4 7.5L8 3"/></svg></div>
+            <span data-i18n="cellular.plan2.f4">4G LTE where available</span>
+          </div>
+          <div class="plan-feature">
+            <div class="check-icon"><svg viewBox="0 0 10 10" fill="white"><path d="M2 5.5L4 7.5L8 3"/></svg></div>
+            <span data-i18n="cellular.plan2.f5">Device financing eligible</span>
+          </div>
+          <a href="../pages/contact.html" class="btn btn-primary" style="width:100%;text-align:center;margin-top:1.5rem;" data-i18n="cellular.plan.cta">Get Started</a>
+        </div>
+        <!-- UNLIMITED PLAN -->
+        <div class="plan-card fade-in">
+          <div class="plan-name" data-i18n="cellular.plan3.name">Unlimited</div>
+          <div class="plan-price"><sup>$</sup>30</div>
+          <div class="plan-period" data-i18n="cellular.plan3.period">per month</div>
+          <hr class="plan-divider" />
+          <div class="plan-feature">
+            <div class="check-icon"><svg viewBox="0 0 10 10" fill="white"><path d="M2 5.5L4 7.5L8 3"/></svg></div>
+            <span data-i18n="cellular.plan3.f1">Unlimited data</span>
+          </div>
+          <div class="plan-feature">
+            <div class="check-icon"><svg viewBox="0 0 10 10" fill="white"><path d="M2 5.5L4 7.5L8 3"/></svg></div>
+            <span data-i18n="cellular.plan3.f2">Unlimited calls &amp; SMS</span>
+          </div>
+          <div class="plan-feature">
+            <div class="check-icon"><svg viewBox="0 0 10 10" fill="white"><path d="M2 5.5L4 7.5L8 3"/></svg></div>
+            <span data-i18n="cellular.plan3.f3">International calling minutes</span>
+          </div>
+          <div class="plan-feature">
+            <div class="check-icon"><svg viewBox="0 0 10 10" fill="white"><path d="M2 5.5L4 7.5L8 3"/></svg></div>
+            <span data-i18n="cellular.plan3.f4">Priority 4G LTE network</span>
+          </div>
+          <div class="plan-feature">
+            <div class="check-icon"><svg viewBox="0 0 10 10" fill="white"><path d="M2 5.5L4 7.5L8 3"/></svg></div>
+            <span data-i18n="cellular.plan3.f5">Mobile hotspot included</span>
+          </div>
+          <div class="plan-feature">
+            <div class="check-icon"><svg viewBox="0 0 10 10" fill="white"><path d="M2 5.5L4 7.5L8 3"/></svg></div>
+            <span data-i18n="cellular.plan3.f6">Priority device financing</span>
+          </div>
+          <a href="../pages/contact.html" class="btn btn-outline" style="width:100%;text-align:center;margin-top:1.5rem;" data-i18n="cellular.plan.cta">Get Started</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SAMSUNG DEVICES -->
+  <section class="section" style="background:var(--cream);">
+    <div class="container">
+      <div class="text-center" style="margin-bottom:3rem;">
+        <span style="font-size:0.72rem;font-weight:600;color:var(--gold);letter-spacing:0.2em;text-transform:uppercase;" data-i18n="cellular.devices.eyebrow">Available Devices</span>
+        <h2 style="margin-top:0.5rem;" data-i18n="cellular.devices.h2">Samsung Galaxy. Every Budget.</h2>
+        <p style="color:var(--text-muted);max-width:560px;margin:0.75rem auto 0;" data-i18n="cellular.devices.desc">From the flagship Galaxy S26 to affordable entry-level models — every device sold at SCPT Mobile comes with a warranty and full post-sale support at any post office location.</p>
+      </div>
+      <div class="grid-devices">
+        <!-- S26 Ultra -->
+        <div class="device-card fade-in">
+          <div class="device-img-wrap">
+            <svg width="80" height="140" viewBox="0 0 80 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="8" y="4" width="64" height="132" rx="10" fill="#1B4332" stroke="#B8860B" stroke-width="1.5"/>
+              <rect x="14" y="16" width="52" height="96" rx="4" fill="#2D6A4F"/>
+              <circle cx="40" cy="122" r="5" fill="#40916C"/>
+              <rect x="28" y="6" width="24" height="3" rx="1.5" fill="#40916C"/>
+              <circle cx="54" cy="7.5" r="1.5" fill="#B8860B"/>
+            </svg>
+          </div>
+          <div class="device-card-body">
+            <div class="device-tag new">New 2026</div>
+            <div class="device-name">Samsung Galaxy S26 Ultra</div>
+            <div class="device-price">$1,199</div>
+            <div class="device-sub" data-i18n="cellular.device.financing">or from $50/mo with financing</div>
+          </div>
+        </div>
+        <!-- S26 -->
+        <div class="device-card fade-in">
+          <div class="device-img-wrap">
+            <svg width="72" height="130" viewBox="0 0 72 130" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="6" y="4" width="60" height="122" rx="10" fill="#2D6A4F" stroke="#B8860B" stroke-width="1.5"/>
+              <rect x="12" y="14" width="48" height="88" rx="4" fill="#40916C"/>
+              <circle cx="36" cy="114" r="5" fill="#1B4332"/>
+              <rect x="24" y="6" width="24" height="3" rx="1.5" fill="#1B4332"/>
+            </svg>
+          </div>
+          <div class="device-card-body">
+            <div class="device-tag popular">Popular</div>
+            <div class="device-name">Samsung Galaxy S26</div>
+            <div class="device-price">$799</div>
+            <div class="device-sub" data-i18n="cellular.device.financing">or from $33/mo with financing</div>
+          </div>
+        </div>
+        <!-- A56 -->
+        <div class="device-card fade-in">
+          <div class="device-img-wrap">
+            <svg width="66" height="120" viewBox="0 0 66 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="6" y="4" width="54" height="112" rx="9" fill="#40916C" stroke="#B8860B" stroke-width="1.5"/>
+              <rect x="12" y="14" width="42" height="80" rx="4" fill="#2D6A4F"/>
+              <circle cx="33" cy="106" r="4.5" fill="#1B4332"/>
+              <rect x="22" y="6" width="22" height="3" rx="1.5" fill="#1B4332"/>
+            </svg>
+          </div>
+          <div class="device-card-body">
+            <div class="device-tag value">Best Value</div>
+            <div class="device-name">Samsung Galaxy A56</div>
+            <div class="device-price">$349</div>
+            <div class="device-sub" data-i18n="cellular.device.financing">or from $15/mo with financing</div>
+          </div>
+        </div>
+        <!-- A16 -->
+        <div class="device-card fade-in">
+          <div class="device-img-wrap">
+            <svg width="60" height="112" viewBox="0 0 60 112" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="5" y="4" width="50" height="104" rx="8" fill="#B8860B" stroke="#1B4332" stroke-width="1.5"/>
+              <rect x="11" y="14" width="38" height="74" rx="4" fill="#D4A017"/>
+              <circle cx="30" cy="98" r="4" fill="#1B4332"/>
+              <rect x="20" y="6" width="20" height="3" rx="1.5" fill="#1B4332"/>
+            </svg>
+          </div>
+          <div class="device-card-body">
+            <div class="device-tag value">Entry Level</div>
+            <div class="device-name">Samsung Galaxy A16</div>
+            <div class="device-price">$149</div>
+            <div class="device-sub" data-i18n="cellular.device.affordable">Affordable connectivity for all</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BEAT 3 — THE NETWORK -->
+  <section class="story-section">
+    <div class="container">
+      <div class="grid-2">
+        <div class="slide-left">
+          <span class="beat-number">03</span>
+          <span class="beat-label" data-i18n="cellular.beat3.label">The Network.</span>
+          <h2 class="beat-headline" data-i18n="cellular.beat3.h2">Starlink-connected. Nationwide reach. No citizen left offline.</h2>
+          <p class="beat-body" data-i18n="cellular.beat3.body">Every SCPT Mobile post office location is connected to the internet via Starlink satellite — ensuring reliable connectivity even in the most remote provinces of the DRC. As the national fiber backbone expands, SCPT Mobile stores will transition to fiber-grade speeds, delivering the fastest mobile retail experience in Central Africa. The address mapping program ensures every customer can be precisely registered and located for service delivery.</p>
+        </div>
+        <div class="slide-right">
+          <div class="scale-bar" style="border-radius:var(--radius-lg);overflow:hidden;">
+            <div class="scale-grid" style="grid-template-columns:1fr 1fr;max-width:100%;">
+              <div class="scale-item"><div class="scale-number">100%</div><div class="scale-label" data-i18n="cellular.net.starlink">Starlink Connected</div></div>
+              <div class="scale-item"><div class="scale-number">4G</div><div class="scale-label" data-i18n="cellular.net.lte">LTE Network</div></div>
+              <div class="scale-item"><div class="scale-number">26</div><div class="scale-label" data-i18n="cellular.net.provinces">Provinces Served</div></div>
+              <div class="scale-item"><div class="scale-number">20M</div><div class="scale-label" data-i18n="cellular.net.addresses">Registered Addresses</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="zola-guide fade-in" style="flex-direction:row-reverse;">
+        <img src="../assets/images/zola-guide-gesture-transparent.png" alt="Zola" style="transform:scaleX(-1);" />
+        <div class="zola-guide-bubble" style="border-radius:var(--radius-lg) 0 var(--radius-lg) var(--radius-lg);">
+          <p data-i18n="guide.cellular.2">"When the post office becomes your cell phone store, connectivity stops being a privilege and becomes a right — for every Congolese citizen, in every province."</p>
+          <span class="guide-attr">Zola · Palm Leaf Partners</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STORE LOCATOR BAND -->
+  <div class="store-locator-band">
+    <div class="container">
+      <div class="text-center">
+        <span style="font-size:0.72rem;font-weight:600;color:var(--gold-pale);letter-spacing:0.2em;text-transform:uppercase;" data-i18n="cellular.stores.eyebrow">Find a Store</span>
+        <h2 style="margin-top:0.5rem;">SCPT Mobile is Coming to <em>All 26 Provinces</em></h2>
+        <p style="color:rgba(245,240,232,0.75);max-width:560px;margin:0.75rem auto 0;" data-i18n="cellular.stores.desc">As post offices are modernized under the Palm Leaf Partners program, SCPT Mobile storefronts open their doors. Phase 1 locations are active now across key provinces.</p>
+      </div>
+      <div class="province-grid">
+        <div class="province-item">Kinshasa</div>
+        <div class="province-item">Lubumbashi</div>
+        <div class="province-item">Mbuji-Mayi</div>
+        <div class="province-item">Kisangani</div>
+        <div class="province-item">Goma</div>
+        <div class="province-item">Bukavu</div>
+        <div class="province-item">Matadi</div>
+        <div class="province-item">Kananga</div>
+        <div class="province-item">Kolwezi</div>
+        <div class="province-item">Likasi</div>
+        <div class="province-item">Bunia</div>
+        <div class="province-item">Mbandaka</div>
+        <div class="province-item">Bandundu</div>
+        <div class="province-item">Kalemie</div>
+        <div class="province-item">Uvira</div>
+        <div class="province-item">Beni</div>
+        <div class="province-item">Butembo</div>
+        <div class="province-item">Tshikapa</div>
+        <div class="province-item">Kabinda</div>
+        <div class="province-item">Lodja</div>
+        <div class="province-item">Gemena</div>
+        <div class="province-item">Lisala</div>
+        <div class="province-item">Boende</div>
+        <div class="province-item">Ilebo</div>
+        <div class="province-item">Kamina</div>
+        <div class="province-item">Kongolo</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- INSIDE THE BUILD -->
+  <section class="section-sm" style="background:var(--cream);">
+    <div class="container">
+      <details class="inside-build">
+        <summary data-i18n="cellular.inside">Inside SCPT Mobile — Store Capabilities</summary>
+        <div class="inside-build-body">
+          <div class="grid-2" style="margin-top:1.5rem;gap:2rem;">
+            <ul class="feature-list">
+              <li><div class="check"><svg viewBox="0 0 11 11" fill="#B8860B"><path d="M2 6L4.5 8.5L9 3"/></svg></div><span data-i18n="cellular.cap1">Full Samsung Galaxy device lineup on display</span></li>
+              <li><div class="check"><svg viewBox="0 0 11 11" fill="#B8860B"><path d="M2 6L4.5 8.5L9 3"/></svg></div><span data-i18n="cellular.cap2">On-site SIM activation and number porting</span></li>
+              <li><div class="check"><svg viewBox="0 0 11 11" fill="#B8860B"><path d="M2 6L4.5 8.5L9 3"/></svg></div><span data-i18n="cellular.cap3">Device financing and payment plans</span></li>
+              <li><div class="check"><svg viewBox="0 0 11 11" fill="#B8860B"><path d="M2 6L4.5 8.5L9 3"/></svg></div><span data-i18n="cellular.cap4">Plan upgrades and account management</span></li>
+            </ul>
+            <ul class="feature-list">
+              <li><div class="check"><svg viewBox="0 0 11 11" fill="#B8860B"><path d="M2 6L4.5 8.5L9 3"/></svg></div><span data-i18n="cellular.cap5">Multilingual staff — French, Lingala, Swahili</span></li>
+              <li><div class="check"><svg viewBox="0 0 11 11" fill="#B8860B"><path d="M2 6L4.5 8.5L9 3"/></svg></div><span data-i18n="cellular.cap6">Mobile money and cash payment accepted</span></li>
+              <li><div class="check"><svg viewBox="0 0 11 11" fill="#B8860B"><path d="M2 6L4.5 8.5L9 3"/></svg></div><span data-i18n="cellular.cap7">Device repair and warranty service</span></li>
+              <li><div class="check"><svg viewBox="0 0 11 11" fill="#B8860B"><path d="M2 6L4.5 8.5L9 3"/></svg></div><span data-i18n="cellular.cap8">Starlink-connected for fast in-store service</span></li>
+            </ul>
+          </div>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <!-- CTA CALLOUT -->
+  <section class="callout">
+    <div class="container">
+      <h2 data-i18n="cellular.cta.h2">SCPT Mobile is Built on the Address Map</h2>
+      <p data-i18n="cellular.cta.p">The post offices that house SCPT Mobile stores are the same locations delivering the National Address Mapping program. Every store is a node in the national infrastructure network.</p>
+      <a href="mapping.html" class="btn btn-primary" data-i18n="cellular.cta.btn">See Address Mapping →</a>
+    </div>
+  </section>
+
+  <script src="../js/i18n.js"></script>
+  <script src="../js/i18n-extended.js"></script>
+  <script src="../js/i18n-final.js"></script>
+  <script src="../js/i18n-patch.js"></script>
+  <script src="../js/i18n-memorial.js"></script>
+  <script src="../js/i18n-cellular.js"></script>
+  <script src="../js/components.js"></script>
+  <script src="../js/main.js"></script>
+  <script>renderNav(); renderFooter();</script>
+</body>
+</html>
