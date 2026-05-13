@@ -31,6 +31,36 @@
   <link rel="stylesheet" href="../css/mobile.css" />
   <style>
     /* ── SCPT Mobile Page Specific Styles ── */
+
+    /* Mobile hero overrides — keep cellular image, center on Zola + phone */
+    @media (max-width: 768px) {
+      .hero-cellular .hero-bg-layer {
+        background-image: url('../assets/images/zola-hero-cellular.jpg') !important;
+        background-position: 38% center !important;
+        background-size: cover !important;
+      }
+      /* On mobile: gradient fades from bottom so text is readable */
+      .hero-cellular > div:nth-child(2) {
+        background: linear-gradient(
+          to top,
+          rgba(27,67,50,0.97) 0%,
+          rgba(27,67,50,0.88) 38%,
+          rgba(27,67,50,0.2) 65%,
+          rgba(27,67,50,0) 100%
+        ) !important;
+      }
+      /* Text anchored to bottom on mobile */
+      .hero-cellular > div:last-child {
+        align-items: flex-end !important;
+        justify-content: flex-start !important;
+        padding: 0 0 2rem !important;
+      }
+      .hero-cellular > div:last-child > div {
+        max-width: 100% !important;
+        padding: 1.5rem 1.25rem !important;
+      }
+    }
+
     .scpt-logo-badge {
       display: inline-flex;
       align-items: center;
@@ -104,7 +134,7 @@
 <body>
 
   <!-- HERO -->
-  <section class="hero-parallax" style="min-height:100vh;">
+  <section class="hero-parallax hero-cellular" style="min-height:100vh;">
     <div class="hero-bg-layer" style="background-image: url('../assets/images/zola-hero-cellular.jpg'); background-size:cover; background-position:25% center;"></div>
     <!-- Gradient: transparent on left, dark green on right -->
     <div style="position:absolute;inset:0;background:linear-gradient(to right, rgba(27,67,50,0) 0%, rgba(27,67,50,0) 38%, rgba(27,67,50,0.65) 55%, rgba(27,67,50,0.95) 100%);"></div>
