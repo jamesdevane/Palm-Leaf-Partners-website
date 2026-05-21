@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>Our World — Palm Leaf Partners</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { width: 100%; height: 100%; overflow: hidden; background: #020408; font-family: 'Georgia', serif; }
+
+    #canvas-container { position: fixed; inset: 0; }
+
+    /* ── Top bar ── */
+    .top-bar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 2rem;
+      background: linear-gradient(to bottom, rgba(2,4,8,0.9) 0%, rgba(2,4,8,0) 100%);
+    }
+    .top-bar .logo {
+      display: flex; align-items: center; gap: 0.75rem;
+      text-decoration: none;
+    }
+    .top-bar .logo img { height: 40px; width: 40px; border-radius: 50%; }
+    .top-bar .logo-text { line-height: 1.1; }
+    .top-bar .logo-text .name {
+      font-family: 'Georgia', serif; font-size: 1rem; font-weight: 700;
+      color: #F5F0E8; letter-spacing: 0.05em;
+    }
+    .top-bar .logo-text .sub {
+      font-size: 0.6rem; font-weight: 600; color: #B8860B;
+      letter-spacing: 0.18em; text-transform: uppercase;
+    }
+    .top-bar .back-btn {
+      color: rgba(245,240,232,0.7); font-size: 0.82rem; font-weight: 500;
+      text-decoration: none; letter-spacing: 0.06em;
+      border: 1px solid rgba(184,134,11,0.4); padding: 0.4rem 1rem;
+      border-radius: 20px; transition: all 0.2s;
+    }
+    .top-bar .back-btn:hover { color: #B8860B; border-color: #B8860B; }
+
+    /* ── Bottom info panel ── */
+    .info-panel {
+      position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%);
+      z-index: 100; text-align: center; pointer-events: none;
+    }
+    .info-panel .country-name {
+      font-family: 'Georgia', serif; font-size: clamp(1.4rem, 4vw, 2.2rem);
+      font-weight: 700; color: #F5F0E8;
+      text-shadow: 0 2px 20px rgba(0,0,0,0.8);
+      opacity: 0; transform: translateY(10px);
+      transition: all 0.4s ease;
+    }
+    .info-panel .country-name.visible { opacity: 1; transform: translateY(0); }
+    .info-panel .country-sub {
+      font-size: 0.8rem; color: #B8860B; letter-spacing: 0.15em;
+      text-transform: uppercase; margin-top: 0.25rem;
+      opacity: 0; transition: all 0.4s ease 0.1s;
+    }
+    .info-panel .country-sub.visible { opacity: 1; }
+
+    /* ── Drag hint ── */
+    .drag-hint {
+      position: fixed; bottom: 6rem; left: 50%; transform: translateX(-50%);
+      z-index: 100; text-align: center;
+      color: rgba(245,240,232,0.4); font-size: 0.75rem; letter-spacing: 0.12em;
+      text-transform: uppercase; pointer-events: none;
+      animation: fadeHint 3s ease 2s forwards;
+    }
+    @keyframes fadeHint { 0% { opacity: 1; } 100% { opacity: 0; } }
+
+    /* ── Zola tooltip ── */
+    .zola-tooltip {
+      position: fixed; z-index: 200;
+      background: rgba(27,67,50,0.95);
+      border: 1px solid rgba(184,134,11,0.5);
+      border-radius: 12px; padding: 0.75rem 1.25rem;
+      color: #F5F0E8; font-size: 0.82rem; max-width: 220px;
+      pointer-events: none; opacity: 0;
+      transition: opacity 0.3s;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+    }
+    .zola-tooltip.visible { opacity: 1; }
+    .zola-tooltip strong { color: #B8860B; display: block; margin-bottom: 0.25rem; font-size: 0.9rem; }
+
+    /* ── Loading screen ── */
+    #loading {
+      position: fixed; inset: 0; z-index: 500;
+      background: #020408;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 1.5rem;
+      transition: opacity 0.8s ease;
+    }
+    #loading .loading-logo {
+      font-family: 'Georgia', serif; font-size: 1.5rem; color: #F5F0E8;
+      letter-spacing: 0.1em;
+    }
+    #loading .loading-sub { font-size: 0.75rem; color: #B8860B; letter-spacing: 0.2em; text-transform: uppercase; }
+    #loading .loading-bar {
+      width: 200px; height: 2px; background: rgba(255,255,255,0.1);
+      border-radius: 2px; overflow: hidden;
+    }
+    #loading .loading-fill {
+      height: 100%; background: linear-gradient(90deg, #1B4332, #B8860B);
+      border-radius: 2px; width: 0%;
+      transition: width 0.1s linear;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Loading screen -->
+  <div id="loading">
+    <div class="loading-logo">PALM LEAF PARTNERS</div>
+    <div class="loading-sub">Loading Our World</div>
+    <div class="loading-bar"><div class="loading-fill" id="loading-fill"></div></div>
+  </div>
+
+  <!-- Top bar -->
+  <div class="top-bar">
+    <a href="../index.html" class="logo">
+      <img src="../assets/images/plp-logo-nav.png" alt="Palm Leaf Partners" />
+      <div class="logo-text">
+        <div class="name">PALM LEAF</div>
+        <div class="sub">— PARTNERS —</div>
+      </div>
+    </a>
+    <a href="../index.html" class="back-btn">← Back to Site</a>
+  </div>
+
+  <!-- Globe canvas -->
+  <div id="canvas-container"></div>
+
+  <!-- Info panel -->
+  <div class="info-panel">
+    <div class="country-name" id="country-name"></div>
+    <div class="country-sub" id="country-sub"></div>
+  </div>
+
+  <!-- Drag hint -->
+  <div class="drag-hint">Drag to rotate · Scroll to zoom</div>
+
+  <!-- Zola tooltip -->
+  <div class="zola-tooltip" id="zola-tooltip">
+    <strong>Zola · DRC</strong>
+    Building Systems. Growing Futures.
+  </div>
+
+  <!-- Three.js from CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/examples/js/controls/OrbitControls.js"></script>
+
+  <script>
+  (function() {
+    // ── Loading progress ──
+    const fill = document.getElementById('loading-fill');
+    let progress = 0;
+    const loadInterval = setInterval(() => {
+      progress = Math.min(progress + Math.random() * 8, 90);
+      fill.style.width = progress + '%';
+    }, 100);
+
+    function finishLoading() {
+      clearInterval(loadInterval);
+      fill.style.width = '100%';
+      setTimeout(() => {
+        const loading = document.getElementById('loading');
+        loading.style.opacity = '0';
+        setTimeout(() => loading.remove(), 800);
+      }, 400);
+    }
+
+    // ── Scene setup ──
+    const container = document.getElementById('canvas-container');
+    const W = window.innerWidth, H = window.innerHeight;
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
+    renderer.setSize(W, H);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.shadowMap.enabled = true;
+    container.appendChild(renderer.domElement);
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(45, W / H, 0.1, 1000);
+    camera.position.set(0, 0, 3.2);
+
+    // ── Controls ──
+    const controls = new THREE.OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.05;
+    controls.rotateSpeed = 0.5;
+    controls.minDistance = 1.8;
+    controls.maxDistance = 6;
+    controls.enablePan = false;
+    controls.autoRotate = true;
+    controls.autoRotateSpeed = 0.4;
+
+    // ── Stars ──
+    const starGeo = new THREE.BufferGeometry();
+    const starCount = 8000;
+    const starPositions = new Float32Array(starCount * 3);
+    for (let i = 0; i < starCount * 3; i++) {
+      starPositions[i] = (Math.random() - 0.5) * 400;
+    }
+    starGeo.setAttribute('position', new THREE.BufferAttribute(starPositions, 3));
+    const starMat = new THREE.PointsMaterial({
+      color: 0xffffff, size: 0.15,
+      transparent: true, opacity: 0.8,
+      sizeAttenuation: true
+    });
+    scene.add(new THREE.Points(starGeo, starMat));
+
+    // ── Ambient + directional light ──
+    scene.add(new THREE.AmbientLight(0x222244, 0.6));
+    const sunLight = new THREE.DirectionalLight(0xfff5e0, 2.2);
+    sunLight.position.set(5, 3, 5);
+    scene.add(sunLight);
+
+    // ── Globe ──
+    const globeGeo = new THREE.SphereGeometry(1, 64, 64);
+    const textureLoader = new THREE.TextureLoader();
+
+    // Use a high-quality Earth texture from a CDN
+    const earthTexture = textureLoader.load(
+      'https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/textures/planets/earth_atmos_2048.jpg',
+      () => { /* loaded */ },
+      undefined,
+      () => {
+        // Fallback: procedural earth-like texture
+        console.log('Using fallback texture');
+      }
+    );
+    const earthBump = textureLoader.load(
+      'https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/textures/planets/earth_normal_2048.jpg'
+    );
+    const earthSpec = textureLoader.load(
+      'https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/textures/planets/earth_specular_2048.jpg'
+    );
+
+    const globeMat = new THREE.MeshPhongMaterial({
+      map: earthTexture,
+      bumpMap: earthBump,
+      bumpScale: 0.015,
+      specularMap: earthSpec,
+      specular: new THREE.Color(0x333333),
+      shininess: 15
+    });
+    const globe = new THREE.Mesh(globeGeo, globeMat);
+    scene.add(globe);
+
+    // ── Atmosphere glow ──
+    const atmGeo = new THREE.SphereGeometry(1.02, 64, 64);
+    const atmMat = new THREE.MeshPhongMaterial({
+      color: 0x4488ff,
+      transparent: true,
+      opacity: 0.08,
+      side: THREE.FrontSide
+    });
+    scene.add(new THREE.Mesh(atmGeo, atmMat));
+
+    // Outer glow
+    const glowGeo = new THREE.SphereGeometry(1.08, 64, 64);
+    const glowMat = new THREE.MeshPhongMaterial({
+      color: 0x2255aa,
+      transparent: true,
+      opacity: 0.04,
+      side: THREE.BackSide
+    });
+    scene.add(new THREE.Mesh(glowGeo, glowMat));
+
+    // ── DRC highlight overlay ──
+    // DRC center: approximately lat -4°, lon 24°
+    // Convert to 3D position on sphere
+    function latLonToVec3(lat, lon, radius) {
+      const phi = (90 - lat) * (Math.PI / 180);
+      const theta = (lon + 180) * (Math.PI / 180);
+      return new THREE.Vector3(
+        -radius * Math.sin(phi) * Math.cos(theta),
+         radius * Math.cos(phi),
+         radius * Math.sin(phi) * Math.sin(theta)
+      );
+    }
+
+    // DRC glow pulse
+    const drcPos = latLonToVec3(-4, 24, 1.01);
+    const drcGlowGeo = new THREE.SphereGeometry(0.08, 32, 32);
+    const drcGlowMat = new THREE.MeshBasicMaterial({
+      color: 0xB8860B,
+      transparent: true,
+      opacity: 0.6
+    });
+    const drcGlow = new THREE.Mesh(drcGlowGeo, drcGlowMat);
+    drcGlow.position.copy(drcPos);
+    scene.add(drcGlow);
+
+    // DRC ring
+    const drcRingGeo = new THREE.RingGeometry(0.09, 0.12, 32);
+    const drcRingMat = new THREE.MeshBasicMaterial({
+      color: 0xB8860B, transparent: true, opacity: 0.8,
+      side: THREE.DoubleSide
+    });
+    const drcRing = new THREE.Mesh(drcRingGeo, drcRingMat);
+    drcRing.position.copy(drcPos);
+    drcRing.lookAt(new THREE.Vector3(0, 0, 0));
+    scene.add(drcRing);
+
+    // ── Zola billboard sprite ──
+    const zolaTexture = textureLoader.load('../assets/images/zola-globe-sprite.png');
+    const zolaSpriteMat = new THREE.SpriteMaterial({
+      map: zolaTexture,
+      transparent: true,
+      depthTest: false
+    });
+    const zolaSprite = new THREE.Sprite(zolaSpriteMat);
+
+    // Position Zola above the DRC
+    const zolaPos = latLonToVec3(-4, 24, 1.0);
+    const zolaDir = zolaPos.clone().normalize();
+    zolaSprite.position.copy(zolaDir.multiplyScalar(1.28));
+    zolaSprite.scale.set(0.22, 0.38, 1);
+    scene.add(zolaSprite);
+
+    // ── Country pins (future sisters) ──
+    const pins = [
+      { lat: -4, lon: 24, name: 'Democratic Republic of Congo', sub: 'Palm Leaf Partners · Active', color: 0xB8860B, zola: true },
+      // Future sisters — shown as coming soon
+      { lat: 9,  lon: 8,  name: 'Nigeria', sub: 'Coming Soon', color: 0x40916C, zola: false },
+      { lat: 7,  lon: -1, name: 'Ghana',   sub: 'Coming Soon', color: 0x40916C, zola: false },
+      { lat: -1, lon: 37, name: 'Kenya',   sub: 'Coming Soon', color: 0x40916C, zola: false },
+      { lat: -29, lon: 25, name: 'South Africa', sub: 'Coming Soon', color: 0x40916C, zola: false },
+    ];
+
+    pins.forEach(pin => {
+      if (pin.zola) return; // Zola handles the DRC
+      const pos = latLonToVec3(pin.lat, pin.lon, 1.01);
+      const geo = new THREE.SphereGeometry(0.018, 16, 16);
+      const mat = new THREE.MeshBasicMaterial({ color: pin.color, transparent: true, opacity: 0.7 });
+      const mesh = new THREE.Mesh(geo, mat);
+      mesh.position.copy(pos);
+      mesh.userData = pin;
+      scene.add(mesh);
+    });
+
+    // ── Raycaster for hover ──
+    const raycaster = new THREE.Raycaster();
+    const mouse = new THREE.Vector2();
+    const tooltip = document.getElementById('zola-tooltip');
+    const countryName = document.getElementById('country-name');
+    const countrySub = document.getElementById('country-sub');
+
+    function onMouseMove(e) {
+      const x = e.clientX || (e.touches && e.touches[0].clientX);
+      const y = e.clientY || (e.touches && e.touches[0].clientY);
+      if (x === undefined) return;
+      mouse.x = (x / window.innerWidth) * 2 - 1;
+      mouse.y = -(y / window.innerHeight) * 2 + 1;
+
+      raycaster.setFromCamera(mouse, camera);
+      const intersects = raycaster.intersectObject(zolaSprite);
+
+      if (intersects.length > 0) {
+        tooltip.style.left = (x + 20) + 'px';
+        tooltip.style.top = (y - 60) + 'px';
+        tooltip.classList.add('visible');
+        countryName.textContent = 'Democratic Republic of Congo';
+        countryName.classList.add('visible');
+        countrySub.textContent = 'Palm Leaf Partners · Building Systems. Growing Futures.';
+        countrySub.classList.add('visible');
+        controls.autoRotate = false;
+        document.body.style.cursor = 'pointer';
+      } else {
+        tooltip.classList.remove('visible');
+        countryName.classList.remove('visible');
+        countrySub.classList.remove('visible');
+        controls.autoRotate = true;
+        document.body.style.cursor = 'grab';
+      }
+    }
+
+    window.addEventListener('mousemove', onMouseMove);
+    window.addEventListener('touchmove', onMouseMove, { passive: true });
+
+    // Click on Zola → go to site
+    window.addEventListener('click', (e) => {
+      mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+      mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+      raycaster.setFromCamera(mouse, camera);
+      if (raycaster.intersectObject(zolaSprite).length > 0) {
+        window.location.href = '../index.html';
+      }
+    });
+
+    // ── Resize ──
+    window.addEventListener('resize', () => {
+      const w = window.innerWidth, h = window.innerHeight;
+      camera.aspect = w / h;
+      camera.updateProjectionMatrix();
+      renderer.setSize(w, h);
+    });
+
+    // ── Animation loop ──
+    let t = 0;
+    function animate() {
+      requestAnimationFrame(animate);
+      t += 0.016;
+
+      // Pulse DRC glow
+      const pulse = 0.5 + 0.5 * Math.sin(t * 2.5);
+      drcGlowMat.opacity = 0.3 + 0.4 * pulse;
+      drcGlow.scale.setScalar(0.9 + 0.2 * pulse);
+      drcRingMat.opacity = 0.4 + 0.4 * pulse;
+      drcRing.scale.setScalar(1 + 0.15 * pulse);
+
+      // Zola gentle float
+      const floatOffset = Math.sin(t * 1.2) * 0.008;
+      const zolaDir2 = latLonToVec3(-4, 24, 1.0).normalize();
+      zolaSprite.position.copy(zolaDir2.multiplyScalar(1.28 + floatOffset));
+
+      controls.update();
+      renderer.render(scene, camera);
+    }
+
+    // Wait for textures then start
+    const manager = new THREE.LoadingManager();
+    manager.onLoad = () => {
+      finishLoading();
+      animate();
+    };
+
+    // Start animation regardless (textures load async)
+    setTimeout(() => {
+      finishLoading();
+      animate();
+    }, 2000);
+
+  })();
+  </script>
+</body>
+</html>
