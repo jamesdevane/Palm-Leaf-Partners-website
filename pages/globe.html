@@ -193,6 +193,14 @@
       shininess:   12
     });
     const globe = new THREE.Mesh(globeGeo, globeMat);
+    // The earth texture has lon 0° (Greenwich) at the center when rotation.y = 0
+    // DRC is at lon ~24°E. Rotate globe so DRC faces camera (camera looks down -Z)
+    // In our geoToVec3: lon 0 = Z+ axis. Camera is at Z+, so lon 0 faces camera.
+    // To put DRC (lon 24°E) facing camera, rotate globe by -24° around Y
+    // But the texture maps differently: need to calibrate empirically.
+    // From screenshots: at rotation 0, Americas face camera (lon ~-80°)
+    // So texture offset = 80° west. To center DRC (24°E): rotate by -(80+24)° = -104°
+    globe.rotation.y = -104 * Math.PI / 180;
     scene.add(globe);
 
     // Atmosphere
