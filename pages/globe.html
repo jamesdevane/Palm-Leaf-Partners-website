@@ -234,6 +234,9 @@
       shininess: 15
     });
     const globe = new THREE.Mesh(globeGeo, globeMat);
+    // Rotate globe so Africa / DRC faces the camera on load
+    // DRC is at lon ~24°E — rotate globe so that longitude faces front (Z+)
+    globe.rotation.y = -24 * (Math.PI / 180);
     scene.add(globe);
 
     // ── Atmosphere glow ──
@@ -260,12 +263,12 @@
     // DRC center: approximately lat -4°, lon 24°
     // Convert to 3D position on sphere
     function latLonToVec3(lat, lon, radius) {
-      const phi = (90 - lat) * (Math.PI / 180);
-      const theta = (lon + 180) * (Math.PI / 180);
+      const phi   = (90 - lat)  * (Math.PI / 180);
+      const theta = lon          * (Math.PI / 180);
       return new THREE.Vector3(
-        -radius * Math.sin(phi) * Math.cos(theta),
-         radius * Math.cos(phi),
-         radius * Math.sin(phi) * Math.sin(theta)
+        radius * Math.sin(phi) * Math.sin(theta),
+        radius * Math.cos(phi),
+        radius * Math.sin(phi) * Math.cos(theta)
       );
     }
 
