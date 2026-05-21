@@ -235,8 +235,7 @@
     });
     const globe = new THREE.Mesh(globeGeo, globeMat);
     // Rotate globe so Africa / DRC faces the camera on load
-    // In Three.js with this coordinate system, lon 24°E needs ~1.99 rad rotation
-    globe.rotation.y = Math.PI * 1.13; // Africa/DRC centered // tuned to put DRC center-screen
+    globe.rotation.y = Math.PI * 1.35; // tuned: DRC center-screen // tuned to put DRC center-screen
     scene.add(globe);
 
     // ── Atmosphere glow ──
@@ -260,8 +259,7 @@
     scene.add(new THREE.Mesh(glowGeo, glowMat));
 
     // ── DRC highlight overlay ──
-    // DRC center: approximately lat -4°, lon 24°
-    // Convert to 3D position on sphere
+    // DRC center: lat -4°, lon 24° — attached to globe so it rotates with it
     function latLonToVec3(lat, lon, radius) {
       const phi   = (90 - lat)  * (Math.PI / 180);
       const theta = lon          * (Math.PI / 180);
@@ -272,44 +270,40 @@
       );
     }
 
-    // DRC glow pulse
-    const drcPos = latLonToVec3(-4, 24, 1.01);
+    // DRC local position (relative to globe, before globe rotation)
+    const drcLocalPos = latLonToVec3(-4, 24, 1.01);
+
     const drcGlowGeo = new THREE.SphereGeometry(0.08, 32, 32);
     const drcGlowMat = new THREE.MeshBasicMaterial({
-      color: 0xB8860B,
-      transparent: true,
-      opacity: 0.6
+      color: 0xB8860B, transparent: true, opacity: 0.6
     });
     const drcGlow = new THREE.Mesh(drcGlowGeo, drcGlowMat);
-    drcGlow.position.copy(drcPos);
-    scene.add(drcGlow);
+    drcGlow.position.copy(drcLocalPos);
+    globe.add(drcGlow); // attach to globe so it rotates with it
 
-    // DRC ring
     const drcRingGeo = new THREE.RingGeometry(0.09, 0.12, 32);
     const drcRingMat = new THREE.MeshBasicMaterial({
       color: 0xB8860B, transparent: true, opacity: 0.8,
       side: THREE.DoubleSide
     });
     const drcRing = new THREE.Mesh(drcRingGeo, drcRingMat);
-    drcRing.position.copy(drcPos);
+    drcRing.position.copy(drcLocalPos);
     drcRing.lookAt(new THREE.Vector3(0, 0, 0));
-    scene.add(drcRing);
+    globe.add(drcRing); // attach to globe
 
     // ── Zola billboard sprite ──
     const zolaTexture = textureLoader.load('../assets/images/zola-globe-sprite.png');
     const zolaSpriteMat = new THREE.SpriteMaterial({
       map: zolaTexture,
       transparent: true,
-      depthTest: false
+      depthTest: true,  // respect depth so globe occludes her
+      depthWrite: false
     });
     const zolaSprite = new THREE.Sprite(zolaSpriteMat);
-
-    // Position Zola above the DRC
-    const zolaPos = latLonToVec3(-4, 24, 1.0);
-    const zolaDir = zolaPos.clone().normalize();
-    zolaSprite.position.copy(zolaDir.multiplyScalar(1.28));
     zolaSprite.scale.set(0.22, 0.38, 1);
     scene.add(zolaSprite);
+    // Store the DRC local direction for animation
+    const drcLocalDir = drcLocalPos.clone().normalize();
 
     // ── Country pins (future sisters) ──
     const pins = [
@@ -402,10 +396,26 @@
       drcRingMat.opacity = 0.4 + 0.4 * pulse;
       drcRing.scale.setScalar(1 + 0.15 * pulse);
 
-      // Zola gentle float
+      // ── Zola: follow DRC as globe rotates, fade when behind ──
+      // Get DRC world position by applying globe's current rotation
+      const drcWorld = drcLocalDir.clone().applyEuler(globe.rotation);
+
+      // Dot product with camera direction tells us if DRC faces camera
+      // Camera looks down -Z, so we check Z component of drcWorld
+      const facingCamera = drcWorld.z; // positive = facing camera
+
+      // Fade Zola: fully visible when facing, invisible when behind
+      // Use a smooth transition zone
+      const visibility = Math.max(0, Math.min(1, facingCamera * 5 + 0.3));
+      zolaSpriteMat.opacity = visibility;
+
+      // Float animation
       const floatOffset = Math.sin(t * 1.2) * 0.008;
-      const zolaDir2 = latLonToVec3(-4, 24, 1.0).normalize();
-      zolaSprite.position.copy(zolaDir2.multiplyScalar(1.28 + floatOffset));
+      zolaSprite.position.copy(drcWorld.clone().multiplyScalar(1.28 + floatOffset));
+
+      // Also fade DRC glow when behind
+      drcGlowMat.opacity = visibility * (0.3 + 0.4 * pulse);
+      drcRingMat.opacity = visibility * (0.4 + 0.4 * pulse);
 
       controls.update();
       renderer.render(scene, camera);
