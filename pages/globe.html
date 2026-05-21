@@ -204,20 +204,19 @@
     scene.add(sunLight);
 
     // ── Geo coordinate system ──
-    // Three.js SphereGeometry UV mapping:
-    // The texture wraps with lon -180 at u=0 (left) and lon +180 at u=1 (right)
-    // At globe.rotation.y = 0, the SEAM (lon -180/+180) faces camera
-    // So lon 0 (Greenwich) is at the BACK of the globe at rotation.y = 0
-    // To convert lat/lon to 3D: we use the standard spherical formula
-    // but must account for the fact that lon 0 = Z- (back) at rotation.y=0
-    // Therefore: lon 0 → Z-, lon 90E → X+, lon 90W → X-, lon 180 → Z+
+    // Geo to 3D conversion with empirical texture offset.
+    // From screenshots: at rotation.y=0, the center of the Americas (~lon -80°) faces camera.
+    // So the texture's "front" is at lon -80°. To correct: add 80° to all longitudes.
+    const LON_OFFSET = 80; // degrees — calibrated from screenshots
+
     function geoToLocal(lat, lon, r) {
+      const adjustedLon = lon + LON_OFFSET; // shift to align with texture
       const phi   = (90 - lat) * Math.PI / 180;
-      const theta = (lon + 180) * Math.PI / 180; // shift so lon -180=0, lon 0=PI, lon 180=2PI
+      const theta = adjustedLon * Math.PI / 180;
       return new THREE.Vector3(
-        -r * Math.sin(phi) * Math.sin(theta),  // X
-         r * Math.cos(phi),                     // Y
-        -r * Math.sin(phi) * Math.cos(theta)   // Z (negative because lon 0 = back)
+        r * Math.sin(phi) * Math.sin(theta),
+        r * Math.cos(phi),
+        r * Math.sin(phi) * Math.cos(theta)
       );
     }
 
@@ -233,7 +232,9 @@
       shininess:   8
     });
     const globe = new THREE.Mesh(globeGeo, globeMat);
-    // No rotation needed — geoToLocal handles the coordinate mapping
+    // Initial rotation: bring DRC (lon 24°E + 80° offset = 104°) to face camera
+    // Camera faces Z+, so we rotate globe by -104° to bring that longitude to front
+    globe.rotation.y = -(24 + LON_OFFSET) * Math.PI / 180;
     scene.add(globe);
 
     // Night side overlay (dark hemisphere)
@@ -288,7 +289,7 @@
           map: loader.load(pin.sprite), transparent: true, depthTest: false, opacity: 0
         });
         const sprite = new THREE.Sprite(spriteMat);
-        sprite.scale.set(0.22, 0.38, 1);
+        sprite.scale.set(0.28, 0.48, 1); // larger Zola for prominence
         scene.add(sprite);
         pin.spriteMesh = sprite; pin.spriteMat = spriteMat;
       }
