@@ -200,7 +200,9 @@
     // But the texture maps differently: need to calibrate empirically.
     // From screenshots: at rotation 0, Americas face camera (lon ~-80°)
     // So texture offset = 80° west. To center DRC (24°E): rotate by -(80+24)° = -104°
-    globe.rotation.y = -104 * Math.PI / 180;
+    // Calibration: Zola appeared over ~50°W (Brazil edge), DRC is 24°E
+    // Difference = 74°, so rotate additional -74°: total = -178°
+    globe.rotation.y = -178 * Math.PI / 180;
     scene.add(globe);
 
     // Atmosphere
