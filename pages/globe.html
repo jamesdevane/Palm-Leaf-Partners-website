@@ -168,16 +168,16 @@
     scene.add(sun);
 
     // ── Geo coordinate system ──
-    // Converts lat/lon to a unit vector in Three.js coordinate space
-    // Three.js: Y=up, Z=toward camera, X=right
-    // Standard geographic: lat 0 lon 0 = (0,0,1) facing camera
+    // Three.js SphereGeometry UV: lon -180° = left edge, lon 0° = center, lon 180° = right
+    // At rotation.y = 0: lon 0° (Greenwich) faces the camera (+Z)
+    // Formula: lon 0 = Z+, lon 90E = X+, lon 90W = X-
     function geoToVec3(lat, lon, r) {
-      const phi   = (90 - lat) * Math.PI / 180;  // polar angle from Y-up
-      const theta = lon        * Math.PI / 180;   // azimuth from Z-axis
+      const phi   = (90 - lat) * Math.PI / 180;
+      const theta = lon        * Math.PI / 180;
       return new THREE.Vector3(
-        r * Math.sin(phi) * Math.sin(theta),   // X
-        r * Math.cos(phi),                      // Y
-        r * Math.sin(phi) * Math.cos(theta)    // Z
+        r * Math.sin(phi) * Math.sin(theta),
+        r * Math.cos(phi),
+        r * Math.sin(phi) * Math.cos(theta)
       );
     }
 
@@ -200,9 +200,9 @@
     // But the texture maps differently: need to calibrate empirically.
     // From screenshots: at rotation 0, Americas face camera (lon ~-80°)
     // So texture offset = 80° west. To center DRC (24°E): rotate by -(80+24)° = -104°
-    // Calibration: Zola appeared over ~50°W (Brazil edge), DRC is 24°E
-    // Difference = 74°, so rotate additional -74°: total = -178°
-    globe.rotation.y = -178 * Math.PI / 180;
+    // At rotation.y = 0, lon 0° (Greenwich) faces camera.
+    // DRC is at lon 24°E. Rotate globe -24° to bring DRC to front.
+    globe.rotation.y = -24 * Math.PI / 180;
     scene.add(globe);
 
     // Atmosphere
