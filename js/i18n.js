@@ -273,3 +273,5 @@ const I18N = {
 };
 
 I18N.init();
+// Globe button
+translations['home.btn.globe'] = { en: 'Explore Our World', fr: 'Explorer Notre Monde' };

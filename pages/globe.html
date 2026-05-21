@@ -236,7 +236,7 @@
     const globe = new THREE.Mesh(globeGeo, globeMat);
     // Rotate globe so Africa / DRC faces the camera on load
     // In Three.js with this coordinate system, lon 24°E needs ~1.99 rad rotation
-    globe.rotation.y = Math.PI * 0.63; // tuned to put DRC center-screen
+    globe.rotation.y = Math.PI * 1.13; // Africa/DRC centered // tuned to put DRC center-screen
     scene.add(globe);
 
     // ── Atmosphere glow ──
