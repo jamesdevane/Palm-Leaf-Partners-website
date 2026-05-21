@@ -200,9 +200,9 @@
     // But the texture maps differently: need to calibrate empirically.
     // From screenshots: at rotation 0, Americas face camera (lon ~-80°)
     // So texture offset = 80° west. To center DRC (24°E): rotate by -(80+24)° = -104°
-    // At rotation.y = 0, lon 0° (Greenwich) faces camera.
-    // DRC is at lon 24°E. Rotate globe -24° to bring DRC to front.
-    globe.rotation.y = -24 * Math.PI / 180;
+    // Three.js SphereGeometry: at rotation.y=0, the BACK of the sphere (lon 180°) faces camera.
+    // To bring DRC (lon 24°E) to front: rotate by -(180 - 24) = -156°
+    globe.rotation.y = -156 * Math.PI / 180;
     scene.add(globe);
 
     // Atmosphere
