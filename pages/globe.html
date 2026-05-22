@@ -2692,6 +2692,20 @@
       };
       innerEl.addEventListener('pointerup', endPointer);
       innerEl.addEventListener('pointercancel', endPointer);
+      // iOS Safari fallback: when a finger lifts OFF the inner element
+      // (no pointer capture set on single-finger taps), pointerup fires
+      // somewhere else in the document — not on innerEl. Without this
+      // document-level cleanup, the stale pointer entry stays in the
+      // map, and the NEXT tap sees pointers.size === 2 and gets routed
+      // into the pinch-zoom path instead of firing a click. Clean any
+      // pointer that the controller knows about, regardless of where
+      // pointerup happens.
+      document.addEventListener('pointerup', (e) => {
+        if (pointers.has(e.pointerId)) endPointer(e);
+      });
+      document.addEventListener('pointercancel', (e) => {
+        if (pointers.has(e.pointerId)) endPointer(e);
+      });
 
       innerEl.addEventListener('wheel', (e) => {
         // Only handle wheel inside the inner container; ignore on toggle
