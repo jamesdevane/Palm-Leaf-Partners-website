@@ -287,8 +287,24 @@
       0%, 100% { transform: translate(-50%, -100%); }
       50%      { transform: translate(-50%, -103%); }
     }
+    /* Loredana — Global Mother on USA. Same size as Zola so the two
+       chapter mascots read as equal pillars of PTWO. */
+    .flat-loredana {
+      position: absolute;
+      width: 64px;
+      height: auto;
+      transform: translate(-50%, -100%);
+      pointer-events: none;
+      animation: flatLoredanaBob 4.2s ease-in-out infinite;
+      filter: drop-shadow(0 6px 18px rgba(0,0,0,0.55));
+      user-select: none;
+    }
+    @keyframes flatLoredanaBob {
+      0%, 100% { transform: translate(-50%, -100%); }
+      50%      { transform: translate(-50%, -103%); }
+    }
     @media (max-width: 640px) {
-      .flat-zola { width: 44px; }
+      .flat-zola, .flat-loredana { width: 44px; }
       .flat-label { font-size: 0.58rem; }
       .flat-label.active { font-size: 0.66rem; }
     }
@@ -451,7 +467,10 @@
       <div class="flat-label ptwo" style="left:53.43%; top:45.91%;">Cameroon</div>
 
       <div class="flat-pin ptwo" style="left:27.92%; top:28.61%;"></div>
-      <div class="flat-label ptwo" style="left:27.92%; top:28.61%;">USA (Global Mother)</div>
+      <!-- Loredana — the Global Mother — stands on the USA marker, sister to
+           Zola on the DRC. Sprite is smaller because she's a secondary marker. -->
+      <img class="flat-loredana" src="../assets/images/loredana-usa-sprite.png" alt="Loredana — Global Mother (Palm Tree Women Organization, USA chapter)" style="left:27.92%; top:28.61%;" />
+      <div class="flat-label ptwo" style="left:27.92%; top:30.5%;">USA (Global Mother)</div>
 
       <div class="flat-pin ptwo" style="left:51.24%; top:21.94%;"></div>
       <div class="flat-label ptwo" style="left:51.24%; top:21.94%;">Belgium</div>
@@ -463,7 +482,7 @@
 
   <!-- Kinshasa clock -->
   <div class="kinshasa-clock">
-    <div class="clock-label">Kinshasa, DRC · UTC+2</div>
+    <div class="clock-label" id="clock-label">Kinshasa, DRC · WAT</div>
     <div class="clock-time" id="clock-time">--:--:--</div>
     <div class="clock-date" id="clock-date"></div>
   </div>
@@ -546,6 +565,11 @@
   <script>
   (function() {
 
+    // Forward-declared at the top of the IIFE so updateClock() (which runs
+    // immediately on load) can safely reference it before the raycaster
+    // section assigns to it.
+    let hoveredPin = null;
+
     // ── View toggle (Globe ↔ Flat) ───────────────────────────────────
     // The Three.js scene keeps running in the background when flat view
     // is active — we simply hide the canvas container with display:none.
@@ -606,21 +630,57 @@
       speedValueEl.textContent = n === 0 ? 'Stop' : n.toFixed(1) + '×';
     });
 
-    // ── Kinshasa clock (UTC+2) ──
+    // ── Clock — defaults to Kinshasa (PLP HQ identity); switches to the
+    // hovered country's timezone when the user is inspecting another
+    // chapter. Uses Intl.DateTimeFormat so DST and IANA timezones are
+    // handled correctly (no hard-coded UTC offsets).
+    const DEFAULT_CLOCK = {
+      timezone: 'Africa/Kinshasa',
+      clockLabel: 'Kinshasa, DRC',
+    };
+
+    function tzAbbrev(tz, date) {
+      // Pull the timezone abbreviation (WAT, EST, CAT, IST, …) out of Intl.
+      try {
+        const parts = new Intl.DateTimeFormat('en-US', {
+          timeZone: tz,
+          timeZoneName: 'short',
+        }).formatToParts(date);
+        const tzPart = parts.find((p) => p.type === 'timeZoneName');
+        return tzPart ? tzPart.value : '';
+      } catch {
+        return '';
+      }
+    }
+
     function updateClock() {
+      const pin = (hoveredPin && hoveredPin.timezone) ? hoveredPin : DEFAULT_CLOCK;
+      const tz = pin.timezone;
+      const baseLabel = pin.clockLabel || pin.shortLabel || pin.label || '';
       const now = new Date();
-      const kin = new Date(now.getTime() + (2 * 60 * 60 * 1000) + (now.getTimezoneOffset() * 60 * 1000));
-      const h = String(kin.getHours()).padStart(2,'0');
-      const m = String(kin.getMinutes()).padStart(2,'0');
-      const s = String(kin.getSeconds()).padStart(2,'0');
-      document.getElementById('clock-time').textContent = `${h}:${m}:${s}`;
-      const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-      const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-      document.getElementById('clock-date').textContent =
-        `${days[kin.getDay()]}, ${months[kin.getMonth()]} ${kin.getDate()}, ${kin.getFullYear()}`;
+
+      const time = new Intl.DateTimeFormat('en-GB', {
+        timeZone: tz,
+        hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false,
+      }).format(now);
+
+      const date = new Intl.DateTimeFormat('en-US', {
+        timeZone: tz,
+        weekday: 'long', month: 'short', day: 'numeric', year: 'numeric',
+      }).format(now);
+
+      const abbrev = tzAbbrev(tz, now);
+      const fullLabel = abbrev ? `${baseLabel} · ${abbrev}` : baseLabel;
+
+      document.getElementById('clock-label').textContent = fullLabel;
+      document.getElementById('clock-time').textContent = time;
+      document.getElementById('clock-date').textContent = date;
     }
     updateClock();
     setInterval(updateClock, 1000);
+    // Refresh the clock immediately when the hovered pin changes, so the
+    // city/time swap doesn't lag a second behind the cursor.
+    window.__plpRefreshClock = updateClock;
 
     // ── Loading ──
     const lf = document.getElementById('lf');
@@ -645,6 +705,9 @@
     const controls = new THREE.OrbitControls(camera, renderer.domElement);
     controls.enableDamping = true; controls.dampingFactor = 0.06;
     controls.rotateSpeed = 0.5; controls.minDistance = 1.8; controls.maxDistance = 6;
+    // Mouse-wheel zoom halved so each scroll click moves the camera 50% less —
+    // gives finer control when zooming into specific countries.
+    controls.zoomSpeed = 0.5;
     controls.enablePan = false; controls.autoRotate = true;
     // Bumped from 0.35 so all 17 pins (incl. Americas, Australia, India)
     // rotate into view within ~1 minute instead of ~5.
@@ -809,13 +872,13 @@
     // DRC also gets a "DRC" label below the pin so it reads like the others.
     const PINS = [
       // ── PLP active ─────────────────────────────────────────────
-      { lat: -4,  lon: 24,  label: 'Democratic Republic of Congo', shortLabel: 'DRC', sub: 'Palm Leaf Partners · Active', color: 0xB8860B, sprite: '../assets/images/zola-globe-sprite.png', active: true },
+      { lat: -4,  lon: 24,  label: 'Democratic Republic of Congo', shortLabel: 'DRC', sub: 'Palm Leaf Partners · Active', mascotName: 'Zola', tagline: 'Building Systems. Growing Futures.', timezone: 'Africa/Kinshasa', clockLabel: 'Kinshasa, DRC', color: 0xB8860B, sprite: '../assets/images/zola-globe-sprite.png', active: true },
 
       // ── PLP Coming Soon markets ────────────────────────────────
-      { lat:  9,  lon:  8,  label: 'Nigeria',       sub: 'Coming Soon', color: 0x40916C, sprite: null, active: false },
-      { lat:  7,  lon: -1,  label: 'Ghana',         sub: 'Coming Soon', color: 0x40916C, sprite: null, active: false },
-      { lat: -1,  lon: 37,  label: 'Kenya',         sub: 'Coming Soon', color: 0x40916C, sprite: null, active: false },
-      { lat: -29, lon: 25,  label: 'South Africa',  sub: 'Coming Soon', color: 0x40916C, sprite: null, active: false },
+      { lat:  9,  lon:  8,  label: 'Nigeria',       sub: 'Coming Soon', timezone: 'Africa/Lagos',         clockLabel: 'Lagos, Nigeria',         color: 0x40916C, sprite: null, active: false },
+      { lat:  7,  lon: -1,  label: 'Ghana',         sub: 'Coming Soon', timezone: 'Africa/Accra',         clockLabel: 'Accra, Ghana',           color: 0x40916C, sprite: null, active: false },
+      { lat: -1,  lon: 37,  label: 'Kenya',         sub: 'Coming Soon', timezone: 'Africa/Nairobi',       clockLabel: 'Nairobi, Kenya',         color: 0x40916C, sprite: null, active: false },
+      { lat: -29, lon: 25,  label: 'South Africa',  sub: 'Coming Soon', timezone: 'Africa/Johannesburg',  clockLabel: 'Johannesburg, ZA',       color: 0x40916C, sprite: null, active: false },
 
       // ── Palm Tree Women Organization locations (sister org) ────
       // The 3 PTWO locations that overlap with PLP markets (DRC, Nigeria,
@@ -823,20 +886,20 @@
       // Coordinates: country geographic centers (matches Manus's convention
       // for the PLP pins above), except where the user named a specific
       // city ("London UK") in which case we use the city's coordinates.
-      { lat:  51.5074, lon:  -0.1278, label: 'London',    sub: 'PTWO', color: 0xB76E79, sprite: null, active: false, ptwo: true },
-      { lat:  14.4974, lon: -14.4524, label: 'Senegal',   sub: 'PTWO', color: 0xB76E79, sprite: null, active: false, ptwo: true },
-      { lat: -13.1339, lon:  27.8493, label: 'Zambia',    sub: 'PTWO', color: 0xB76E79, sprite: null, active: false, ptwo: true },
-      { lat: -22.3285, lon:  24.6849, label: 'Botswana',  sub: 'PTWO', color: 0xB76E79, sprite: null, active: false, ptwo: true },
-      { lat:  56.1304, lon: -106.3468,label: 'Canada',    sub: 'PTWO', color: 0xB76E79, sprite: null, active: false, ptwo: true },
-      { lat:  20.5937, lon:  78.9629, label: 'India',     sub: 'PTWO', color: 0xB76E79, sprite: null, active: false, ptwo: true },
-      { lat: -19.0154, lon:  29.1549, label: 'Zimbabwe',  sub: 'PTWO', color: 0xB76E79, sprite: null, active: false, ptwo: true },
-      { lat: -25.2744, lon: 133.7751, label: 'Australia', sub: 'PTWO', color: 0xB76E79, sprite: null, active: false, ptwo: true },
-      { lat:   7.3697, lon:  12.3547, label: 'Cameroon',  sub: 'PTWO', color: 0xB76E79, sprite: null, active: false, ptwo: true },
+      { lat:  51.5074, lon:  -0.1278, label: 'London',    sub: 'PTWO', timezone: 'Europe/London',       clockLabel: 'London, UK',         color: 0xB76E79, sprite: null, active: false, ptwo: true },
+      { lat:  14.4974, lon: -14.4524, label: 'Senegal',   sub: 'PTWO', timezone: 'Africa/Dakar',        clockLabel: 'Dakar, Senegal',     color: 0xB76E79, sprite: null, active: false, ptwo: true },
+      { lat: -13.1339, lon:  27.8493, label: 'Zambia',    sub: 'PTWO', timezone: 'Africa/Lusaka',       clockLabel: 'Lusaka, Zambia',     color: 0xB76E79, sprite: null, active: false, ptwo: true },
+      { lat: -22.3285, lon:  24.6849, label: 'Botswana',  sub: 'PTWO', timezone: 'Africa/Gaborone',     clockLabel: 'Gaborone, Botswana', color: 0xB76E79, sprite: null, active: false, ptwo: true },
+      { lat:  56.1304, lon: -106.3468,label: 'Canada',    sub: 'PTWO', timezone: 'America/Toronto',     clockLabel: 'Ottawa, Canada',     color: 0xB76E79, sprite: null, active: false, ptwo: true },
+      { lat:  20.5937, lon:  78.9629, label: 'India',     sub: 'PTWO', timezone: 'Asia/Kolkata',        clockLabel: 'New Delhi, India',   color: 0xB76E79, sprite: null, active: false, ptwo: true },
+      { lat: -19.0154, lon:  29.1549, label: 'Zimbabwe',  sub: 'PTWO', timezone: 'Africa/Harare',       clockLabel: 'Harare, Zimbabwe',   color: 0xB76E79, sprite: null, active: false, ptwo: true },
+      { lat: -25.2744, lon: 133.7751, label: 'Australia', sub: 'PTWO', timezone: 'Australia/Sydney',    clockLabel: 'Sydney, Australia',  color: 0xB76E79, sprite: null, active: false, ptwo: true },
+      { lat:   7.3697, lon:  12.3547, label: 'Cameroon',  sub: 'PTWO', timezone: 'Africa/Douala',       clockLabel: 'Yaoundé, Cameroon',  color: 0xB76E79, sprite: null, active: false, ptwo: true },
       // USA — pinned on the Virginia / West Virginia border at user request.
       // Label notes the "Global Mother" designation for PTWO's USA chapter.
-      { lat:  38.5,    lon: -79.5,    label: 'USA (Global Mother)', sub: 'PTWO · Global Mother', color: 0xB76E79, sprite: null, active: false, ptwo: true },
-      { lat:  50.5039, lon:   4.4699, label: 'Belgium',   sub: 'PTWO', color: 0xB76E79, sprite: null, active: false, ptwo: true },
-      { lat:  46.2276, lon:   2.2137, label: 'France',    sub: 'PTWO', color: 0xB76E79, sprite: null, active: false, ptwo: true },
+      { lat:  38.5,    lon: -79.5,    label: 'USA (Global Mother)', shortLabel: 'USA', sub: 'PTWO · Global Mother', mascotName: 'Loredana', tooltipTitle: 'Loredana · Global Mother', tagline: 'Universal Palm Tree Women USA', timezone: 'America/New_York', clockLabel: 'Eastern Time, USA', color: 0xB76E79, sprite: '../assets/images/loredana-usa-sprite.png', active: false, ptwo: true },
+      { lat:  50.5039, lon:   4.4699, label: 'Belgium',   sub: 'PTWO', timezone: 'Europe/Brussels',     clockLabel: 'Brussels, Belgium',  color: 0xB76E79, sprite: null, active: false, ptwo: true },
+      { lat:  46.2276, lon:   2.2137, label: 'France',    sub: 'PTWO', timezone: 'Europe/Paris',        clockLabel: 'Paris, France',      color: 0xB76E79, sprite: null, active: false, ptwo: true },
     ];
 
     // Helper: convert pin's THREE.Color hex (0xRRGGBB) to a CSS hex string
@@ -876,9 +939,32 @@
           opacity: 0
         });
         const sprite = new THREE.Sprite(spriteMat);
-        sprite.scale.set(0.28, 0.48, 1);
+        // All mascots same base size — each country chapter is equal.
+        // Hover state grows the focused one ~1.3× via currentScaleMul.
+        const spriteW = 0.28;
+        const spriteH = 0.48;
+        sprite.scale.set(spriteW, spriteH, 1);
         scene.add(sprite);
-        pin.spriteMesh = sprite; pin.spriteMat = spriteMat;
+        pin.spriteMesh = sprite;
+        pin.spriteMat = spriteMat;
+        pin.spriteBaseScale = { w: spriteW, h: spriteH };
+        pin.currentScaleMul = 1.0;
+      }
+
+      // Hover hitbox for pins WITHOUT a mascot sprite — the glow mesh is
+      // too small to reliably hover. Invisible sphere sits where the pin
+      // is and lets the raycaster find which country the cursor is over,
+      // so we can show a "Coming Soon" tooltip. Parented to globe so it
+      // rotates with the pin. userData holds the pin reference.
+      if (!pin.sprite) {
+        const hitbox = new THREE.Mesh(
+          new THREE.SphereGeometry(0.06, 8, 8),
+          new THREE.MeshBasicMaterial({ visible: false })
+        );
+        hitbox.position.copy(geoToLocal(pin.lat, pin.lon, 1.01));
+        hitbox.userData.pin = pin;
+        globe.add(hitbox);
+        pin.hitboxMesh = hitbox;
       }
 
       // Country label (canvas texture). Render for every pin including the
@@ -925,37 +1011,84 @@
      // handlers so they don't fire ghost-hits while the canvas is hidden.
     const isFlatMode = () => flatView.classList.contains('visible');
 
+    // Currently-hovered pin tracked via the forward-declared hoveredPin at
+    // the top of the IIFE. The animate loop reads it each frame to enlarge
+    // that pin's sprite; the click handler reads it to decide which panel
+    // to open.
+
     function onPtr(e) {
       if (isFlatMode()) return;
       const x = e.clientX ?? e.touches?.[0]?.clientX;
       const y = e.clientY ?? e.touches?.[0]?.clientY;
-      if (x==null) return;
-      mouse.x = (x/window.innerWidth)*2-1;
-      mouse.y = -(y/window.innerHeight)*2+1;
+      if (x == null) return;
+      mouse.x = (x / window.innerWidth) * 2 - 1;
+      mouse.y = -(y / window.innerHeight) * 2 + 1;
       raycaster.setFromCamera(mouse, camera);
-      const hits = drcPin.spriteMesh ? raycaster.intersectObject(drcPin.spriteMesh) : [];
-      if (hits.length > 0 && drcPin.spriteMat.opacity > 0.5) {
-        tooltip.style.left=(x+20)+'px'; tooltip.style.top=(y-60)+'px';
+
+      // Raycast against every visible target — mascot sprites for countries
+      // that have one, invisible hitboxes for the bare pins. Whichever is
+      // closest to the cursor wins; that pin is "hovered". Bare pins are
+      // only included when their glow opacity says they're on the
+      // camera-facing side (vis > ~0.4), so back-of-globe pins can't be
+      // accidentally hit.
+      const targets = [];
+      for (const p of PINS) {
+        if (p.spriteMesh && p.spriteMat.opacity > 0.5) {
+          targets.push(p.spriteMesh);
+        } else if (p.hitboxMesh && p.glowMat && p.glowMat.opacity > 0.2) {
+          targets.push(p.hitboxMesh);
+        }
+      }
+      const hits = targets.length > 0 ? raycaster.intersectObjects(targets) : [];
+      const previousHoveredPin = hoveredPin;
+      hoveredPin = hits.length > 0
+        ? PINS.find((p) => p.spriteMesh === hits[0].object || p.hitboxMesh === hits[0].object)
+        : null;
+      // If the hovered pin changed, refresh the clock immediately so the
+      // city + time swap doesn't wait for the next 1-second interval tick.
+      if (hoveredPin !== previousHoveredPin && window.__plpRefreshClock) {
+        window.__plpRefreshClock();
+      }
+
+      if (hoveredPin) {
+        // Tooltip content is built from the pin's own data so adding new
+        // mascots later is a data change, not a code change. Pins without
+        // a mascot sprite show a universal "Coming Soon" line. A pin may
+        // override the default header construction with `tooltipTitle` when
+        // it wants something other than "Mascot · CountryShort".
+        const name = hoveredPin.mascotName ?? '';
+        const shortName = hoveredPin.shortLabel ?? hoveredPin.label;
+        const title = hoveredPin.tooltipTitle
+          ?? `${name ? name + ' · ' : ''}${shortName}`;
+        const line2 = hoveredPin.sprite
+          ? (hoveredPin.tagline ?? hoveredPin.sub ?? '')
+          : 'Coming Soon';
+        tooltip.innerHTML = `<strong>${title}</strong>${line2}`;
+        tooltip.style.left = (x + 20) + 'px';
+        tooltip.style.top = (y - 60) + 'px';
         tooltip.classList.add('visible');
-        cName.textContent=drcPin.label; cName.classList.add('visible');
-        cSub.textContent=drcPin.sub; cSub.classList.add('visible');
-        controls.autoRotate=false; document.body.style.cursor='pointer';
+        cName.textContent = hoveredPin.label;
+        cName.classList.add('visible');
+        cSub.textContent = hoveredPin.sprite ? hoveredPin.sub : 'Coming Soon';
+        cSub.classList.add('visible');
+        controls.autoRotate = false;
+        document.body.style.cursor = hoveredPin.sprite ? 'pointer' : 'default';
       } else {
         tooltip.classList.remove('visible');
-        cName.classList.remove('visible'); cSub.classList.remove('visible');
-        // Restore rotation only if the user hasn't dragged the slider to Stop.
+        cName.classList.remove('visible');
+        cSub.classList.remove('visible');
         controls.autoRotate = window.__plpUserSpeed > 0;
-        document.body.style.cursor='grab';
+        document.body.style.cursor = 'grab';
       }
     }
     window.addEventListener('mousemove', onPtr);
-    window.addEventListener('touchmove', onPtr, {passive:true});
-    window.addEventListener('click', e => {
+    window.addEventListener('touchmove', onPtr, { passive: true });
+    window.addEventListener('click', () => {
       if (isFlatMode()) return;
-      mouse.x=(e.clientX/window.innerWidth)*2-1;
-      mouse.y=-(e.clientY/window.innerHeight)*2+1;
-      raycaster.setFromCamera(mouse,camera);
-      if(drcPin.spriteMesh && raycaster.intersectObject(drcPin.spriteMesh).length>0 && drcPin.spriteMat.opacity > 0.5) {
+      // Only the active PLP pin (DRC) opens the project panel. Other mascots
+      // currently just show their tooltip on hover; we'll add a PTWO panel
+      // for the Global Mother / chapter mascots in a later pass.
+      if (hoveredPin && hoveredPin === drcPin) {
         document.getElementById('project-panel').classList.add('open');
         controls.autoRotate = false;
       }
@@ -1024,6 +1157,15 @@
           // Hard cutoff: completely invisible when behind globe
           pin.spriteMat.opacity = vis > 0.1 ? vis : 0;
           pin.spriteMesh.visible = vis > 0.05;
+
+          // Hover enlarge — lerp this pin's scale multiplier toward 1.3
+          // when it's the hovered mascot, else back to 1.0. The 0.15 lerp
+          // gives a smooth ~200ms ease-in/out as the cursor moves between
+          // mascots, so neighbouring sprites grow/shrink in counterpoint.
+          const targetMul = pin === hoveredPin ? 1.3 : 1.0;
+          pin.currentScaleMul += (targetMul - pin.currentScaleMul) * 0.15;
+          const base = pin.spriteBaseScale;
+          pin.spriteMesh.scale.set(base.w * pin.currentScaleMul, base.h * pin.currentScaleMul, 1);
         }
 
         // Position label below pin
