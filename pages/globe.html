@@ -4540,6 +4540,92 @@
       });
       // SCPT post offices — a PLP build-out program, not yet operational.
       POST_OFFICE_INFO.coming_soon = true;
+
+      // Province deep-dive hotspots — every ID maps to a Wikipedia
+      // article so each hotspot bubble shows a real photo of the place.
+      // Unknown / missing articles return null from the API and the
+      // bubble photo slot just stays hidden, so a few uncertain slugs
+      // here is fine — they degrade gracefully.
+      const PROVINCE_HOTSPOT_WIKI = {
+        // Kinshasa
+        'gombe':              'Gombe,_Kinshasa',
+        'marche-central':     'Kinshasa',
+        'stade-martyrs':      'Stade_des_Martyrs',
+        'boulevard-30-juin':  'Boulevard_du_30_Juin',
+        'kintambo':           'Kintambo',
+        'ndjili-airport':     'N%27djili_International_Airport',
+        'pool-malebo':        'Pool_Malebo',
+        'beaux-arts':         'Kinshasa',
+        'unikin':             'University_of_Kinshasa',
+        'mont-ngafula':       'Mont-Ngafula',
+        // Kongo Central
+        'matadi':             'Matadi',
+        'boma':               'Boma',
+        'inga-prov':          'Inga_dams',
+        'mbanza-ngungu':      'Mbanza-Ngungu',
+        'kc-atlantic':        'Muanda',
+        'kongo-kingdom':      'Kingdom_of_Kongo',
+        // Équateur
+        'mbandaka':           'Mbandaka',
+        'salonga':            'Salonga_National_Park',
+        'tumba':              'Lake_Tumba',
+        'bonobo-habitat':     'Bonobo',
+        'lopori':             'Lopori_River',
+        'equator-equateur':   'Equator',
+        // Tshopo
+        'kisangani':          'Kisangani',
+        'boyoma':             'Boyoma_Falls',
+        'wagenia':            'Boyoma_Falls',
+        'tshopo-dam':         'Tshopo_River',
+        'tshopo-forest':      'Congolian_rainforests',
+        'equator-tshopo':     'Equator',
+        // Ituri
+        'bunia-prov':         'Bunia',
+        'ituri-forest-prov':  'Ituri_Rainforest',
+        'lake-albert':        'Lake_Albert_(Africa)',
+        'okapi-reserve':      'Okapi_Wildlife_Reserve',
+        'kibali':             'Kibali_Gold_Mine',
+        'mongbwalu':          'Mongbwalu',
+        // Nord-Kivu
+        'goma':               'Goma',
+        'virunga-park':       'Virunga_National_Park',
+        'nyiragongo-prov':    'Mount_Nyiragongo',
+        'kivu-north':         'Lake_Kivu',
+        'beni':               'Beni,_Democratic_Republic_of_the_Congo',
+        'rutshuru':           'Rutshuru',
+        // Sud-Kivu
+        'bukavu':             'Bukavu',
+        'kahuzi-biega':       'Kahuzi-Biega_National_Park',
+        'idjwi':              'Idjwi',
+        'kivu-coffee':        'Coffea_arabica',
+        'kivu-south':         'Lake_Kivu',
+        'ruzizi-out':         'Ruzizi_River',
+        // Maniema
+        'kindu':              'Kindu',
+        'lualaba':            'Lualaba_River',
+        'manono-prov':        'Manono,_Tanganyika',
+        'punia':              'Punia',
+        'tanganyika-edge':    'Lake_Tanganyika',
+        // Kasaï central
+        'kananga':            'Kananga',
+        'kuba-palace':        'Kuba_Kingdom',
+        'tshikapa':           'Tshikapa',
+        'kuba-textiles':      'Kuba_textiles',
+        'lulua':              'Lulua_River',
+        // Haut-Katanga
+        'lubumbashi-prov':    'Lubumbashi',
+        'likasi':             'Likasi',
+        'kasenga':            'Kasenga',
+        'kundelungu':         'Kundelungu_National_Park',
+        'bunkeya':            'Bunkeya',
+        'lufira':             'Lufira_River',
+      };
+      for (const province of Object.values(PROVINCE_DETAILS)) {
+        if (!province.hotspots) continue;
+        for (const h of province.hotspots) {
+          if (!h.wiki && PROVINCE_HOTSPOT_WIKI[h.id]) h.wiki = PROVINCE_HOTSPOT_WIKI[h.id];
+        }
+      }
     }
 
     // Layer registry — maps toggle button data-layer to its build function
