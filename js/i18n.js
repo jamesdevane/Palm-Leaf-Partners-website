@@ -322,3 +322,13 @@ const I18N = {
 I18N.init();
 // Globe button
 translations['home.btn.globe'] = { en: 'Explore Our World', fr: 'Explorer Notre Monde' };
+
+// Expose the engine on `window` so dynamic helpers in other scripts
+// (e.g. globe.html's `localized(item, field)` and any future per-page
+// helpers) can read `window.I18N.currentLang` reliably. Top-level
+// `const` declarations in classic script tags are script-scoped in
+// modern browsers and do NOT attach to `window` — so without this
+// assignment, `window.I18N` is undefined and the dynamic content
+// path silently falls back to English even when the user has
+// toggled the site to French.
+window.I18N = I18N;

@@ -185,6 +185,52 @@
       .view-toggle button { padding: 0.45rem 0.7rem; }
     }
 
+    /* ── Language toggle (globe page floats above every view) ─────── */
+    /* Reuses the .lang-toggle class so i18n.js updateToggle() syncs
+       the active state automatically. Fixed position keeps it visible
+       across globe / flat / DRC-detail / province-detail overlays. */
+    .lang-toggle.globe-lang {
+      position: fixed;
+      top: 1.5rem; right: 1.5rem;
+      z-index: 260;
+      display: inline-flex;
+      background: rgba(2,4,8,0.7);
+      border: 1px solid rgba(184,134,11,0.45);
+      border-radius: 999px;
+      padding: 3px;
+      gap: 2px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.5);
+    }
+    .lang-toggle.globe-lang button {
+      background: transparent;
+      border: none;
+      color: rgba(245,240,232,0.7);
+      font-family: 'Georgia', serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      padding: 0.35rem 0.7rem;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: background 160ms, color 160ms;
+    }
+    .lang-toggle.globe-lang button.active {
+      background: #B8860B;
+      color: #1B4332;
+    }
+    @media (max-width: 640px) {
+      .lang-toggle.globe-lang {
+        top: 0.75rem; right: 0.75rem;
+        padding: 2px;
+      }
+      .lang-toggle.globe-lang button {
+        padding: 0.25rem 0.55rem;
+        font-size: 0.62rem;
+      }
+    }
+
     /* ── Flat-map view ─────────────────────────────────────────────── */
     .flat-view {
       position: fixed; inset: 0; z-index: 1;
@@ -192,15 +238,23 @@
       align-items: center; justify-content: center;
       background:
         radial-gradient(ellipse at 50% 35%, #0a1a2a 0%, #020408 60%, #000 100%);
-      padding: 5rem 2rem 3rem;
+      padding: 4rem 1.5rem 2rem;
     }
     .flat-view.visible { display: flex; }
     .flat-view-inner {
       position: relative;
       width: 100%;
-      max-width: 1800px;
+      max-width: 1900px;
       aspect-ratio: 2 / 1;
-      max-height: calc(100vh - 8rem);
+      max-height: calc(100vh - 6rem);
+    }
+    @media (max-width: 640px) {
+      /* Phones: shrink the padding so the world map fills more of the
+         viewport. Lose the strict 2:1 aspect when the screen is too
+         narrow — let the image use whatever vertical space it can,
+         capped by the viewport so it never overflows. */
+      .flat-view { padding: 3.25rem 0.5rem 1rem; }
+      .flat-view-inner { max-height: calc(100vh - 4.25rem); }
     }
     .flat-view-inner img.flat-map {
       width: 100%; height: 100%;
@@ -1199,6 +1253,13 @@
   </style>
 </head>
 <body>
+  <!-- Language toggle — floats above every view (globe, flat, DRC detail,
+       province detail). Persists via the same localStorage key (plp_lang)
+       the rest of the site uses, so toggling here syncs to every page. -->
+  <div class="lang-toggle globe-lang" role="group" aria-label="Language selector">
+    <button data-lang="en" onclick="I18N.setLang('en')">EN</button>
+    <button data-lang="fr" onclick="I18N.setLang('fr')">FR</button>
+  </div>
 
   <div id="loading">
     <div class="ll">PALM LEAF PARTNERS</div>
@@ -1242,7 +1303,7 @@
 
         <!-- DRC — active, gold, clickable. Zola stands on top of this pin. -->
         <div class="flat-pin active" id="flat-pin-drc" data-country="drc" style="left:56.67%; top:52.22%;" title="Democratic Republic of Congo · Palm Leaf Partners · Active"></div>
-        <img class="flat-zola" id="flat-zola" src="../assets/images/zola-globe-sprite.png" alt="Zola — Palm Leaf Partners mascot" style="left:56.67%; top:52.22%;" />
+        <img class="flat-zola" id="flat-zola" src="../assets/images/zola-globe-sprite.png" alt="Zola — Palm Leaf Partners mascot" style="left:53%; top:52.22%;" />
         <div class="flat-label active" style="left:56.67%; top:52.22%;">DRC</div>
 
         <!-- Coming Soon markets — green, smaller -->
