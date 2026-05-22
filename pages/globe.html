@@ -2565,6 +2565,13 @@
     function showDrcDetail() {
       buildDrcHotspots(); // no-op after first build
       playSwoosh();
+      // Defensive: make sure the country panel + its backdrop are
+      // closed before we open the DRC view. The backdrop sits at
+      // z-index 280 and would block every tap inside the DRC view
+      // (z-index 200) if it were ever left open. This was the iPad
+      // tap-doesn't-work-after-clicking-Congo symptom.
+      document.getElementById('country-panel')?.classList.remove('open');
+      document.getElementById('country-panel-backdrop')?.classList.remove('open');
       drcDetailView.classList.add('visible');
       drcDetailView.setAttribute('aria-hidden', 'false');
       // Reset Zola to Kinshasa each time the detail view opens, so the
