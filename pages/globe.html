@@ -270,18 +270,27 @@
     .flat-pannable {
       position: absolute;
       inset: 0;
-      transform-origin: 0 0;
+      /* Center transform-origin so makeZoomController's translate+scale
+         math (which assumes pivot at element center) lands correctly. */
+      transform-origin: 50% 50%;
       transform: translate(0, 0) scale(1);
       transition: transform 600ms cubic-bezier(0.4, 0, 0.2, 1);
       cursor: grab;
       user-select: none;
       -webkit-user-select: none;
+      /* Drives the inverse-scale on labels (see .flat-label below) so
+         country names stay visually the same size when the map zooms,
+         which spreads them apart instead of bunching them up. */
+      --map-scale: 1;
     }
+    .flat-pannable.zooming { transition: none; }
+    .flat-pannable.zoomed { cursor: grab; }
     .flat-pannable.dragging {
       cursor: grabbing;
       transition: none; /* no animation while user is dragging */
     }
-    .flat-pannable.zoomed-in .flat-label {
+    .flat-pannable.zoomed-in .flat-label,
+    .flat-pannable.zoomed .flat-label {
       /* Smaller labels when zoomed in so they don't overpower the detail. */
       font-size: 0.5rem;
     }
@@ -352,7 +361,11 @@
     }
     .flat-label {
       position: absolute;
-      transform: translate(-50%, 10px);
+      /* Inverse-scale against the parent --map-scale so labels stay the
+         same on-screen size as the map zooms — countries spread apart
+         visually instead of label text growing into a collision. */
+      transform: translate(-50%, 10px) scale(calc(1 / var(--map-scale, 1)));
+      transform-origin: top center;
       color: rgba(64,145,108,0.85);
       font-size: 0.66rem;
       letter-spacing: 0.13em;
@@ -619,6 +632,9 @@
 
     /* Animal/plant badges — circular medallion images that spin slowly
        on the Y axis like a coin held by an invisible hand. */
+    /* Hide all wildlife badges when the wildlife layer toggle is OFF.
+       Lets the user declutter the DRC map with a single tap. */
+    .drc-hotspots.badges-hidden .drc-badge { display: none; }
     .drc-badge {
       position: absolute;
       width: 56px; height: 56px;
@@ -1328,10 +1344,10 @@
          The flat map uses the same active-DRC pin / coming-soon green pins,
          and Zola stands on the DRC there too. -->
     <div class="view-toggle" id="view-toggle" role="group" aria-label="View mode">
-      <button type="button" data-view="globe" class="active" aria-pressed="true">
+      <button type="button" data-view="globe" aria-pressed="false">
         <span class="vt-icon" aria-hidden="true">🌍</span><span class="vt-label">Globe</span>
       </button>
-      <button type="button" data-view="flat" aria-pressed="false">
+      <button type="button" data-view="flat" class="active" aria-pressed="true">
         <span class="vt-icon" aria-hidden="true">🗺</span><span class="vt-label">Flat</span>
       </button>
     </div>
@@ -1408,6 +1424,14 @@
       </div>
     </div>
 
+    <!-- World-map zoom controls — sit outside .flat-view-inner so they
+         don't transform with the pannable layer. Same styling as the
+         DRC + province zoom controls for consistency. -->
+    <div class="drc-zoom-controls flat-zoom-controls" id="flat-zoom-controls" role="group" aria-label="Zoom controls">
+      <button type="button" class="drc-zoom-btn" id="flat-zoom-out" title="Zoom out" aria-label="Zoom out">−</button>
+      <button type="button" class="drc-zoom-btn" id="flat-zoom-reset" title="Reset zoom" aria-label="Reset zoom">⌂</button>
+      <button type="button" class="drc-zoom-btn" id="flat-zoom-in" title="Zoom in" aria-label="Zoom in">+</button>
+    </div>
   </div>
 
   <!-- DRC Detail View — fades in when the user clicks the DRC pin or Zola
@@ -1513,6 +1537,9 @@
     <!-- Layer toggle bar — Mining is wired, the others show a "coming
          soon" toast when clicked to indicate the pattern is ready. -->
     <div class="drc-layer-toggles" id="drc-layer-toggles" role="group" aria-label="Map layers">
+      <button type="button" class="drc-layer-btn" data-layer="wildlife" aria-pressed="true">
+        <span class="lt-icon" aria-hidden="true">🦒</span><span class="lt-label" data-i18n="globe.layer.wildlife">Wildlife</span>
+      </button>
       <button type="button" class="drc-layer-btn" data-layer="mining" aria-pressed="false">
         <span class="lt-icon" aria-hidden="true">⛏️</span><span class="lt-label" data-i18n="globe.layer.mining">Mining</span>
       </button>
@@ -1739,6 +1766,12 @@
     document.querySelectorAll('#view-toggle button').forEach((b) => {
       b.addEventListener('click', () => setView(b.dataset.view));
     });
+
+    // Default the page to the 2D world map. The 2D view holds all the
+    // explorable content (mascots, DRC entry, country pins, post offices),
+    // so it's where users should land. The 3D globe is a "wow" extra one
+    // tap away via the view-toggle.
+    setView('flat');
 
     function openProjectPanel() {
       document.getElementById('project-panel').classList.add('open');
@@ -2041,12 +2074,16 @@
       let lastSingle = null;
       let isDragging = false;
 
-      const INTERACTIVE = '.drc-badge, .drc-landmark, .drc-province, .drc-mining-city, .drc-mining-region, .drc-grid-plant, .drc-grid-line, .drc-fiber-city, .drc-fiber-line, .drc-geothermal-pin, .drc-datacenter-pin, .drc-fishery-pin, .drc-agri-region, .drc-zola, .drc-bubble, .drc-back-btn, .drc-layer-toggles, .drc-zoom-controls, button, a';
+      const INTERACTIVE = '.drc-badge, .drc-landmark, .drc-province, .drc-mining-city, .drc-mining-region, .drc-grid-plant, .drc-grid-line, .drc-fiber-city, .drc-fiber-line, .drc-geothermal-pin, .drc-datacenter-pin, .drc-fishery-pin, .drc-agri-region, .drc-zola, .drc-bubble, .drc-back-btn, .drc-layer-toggles, .drc-zoom-controls, .flat-pin, .flat-zola, .flat-loredana, .flat-label, .lang-toggle, .view-toggle, .map-reset-btn, .flat-zoom-controls, button, a';
 
       function apply(animate) {
         innerEl.classList.toggle('zooming', !animate);
         innerEl.style.transform = `translate(${tx}px, ${ty}px) scale(${scale})`;
         innerEl.classList.toggle('zoomed', scale > 1.01);
+        // Drive --map-scale so anything inside that opts into inverse-scaling
+        // (e.g. the world-map's .flat-label country names) stays visually
+        // constant as the map zooms — preventing labels from bunching up.
+        innerEl.style.setProperty('--map-scale', scale);
       }
       function clampPan() {
         // Allow proportional drift at higher scales, snap to centered when scale=1.
@@ -2129,7 +2166,7 @@
       innerEl.addEventListener('wheel', (e) => {
         // Only handle wheel inside the inner container; ignore on toggle
         // bar, back button, etc.
-        if (e.target.closest('.drc-layer-toggles, .drc-zoom-controls, .drc-back-btn')) return;
+        if (e.target.closest('.drc-layer-toggles, .drc-zoom-controls, .drc-back-btn, .lang-toggle, .view-toggle, .flat-zoom-controls')) return;
         e.preventDefault();
         // Slower per-tick + CSS transition turned on for smooth easing
         // between each scroll click. Trackpad pinch (which sends ctrlKey)
@@ -2159,6 +2196,20 @@
       btnIn: document.getElementById('drc-zoom-in'),
       btnOut: document.getElementById('drc-zoom-out'),
       btnReset: document.getElementById('drc-zoom-reset'),
+    });
+
+    // World-map zoom: reuse the same pinch/wheel/drag controller so the
+    // 2D world map has parity with the DRC + province detail maps.
+    // .flat-pannable's transform-origin was already set to center for
+    // the math to work; the INTERACTIVE selector was extended to keep
+    // pins, mascots, and toggles clickable while gestures are active.
+    const flatPannable = document.getElementById('flat-pannable');
+    const flatZoom = makeZoomController({
+      innerEl: flatPannable,
+      rootEl: document.getElementById('flat-view'),
+      btnIn: document.getElementById('flat-zoom-in'),
+      btnOut: document.getElementById('flat-zoom-out'),
+      btnReset: document.getElementById('flat-zoom-reset'),
     });
     function hideDrcDetail() {
       drcDetailView.classList.remove('visible');
@@ -3056,7 +3107,7 @@
         el.className = 'drc-landmark';
         el.style.left = h.x + '%';
         el.style.top = h.y + '%';
-        el.innerHTML = `<span class="drc-landmark-icon" aria-hidden="true">${h.icon}</span><span>${h.name}</span>`;
+        el.innerHTML = `<span class="drc-landmark-icon" aria-hidden="true">${h.icon}</span><span>${localized(h, 'name')}</span>`;
         el.addEventListener('click', () => openProvinceInfo(h));
         container.appendChild(el);
       }
@@ -3541,6 +3592,13 @@
       fishery:     { build: buildFisheryLayer,   els: ['drc-fishery'] },
       agriculture: { build: buildAgricultureLayer, els: ['drc-agriculture-svg'] },
       postoffices: { build: buildPostOfficesLayer, els: ['drc-postoffices'] },
+      // Wildlife toggle is special — it doesn't add an SVG layer; it
+      // hides the existing animal/plant badges (which are ON by default)
+      // by flipping a class on the hotspots container. Lets the user
+      // declutter the DRC map, especially helpful on mobile.
+      wildlife:    { build: () => {}, toggle: (visible) => {
+        document.getElementById('drc-hotspots')?.classList.toggle('badges-hidden', !visible);
+      } },
     };
     layerToggles.addEventListener('click', (e) => {
       const btn = e.target.closest('.drc-layer-btn');
@@ -3554,8 +3612,12 @@
       const now = btn.getAttribute('aria-pressed') === 'true';
       const next = !now;
       btn.setAttribute('aria-pressed', String(next));
-      for (const id of config.els) {
-        document.getElementById(id)?.classList.toggle('visible', next);
+      if (config.toggle) {
+        config.toggle(next);
+      } else if (config.els) {
+        for (const id of config.els) {
+          document.getElementById(id)?.classList.toggle('visible', next);
+        }
       }
     });
 
@@ -3566,7 +3628,7 @@
         el.className = 'drc-province';
         el.style.left = p.x + '%';
         el.style.top = p.y + '%';
-        el.textContent = p.name;
+        el.textContent = localized(p, 'name');
         el.addEventListener('click', () => openInfo(p, 'province'));
         container.appendChild(el);
       }
@@ -3578,7 +3640,7 @@
         el.className = 'drc-landmark';
         el.style.left = lm.x + '%';
         el.style.top = lm.y + '%';
-        el.innerHTML = `<span class="drc-landmark-icon" aria-hidden="true">${lm.icon}</span><span>${lm.name}</span>`;
+        el.innerHTML = `<span class="drc-landmark-icon" aria-hidden="true">${lm.icon}</span><span>${localized(lm, 'name')}</span>`;
         el.addEventListener('click', () => openInfo(lm, 'landmark'));
         container.appendChild(el);
       }
@@ -3590,10 +3652,10 @@
         el.className = 'drc-badge';
         el.style.left = b.x + '%';
         el.style.top = b.y + '%';
-        el.title = b.name;
+        el.title = localized(b, 'name');
         const img = document.createElement('img');
         img.src = '../assets/images/badges/drc/' + b.file;
-        img.alt = b.name;
+        img.alt = localized(b, 'name');
         el.appendChild(img);
         el.addEventListener('click', () => openInfo(b, 'badge'));
         container.appendChild(el);

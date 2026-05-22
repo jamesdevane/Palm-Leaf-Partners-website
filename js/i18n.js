@@ -212,6 +212,7 @@ const translations = {
   'phase.3.planned':    { en: 'Phase 3 · Planned',        fr: 'Phase 3 · Planifiée' },
 
   /* ── GLOBE PAGE — LAYER TOGGLES & BACK BUTTONS ── */
+  'globe.layer.wildlife':    { en: 'Wildlife',        fr: 'Faune' },
   'globe.layer.mining':      { en: 'Mining',          fr: 'Mines' },
   'globe.layer.grid':        { en: 'Grid',            fr: 'Réseau' },
   'globe.layer.fiber':       { en: 'Fiber',           fr: 'Fibre' },
