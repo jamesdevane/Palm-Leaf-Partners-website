@@ -210,6 +210,18 @@ const translations = {
   'phase.1.active':     { en: 'Phase 1 · Active',         fr: 'Phase 1 · Active' },
   'phase.2.dev':        { en: 'Phase 2 · Development',    fr: 'Phase 2 · Développement' },
   'phase.3.planned':    { en: 'Phase 3 · Planned',        fr: 'Phase 3 · Planifiée' },
+
+  /* ── GLOBE PAGE — LAYER TOGGLES & BACK BUTTONS ── */
+  'globe.layer.mining':      { en: 'Mining',          fr: 'Mines' },
+  'globe.layer.grid':        { en: 'Grid',            fr: 'Réseau' },
+  'globe.layer.fiber':       { en: 'Fiber',           fr: 'Fibre' },
+  'globe.layer.geothermal':  { en: 'Geothermal',      fr: 'Géothermie' },
+  'globe.layer.datacenter':  { en: 'Data Center',     fr: 'Centre de données' },
+  'globe.layer.fishery':     { en: 'Fishery',         fr: 'Pêche' },
+  'globe.layer.agriculture': { en: 'Agriculture',     fr: 'Agriculture' },
+  'globe.layer.postoffices': { en: 'Post Offices',    fr: 'Bureaux de poste' },
+  'globe.back.world':        { en: '↶ Back to World', fr: '↶ Retour au monde' },
+  'globe.back.drc':          { en: '↶ Back to DRC',   fr: '↶ Retour à la RDC' },
 };
 
 /* ── Language detection ── */
