@@ -1084,7 +1084,10 @@
     .drc-layer-btn[data-stub="true"] { opacity: 0.55; }
     .drc-layer-btn .lt-icon { font-size: 0.95rem; line-height: 1; }
     @media (max-width: 640px) {
-      .drc-layer-toggles { top: 0.75rem; padding: 0.2rem; gap: 0.15rem; }
+      /* Stack the back button on its own row above the layer-toggle bar so
+         the chips don't collide with it on narrow phones. The back button
+         shrinks to icon + short label to save vertical space. */
+      .drc-layer-toggles { top: 3.6rem; padding: 0.2rem; gap: 0.15rem; }
       .drc-layer-btn { padding: 0.3rem 0.55rem; font-size: 0.62rem; }
       .drc-layer-btn .lt-label { display: none; }
     }
@@ -1117,6 +1120,11 @@
       .drc-badge { width: 40px; height: 40px; }
       .drc-landmark { font-size: 0.6rem; padding: 0.25rem 0.55rem 0.25rem 0.4rem; }
       .drc-bubble { width: calc(100vw - 2rem); max-width: 360px; }
+      .drc-back-btn {
+        top: 0.75rem; left: 0.75rem;
+        padding: 0.4rem 0.8rem;
+        font-size: 0.72rem;
+      }
     }
 
     /* ── Spin speed slider ─────────────────────────────────────────── */
