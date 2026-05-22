@@ -1017,6 +1017,26 @@
       stroke-width: 0.5;
     }
 
+    /* ── Post Offices layer ────────────────────────────────────────
+       Small green-gold dots scattered across the populated areas.
+       All click to the same SCPT program info bubble. */
+    .drc-postoffice {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      pointer-events: auto;
+      cursor: pointer;
+      width: 12px; height: 12px;
+      background: radial-gradient(circle, #f6cd5b 30%, #6b8b6f 100%);
+      border: 1.5px solid rgba(255,245,215,0.85);
+      border-radius: 50%;
+      box-shadow: 0 0 6px rgba(107,139,111,0.65);
+      transition: transform 180ms, box-shadow 180ms;
+    }
+    .drc-postoffice:hover {
+      transform: translate(-50%, -50%) scale(1.6);
+      box-shadow: 0 0 12px rgba(246,205,91,0.95);
+    }
+
     /* Layer toggle bar — sits at the top center of the DRC detail view. */
     .drc-layer-toggles {
       position: absolute;
@@ -1346,6 +1366,10 @@
       <!-- Fishery — blue-green fish markers on lakes + Pool Malebo + Congo River. -->
       <div class="drc-layer drc-layer-fishery" id="drc-fishery"></div>
 
+      <!-- Post Offices — ~50 dots at population centers, click any for the
+           SCPT national post office program story. -->
+      <div class="drc-layer drc-layer-postoffices" id="drc-postoffices"></div>
+
       <!-- Agriculture — soft green-gold hatched regions over crop belts. -->
       <svg class="drc-layer drc-layer-agriculture" id="drc-agriculture-svg" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
         <defs>
@@ -1393,6 +1417,9 @@
       <button type="button" class="drc-layer-btn" data-layer="agriculture" aria-pressed="false">
         <span class="lt-icon" aria-hidden="true">🌾</span><span class="lt-label">Agriculture</span>
       </button>
+      <button type="button" class="drc-layer-btn" data-layer="postoffices" aria-pressed="false">
+        <span class="lt-icon" aria-hidden="true">📮</span><span class="lt-label">Post Offices</span>
+      </button>
     </div>
 
     <!-- Speech bubble — appears next to Zola when she arrives at a hotspot.
@@ -1416,8 +1443,9 @@
 
     <button type="button" class="drc-back-btn" id="drc-back-btn">↶ Back to World</button>
 
-    <!-- Zoom controls for the DRC view — also exposes a reset to 1× -->
+    <!-- Zoom + audio controls for the DRC view -->
     <div class="drc-zoom-controls" id="drc-zoom-controls">
+      <button type="button" class="drc-zoom-btn" id="drc-mute" aria-label="Toggle sound" data-mute-btn>🔊</button>
       <button type="button" class="drc-zoom-btn" id="drc-zoom-out" aria-label="Zoom out">−</button>
       <button type="button" class="drc-zoom-btn" id="drc-zoom-reset" aria-label="Reset zoom">⊙</button>
       <button type="button" class="drc-zoom-btn" id="drc-zoom-in" aria-label="Zoom in">+</button>
@@ -1454,6 +1482,7 @@
     <button type="button" class="drc-back-btn" id="province-back-btn">↶ Back to DRC</button>
 
     <div class="drc-zoom-controls" id="province-zoom-controls">
+      <button type="button" class="drc-zoom-btn" id="province-mute" aria-label="Toggle sound" data-mute-btn>🔊</button>
       <button type="button" class="drc-zoom-btn" id="province-zoom-out" aria-label="Zoom out">−</button>
       <button type="button" class="drc-zoom-btn" id="province-zoom-reset" aria-label="Reset zoom">⊙</button>
       <button type="button" class="drc-zoom-btn" id="province-zoom-in" aria-label="Zoom in">+</button>
@@ -1608,6 +1637,68 @@
     const drcBubble = document.getElementById('drc-bubble');
     const drcBubbleClose = document.getElementById('drc-bubble-close');
 
+    // ── Audio mute (covers swoosh, whoosh, chime, AND voice) ────────
+    // Persisted to localStorage so the choice survives page reloads.
+    // Every sound function early-returns when muted; voice synthesis
+    // also gets cancelled on mute so a currently-speaking line stops
+    // immediately.
+    window.__plpMuted = (function() {
+      try { return localStorage.getItem('plp-muted') === '1'; } catch { return false; }
+    })();
+    function setMuted(val) {
+      window.__plpMuted = !!val;
+      try { localStorage.setItem('plp-muted', val ? '1' : '0'); } catch {}
+      document.querySelectorAll('[data-mute-btn]').forEach((btn) => {
+        btn.textContent = val ? '🔇' : '🔊';
+        btn.setAttribute('aria-pressed', String(val));
+      });
+      if (val && window.speechSynthesis) speechSynthesis.cancel();
+    }
+    setMuted(window.__plpMuted);
+    document.querySelectorAll('[data-mute-btn]').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        setMuted(!window.__plpMuted);
+      });
+    });
+
+    // ── Voice narration (browser SpeechSynthesis) ───────────────────
+    // Zola reads the bubble copy on arrival — kicks in right after the
+    // arrival chime. No external API, no extra payload, free voice.
+    // Picks the best available female English voice (Samantha on macOS,
+    // Microsoft Aria on Windows, Google's default elsewhere).
+    let _ttsVoice = null;
+    function pickTtsVoice() {
+      if (!('speechSynthesis' in window)) return null;
+      if (_ttsVoice) return _ttsVoice;
+      const voices = speechSynthesis.getVoices();
+      if (!voices.length) return null;
+      _ttsVoice =
+        voices.find((v) => /samantha|aria|fiona|tessa|karen|moira/i.test(v.name) && v.lang.startsWith('en')) ||
+        voices.find((v) => /female/i.test(v.name) && v.lang.startsWith('en')) ||
+        voices.find((v) => v.lang === 'en-US' || v.lang === 'en-GB') ||
+        voices.find((v) => v.lang.startsWith('en')) ||
+        voices[0];
+      return _ttsVoice;
+    }
+    if ('speechSynthesis' in window) {
+      // Voices load asynchronously in most browsers — re-pick when they arrive.
+      speechSynthesis.onvoiceschanged = () => { _ttsVoice = null; pickTtsVoice(); };
+    }
+    function speakZola(text) {
+      if (window.__plpMuted || !('speechSynthesis' in window) || !text) return;
+      try {
+        speechSynthesis.cancel(); // stop any previous utterance
+        const utt = new SpeechSynthesisUtterance(text);
+        const voice = pickTtsVoice();
+        if (voice) utt.voice = voice;
+        utt.rate = 0.97;
+        utt.pitch = 1.02;
+        utt.volume = 0.85;
+        speechSynthesis.speak(utt);
+      } catch {}
+    }
+
     // ── Swish sound (Web Audio) ─────────────────────────────────────
     // Generated procedurally so we don't need an audio file. The cue is
     // a band-passed white-noise sweep that climbs in frequency, paired
@@ -1615,6 +1706,7 @@
     // Browser autoplay policy is satisfied because the user clicks first.
     let _audioCtx = null;
     function playSwoosh() {
+      if (window.__plpMuted) return;
       try {
         _audioCtx = _audioCtx || new (window.AudioContext || window.webkitAudioContext)();
         const ctx = _audioCtx;
@@ -1664,6 +1756,7 @@
     // view-transition swoosh so rapid clicks don't fatigue. Cancellation
     // logic stops a pending chime when a new walk starts.
     function playZolaMove() {
+      if (window.__plpMuted) return;
       try {
         _audioCtx = _audioCtx || new (window.AudioContext || window.webkitAudioContext)();
         const ctx = _audioCtx;
@@ -1689,6 +1782,7 @@
       } catch {}
     }
     function playZolaArrive() {
+      if (window.__plpMuted) return;
       try {
         _audioCtx = _audioCtx || new (window.AudioContext || window.webkitAudioContext)();
         const ctx = _audioCtx;
@@ -1903,11 +1997,13 @@
       drcDetailView.classList.remove('visible');
       drcDetailView.setAttribute('aria-hidden', 'true');
       drcBubble.classList.remove('open');
+      if (window.speechSynthesis) speechSynthesis.cancel();
     }
     drcBackBtn.addEventListener('click', hideDrcDetail);
     drcBubbleClose.addEventListener('click', () => {
       drcBubble.classList.remove('open');
       drcBubble.setAttribute('aria-hidden', 'true');
+      if (window.speechSynthesis) speechSynthesis.cancel();
     });
 
     // Position the speech bubble relative to Zola. Bubble flips to whichever
@@ -2176,6 +2272,15 @@
         // Re-position again after Zola's walk animation finishes (1500ms)
         // so the bubble travels with her without overshooting.
         setTimeout(positionBubble, 1550);
+        // Voice narration arrives right after the chime (matches Zola
+        // "speaking" the entry as she points at the location).
+        setTimeout(() => {
+          const parts = [item.name];
+          if (item.sub) parts.push('. ' + item.sub);
+          if (item.body) parts.push('. ' + item.body);
+          if (item.fact) parts.push(' Did you know? ' + item.fact);
+          speakZola(parts.join(''));
+        }, 1500);
       }
 
       // Make openInfo accessible to the province deep-dive code below so
@@ -2549,6 +2654,13 @@
         provinceBubble.setAttribute('aria-hidden', 'false');
         requestAnimationFrame(positionProvinceBubble);
         setTimeout(positionProvinceBubble, 1550);
+        setTimeout(() => {
+          const parts = [item.name];
+          if (item.sub) parts.push('. ' + item.sub);
+          if (item.body) parts.push('. ' + item.body);
+          if (item.fact) parts.push(' Did you know? ' + item.fact);
+          speakZola(parts.join(''));
+        }, 1500);
       }
 
       for (const h of provinceData.hotspots) {
@@ -2600,12 +2712,14 @@
       provinceView.classList.remove('visible');
       provinceView.setAttribute('aria-hidden', 'true');
       provinceBubble.classList.remove('open');
+      if (window.speechSynthesis) speechSynthesis.cancel();
     }
 
     provinceBackBtn.addEventListener('click', closeProvinceDetail);
     provinceBubbleClose.addEventListener('click', () => {
       provinceBubble.classList.remove('open');
       provinceBubble.setAttribute('aria-hidden', 'true');
+      if (window.speechSynthesis) speechSynthesis.cancel();
     });
 
     // ─── Layer overlays — Mining (Phase 3) ───────────────────────────
@@ -2956,6 +3070,57 @@
         body: "Cassava and maize farming across the Katanga / Haut-Katanga / Lualaba provinces. Feeds the dense mining-belt populations of Kolwezi, Likasi, and Lubumbashi. Increasingly under pressure from mining expansion taking arable land.",
         fact: "A 2022 study found that Katanga farmers lose roughly 15% of crop yields to dust from nearby cobalt mining operations." },
     ];
+    // ─── Post Offices layer ──────────────────────────────────────────
+    // ~50 dots representing SCPT post offices across the DRC. Every dot
+    // shares the same info — click any one for the program story.
+    const POST_OFFICE_LOCATIONS = [
+      // West / Atlantic
+      [7, 60], [4, 62], [12, 57], [14, 58], [16, 60], [22, 58], [25, 65],
+      // Central west
+      [28, 50], [22, 60], [28, 35], [38, 42],
+      // North / Ubangi
+      [40, 20], [45, 25], [50, 17], [50, 30], [55, 22],
+      // Northeast
+      [58, 25], [62, 22], [68, 22], [76, 20], [82, 17], [88, 12],
+      // East (Kivu + Ituri border)
+      [82, 22], [84, 26], [86, 30], [80, 33], [85, 45], [86, 50],
+      // Tanganyika / Lake corridor
+      [85, 60], [68, 67],
+      // Central
+      [58, 32], [62, 50], [65, 55], [50, 50], [42, 65], [47, 65],
+      [32, 68], [50, 70], [55, 70],
+      // Southeast / Katanga mining belt
+      [55, 78], [65, 72], [55, 85], [62, 85], [67, 88], [75, 92], [78, 78],
+    ];
+    const POST_OFFICE_INFO = {
+      icon: '📮',
+      name: 'SCPT National Post Office Program',
+      sub: '100 modernized offices · address registry hubs',
+      x: 50, y: 50, // ignored — Zola doesn't walk to post offices (too many)
+      body: "Palm Leaf Partners is partnering with the Société Congolaise des Postes et Télécommunications (SCPT) to modernize 100 post offices across the DRC. Each becomes a community hub — Starlink internet access, secure address registration, banking and identity services, and government document processing. For most communities, these will be the first reliable points of contact with national systems in over a generation.",
+      fact: "The 100 modernized offices anchor the entire national address mapping program — every Congolese citizen will, for the first time, get a verified street address tied to their local post office.",
+    };
+    let postOfficesBuilt = false;
+    function buildPostOfficesLayer() {
+      if (postOfficesBuilt) return;
+      postOfficesBuilt = true;
+      const el = document.getElementById('drc-postoffices');
+      for (const [x, y] of POST_OFFICE_LOCATIONS) {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'drc-postoffice';
+        btn.style.left = x + '%';
+        btn.style.top = y + '%';
+        btn.title = 'SCPT post office';
+        btn.addEventListener('click', () => {
+          // Reuse the SCPT info each click — don't walk Zola to each
+          // individual dot (50+ dots makes Zola's trail too busy).
+          window.__plpOpenInfo?.({ ...POST_OFFICE_INFO, x, y }, 'postoffice');
+        });
+        el.appendChild(btn);
+      }
+    }
+
     let agriBuilt = false;
     function buildAgricultureLayer() {
       if (agriBuilt) return;
@@ -2984,6 +3149,7 @@
       datacenter:  { build: buildDataCenterLayer,els: ['drc-datacenter-svg', 'drc-datacenter'] },
       fishery:     { build: buildFisheryLayer,   els: ['drc-fishery'] },
       agriculture: { build: buildAgricultureLayer, els: ['drc-agriculture-svg'] },
+      postoffices: { build: buildPostOfficesLayer, els: ['drc-postoffices'] },
     };
     layerToggles.addEventListener('click', (e) => {
       const btn = e.target.closest('.drc-layer-btn');
