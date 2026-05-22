@@ -842,6 +842,34 @@
       font-style: italic;
     }
     .drc-bubble-fact:empty { display: none; }
+    /* Bubble photo slot — sits below "Did you know?" so the reader sees
+       the species/landmark/region for real after reading about it. The
+       <figure> is hidden by default and only revealed once the JS sets
+       a successful src on the inner <img>. Photos are sourced lazily
+       from Wikipedia at click time (see loadBubblePhoto) or set
+       directly via item.photo. */
+    .drc-bubble-photo {
+      margin: 0.8rem 0 0;
+      display: none;
+    }
+    .drc-bubble-photo.has-photo { display: block; }
+    .drc-bubble-photo-img {
+      width: 100%;
+      max-height: 220px;
+      object-fit: cover;
+      border-radius: 6px;
+      display: block;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.18);
+      background: rgba(184,134,11,0.08);
+    }
+    .drc-bubble-photo-credit {
+      margin-top: 0.35rem;
+      font-size: 0.62rem;
+      color: rgba(44,24,16,0.5);
+      font-style: italic;
+      text-align: right;
+      letter-spacing: 0.02em;
+    }
     .drc-bubble-fact::before {
       content: "Did you know? ";
       font-weight: 700;
@@ -1600,6 +1628,10 @@
       </div>
       <p class="drc-bubble-body" id="drc-bubble-body"></p>
       <p class="drc-bubble-fact" id="drc-bubble-fact"></p>
+      <figure class="drc-bubble-photo" id="drc-bubble-photo" aria-hidden="true">
+        <img class="drc-bubble-photo-img" id="drc-bubble-photo-img" alt="" />
+        <figcaption class="drc-bubble-photo-credit" id="drc-bubble-photo-credit"></figcaption>
+      </figure>
       <button type="button" class="drc-bubble-cta" id="drc-bubble-cta">Explore this province →</button>
     </div>
 
@@ -1639,6 +1671,10 @@
       </div>
       <p class="drc-bubble-body" id="province-bubble-body"></p>
       <p class="drc-bubble-fact" id="province-bubble-fact"></p>
+      <figure class="drc-bubble-photo" id="province-bubble-photo" aria-hidden="true">
+        <img class="drc-bubble-photo-img" id="province-bubble-photo-img" alt="" />
+        <figcaption class="drc-bubble-photo-credit" id="province-bubble-photo-credit"></figcaption>
+      </figure>
     </div>
 
     <button type="button" class="drc-back-btn" id="province-back-btn" data-i18n="globe.back.drc">↶ Back to DRC</button>
@@ -1904,6 +1940,58 @@
     function didYouKnowPrefix() {
       const lang = (window.I18N && window.I18N.currentLang) || 'en';
       return lang === 'fr' ? ' Le saviez-vous ? ' : ' Did you know? ';
+    }
+
+    // ── Bubble photo loader ─────────────────────────────────────────
+    // Pulls a representative thumbnail from Wikipedia's REST API when
+    // an item carries a `wiki` field (e.g. wiki: 'Mountain_gorilla').
+    // Results are cached so re-clicking the same hotspot is instant.
+    // Falls back to item.photo (a direct image URL) when set, and shows
+    // nothing if neither is available. The figure stays hidden so the
+    // bubble doesn't show an empty box on entries without a photo.
+    const _photoCache = new Map();
+    async function fetchWikiPhoto(article) {
+      if (_photoCache.has(article)) return _photoCache.get(article);
+      const lang = (window.I18N && window.I18N.currentLang) || 'en';
+      const url = `https://${lang === 'fr' ? 'fr' : 'en'}.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(article)}`;
+      try {
+        const res = await fetch(url, { headers: { 'Accept': 'application/json' } });
+        if (!res.ok) throw new Error('http ' + res.status);
+        const data = await res.json();
+        const src = data?.thumbnail?.source || data?.originalimage?.source || null;
+        _photoCache.set(article, src);
+        return src;
+      } catch {
+        _photoCache.set(article, null);
+        return null;
+      }
+    }
+    // Render the photo block for a given item into a figure/img/credit
+    // trio. Token guards against late-arriving fetches racing across
+    // rapid hotspot clicks — only the last requested item populates.
+    let _photoToken = 0;
+    async function loadBubblePhoto(item, figureEl, imgEl, creditEl) {
+      const myToken = ++_photoToken;
+      figureEl.classList.remove('has-photo');
+      figureEl.setAttribute('aria-hidden', 'true');
+      imgEl.removeAttribute('src');
+      creditEl.textContent = '';
+      let src = null;
+      let credit = '';
+      if (item.photo) {
+        src = item.photo;
+        credit = item.photo_credit || '';
+      } else if (item.wiki) {
+        src = await fetchWikiPhoto(item.wiki);
+        credit = src ? 'Wikipedia' : '';
+      }
+      if (myToken !== _photoToken) return; // user clicked another hotspot
+      if (!src) return;
+      imgEl.src = src;
+      imgEl.alt = localized(item, 'name');
+      creditEl.textContent = credit;
+      figureEl.classList.add('has-photo');
+      figureEl.setAttribute('aria-hidden', 'false');
     }
 
     // When the user toggles language elsewhere (the home-page selector
@@ -2519,6 +2607,61 @@
         fact_fr: "Une seule morsure libère assez de neurotoxine pour tuer un adulte en 20 minutes sans traitement." },
     ];
 
+    // Wikipedia article slugs for each badge — used by loadBubblePhoto()
+    // to fetch a representative real-world photo from the Wikipedia REST
+    // API at bubble-open time (cached after first fetch). Keyed by the
+    // badge's image filename so we don't have to touch every entry.
+    const BADGE_WIKI_BY_FILE = {
+      'highland_silverback.png': 'Mountain_gorilla',
+      'gorilla.png':             'Western_lowland_gorilla',
+      'lava_rock.png':           'Mount_Nyiragongo',
+      'rift_valley.png':         'Albertine_Rift',
+      'giant_lobelia.png':       'Lobelia',
+      'okapi.png':               'Okapi',
+      'forest_orchid.png':       'Orchidaceae',
+      'bonobo.png':              'Bonobo',
+      'chimpanzee.png':          'Chimpanzee',
+      'forest_elephant.png':     'African_forest_elephant',
+      'leopard.png':             'African_leopard',
+      'pangolin.png':            'White-bellied_pangolin',
+      'red_river_hog.png':       'Red_river_hog',
+      'goliath_tigerfish.png':   'Goliath_tigerfish',
+      'nile_crocodile.png':      'Nile_crocodile',
+      'dwarf_crocodile.png':     'Dwarf_crocodile',
+      'congo_otter.png':         'Congo_clawless_otter',
+      'african_fish_eagle.png':  'African_fish_eagle',
+      'electric_catfish.png':    'Electric_catfish',
+      'congo_tilapia.png':       'Coptodon_rendalli',
+      'elephantfish.png':        'Mormyridae',
+      'baobab_blossom.png':      'Adansonia_digitata',
+      'congo_cocoa.png':         'Theobroma_cacao',
+      'black_mamba.png':         'Black_mamba',
+    };
+    for (const b of DRC_BADGES) {
+      if (!b.wiki && b.file && BADGE_WIKI_BY_FILE[b.file]) b.wiki = BADGE_WIKI_BY_FILE[b.file];
+    }
+    // Landmark + province wiki articles (small enough to set inline).
+    {
+      const wikiByLandmarkId = {
+        'nyiragongo':  'Mount_Nyiragongo',
+        'congo-river': 'Congo_River',
+      };
+      for (const lm of DRC_LANDMARKS) if (wikiByLandmarkId[lm.id]) lm.wiki = wikiByLandmarkId[lm.id];
+      const wikiByProvinceId = {
+        'kinshasa':      'Kinshasa',
+        'kongo-central': 'Kongo_Central',
+        'equateur':      'Équateur_(province)',
+        'tshopo':        'Tshopo',
+        'ituri-prov':    'Ituri_Province',
+        'north-kivu':    'North_Kivu',
+        'south-kivu':    'South_Kivu',
+        'maniema':       'Maniema',
+        'kasai-central': 'Kasaï-Central',
+        'haut-katanga':  'Haut-Katanga',
+      };
+      for (const p of DRC_PROVINCES) if (wikiByProvinceId[p.id]) p.wiki = wikiByProvinceId[p.id];
+    }
+
     // Build the hotspot DOM once, on first DRC view open. Three layers:
     // provinces (italic place names), landmarks (gold pulse pills), and
     // animal/plant badges (spinning medallions). Click handlers also walk
@@ -2535,6 +2678,9 @@
       const iconEl = document.getElementById('drc-bubble-icon');
       const imgEl = document.getElementById('drc-bubble-image');
       const ctaEl = document.getElementById('drc-bubble-cta');
+      const photoFigEl = document.getElementById('drc-bubble-photo');
+      const photoImgEl = document.getElementById('drc-bubble-photo-img');
+      const photoCreditEl = document.getElementById('drc-bubble-photo-credit');
 
       let currentProvince = null;
       ctaEl.addEventListener('click', () => {
@@ -2568,6 +2714,7 @@
           imgEl.removeAttribute('src');
           imgEl.style.display = 'none';
         }
+        loadBubblePhoto(item, photoFigEl, photoImgEl, photoCreditEl);
         // CTA is only shown when clicking a province — it leads to the
         // (future) deeper zoom into the province's own illustrated map.
         if (kind === 'province') {
@@ -3091,6 +3238,9 @@
       const factEl = document.getElementById('province-bubble-fact');
       const iconEl = document.getElementById('province-bubble-icon');
       const imgEl = document.getElementById('province-bubble-image');
+      const photoFigEl = document.getElementById('province-bubble-photo');
+      const photoImgEl = document.getElementById('province-bubble-photo-img');
+      const photoCreditEl = document.getElementById('province-bubble-photo-credit');
 
       function openProvinceInfo(item) {
         walkProvinceZolaTo(item.x, item.y);
@@ -3101,6 +3251,7 @@
         iconEl.textContent = item.icon || '';
         imgEl.removeAttribute('src');
         imgEl.style.display = 'none';
+        loadBubblePhoto(item, photoFigEl, photoImgEl, photoCreditEl);
         provinceBubble.classList.add('open');
         provinceBubble.setAttribute('aria-hidden', 'false');
         requestAnimationFrame(positionProvinceBubble);
