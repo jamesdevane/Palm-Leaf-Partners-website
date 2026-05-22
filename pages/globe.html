@@ -286,12 +286,66 @@
     controls.rotateSpeed = 0.5; controls.minDistance = 1.8; controls.maxDistance = 6;
     controls.enablePan = false; controls.autoRotate = true; controls.autoRotateSpeed = 0.35;
 
-    // ── Stars ──
-    const sp = new Float32Array(10000*3);
-    for(let i=0;i<sp.length;i++) sp[i]=(Math.random()-0.5)*500;
-    const sg = new THREE.BufferGeometry();
-    sg.setAttribute('position', new THREE.BufferAttribute(sp,3));
-    scene.add(new THREE.Points(sg, new THREE.PointsMaterial({color:0xffffff,size:0.12,transparent:true,opacity:0.7})));
+    // ── Twinkling Stars ──
+    const STAR_COUNT = 15000;
+    const starPositions = new Float32Array(STAR_COUNT * 3);
+    const starSizes = new Float32Array(STAR_COUNT);
+    const starPhases = new Float32Array(STAR_COUNT); // for twinkling
+    for (let i = 0; i < STAR_COUNT; i++) {
+      starPositions[i*3]   = (Math.random()-0.5) * 600;
+      starPositions[i*3+1] = (Math.random()-0.5) * 600;
+      starPositions[i*3+2] = (Math.random()-0.5) * 600;
+      starSizes[i] = Math.random() * 1.5 + 0.3; // varied sizes
+      starPhases[i] = Math.random() * Math.PI * 2; // random twinkle phase
+    }
+    const starGeo = new THREE.BufferGeometry();
+    starGeo.setAttribute('position', new THREE.BufferAttribute(starPositions, 3));
+    starGeo.setAttribute('size', new THREE.BufferAttribute(starSizes, 1));
+
+    // Custom shader for twinkling
+    const starMat = new THREE.ShaderMaterial({
+      uniforms: { time: { value: 0 } },
+      vertexShader: `
+        attribute float size;
+        varying float vSize;
+        void main() {
+          vSize = size;
+          vec4 mvPos = modelViewMatrix * vec4(position, 1.0);
+          gl_PointSize = size * (200.0 / -mvPos.z);
+          gl_Position = projectionMatrix * mvPos;
+        }
+      `,
+      fragmentShader: `
+        uniform float time;
+        varying float vSize;
+        void main() {
+          float d = length(gl_PointCoord - 0.5) * 2.0;
+          if (d > 1.0) discard;
+          float alpha = (1.0 - d) * 0.9;
+          // Twinkle based on position
+          float twinkle = 0.6 + 0.4 * sin(time * 2.0 + gl_FragCoord.x * 0.1 + gl_FragCoord.y * 0.07);
+          gl_FragColor = vec4(1.0, 0.98, 0.95, alpha * twinkle);
+        }
+      `,
+      transparent: true,
+      depthWrite: false
+    });
+    const stars = new THREE.Points(starGeo, starMat);
+    scene.add(stars);
+
+    // A few bright hero stars (larger, golden tint)
+    const heroStarCount = 30;
+    const heroPos = new Float32Array(heroStarCount * 3);
+    for (let i = 0; i < heroStarCount; i++) {
+      heroPos[i*3]   = (Math.random()-0.5) * 300;
+      heroPos[i*3+1] = (Math.random()-0.5) * 300;
+      heroPos[i*3+2] = (Math.random()-0.5) * 300;
+    }
+    const heroGeo = new THREE.BufferGeometry();
+    heroGeo.setAttribute('position', new THREE.BufferAttribute(heroPos, 3));
+    scene.add(new THREE.Points(heroGeo, new THREE.PointsMaterial({
+      color: 0xfff5e0, size: 0.6, transparent: true, opacity: 0.9, sizeAttenuation: true
+    })));
 
     // ── Lights ──
     // Ambient (dim blue-black for night side)
@@ -477,6 +531,8 @@
       requestAnimationFrame(animate);
       t += 0.016;
       controls.update();
+      // Update twinkling stars
+      starMat.uniforms.time.value = t;
       globe.getWorldQuaternion(_quat);
 
       // Update sun position (slow real-time drift)
