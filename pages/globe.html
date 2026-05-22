@@ -1139,7 +1139,10 @@
     /* Layer toggle bar — sits at the top center of the DRC detail view. */
     .drc-layer-toggles {
       position: absolute;
-      top: 1.25rem;
+      /* The bar lives on its own row below the back button + language
+         toggle so French labels (e.g. "Retour au monde") never collide
+         with the centered chip strip — at any viewport width. */
+      top: 4rem;
       left: 50%;
       transform: translateX(-50%);
       z-index: 230;
