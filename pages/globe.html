@@ -865,8 +865,12 @@
     .drc-bubble-photo.has-photo { display: block; }
     .drc-bubble-photo-img {
       width: 100%;
-      max-height: 220px;
-      object-fit: cover;
+      max-height: 260px;
+      /* `contain` preserves the full image (no head crops on portrait
+         animal shots like the African Fish Eagle); the small honey
+         background fills any letterbox without looking like an error. */
+      object-fit: contain;
+      object-position: center;
       border-radius: 6px;
       display: block;
       box-shadow: 0 2px 10px rgba(0,0,0,0.18);
