@@ -232,6 +232,12 @@
       opacity: 0.85;
       box-shadow: 0 0 0 3px rgba(64,145,108,0.18);
     }
+    .flat-pin.ptwo {
+      background: #B76E79;
+      width: 8px; height: 8px;
+      opacity: 0.9;
+      box-shadow: 0 0 0 3px rgba(183,110,121,0.20);
+    }
     @keyframes flatPulse {
       0%, 100% {
         box-shadow:
@@ -261,6 +267,11 @@
       font-size: 0.76rem;
       letter-spacing: 0.15em;
     }
+    .flat-label.ptwo {
+      color: rgba(183,110,121,0.9);
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+    }
     .flat-zola {
       position: absolute;
       width: 64px;
@@ -280,6 +291,76 @@
       .flat-zola { width: 44px; }
       .flat-label { font-size: 0.58rem; }
       .flat-label.active { font-size: 0.66rem; }
+    }
+
+    /* ── Spin speed slider ─────────────────────────────────────────── */
+    .speed-control {
+      position: fixed;
+      bottom: 2rem; right: 2rem;
+      z-index: 100;
+      display: flex; align-items: center; gap: 0.75rem;
+      background: rgba(2,4,8,0.55);
+      border: 1px solid rgba(184,134,11,0.4);
+      border-radius: 999px;
+      padding: 0.5rem 1rem;
+      color: #F5F0E8;
+      font-family: 'Georgia', serif;
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+    }
+    .speed-control .speed-label {
+      font-size: 0.66rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(184,134,11,0.85);
+      font-weight: 600;
+    }
+    .speed-slider {
+      width: 140px;
+      -webkit-appearance: none; appearance: none;
+      background: transparent;
+      cursor: pointer;
+      margin: 0;
+    }
+    .speed-slider::-webkit-slider-runnable-track {
+      height: 3px;
+      background: linear-gradient(to right, rgba(245,240,232,0.35), rgba(184,134,11,0.55));
+      border-radius: 2px;
+    }
+    .speed-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      background: #B8860B;
+      margin-top: -6px;
+      border: 2px solid #1B4332;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+    }
+    .speed-slider::-moz-range-track {
+      height: 3px;
+      background: linear-gradient(to right, rgba(245,240,232,0.35), rgba(184,134,11,0.55));
+      border-radius: 2px;
+    }
+    .speed-slider::-moz-range-thumb {
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      background: #B8860B;
+      border: 2px solid #1B4332;
+      cursor: pointer;
+    }
+    .speed-control .speed-value {
+      font-size: 0.74rem;
+      font-variant-numeric: tabular-nums;
+      color: #F5F0E8;
+      min-width: 2.8em;
+      text-align: right;
+      font-weight: 600;
+    }
+    @media (max-width: 640px) {
+      .speed-control { bottom: 4.5rem; right: 1rem; padding: 0.4rem 0.75rem; gap: 0.5rem; }
+      .speed-slider { width: 90px; }
+      .speed-control .speed-label { display: none; }
     }
   </style>
 </head>
@@ -338,6 +419,45 @@
 
       <div class="flat-pin inactive" style="left:56.94%; top:66.11%;"></div>
       <div class="flat-label" style="left:56.94%; top:66.11%;">South Africa</div>
+
+      <!-- Palm Tree Women Organization locations — rose-gold, smallest pins.
+           Coordinates: country centroids (consistent with PLP pins), with
+           the exception of London (UK) which uses the city the user named. -->
+      <div class="flat-pin ptwo" style="left:49.96%; top:21.38%;"></div>
+      <div class="flat-label ptwo" style="left:49.96%; top:21.38%;">London</div>
+
+      <div class="flat-pin ptwo" style="left:45.97%; top:41.95%;"></div>
+      <div class="flat-label ptwo" style="left:45.97%; top:41.95%;">Senegal</div>
+
+      <div class="flat-pin ptwo" style="left:57.74%; top:57.30%;"></div>
+      <div class="flat-label ptwo" style="left:57.74%; top:57.30%;">Zambia</div>
+
+      <div class="flat-pin ptwo" style="left:56.86%; top:62.39%;"></div>
+      <div class="flat-label ptwo" style="left:56.86%; top:62.39%;">Botswana</div>
+
+      <div class="flat-pin ptwo" style="left:20.46%; top:18.82%;"></div>
+      <div class="flat-label ptwo" style="left:20.46%; top:18.82%;">Canada</div>
+
+      <div class="flat-pin ptwo" style="left:71.93%; top:38.56%;"></div>
+      <div class="flat-label ptwo" style="left:71.93%; top:38.56%;">India</div>
+
+      <div class="flat-pin ptwo" style="left:58.10%; top:60.56%;"></div>
+      <div class="flat-label ptwo" style="left:58.10%; top:60.56%;">Zimbabwe</div>
+
+      <div class="flat-pin ptwo" style="left:87.16%; top:64.04%;"></div>
+      <div class="flat-label ptwo" style="left:87.16%; top:64.04%;">Australia</div>
+
+      <div class="flat-pin ptwo" style="left:53.43%; top:45.91%;"></div>
+      <div class="flat-label ptwo" style="left:53.43%; top:45.91%;">Cameroon</div>
+
+      <div class="flat-pin ptwo" style="left:27.92%; top:28.61%;"></div>
+      <div class="flat-label ptwo" style="left:27.92%; top:28.61%;">USA (Global Mother)</div>
+
+      <div class="flat-pin ptwo" style="left:51.24%; top:21.94%;"></div>
+      <div class="flat-label ptwo" style="left:51.24%; top:21.94%;">Belgium</div>
+
+      <div class="flat-pin ptwo" style="left:50.61%; top:24.32%;"></div>
+      <div class="flat-label ptwo" style="left:50.61%; top:24.32%;">France</div>
     </div>
   </div>
 
@@ -356,6 +476,14 @@
   </div>
 
   <div class="drag-hint">Drag to rotate · Scroll to zoom</div>
+
+  <!-- Spin speed slider — 0 stops the auto-rotation, max spins quickly so
+       users can sweep the camera across all 17 country pins. -->
+  <div class="speed-control" id="speed-control" role="group" aria-label="Spin speed">
+    <span class="speed-label">Spin</span>
+    <input type="range" class="speed-slider" id="speed-slider" min="0" max="3" step="0.1" value="1.2" aria-label="Auto-rotation speed" />
+    <span class="speed-value" id="speed-value">1.2×</span>
+  </div>
 
   <div class="zola-tooltip" id="zola-tooltip">
     <strong>Zola · DRC</strong>
@@ -433,9 +561,13 @@
       flatView.classList.toggle('visible', isFlat);
       flatView.setAttribute('aria-hidden', String(!isFlat));
       canvasContainer.style.display = isFlat ? 'none' : '';
-      // Hide globe-specific overlays in flat mode.
+      // Hide globe-specific overlays in flat mode (slider has no meaning
+      // when nothing's spinning, drag-hint is for the 3D scene, country
+      // info-panel is driven by 3D hover).
       if (dragHint) dragHint.style.display = isFlat ? 'none' : '';
       if (infoPanel) infoPanel.style.display = isFlat ? 'none' : '';
+      const speedCtl = document.getElementById('speed-control');
+      if (speedCtl) speedCtl.style.display = isFlat ? 'none' : '';
       document.querySelectorAll('#view-toggle button').forEach((b) => {
         const active = b.dataset.view === mode;
         b.classList.toggle('active', active);
@@ -454,6 +586,25 @@
     }
     document.getElementById('flat-pin-drc').addEventListener('click', openProjectPanel);
     document.getElementById('flat-zola').addEventListener('click', openProjectPanel);
+
+    // ── Spin speed slider ──────────────────────────────────────────
+    // userSpeed is the user's chosen auto-rotation speed (0 = stopped).
+    // Kept separate from controls.autoRotateSpeed so the Zola-hover pause
+    // can temporarily stop rotation without forgetting the user's pace.
+    // The window scope makes it accessible from the OrbitControls setup
+    // below (declared later in this same IIFE) and from the hover/click
+    // handlers that need to restore rotation when un-hovering Zola.
+    window.__plpUserSpeed = 1.2;
+    const speedSlider = document.getElementById('speed-slider');
+    const speedValueEl = document.getElementById('speed-value');
+    speedSlider.addEventListener('input', () => {
+      const n = parseFloat(speedSlider.value);
+      window.__plpUserSpeed = n;
+      // controls is in scope by the time the user moves the slider.
+      controls.autoRotateSpeed = n;
+      controls.autoRotate = n > 0;
+      speedValueEl.textContent = n === 0 ? 'Stop' : n.toFixed(1) + '×';
+    });
 
     // ── Kinshasa clock (UTC+2) ──
     function updateClock() {
@@ -494,7 +645,10 @@
     const controls = new THREE.OrbitControls(camera, renderer.domElement);
     controls.enableDamping = true; controls.dampingFactor = 0.06;
     controls.rotateSpeed = 0.5; controls.minDistance = 1.8; controls.maxDistance = 6;
-    controls.enablePan = false; controls.autoRotate = true; controls.autoRotateSpeed = 0.35;
+    controls.enablePan = false; controls.autoRotate = true;
+    // Bumped from 0.35 so all 17 pins (incl. Americas, Australia, India)
+    // rotate into view within ~1 minute instead of ~5.
+    controls.autoRotateSpeed = 1.2;
 
     // ── Twinkling Stars ──
     const STAR_COUNT = 15000;
@@ -543,7 +697,10 @@
     const stars = new THREE.Points(starGeo, starMat);
     scene.add(stars);
 
-    // A few bright hero stars (larger, golden tint)
+    // A few bright hero stars (larger, golden tint). Drawn with a custom
+    // shader that discards corner pixels so they render as round discs
+    // rather than the default PointsMaterial squares (which read as
+    // "white blocks" against the dark space backdrop).
     const heroStarCount = 30;
     const heroPos = new Float32Array(heroStarCount * 3);
     for (let i = 0; i < heroStarCount; i++) {
@@ -553,9 +710,28 @@
     }
     const heroGeo = new THREE.BufferGeometry();
     heroGeo.setAttribute('position', new THREE.BufferAttribute(heroPos, 3));
-    scene.add(new THREE.Points(heroGeo, new THREE.PointsMaterial({
-      color: 0xfff5e0, size: 0.6, transparent: true, opacity: 0.9, sizeAttenuation: true
-    })));
+    const heroStarMat = new THREE.ShaderMaterial({
+      uniforms: {},
+      vertexShader: `
+        void main() {
+          vec4 mvPos = modelViewMatrix * vec4(position, 1.0);
+          gl_PointSize = 7.0 * (200.0 / -mvPos.z);
+          gl_Position = projectionMatrix * mvPos;
+        }
+      `,
+      fragmentShader: `
+        void main() {
+          float d = length(gl_PointCoord - 0.5) * 2.0;
+          if (d > 1.0) discard;
+          // Soft core + halo: bright center, fading edge.
+          float alpha = pow(1.0 - d, 1.6) * 0.95;
+          gl_FragColor = vec4(1.0, 0.96, 0.88, alpha);
+        }
+      `,
+      transparent: true,
+      depthWrite: false
+    });
+    scene.add(new THREE.Points(heroGeo, heroStarMat));
 
     // ── Lights ──
     // Ambient (dim blue-black for night side)
@@ -626,19 +802,55 @@
       new THREE.MeshPhongMaterial({color:0x2255aa,transparent:true,opacity:0.04,side:THREE.BackSide})));
 
     // ── Pin system ──
+    // Three pin types share the globe:
+    //   active  — DRC, gold, large, pulsing, with Zola standing on top
+    //   soon    — PLP "Coming Soon" infrastructure markets, green, medium
+    //   ptwo    — Palm Tree Women Organization presence, rose-gold, small
+    // DRC also gets a "DRC" label below the pin so it reads like the others.
     const PINS = [
-      { lat: -4,  lon: 24,  label: 'Democratic Republic of Congo', sub: 'Palm Leaf Partners · Active',  color: 0xB8860B, sprite: '../assets/images/zola-globe-sprite.png', active: true  },
-      { lat:  9,  lon:  8,  label: 'Nigeria',      sub: 'Coming Soon', color: 0x40916C, sprite: null, active: false },
+      // ── PLP active ─────────────────────────────────────────────
+      { lat: -4,  lon: 24,  label: 'Democratic Republic of Congo', shortLabel: 'DRC', sub: 'Palm Leaf Partners · Active', color: 0xB8860B, sprite: '../assets/images/zola-globe-sprite.png', active: true },
+
+      // ── PLP Coming Soon markets ────────────────────────────────
+      { lat:  9,  lon:  8,  label: 'Nigeria',       sub: 'Coming Soon', color: 0x40916C, sprite: null, active: false },
       { lat:  7,  lon: -1,  label: 'Ghana',         sub: 'Coming Soon', color: 0x40916C, sprite: null, active: false },
       { lat: -1,  lon: 37,  label: 'Kenya',         sub: 'Coming Soon', color: 0x40916C, sprite: null, active: false },
       { lat: -29, lon: 25,  label: 'South Africa',  sub: 'Coming Soon', color: 0x40916C, sprite: null, active: false },
+
+      // ── Palm Tree Women Organization locations (sister org) ────
+      // The 3 PTWO locations that overlap with PLP markets (DRC, Nigeria,
+      // South Africa) are not duplicated here — they're already on the map.
+      // Coordinates: country geographic centers (matches Manus's convention
+      // for the PLP pins above), except where the user named a specific
+      // city ("London UK") in which case we use the city's coordinates.
+      { lat:  51.5074, lon:  -0.1278, label: 'London',    sub: 'PTWO', color: 0xB76E79, sprite: null, active: false, ptwo: true },
+      { lat:  14.4974, lon: -14.4524, label: 'Senegal',   sub: 'PTWO', color: 0xB76E79, sprite: null, active: false, ptwo: true },
+      { lat: -13.1339, lon:  27.8493, label: 'Zambia',    sub: 'PTWO', color: 0xB76E79, sprite: null, active: false, ptwo: true },
+      { lat: -22.3285, lon:  24.6849, label: 'Botswana',  sub: 'PTWO', color: 0xB76E79, sprite: null, active: false, ptwo: true },
+      { lat:  56.1304, lon: -106.3468,label: 'Canada',    sub: 'PTWO', color: 0xB76E79, sprite: null, active: false, ptwo: true },
+      { lat:  20.5937, lon:  78.9629, label: 'India',     sub: 'PTWO', color: 0xB76E79, sprite: null, active: false, ptwo: true },
+      { lat: -19.0154, lon:  29.1549, label: 'Zimbabwe',  sub: 'PTWO', color: 0xB76E79, sprite: null, active: false, ptwo: true },
+      { lat: -25.2744, lon: 133.7751, label: 'Australia', sub: 'PTWO', color: 0xB76E79, sprite: null, active: false, ptwo: true },
+      { lat:   7.3697, lon:  12.3547, label: 'Cameroon',  sub: 'PTWO', color: 0xB76E79, sprite: null, active: false, ptwo: true },
+      // USA — pinned on the Virginia / West Virginia border at user request.
+      // Label notes the "Global Mother" designation for PTWO's USA chapter.
+      { lat:  38.5,    lon: -79.5,    label: 'USA (Global Mother)', sub: 'PTWO · Global Mother', color: 0xB76E79, sprite: null, active: false, ptwo: true },
+      { lat:  50.5039, lon:   4.4699, label: 'Belgium',   sub: 'PTWO', color: 0xB76E79, sprite: null, active: false, ptwo: true },
+      { lat:  46.2276, lon:   2.2137, label: 'France',    sub: 'PTWO', color: 0xB76E79, sprite: null, active: false, ptwo: true },
     ];
+
+    // Helper: convert pin's THREE.Color hex (0xRRGGBB) to a CSS hex string
+    // so we can use the same color in canvas-textured label sprites.
+    const pinHexCss = (n) => '#' + n.toString(16).padStart(6, '0').toUpperCase();
 
     PINS.forEach(pin => {
       pin.localDir = geoToLocal(pin.lat, pin.lon, 1.0).normalize();
 
+      // Pin size: active is biggest, PTWO is smallest (sister-org subtler),
+      // PLP Coming Soon is middle.
+      const pinRadius = pin.active ? 0.075 : pin.ptwo ? 0.018 : 0.025;
       const glowMesh = new THREE.Mesh(
-        new THREE.SphereGeometry(pin.active ? 0.075 : 0.025, 16, 16),
+        new THREE.SphereGeometry(pinRadius, 16, 16),
         new THREE.MeshBasicMaterial({ color: pin.color, transparent: true, opacity: 0 })
       );
       glowMesh.position.copy(geoToLocal(pin.lat, pin.lon, 1.005));
@@ -669,19 +881,33 @@
         pin.spriteMesh = sprite; pin.spriteMat = spriteMat;
       }
 
-      // Country label (canvas texture)
-      if (pin.label && !pin.active) {
+      // Country label (canvas texture). Render for every pin including the
+      // active DRC — the active pin uses its shortLabel ("DRC") so the long
+      // "Democratic Republic of Congo" stays for the hover tooltip only.
+      // Canvas is sized wide enough for "USA (Global Mother)" without clipping;
+      // a soft drop shadow keeps labels readable on bright ocean / desert.
+      if (pin.label) {
         const canvas = document.createElement('canvas');
-        canvas.width = 256; canvas.height = 64;
+        canvas.width = 384; canvas.height = 80;
         const ctx = canvas.getContext('2d');
-        ctx.font = '600 22px Georgia, serif';
-        ctx.fillStyle = pin.active ? '#B8860B' : '#40916C';
+        ctx.font = (pin.active ? '700 32px' : pin.ptwo ? '700 22px' : '700 24px') + ' Georgia, serif';
         ctx.textAlign = 'center';
-        ctx.fillText(pin.label, 128, 36);
+        ctx.textBaseline = 'middle';
+        // Black halo for legibility against any underlying terrain.
+        ctx.shadowColor = 'rgba(0,0,0,0.85)';
+        ctx.shadowBlur = 6;
+        ctx.fillStyle = pinHexCss(pin.color);
+        const text = pin.shortLabel || pin.label;
+        ctx.fillText(text, canvas.width / 2, canvas.height / 2);
         const labelTex = new THREE.CanvasTexture(canvas);
+        labelTex.minFilter = THREE.LinearFilter;
+        labelTex.needsUpdate = true;
         const labelMat = new THREE.SpriteMaterial({ map: labelTex, transparent: true, depthTest: true, depthWrite: false, opacity: 0 });
         const labelSprite = new THREE.Sprite(labelMat);
-        labelSprite.scale.set(0.35, 0.09, 1);
+        // Aspect 384:80 = 4.8:1. Width ~ 0.5 in scene units gives readable
+        // text without making PTWO pins shout; active is slightly larger.
+        const lblScale = pin.active ? 0.52 : pin.ptwo ? 0.40 : 0.46;
+        labelSprite.scale.set(lblScale, lblScale * (80 / 384), 1);
         scene.add(labelSprite);
         pin.labelMesh = labelSprite; pin.labelMat = labelMat;
       }
@@ -717,7 +943,9 @@
       } else {
         tooltip.classList.remove('visible');
         cName.classList.remove('visible'); cSub.classList.remove('visible');
-        controls.autoRotate=true; document.body.style.cursor='grab';
+        // Restore rotation only if the user hasn't dragged the slider to Stop.
+        controls.autoRotate = window.__plpUserSpeed > 0;
+        document.body.style.cursor='grab';
       }
     }
     window.addEventListener('mousemove', onPtr);
@@ -741,6 +969,12 @@
     // ── Animation ──
     const _v3 = new THREE.Vector3();
     const _quat = new THREE.Quaternion();
+    // Camera position direction (unit vector from globe center toward camera).
+    // Used to decide which pins are "facing the viewer" as OrbitControls
+    // orbits the camera around the globe — the previous logic compared to
+    // world +Z and missed pins on the back of the globe (USA, Canada,
+    // Australia at the start, plus everything else as the camera spun).
+    const _camDir = new THREE.Vector3();
     let t = 0;
 
     function animate() {
@@ -750,6 +984,8 @@
       // Update twinkling stars
       starMat.uniforms.time.value = t;
       globe.getWorldQuaternion(_quat);
+      // Camera direction relative to globe center, used for pin visibility.
+      _camDir.copy(camera.position).normalize();
 
       // Update sun position (slow real-time drift)
       const utcNow = new Date().getUTCHours() + new Date().getUTCMinutes()/60 + new Date().getUTCSeconds()/3600;
@@ -767,9 +1003,11 @@
       PINS.forEach(pin => {
         _v3.copy(pin.localDir).applyQuaternion(_quat);
 
-        // Visibility: _v3.z > 0 means facing camera (camera at +Z)
-        // Use a sharp cutoff at the horizon (z=0) with a small feather zone
-        const vis = Math.max(0, Math.min(1, _v3.z * 8)); // sharp fade
+        // Visibility: pin is "facing the viewer" when its world direction
+        // (from globe center) aligns with the camera's position direction.
+        // Dot product > 0 = front hemisphere; <= 0 = back hemisphere.
+        // The ×8 multiplier preserves the original sharp-feather behavior.
+        const vis = Math.max(0, Math.min(1, _v3.dot(_camDir) * 8));
 
         if (pin.glowMat) pin.glowMat.opacity = vis * (pin.active ? 0.7 : 0.5);
 
