@@ -80,6 +80,64 @@
     .zola-tooltip.visible { opacity: 1; }
     .zola-tooltip strong { color: #B8860B; display: block; margin-bottom: 0.25rem; font-size: 0.9rem; }
 
+    /* Project Panel */
+    .project-panel {
+      position: fixed; top: 0; right: -420px; bottom: 0; z-index: 300;
+      width: 400px; max-width: 90vw;
+      background: rgba(27,67,50,0.97);
+      backdrop-filter: blur(16px);
+      border-left: 2px solid rgba(184,134,11,0.4);
+      padding: 2rem 1.5rem;
+      overflow-y: auto;
+      transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: -8px 0 40px rgba(0,0,0,0.6);
+    }
+    .project-panel.open { right: 0; }
+    .panel-close {
+      position: absolute; top: 1rem; right: 1rem;
+      background: none; border: none; color: rgba(245,240,232,0.6);
+      font-size: 2rem; cursor: pointer; line-height: 1;
+      transition: color 0.2s;
+    }
+    .panel-close:hover { color: #B8860B; }
+    .panel-header {
+      display: flex; align-items: center; gap: 0.75rem;
+      margin-bottom: 2rem; padding-bottom: 1.25rem;
+      border-bottom: 1px solid rgba(184,134,11,0.25);
+    }
+    .panel-title { font-size: 1.1rem; font-weight: 700; color: #F5F0E8; }
+    .panel-sub { font-size: 0.68rem; color: #B8860B; letter-spacing: 0.15em; text-transform: uppercase; }
+    .panel-grid { display: flex; flex-direction: column; gap: 1rem; }
+    .panel-card {
+      display: flex; align-items: center; gap: 1rem;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(184,134,11,0.2);
+      border-radius: 12px; overflow: hidden;
+      text-decoration: none; transition: all 0.25s;
+    }
+    .panel-card:hover {
+      background: rgba(184,134,11,0.1);
+      border-color: rgba(184,134,11,0.5);
+      transform: translateX(-4px);
+    }
+    .panel-card img { width: 100px; height: 72px; object-fit: cover; flex-shrink: 0; }
+    .panel-card-body { padding: 0.5rem 0.75rem 0.5rem 0; }
+    .panel-card-body h4 { color: #F5F0E8; font-size: 0.92rem; margin-bottom: 0.2rem; }
+    .panel-card-body p { color: rgba(245,240,232,0.6); font-size: 0.78rem; margin: 0; }
+    .panel-home-btn {
+      display: block; text-align: center; margin-top: 2rem;
+      color: #B8860B; font-size: 0.85rem; font-weight: 600;
+      text-decoration: none; padding: 0.75rem;
+      border: 1px solid rgba(184,134,11,0.4); border-radius: 8px;
+      transition: all 0.2s;
+    }
+    .panel-home-btn:hover { background: rgba(184,134,11,0.15); border-color: #B8860B; }
+
+    @media (max-width: 480px) {
+      .project-panel { width: 100%; max-width: 100%; right: -100%; }
+      .panel-card img { width: 80px; height: 60px; }
+    }
+
     #loading {
       position: fixed; inset: 0; z-index: 500; background: #020408;
       display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.5rem;
@@ -129,6 +187,56 @@
   <div class="zola-tooltip" id="zola-tooltip">
     <strong>Zola · DRC</strong>
     Building Systems. Growing Futures.
+  </div>
+
+  <!-- Project Panel (slides in when Zola is clicked) -->
+  <div class="project-panel" id="project-panel">
+    <button class="panel-close" onclick="document.getElementById('project-panel').classList.remove('open');">&times;</button>
+    <div class="panel-header">
+      <img src="../assets/images/plp-logo-nav.png" alt="" style="width:36px;height:36px;border-radius:50%;" />
+      <div>
+        <div class="panel-title">Our Projects in the DRC</div>
+        <div class="panel-sub">Building Systems. Growing Futures.</div>
+      </div>
+    </div>
+    <div class="panel-grid">
+      <a href="mapping.html" class="panel-card">
+        <img src="../assets/images/zola-hero-mapping.jpg" alt="Mapping" />
+        <div class="panel-card-body">
+          <h4>Address Mapping</h4>
+          <p>20 million addresses mapped for the first time</p>
+        </div>
+      </a>
+      <a href="data-center.html" class="panel-card">
+        <img src="../assets/images/zola-hero-datacenter.jpg" alt="Data Center" />
+        <div class="panel-card-body">
+          <h4>Data Center</h4>
+          <p>Two-site sovereign cloud — Tier-IV certified</p>
+        </div>
+      </a>
+      <a href="call-centers.html" class="panel-card">
+        <img src="../assets/images/zola-hero-callcenter.jpg" alt="Call Centers" />
+        <div class="panel-card-body">
+          <h4>Call Centers</h4>
+          <p>5–10 regional centers in 6 languages</p>
+        </div>
+      </a>
+      <a href="fiber-backbone.html" class="panel-card">
+        <img src="../assets/images/zola-hero-fiber.jpg" alt="Fiber Backbone" />
+        <div class="panel-card-body">
+          <h4>Fiber Backbone</h4>
+          <p>Six cities connected — Starlink for the last mile</p>
+        </div>
+      </a>
+      <a href="memorial-city.html" class="panel-card">
+        <img src="../assets/images/zola-hero-memorial.jpg" alt="Memorial City" />
+        <div class="panel-card-body">
+          <h4>Memorial City</h4>
+          <p>5 km² living memorial to peace and reconciliation</p>
+        </div>
+      </a>
+    </div>
+    <a href="../index.html" class="panel-home-btn">← Visit Full Site</a>
   </div>
 
   <script src="../js/vendor/three.min.js"></script>
@@ -349,8 +457,10 @@
       mouse.x=(e.clientX/window.innerWidth)*2-1;
       mouse.y=-(e.clientY/window.innerHeight)*2+1;
       raycaster.setFromCamera(mouse,camera);
-      if(drcPin.spriteMesh && raycaster.intersectObject(drcPin.spriteMesh).length>0)
-        window.location.href='../index.html';
+      if(drcPin.spriteMesh && raycaster.intersectObject(drcPin.spriteMesh).length>0 && drcPin.spriteMat.opacity > 0.5) {
+        document.getElementById('project-panel').classList.add('open');
+        controls.autoRotate = false;
+      }
     });
     window.addEventListener('resize', () => {
       camera.aspect=window.innerWidth/window.innerHeight;
