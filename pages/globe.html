@@ -712,6 +712,124 @@
     }
     .drc-bubble-cta.visible { display: inline-block; }
 
+    /* ── Layer overlays (Mining first) ─────────────────────────────
+       Each layer is its own SVG/div sitting between the base map and
+       Zola/badges. Hidden by default; .visible class lights it up. */
+    .drc-layer {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 380ms ease;
+    }
+    .drc-layer.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    /* Mining region polygons (SVG) — clickable hatched belts. */
+    .drc-mining-region {
+      cursor: pointer;
+      stroke: rgba(196,120,66,0.85);
+      stroke-width: 0.25;
+      transition: filter 200ms, stroke-width 200ms;
+    }
+    .drc-mining-region:hover {
+      filter: brightness(1.25);
+      stroke-width: 0.55;
+    }
+    /* Mining city pin */
+    .drc-mining-city {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      pointer-events: auto;
+      cursor: pointer;
+      background: rgba(196,120,66,0.95);
+      color: #fdfaf3;
+      border: 1px solid rgba(255,220,180,0.6);
+      border-radius: 999px;
+      padding: 0.3rem 0.65rem 0.3rem 0.45rem;
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      font-family: 'Georgia', serif;
+      font-size: 0.66rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.55), 0 0 0 0 rgba(196,120,66,0.5);
+      animation: drcMiningPulse 2.8s ease-in-out infinite;
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      white-space: nowrap;
+      transition: transform 180ms;
+    }
+    .drc-mining-city:hover {
+      transform: translate(-50%, -50%) scale(1.08);
+      background: #d4a843;
+      color: #2c1810;
+    }
+    .drc-mining-city .mc-icon { font-size: 0.9rem; line-height: 1; }
+    /* Color variants per mineral type — sets the dot color tint */
+    .drc-mining-city.mineral-gold { background: rgba(212,168,60,0.95); }
+    .drc-mining-city.mineral-gold:hover { background: #e8c455; }
+    .drc-mining-city.mineral-diamond { background: rgba(155,58,58,0.95); }
+    .drc-mining-city.mineral-diamond:hover { background: #c45a4a; }
+    .drc-mining-city.mineral-coltan { background: rgba(122,106,138,0.95); }
+    .drc-mining-city.mineral-coltan:hover { background: #a896b8; }
+    @keyframes drcMiningPulse {
+      0%, 100% { box-shadow: 0 3px 12px rgba(0,0,0,0.55), 0 0 0 0 rgba(196,120,66,0.5); }
+      50%      { box-shadow: 0 3px 12px rgba(0,0,0,0.55), 0 0 0 8px rgba(196,120,66,0); }
+    }
+
+    /* Layer toggle bar — sits at the top center of the DRC detail view. */
+    .drc-layer-toggles {
+      position: absolute;
+      top: 1.25rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 230;
+      display: flex;
+      gap: 0.3rem;
+      background: rgba(20,40,30,0.85);
+      border: 1px solid rgba(184,134,11,0.45);
+      border-radius: 999px;
+      padding: 0.3rem;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+      max-width: calc(100vw - 2rem);
+      overflow-x: auto;
+    }
+    .drc-layer-btn {
+      background: transparent;
+      border: none;
+      color: rgba(245,240,232,0.7);
+      padding: 0.45rem 0.85rem;
+      border-radius: 999px;
+      font-family: 'Georgia', serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      white-space: nowrap;
+      transition: background 160ms, color 160ms, opacity 160ms;
+    }
+    .drc-layer-btn:hover {
+      color: #B8860B;
+      background: rgba(184,134,11,0.12);
+    }
+    .drc-layer-btn[aria-pressed="true"] {
+      background: #B8860B;
+      color: #1B4332;
+      font-weight: 700;
+    }
+    .drc-layer-btn[data-stub="true"] { opacity: 0.55; }
+    .drc-layer-btn .lt-icon { font-size: 0.95rem; line-height: 1; }
+    @media (max-width: 640px) {
+      .drc-layer-toggles { top: 0.75rem; padding: 0.2rem; gap: 0.15rem; }
+      .drc-layer-btn { padding: 0.3rem 0.55rem; font-size: 0.62rem; }
+      .drc-layer-btn .lt-label { display: none; }
+    }
+
     /* "Back to World" pill — top-left of detail view. */
     .drc-back-btn {
       position: absolute;
@@ -924,12 +1042,63 @@
   <div class="drc-detail-view" id="drc-detail-view" aria-hidden="true">
     <div class="drc-detail-inner">
       <img class="drc-map" src="../assets/images/drc-illustrated.png" alt="Illustrated map of the Democratic Republic of the Congo" />
+
+      <!-- Layer-stack SVGs. Each represents one infrastructure/resource
+           overlay (mining today; grid/fiber/geothermal/data center/fishery/
+           agriculture follow). The .visible class on the parent toggles
+           individual layers on/off. Polygons + pins populated by JS. -->
+      <svg class="drc-layer drc-layer-mining" id="drc-mining-svg" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+        <defs>
+          <pattern id="hatch-copper" patternUnits="userSpaceOnUse" width="2.5" height="2.5" patternTransform="rotate(45)">
+            <line x1="0" y1="0" x2="0" y2="2.5" stroke="#c47842" stroke-width="0.6" />
+          </pattern>
+          <pattern id="hatch-gold" patternUnits="userSpaceOnUse" width="2.5" height="2.5" patternTransform="rotate(45)">
+            <line x1="0" y1="0" x2="0" y2="2.5" stroke="#d4a83c" stroke-width="0.6" />
+          </pattern>
+          <pattern id="hatch-diamond" patternUnits="userSpaceOnUse" width="2.5" height="2.5" patternTransform="rotate(45)">
+            <line x1="0" y1="0" x2="0" y2="2.5" stroke="#9b3a3a" stroke-width="0.6" />
+          </pattern>
+          <pattern id="hatch-coltan" patternUnits="userSpaceOnUse" width="2.5" height="2.5" patternTransform="rotate(45)">
+            <line x1="0" y1="0" x2="0" y2="2.5" stroke="#7a6a8a" stroke-width="0.6" />
+          </pattern>
+        </defs>
+        <!-- Region polygons populated by JS -->
+      </svg>
+      <!-- Mining city pins layer (HTML for easier styling than SVG icons) -->
+      <div class="drc-layer drc-layer-mining-cities" id="drc-mining-cities"></div>
+
       <!-- SVG layer for Zola's journey trail. ViewBox 0..100 lets us draw
            in percentage coordinates that match every hotspot's positioning. -->
       <svg class="drc-trail" id="drc-trail" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"></svg>
       <div class="drc-hotspots" id="drc-hotspots"><!-- populated by JS --></div>
       <!-- Zola — starts at Kinshasa (~12% / 58%), walks to each clicked hotspot. -->
       <img class="drc-zola" id="drc-zola" src="../assets/images/zola-globe-sprite.png" alt="Zola — your guide" style="left:12%; top:58%;" />
+    </div>
+
+    <!-- Layer toggle bar — Mining is wired, the others show a "coming
+         soon" toast when clicked to indicate the pattern is ready. -->
+    <div class="drc-layer-toggles" id="drc-layer-toggles" role="group" aria-label="Map layers">
+      <button type="button" class="drc-layer-btn" data-layer="mining" aria-pressed="false">
+        <span class="lt-icon" aria-hidden="true">⛏️</span><span class="lt-label">Mining</span>
+      </button>
+      <button type="button" class="drc-layer-btn" data-layer="grid" aria-pressed="false" data-stub="true">
+        <span class="lt-icon" aria-hidden="true">⚡</span><span class="lt-label">Grid</span>
+      </button>
+      <button type="button" class="drc-layer-btn" data-layer="fiber" aria-pressed="false" data-stub="true">
+        <span class="lt-icon" aria-hidden="true">📡</span><span class="lt-label">Fiber</span>
+      </button>
+      <button type="button" class="drc-layer-btn" data-layer="geothermal" aria-pressed="false" data-stub="true">
+        <span class="lt-icon" aria-hidden="true">🌋</span><span class="lt-label">Geothermal</span>
+      </button>
+      <button type="button" class="drc-layer-btn" data-layer="data-center" aria-pressed="false" data-stub="true">
+        <span class="lt-icon" aria-hidden="true">🏢</span><span class="lt-label">Data Center</span>
+      </button>
+      <button type="button" class="drc-layer-btn" data-layer="fishery" aria-pressed="false" data-stub="true">
+        <span class="lt-icon" aria-hidden="true">🐟</span><span class="lt-label">Fishery</span>
+      </button>
+      <button type="button" class="drc-layer-btn" data-layer="agriculture" aria-pressed="false" data-stub="true">
+        <span class="lt-icon" aria-hidden="true">🌾</span><span class="lt-label">Agriculture</span>
+      </button>
     </div>
 
     <!-- Speech bubble — appears next to Zola when she arrives at a hotspot.
@@ -1680,6 +1849,155 @@
     provinceBubbleClose.addEventListener('click', () => {
       provinceBubble.classList.remove('open');
       provinceBubble.setAttribute('aria-hidden', 'true');
+    });
+
+    // ─── Layer overlays — Mining (Phase 3) ───────────────────────────
+    // Toggle-able overlays drawn on top of the DRC base map. Mining is
+    // wired today. Grid / Fiber / Geothermal / Data Center / Fishery /
+    // Agriculture stub-toast until their data is added — the toggle
+    // infrastructure works the same for all 7 layers.
+
+    // SVG polygon points for each mining belt — rough percent coords
+    // on the illustrated DRC map. Refine visually when reviewing.
+    const MINING_REGIONS = [
+      {
+        id: 'katanga-belt', name: 'Katanga Copper-Cobalt Belt',
+        sub: 'Lubumbashi · Kolwezi · Likasi',
+        fill: 'url(#hatch-copper)',
+        points: '48,72 75,75 80,80 75,90 55,92 47,84',
+        x: 60, y: 82,  // walk-to point for Zola
+        body: "The southeastern tail of DRC holds some of the world's richest copper and cobalt deposits. The Katanga Copperbelt stretches from Likasi through Kolwezi to the Zambian border — over 100 industrial and artisanal mining operations along a single mineral-rich seam. The DRC produces ~70% of global cobalt and ~5% of global copper. Cobalt is the essential cathode metal in lithium-ion batteries.",
+        fact: "If you've ever charged an EV, smartphone, or laptop, the cobalt in that battery very likely came from this 350 km stretch of the Katanga belt.",
+      },
+      {
+        id: 'kasai-diamonds', name: 'Kasai Diamond Region',
+        sub: 'Mbuji-Mayi · Tshikapa',
+        fill: 'url(#hatch-diamond)',
+        points: '25,62 50,62 52,73 28,73',
+        x: 38, y: 68,
+        body: "Central south DRC's alluvial and kimberlite diamond fields. At its 1980s peak, MIBA (Société Minière de Bakwanga) at Mbuji-Mayi produced 40% of the world's industrial diamonds. Today most extraction is artisanal — small-scale miners working creekbeds and shafts. The Kasai region still holds substantial untapped reserves.",
+        fact: "Industrial diamonds are used in drill bits that build skyscrapers, mine other minerals, and cut concrete — they're the unseen backbone of modern construction.",
+      },
+      {
+        id: 'maniema-coltan', name: 'Maniema Coltan & Tin Belt',
+        sub: 'Manono · Kalemie · Bukavu',
+        fill: 'url(#hatch-coltan)',
+        points: '55,50 75,50 78,67 58,68',
+        x: 65, y: 58,
+        body: "Maniema and Tanganyika hold massive coltan (tantalum ore) and tin ore (cassiterite) deposits. Coltan is critical for electronics — every smartphone, tablet, and laptop on Earth contains tantalum capacitors. Manono additionally sits on what could become the world's largest hard-rock lithium deposit.",
+        fact: "Roughly 1 in 3 smartphones worldwide contains tantalum mined right here in eastern DRC.",
+      },
+      {
+        id: 'ituri-gold', name: 'Ituri Gold Belt',
+        sub: 'Bunia · Mongbwalu · Kibali',
+        fill: 'url(#hatch-gold)',
+        points: '72,15 84,15 86,25 73,25',
+        x: 78, y: 20,
+        body: "Northeastern DRC's Ituri and Haut-Uélé provinces hold significant alluvial and hard-rock gold deposits. Most extraction is artisanal — small-scale miners working shovels and sluice boxes along forest streams. Industrial operations like Kibali in Haut-Uélé are among Africa's largest gold mines.",
+        fact: "Kibali alone produces over 800,000 ounces of gold per year — making it one of Africa's top five gold mines.",
+      },
+    ];
+
+    const MINING_CITIES = [
+      {
+        id: 'kolwezi', name: 'Kolwezi', sub: 'Cobalt Capital of the World',
+        x: 52, y: 82, mineral: 'cobalt', icon: '⛏️',
+        body: "Self-described 'Cobalt Capital of the World.' Sits atop one of the densest cobalt-copper concentrations on Earth. Home to massive industrial operations — Tenke Fungurume, Mutanda, KCC — alongside tens of thousands of artisanal miners. Population grew from ~400,000 to over 600,000 in a decade as the EV boom drove cobalt demand.",
+        fact: "Over 60% of EVs sold globally contain cobalt mined within 25 km of this city.",
+      },
+      {
+        id: 'lubumbashi-mine', name: 'Lubumbashi', sub: 'Historic copper smelter capital',
+        x: 67, y: 85, mineral: 'cobalt', icon: '🏭',
+        body: "DRC's second-largest city and historic capital of the copper industry. The Belgian-built smelter complex here has refined copper continuously since 1910. Lubumbashi remains the operational headquarters for most major mining operators — Gécamines, Sicomines, KCC — and the launchpad for the entire Katanga belt.",
+        fact: "The Lubumbashi smelter has run continuously for over 110 years, through colonial rule, the Mobutu era, the Congo Wars, and into the EV era.",
+      },
+      {
+        id: 'mbujimayi', name: 'Mbuji-Mayi', sub: 'Diamond capital · 40% of world industrial output (peak)',
+        x: 45, y: 68, mineral: 'diamond', icon: '💎',
+        body: "Once the industrial diamond capital of the world. At MIBA's 1980s peak, 40% of every industrial diamond on Earth came from Mbuji-Mayi. The Bushimaie River that runs through the city was once so rich in diamonds that locals would find loose stones after heavy rains. Modern mining is mostly artisanal, but the diamond heritage runs deep.",
+        fact: "MIBA's tailings ponds — what was discarded as waste decades ago — are now mined again with modern techniques, still yielding diamonds.",
+      },
+      {
+        id: 'manono', name: 'Manono', sub: 'Lithium future · world-class deposit',
+        x: 63, y: 67, mineral: 'coltan', icon: '🔋',
+        body: "Once a major tin and tantalum town in the 1960s, mostly abandoned through the 1990s. Today the AVZ Manono lithium project sits on what may be the world's largest hard-rock lithium deposit. Production hasn't started — the mining license fight is one of the highest-stakes legal battles in African mining — but the resource is undeniable.",
+        fact: "If fully developed, Manono could supply lithium for batteries equivalent to over 7 million electric vehicles per year.",
+      },
+      {
+        id: 'bunia', name: 'Bunia', sub: 'Ituri gold hub',
+        x: 78, y: 18, mineral: 'gold', icon: '🪙',
+        body: "Capital of Ituri province. Surrounded by alluvial gold streams and within 100 km of the Kibali industrial gold mine. Artisanal gold mining sustains thousands of families across the forests and savannas of Ituri. Most artisanal gold from here travels overland through Uganda before reaching world markets — a routing the DRC government is slowly formalizing.",
+        fact: "DRC officially produced ~5 tonnes of gold in 2022; experts estimate 3–5x that amount actually crossed the border informally.",
+      },
+    ];
+
+    // Build the mining overlay once. Idempotent — safe to call repeatedly.
+    let miningBuilt = false;
+    function buildMiningLayer() {
+      if (miningBuilt) return;
+      miningBuilt = true;
+
+      const svg = document.getElementById('drc-mining-svg');
+      const citiesEl = document.getElementById('drc-mining-cities');
+
+      // Polygons for the belts
+      for (const r of MINING_REGIONS) {
+        const poly = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+        poly.setAttribute('points', r.points);
+        poly.setAttribute('fill', r.fill);
+        poly.setAttribute('class', 'drc-mining-region');
+        poly.setAttribute('opacity', '0.7');
+        poly.style.pointerEvents = 'auto';
+        poly.addEventListener('click', () => {
+          // Reuse the DRC bubble + Zola walk system.
+          if (window.__plpOpenInfo) {
+            window.__plpOpenInfo(r, 'mining-region');
+          }
+        });
+        svg.appendChild(poly);
+      }
+
+      // City pins
+      for (const c of MINING_CITIES) {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = `drc-mining-city mineral-${c.mineral}`;
+        btn.style.left = c.x + '%';
+        btn.style.top = c.y + '%';
+        btn.innerHTML = `<span class="mc-icon" aria-hidden="true">${c.icon}</span><span>${c.name}</span>`;
+        btn.addEventListener('click', () => {
+          if (window.__plpOpenInfo) {
+            window.__plpOpenInfo(c, 'mining-city');
+          }
+        });
+        citiesEl.appendChild(btn);
+      }
+    }
+
+    // Layer toggle behavior. Mining is wired; the other six show a toast
+    // until their data is added.
+    const layerToggles = document.getElementById('drc-layer-toggles');
+    const layerElements = {
+      mining: [document.getElementById('drc-mining-svg'), document.getElementById('drc-mining-cities')],
+    };
+    layerToggles.addEventListener('click', (e) => {
+      const btn = e.target.closest('.drc-layer-btn');
+      if (!btn) return;
+      const layer = btn.dataset.layer;
+
+      // Stub layers — friendly toast, no state change.
+      if (btn.dataset.stub === 'true') {
+        alert(`The ${btn.querySelector('.lt-label').textContent} layer is coming soon. Mining is built today as the proof of concept; the other layers follow with the same toggle pattern.`);
+        return;
+      }
+
+      if (layer === 'mining') buildMiningLayer();
+
+      const now = btn.getAttribute('aria-pressed') === 'true';
+      const next = !now;
+      btn.setAttribute('aria-pressed', String(next));
+      const els = layerElements[layer] || [];
+      for (const el of els) el?.classList.toggle('visible', next);
     });
 
       // Provinces (rendered first so they sit visually behind landmarks/badges).
