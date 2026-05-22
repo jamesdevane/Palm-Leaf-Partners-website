@@ -278,6 +278,13 @@
       cursor: grab;
       user-select: none;
       -webkit-user-select: none;
+      /* iOS Safari hijacks pinch / drag gestures for its own page zoom /
+         scroll behavior unless we explicitly opt out via touch-action.
+         Without this, the 2D world map is unresponsive to touch on iPad
+         and iPhone (the DRC + province detail maps already had this). */
+      touch-action: none;
+      -webkit-touch-callout: none;
+      -webkit-tap-highlight-color: transparent;
       /* Drives the inverse-scale on labels (see .flat-label below) so
          country names stay visually the same size when the map zooms,
          which spreads them apart instead of bunching them up. */
