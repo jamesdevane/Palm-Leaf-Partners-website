@@ -1461,10 +1461,11 @@
       <div class="flat-pannable" id="flat-pannable">
         <img class="flat-map" src="../assets/images/world-map-flat.jpg" alt="World map" />
 
-        <!-- DRC — active, gold, clickable. Zola stands on top of this pin. -->
-        <div class="flat-pin active" id="flat-pin-drc" data-country="drc" style="left:56.67%; top:52.22%;" title="Democratic Republic of Congo · Palm Leaf Partners · Active"></div>
+        <!-- DRC is shown visually by Zola standing on the gold DRC zone
+             — the redundant pulsing pin + DRC label that would have
+             landed over Kenya (the illustrated map isn't equirectangular)
+             have been removed. -->
         <img class="flat-zola" id="flat-zola" src="../assets/images/zola-globe-sprite.png" alt="Zola — Palm Leaf Partners mascot" style="left:50%; top:64%;" />
-        <div class="flat-label active" style="left:56.67%; top:52.22%;">DRC</div>
 
         <!-- Coming Soon markets — green, smaller -->
         <div class="flat-pin inactive" data-country="nigeria" style="left:52.22%; top:45.00%;"></div>
@@ -2446,11 +2447,14 @@
       bubbleEl.style.top = topPx + 'px';
     }
 
-    document.getElementById('flat-pin-drc').addEventListener('click', (e) => {
+    // The redundant DRC pin/label was removed — Zola is the only DRC
+    // entry point now. Use optional chaining so we don't crash if it
+    // (or any other id) is ever missing.
+    document.getElementById('flat-pin-drc')?.addEventListener('click', (e) => {
       e.stopPropagation();
       showDrcDetail();
     });
-    document.getElementById('flat-zola').addEventListener('click', (e) => {
+    document.getElementById('flat-zola')?.addEventListener('click', (e) => {
       e.stopPropagation();
       showDrcDetail();
     });
