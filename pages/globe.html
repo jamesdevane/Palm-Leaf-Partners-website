@@ -1568,6 +1568,7 @@
     <a href="../index.html" class="panel-home-btn">← Visit Full Site</a>
   </div>
 
+  <script src="../js/i18n.js"></script>
   <script src="../js/vendor/three.min.js"></script>
   <script src="../js/vendor/OrbitControls.js"></script>
 
@@ -1663,10 +1664,12 @@
     });
 
     // ── Voice narration (browser SpeechSynthesis) ───────────────────
-    // Zola reads the bubble copy on arrival — kicks in right after the
-    // arrival chime. No external API, no extra payload, free voice.
-    // Picks the best available female English voice (Samantha on macOS,
-    // Microsoft Aria on Windows, Google's default elsewhere).
+    // Zola's signature voice is French. When the site is in English mode,
+    // a French voice reads the English copy with a French accent — her
+    // DRC-rooted brand voice. When the site toggles to French (via the
+    // global plp_lang i18n toggle), the same French voice reads native
+    // French content. Falls back to an English voice only on systems
+    // that have no French voice installed at all.
     let _ttsVoice = null;
     function pickTtsVoice() {
       if (!('speechSynthesis' in window)) return null;
@@ -1674,8 +1677,12 @@
       const voices = speechSynthesis.getVoices();
       if (!voices.length) return null;
       _ttsVoice =
-        voices.find((v) => /samantha|aria|fiona|tessa|karen|moira/i.test(v.name) && v.lang.startsWith('en')) ||
-        voices.find((v) => /female/i.test(v.name) && v.lang.startsWith('en')) ||
+        voices.find((v) => /amelie|audrey|marie|julie|caroline|hortense|virginie|chantal|celine/i.test(v.name) && v.lang.startsWith('fr')) ||
+        voices.find((v) => /female/i.test(v.name) && v.lang.startsWith('fr')) ||
+        voices.find((v) => v.lang === 'fr-FR') ||
+        voices.find((v) => v.lang === 'fr-CA') ||
+        voices.find((v) => v.lang.startsWith('fr')) ||
+        voices.find((v) => /samantha|aria|fiona/i.test(v.name) && v.lang.startsWith('en')) ||
         voices.find((v) => v.lang === 'en-US' || v.lang === 'en-GB') ||
         voices.find((v) => v.lang.startsWith('en')) ||
         voices[0];
@@ -1691,13 +1698,43 @@
         speechSynthesis.cancel(); // stop any previous utterance
         const utt = new SpeechSynthesisUtterance(text);
         const voice = pickTtsVoice();
-        if (voice) utt.voice = voice;
+        if (voice) {
+          utt.voice = voice;
+          // Setting utt.lang to the voice's own locale keeps some browsers
+          // from silently swapping to a default English engine when they
+          // detect English words in the text. We WANT the French engine.
+          utt.lang = voice.lang;
+        }
         utt.rate = 0.97;
         utt.pitch = 1.02;
         utt.volume = 0.85;
         speechSynthesis.speak(utt);
       } catch {}
     }
+
+    // ── Localized copy helper ───────────────────────────────────────
+    // Every bubble item (DRC hotspots, province hotspots, post offices,
+    // etc.) can carry parallel `_fr` fields. When the site is in French
+    // mode, we return the _fr variant; otherwise the English original.
+    // Items without _fr variants fall back gracefully to English so the
+    // page never goes blank during incremental translation passes.
+    function localized(item, field) {
+      if (!item) return '';
+      const lang = (window.I18N && window.I18N.currentLang) || 'en';
+      if (lang === 'fr' && item[field + '_fr']) return item[field + '_fr'];
+      return item[field] || '';
+    }
+    function didYouKnowPrefix() {
+      const lang = (window.I18N && window.I18N.currentLang) || 'en';
+      return lang === 'fr' ? ' Le saviez-vous ? ' : ' Did you know? ';
+    }
+
+    // When the user toggles language elsewhere (the home-page selector
+    // dispatches `plp:langchange`), cancel any in-flight speech so we
+    // don't hear English text trail off in a half-changed state.
+    window.addEventListener('plp:langchange', () => {
+      try { speechSynthesis.cancel(); } catch {}
+    });
 
     // ── Swish sound (Web Audio) ─────────────────────────────────────
     // Generated procedurally so we don't need an audio file. The cue is
@@ -2243,10 +2280,10 @@
         // of the experience — every click is a journey to that place.
         walkZolaTo(item.x, item.y);
 
-        titleEl.textContent = item.name;
-        subEl.textContent = item.sub || '';
-        bodyEl.textContent = item.body || '';
-        factEl.textContent = item.fact || '';
+        titleEl.textContent = localized(item, 'name');
+        subEl.textContent = localized(item, 'sub');
+        bodyEl.textContent = localized(item, 'body');
+        factEl.textContent = localized(item, 'fact');
         iconEl.textContent = item.icon || '';
         if (item.file) {
           imgEl.src = '../assets/images/badges/drc/' + item.file;
@@ -2275,10 +2312,14 @@
         // Voice narration arrives right after the chime (matches Zola
         // "speaking" the entry as she points at the location).
         setTimeout(() => {
-          const parts = [item.name];
-          if (item.sub) parts.push('. ' + item.sub);
-          if (item.body) parts.push('. ' + item.body);
-          if (item.fact) parts.push(' Did you know? ' + item.fact);
+          const name = localized(item, 'name');
+          const sub = localized(item, 'sub');
+          const body = localized(item, 'body');
+          const fact = localized(item, 'fact');
+          const parts = [name];
+          if (sub) parts.push('. ' + sub);
+          if (body) parts.push('. ' + body);
+          if (fact) parts.push(didYouKnowPrefix() + fact);
           speakZola(parts.join(''));
         }, 1500);
       }
@@ -2643,10 +2684,10 @@
 
       function openProvinceInfo(item) {
         walkProvinceZolaTo(item.x, item.y);
-        titleEl.textContent = item.name;
-        subEl.textContent = item.sub || '';
-        bodyEl.textContent = item.body || '';
-        factEl.textContent = item.fact || '';
+        titleEl.textContent = localized(item, 'name');
+        subEl.textContent = localized(item, 'sub');
+        bodyEl.textContent = localized(item, 'body');
+        factEl.textContent = localized(item, 'fact');
         iconEl.textContent = item.icon || '';
         imgEl.removeAttribute('src');
         imgEl.style.display = 'none';
@@ -2655,10 +2696,14 @@
         requestAnimationFrame(positionProvinceBubble);
         setTimeout(positionProvinceBubble, 1550);
         setTimeout(() => {
-          const parts = [item.name];
-          if (item.sub) parts.push('. ' + item.sub);
-          if (item.body) parts.push('. ' + item.body);
-          if (item.fact) parts.push(' Did you know? ' + item.fact);
+          const name = localized(item, 'name');
+          const sub = localized(item, 'sub');
+          const body = localized(item, 'body');
+          const fact = localized(item, 'fact');
+          const parts = [name];
+          if (sub) parts.push('. ' + sub);
+          if (body) parts.push('. ' + body);
+          if (fact) parts.push(didYouKnowPrefix() + fact);
           speakZola(parts.join(''));
         }, 1500);
       }
@@ -3095,10 +3140,14 @@
     const POST_OFFICE_INFO = {
       icon: '📮',
       name: 'SCPT National Post Office Program',
+      name_fr: 'Programme National des Bureaux de Poste SCPT',
       sub: '100 modernized offices · address registry hubs',
+      sub_fr: '100 bureaux modernisés · pôles du registre d\'adresses',
       x: 50, y: 50, // ignored — Zola doesn't walk to post offices (too many)
       body: "Palm Leaf Partners is partnering with the Société Congolaise des Postes et Télécommunications (SCPT) to modernize 100 post offices across the DRC. Each becomes a community hub — Starlink internet access, secure address registration, banking and identity services, and government document processing. For most communities, these will be the first reliable points of contact with national systems in over a generation.",
+      body_fr: "Palm Leaf Partners s'associe à la Société Congolaise des Postes et Télécommunications (SCPT) pour moderniser 100 bureaux de poste à travers la RDC. Chaque bureau devient un pôle communautaire — accès internet Starlink, enregistrement sécurisé des adresses, services bancaires et d'identité, et traitement des documents gouvernementaux. Pour la plupart des communautés, ce seront les premiers points de contact fiables avec les systèmes nationaux depuis plus d'une génération.",
       fact: "The 100 modernized offices anchor the entire national address mapping program — every Congolese citizen will, for the first time, get a verified street address tied to their local post office.",
+      fact_fr: "Les 100 bureaux modernisés ancrent l'ensemble du programme national de cartographie d'adresses — chaque citoyen congolais obtiendra, pour la première fois, une adresse postale vérifiée liée à son bureau de poste local.",
     };
     let postOfficesBuilt = false;
     function buildPostOfficesLayer() {

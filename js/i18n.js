@@ -228,6 +228,12 @@ const I18N = {
     this.applyAll();
     this.updateToggle();
     document.documentElement.lang = lang;
+    // Pages with custom dynamic content (e.g. globe.html voice narration
+    // and Zola bubbles) listen for this event to re-render or cancel
+    // in-flight state when the user toggles language mid-session.
+    try {
+      window.dispatchEvent(new CustomEvent('plp:langchange', { detail: { lang } }));
+    } catch {}
   },
 
   applyAll() {
