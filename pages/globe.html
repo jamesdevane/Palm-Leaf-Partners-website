@@ -2,11 +2,16 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
   <title>Our World — Palm Leaf Partners</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html, body { width: 100%; height: 100%; overflow: hidden; background: #020408; font-family: 'Georgia', serif; }
+    /* iOS Safari touch hardening — prevent the OS from intercepting
+       gestures (double-tap zoom, long-press selection, callout menu)
+       that would otherwise interfere with our pinch / drag handlers. */
+    html { touch-action: manipulation; -webkit-text-size-adjust: 100%; }
+    body { -webkit-tap-highlight-color: transparent; -webkit-touch-callout: none; }
     #canvas-container { position: fixed; inset: 0; }
 
     .top-bar {
@@ -926,11 +931,11 @@
     .drc-badge:nth-child(3n) img  { animation-delay: -3.4s; }
     .drc-badge:nth-child(4n) img  { animation-delay: -5.1s; }
     .drc-badge:nth-child(5n) img  { animation-delay: -6.8s; }
-    /* Pause every badge spin while the DRC detail view is hidden — even
-       though the layout is off-screen, the GPU was still compositing 24
-       animation layers continuously, which thrashed iPad memory. Only
-       animate when actually visible. */
-    .drc-detail-view:not(.visible) .drc-badge img { animation-play-state: paused; }
+    /* (Previously paused badge spins when the DRC view was off-screen,
+       but iPad Safari treated the paused state as a render hint that
+       stopped the images from drawing at all when the DRC view came
+       back. The mobile backdrop-filter removal + slower 8s spin is
+       enough perf relief without needing to pause.) */
     /* Respect user reduced-motion preference — disables every spin /
        glow keyframe across the page for accessibility AND power saving. */
     @media (prefers-reduced-motion: reduce) {
