@@ -474,6 +474,28 @@
       .country-panel-title { font-size: 1.4rem; }
     }
 
+    /* ── Mobile / tablet performance pass ───────────────────────────
+       Every backdrop-filter: blur() is a GPU-heavy compositing layer
+       on iOS Safari. Stacking 9 of them across the page + the 24 badge
+       spin animations caused iPad lockups and laggy interaction.
+       Strip blur on touch / smaller screens and rely on the underlying
+       background alpha for separation. Drop the dependency on
+       expensive filters for the same visual hierarchy. */
+    @media (max-width: 1024px) {
+      .panel-card,
+      .flat-view,
+      .country-panel-backdrop,
+      .drc-zoom-controls,
+      .drc-layer-toggles,
+      .drc-back-btn,
+      .drc-province,
+      .lang-toggle.globe-lang,
+      .map-reset-btn {
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+      }
+    }
+
     /* Country hover zones — invisible by default, glow + pop on hover.
        Sized to roughly match each painted country area on the world map.
        The pins (.flat-pin) inside each zone remain clickable; the zone
@@ -885,14 +907,14 @@
     }
     .drc-badge img {
       width: 100%; height: 100%;
-      animation: drcBadgeSpin 5.5s linear infinite;
+      animation: drcBadgeSpin 8s linear infinite;
       transform-style: preserve-3d;
-      filter: drop-shadow(0 4px 12px rgba(0,0,0,0.6));
+      filter: drop-shadow(0 3px 8px rgba(0,0,0,0.55));
       transition: filter 200ms, transform 200ms;
     }
     .drc-badge:hover img {
-      filter: drop-shadow(0 6px 18px rgba(184,134,11,0.8)) drop-shadow(0 0 8px rgba(255,220,140,0.5));
-      animation-duration: 2.5s; /* speed up on hover */
+      filter: drop-shadow(0 5px 14px rgba(184,134,11,0.75));
+      animation-duration: 4s; /* speed up on hover */
     }
     @keyframes drcBadgeSpin {
       0%   { transform: rotateY(0deg); }
@@ -900,10 +922,28 @@
     }
     /* Stagger the start phase so all badges aren't synchronized — looks
        more alive when each spins at its own moment in the rotation. */
-    .drc-badge:nth-child(2n) img  { animation-delay: -1.2s; }
-    .drc-badge:nth-child(3n) img  { animation-delay: -2.4s; }
-    .drc-badge:nth-child(4n) img  { animation-delay: -3.6s; }
-    .drc-badge:nth-child(5n) img  { animation-delay: -4.5s; }
+    .drc-badge:nth-child(2n) img  { animation-delay: -1.7s; }
+    .drc-badge:nth-child(3n) img  { animation-delay: -3.4s; }
+    .drc-badge:nth-child(4n) img  { animation-delay: -5.1s; }
+    .drc-badge:nth-child(5n) img  { animation-delay: -6.8s; }
+    /* Pause every badge spin while the DRC detail view is hidden — even
+       though the layout is off-screen, the GPU was still compositing 24
+       animation layers continuously, which thrashed iPad memory. Only
+       animate when actually visible. */
+    .drc-detail-view:not(.visible) .drc-badge img { animation-play-state: paused; }
+    /* Respect user reduced-motion preference — disables every spin /
+       glow keyframe across the page for accessibility AND power saving. */
+    @media (prefers-reduced-motion: reduce) {
+      .drc-badge img,
+      .flat-zola, .flat-loredana,
+      .drc-zola,
+      .flat-pin.active,
+      .drc-landmark,
+      .drc-mining-city, .drc-grid-plant, .drc-fiber-city,
+      .drc-geothermal-pin, .drc-datacenter-pin, .drc-fishery-pin {
+        animation: none !important;
+      }
+    }
 
     /* Landmark hotspots — non-circular, glow + pulse + emoji icon. */
     .drc-landmark {
