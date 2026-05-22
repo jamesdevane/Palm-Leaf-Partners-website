@@ -301,6 +301,54 @@
       /* Smaller labels when zoomed in so they don't overpower the detail. */
       font-size: 0.5rem;
     }
+
+    /* Country hover zones — invisible by default, glow + pop on hover.
+       Sized to roughly match each painted country area on the world map.
+       The pins (.flat-pin) inside each zone remain clickable; the zone
+       just adds a soft radial halo + a small lift on pointer hover. */
+    .flat-country-zone {
+      position: absolute;
+      transform: translate(-50%, -50%) scale(1);
+      border-radius: 50%;
+      pointer-events: auto;
+      cursor: pointer;
+      background: radial-gradient(circle at 50% 50%, transparent 0%, transparent 100%);
+      transition: background 280ms ease, transform 280ms ease, box-shadow 280ms ease, filter 280ms ease;
+      /* No explicit z-index — relies on DOM order so the pins, mascots,
+         and labels (declared after the zones) stack on top and remain
+         clickable through the hover area. */
+    }
+    /* Active tier — same gold family as the DRC zone */
+    .flat-country-zone.tier-active:hover {
+      background: radial-gradient(circle, rgba(212,166,71,0.32) 0%, rgba(184,134,11,0.18) 50%, transparent 92%);
+      transform: translate(-50%, -50%) scale(1.05);
+      box-shadow: 0 0 38px rgba(184,134,11,0.55);
+      filter: brightness(1.08);
+    }
+    /* Coming-soon tier — amber-gold */
+    .flat-country-zone.tier-soon:hover {
+      background: radial-gradient(circle, rgba(184,133,58,0.32) 0%, rgba(140,100,40,0.18) 50%, transparent 92%);
+      transform: translate(-50%, -50%) scale(1.05);
+      box-shadow: 0 0 36px rgba(184,133,58,0.5);
+      filter: brightness(1.08);
+    }
+    /* PTWO tier — rose-gold */
+    .flat-country-zone.tier-ptwo:hover {
+      background: radial-gradient(circle, rgba(194,138,138,0.32) 0%, rgba(183,110,121,0.18) 50%, transparent 92%);
+      transform: translate(-50%, -50%) scale(1.05);
+      box-shadow: 0 0 36px rgba(194,138,138,0.5);
+      filter: brightness(1.08);
+    }
+    /* On touch devices (no real hover), keep the zone clickable but
+       drop the visual hover state so we don't get stuck-active glows. */
+    @media (hover: none) {
+      .flat-country-zone:hover {
+        background: radial-gradient(circle at 50% 50%, transparent 0%, transparent 100%);
+        transform: translate(-50%, -50%) scale(1);
+        box-shadow: none;
+        filter: none;
+      }
+    }
     /* "Back to world" pill — appears after zooming into a country. */
     .map-reset-btn {
       position: absolute;
@@ -1468,6 +1516,31 @@
       <div class="flat-pannable" id="flat-pannable">
         <img class="flat-map" src="../assets/images/world-map-flat.jpg" alt="World map" />
 
+        <!-- Country hover zones — positioned over each painted country
+             area so the user can hover/tap a continent and see it glow,
+             not just the small pin. Coordinates eyeball-tuned against
+             the highlighted world map's painted regions. Width/height in
+             percent of the map's width/height. The matching pin still
+             sits inside each zone for click handling. -->
+        <div class="flat-country-zone tier-ptwo" data-country="usa"          style="left:22%; top:32%;  width:18%; height:18%;" title="USA · PTWO Global Mother"></div>
+        <div class="flat-country-zone tier-ptwo" data-country="canada"       style="left:29%; top:18%;  width:24%; height:18%;" title="Canada · PTWO"></div>
+        <div class="flat-country-zone tier-ptwo" data-country="australia"    style="left:87%; top:67%;  width:16%; height:18%;" title="Australia · PTWO"></div>
+        <div class="flat-country-zone tier-ptwo" data-country="india"        style="left:72%; top:39%;  width:10%; height:13%;" title="India · PTWO"></div>
+        <div class="flat-country-zone tier-soon" data-country="south-africa" style="left:56%; top:69%;  width:9%;  height:10%;" title="South Africa · Coming Soon"></div>
+        <div class="flat-country-zone tier-soon" data-country="nigeria"      style="left:52%; top:48%;  width:6%;  height:7%;"  title="Nigeria · Coming Soon"></div>
+        <div class="flat-country-zone tier-soon" data-country="ghana"        style="left:49%; top:50%;  width:4%;  height:6%;"  title="Ghana · Coming Soon"></div>
+        <div class="flat-country-zone tier-soon" data-country="kenya"        style="left:60%; top:55%;  width:5%;  height:7%;"  title="Kenya · Coming Soon"></div>
+        <div class="flat-country-zone tier-ptwo" data-country="uk"           style="left:50%; top:24%;  width:5%;  height:7%;"  title="United Kingdom · PTWO"></div>
+        <div class="flat-country-zone tier-ptwo" data-country="france"       style="left:51%; top:27%;  width:5%;  height:7%;"  title="France · PTWO"></div>
+        <div class="flat-country-zone tier-ptwo" data-country="belgium"      style="left:51%; top:24%;  width:3%;  height:5%;"  title="Belgium · PTWO"></div>
+        <div class="flat-country-zone tier-ptwo" data-country="senegal"      style="left:46%; top:46%;  width:5%;  height:6%;"  title="Senegal · PTWO"></div>
+        <div class="flat-country-zone tier-ptwo" data-country="cameroon"     style="left:54%; top:50%;  width:4%;  height:6%;"  title="Cameroon · PTWO"></div>
+        <div class="flat-country-zone tier-ptwo" data-country="zambia"       style="left:58%; top:61%;  width:6%;  height:6%;"  title="Zambia · PTWO"></div>
+        <div class="flat-country-zone tier-ptwo" data-country="zimbabwe"     style="left:58%; top:65%;  width:5%;  height:5%;"  title="Zimbabwe · PTWO"></div>
+        <div class="flat-country-zone tier-ptwo" data-country="botswana"     style="left:57%; top:67%;  width:6%;  height:5%;"  title="Botswana · PTWO"></div>
+        <div class="flat-country-zone tier-active" data-country="drc"        style="left:51%; top:65%;  width:8%;  height:13%;" title="DRC · Active"></div>
+
+
         <!-- DRC is shown visually by Zola standing on the gold DRC zone
              — the redundant pulsing pin + DRC label that would have
              landed over Kenya (the illustrated map isn't equirectangular)
@@ -2279,7 +2352,7 @@
       let lastSingle = null;
       let isDragging = false;
 
-      const INTERACTIVE = '.drc-badge, .drc-landmark, .drc-province, .drc-mining-city, .drc-mining-region, .drc-grid-plant, .drc-grid-line, .drc-fiber-city, .drc-fiber-line, .drc-geothermal-pin, .drc-datacenter-pin, .drc-fishery-pin, .drc-agri-region, .drc-zola, .drc-bubble, .drc-back-btn, .drc-layer-toggles, .drc-zoom-controls, .flat-pin, .flat-zola, .flat-loredana, .flat-label, .lang-toggle, .view-toggle, .map-reset-btn, .flat-zoom-controls, button, a';
+      const INTERACTIVE = '.drc-badge, .drc-landmark, .drc-province, .drc-mining-city, .drc-mining-region, .drc-grid-plant, .drc-grid-line, .drc-fiber-city, .drc-fiber-line, .drc-geothermal-pin, .drc-datacenter-pin, .drc-fishery-pin, .drc-agri-region, .drc-zola, .drc-bubble, .drc-back-btn, .drc-layer-toggles, .drc-zoom-controls, .flat-pin, .flat-zola, .flat-loredana, .flat-label, .flat-country-zone, .lang-toggle, .view-toggle, .map-reset-btn, .flat-zoom-controls, button, a';
 
       function apply(animate) {
         innerEl.classList.toggle('zooming', !animate);
