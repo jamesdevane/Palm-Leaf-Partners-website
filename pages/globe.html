@@ -302,6 +302,178 @@
       font-size: 0.5rem;
     }
 
+    /* ── Country detail panel (Tier 1 — every country gets a card) ───
+       Slides in from the right when a country is clicked. The DRC's
+       click still bypasses straight to the full deep-dive; every other
+       country opens this panel with chapter info + mascot placeholder +
+       Wikipedia photo + a "get in touch" CTA. */
+    .country-panel-backdrop {
+      position: fixed; inset: 0;
+      background: rgba(2,4,8,0.55);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 280ms ease;
+      z-index: 280;
+    }
+    .country-panel-backdrop.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .country-panel {
+      position: fixed;
+      top: 0; right: 0;
+      height: 100vh;
+      width: 400px;
+      max-width: 92vw;
+      background: linear-gradient(180deg, #F8F0E0 0%, #F0E4CC 100%);
+      color: #1B4332;
+      transform: translateX(100%);
+      transition: transform 380ms cubic-bezier(0.2, 0.8, 0.2, 1);
+      z-index: 290;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      box-shadow: -20px 0 60px rgba(0,0,0,0.45);
+      font-family: 'Georgia', serif;
+    }
+    .country-panel.open { transform: translateX(0); }
+    .country-panel-inner { padding: 1.5rem 1.5rem 2.5rem; }
+    .country-panel-close {
+      position: absolute;
+      top: 0.75rem; right: 0.75rem;
+      width: 36px; height: 36px;
+      border: none;
+      background: rgba(27,67,50,0.08);
+      color: #1B4332;
+      font-size: 1.4rem;
+      line-height: 1;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: background 160ms, color 160ms;
+    }
+    .country-panel-close:hover { background: #1B4332; color: #F5F0E8; }
+    .country-panel-flag {
+      font-size: 3rem;
+      line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+    .country-panel-badge {
+      display: inline-block;
+      padding: 0.25rem 0.7rem;
+      border-radius: 999px;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-bottom: 0.7rem;
+    }
+    .country-panel-badge.tier-active { background: #B8860B; color: #1B4332; }
+    .country-panel-badge.tier-soon   { background: #8C6428; color: #F5F0E8; }
+    .country-panel-badge.tier-ptwo   { background: #B76E79; color: #F5F0E8; }
+    .country-panel-title {
+      font-family: 'Georgia', serif;
+      font-size: 1.65rem;
+      line-height: 1.15;
+      margin: 0 0 0.5rem;
+      color: #1B4332;
+    }
+    .country-panel-tagline {
+      font-size: 0.78rem;
+      font-style: italic;
+      color: rgba(27,67,50,0.65);
+      margin: 0 0 1rem;
+    }
+    .country-panel-mascot {
+      display: flex; align-items: center; gap: 0.7rem;
+      background: rgba(27,67,50,0.06);
+      border: 1px solid rgba(27,67,50,0.12);
+      border-radius: 8px;
+      padding: 0.7rem;
+      margin-bottom: 1rem;
+    }
+    .country-panel-mascot img {
+      width: 52px; height: 52px;
+      object-fit: contain;
+      flex: 0 0 auto;
+    }
+    .country-panel-mascot-info { display: flex; flex-direction: column; gap: 0.1rem; }
+    .country-panel-mascot-label {
+      font-size: 0.62rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(27,67,50,0.55);
+    }
+    .country-panel-mascot-name {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #1B4332;
+    }
+    .country-panel-mascot.placeholder {
+      align-items: center;
+      gap: 0.7rem;
+    }
+    .country-panel-mascot.placeholder .mascot-slot {
+      width: 52px; height: 52px;
+      border-radius: 50%;
+      background: repeating-linear-gradient(45deg, rgba(184,134,11,0.18) 0 6px, transparent 6px 12px);
+      border: 1px dashed rgba(184,134,11,0.5);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem;
+    }
+    .country-panel-body {
+      font-size: 0.95rem;
+      line-height: 1.55;
+      color: rgba(27,67,50,0.92);
+      margin: 0 0 1rem;
+    }
+    .country-panel-photo {
+      margin: 0 0 1.1rem;
+      border-radius: 8px;
+      overflow: hidden;
+      background: rgba(184,134,11,0.08);
+      min-height: 60px;
+    }
+    .country-panel-photo img {
+      width: 100%;
+      max-height: 220px;
+      object-fit: cover;
+      display: block;
+    }
+    .country-panel-photo-credit {
+      font-size: 0.6rem;
+      color: rgba(27,67,50,0.45);
+      font-style: italic;
+      padding: 0.3rem 0.5rem;
+      text-align: right;
+    }
+    .country-panel-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: #B8860B;
+      color: #1B4332;
+      border: none;
+      padding: 0.7rem 1.1rem;
+      border-radius: 999px;
+      font-family: 'Georgia', serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 160ms, transform 160ms;
+    }
+    .country-panel-cta:hover {
+      background: #1B4332;
+      color: #B8860B;
+      transform: translateY(-1px);
+    }
+    @media (max-width: 640px) {
+      .country-panel { width: 100vw; max-width: 100vw; }
+      .country-panel-title { font-size: 1.4rem; }
+    }
+
     /* Country hover zones — invisible by default, glow + pop on hover.
        Sized to roughly match each painted country area on the world map.
        The pins (.flat-pin) inside each zone remain clickable; the zone
@@ -1611,6 +1783,27 @@
     </div>
   </div>
 
+  <!-- Country detail panel — Tier 1 card for every PLP/PTWO chapter.
+       Opens when the user clicks any country zone (except DRC which
+       still bypasses straight into the full DRC detail view). -->
+  <div class="country-panel-backdrop" id="country-panel-backdrop"></div>
+  <aside class="country-panel" id="country-panel" aria-hidden="true" role="dialog" aria-labelledby="country-panel-title">
+    <div class="country-panel-inner">
+      <button type="button" class="country-panel-close" id="country-panel-close" aria-label="Close">×</button>
+      <div class="country-panel-flag" id="country-panel-flag" aria-hidden="true"></div>
+      <span class="country-panel-badge" id="country-panel-badge"></span>
+      <h2 class="country-panel-title" id="country-panel-title"></h2>
+      <p class="country-panel-tagline" id="country-panel-tagline"></p>
+      <div class="country-panel-mascot" id="country-panel-mascot"></div>
+      <p class="country-panel-body" id="country-panel-body"></p>
+      <figure class="country-panel-photo" id="country-panel-photo" aria-hidden="true" style="display:none">
+        <img id="country-panel-photo-img" alt="" />
+        <figcaption class="country-panel-photo-credit" id="country-panel-photo-credit"></figcaption>
+      </figure>
+      <a class="country-panel-cta" id="country-panel-cta" href="../pages/contact.html"></a>
+    </div>
+  </aside>
+
   <!-- DRC Detail View — fades in when the user clicks the DRC pin or Zola
        on the flat-view world map. The illustrated DRC base map fills the
        screen; badges + landmarks + provinces are rendered by JS at their
@@ -2560,6 +2753,306 @@
     document.getElementById('flat-zola')?.addEventListener('click', (e) => {
       e.stopPropagation();
       showDrcDetail();
+    });
+
+    // ── Country detail panel — Tier 1 for every PLP/PTWO chapter ─────
+    // Click a country zone (or click Loredana for USA) → slide-in panel
+    // with chapter info + mascot + Wikipedia photo + CTA. DRC and its
+    // Zola pin still bypass into the full DRC detail view (above).
+    const COUNTRIES = {
+      drc: {
+        flag: '🇨🇩', tier: 'active',
+        name: 'Democratic Republic of Congo', name_fr: 'République Démocratique du Congo',
+        badge: 'Active Program', badge_fr: 'Programme actif',
+        tagline: 'Palm Leaf Partners · Building Systems. Growing Futures.',
+        tagline_fr: 'Palm Leaf Partners · Construire des Systèmes. Cultiver l\'Avenir.',
+        mascotName: 'Zola', mascotImage: '../assets/images/zola-globe-sprite.png',
+        body: "Palm Leaf Partners' foundational program. Building the DRC's national address registry, sovereign data centers, regional call centers, and the fiber backbone that connects every region. A 50-year partnership with the Congolese state, governed under DRC law.",
+        body_fr: "Le programme fondateur de Palm Leaf Partners. Construire le registre national des adresses, les centres de données souverains, les centres d'appel régionaux et le réseau fibre qui relie chaque région de la RDC. Un partenariat de 50 ans avec l'État congolais, régi par le droit congolais.",
+        wiki: 'Democratic_Republic_of_the_Congo',
+        cta: 'Explore the DRC →', cta_fr: 'Explorer la RDC →',
+        action: 'drc',
+      },
+      nigeria: {
+        flag: '🇳🇬', tier: 'soon',
+        name: 'Nigeria', name_fr: 'Nigéria',
+        badge: 'PLP · Coming Soon', badge_fr: 'PLP · Bientôt',
+        tagline: 'Future PLP infrastructure market',
+        tagline_fr: 'Futur marché d\'infrastructure PLP',
+        body: "Nigeria is on Palm Leaf Partners' next-market roadmap. Our model — address mapping, sovereign cloud, call centers, and fiber connectivity — translates directly to Africa's most populous nation, where over 100 million people still lack a verified street address.",
+        body_fr: "Le Nigéria figure sur la feuille de route des prochains marchés de Palm Leaf Partners. Notre modèle — cartographie d'adresses, cloud souverain, centres d'appel et connectivité fibre — se traduit directement à la nation la plus peuplée d'Afrique, où plus de 100 millions de personnes n'ont toujours pas d'adresse postale vérifiée.",
+        wiki: 'Nigeria',
+        cta: 'Partner with us →', cta_fr: 'Devenez partenaire →',
+      },
+      ghana: {
+        flag: '🇬🇭', tier: 'soon',
+        name: 'Ghana', name_fr: 'Ghana',
+        badge: 'PLP · Coming Soon', badge_fr: 'PLP · Bientôt',
+        tagline: 'On the PLP growth horizon',
+        tagline_fr: 'À l\'horizon de croissance PLP',
+        body: "Ghana's strong institutions and rising digital economy make it a natural next step after the DRC for PLP's address-mapping, sovereign-cloud, and fiber-backbone programs. Accra is positioned to anchor our West African expansion.",
+        body_fr: "Les institutions solides du Ghana et son économie numérique en pleine croissance en font une étape naturelle après la RDC pour les programmes PLP de cartographie d'adresses, de cloud souverain et de réseau fibre. Accra est positionnée pour ancrer notre expansion en Afrique de l'Ouest.",
+        wiki: 'Ghana',
+        cta: 'Partner with us →', cta_fr: 'Devenez partenaire →',
+      },
+      kenya: {
+        flag: '🇰🇪', tier: 'soon',
+        name: 'Kenya', name_fr: 'Kenya',
+        badge: 'PLP · Coming Soon', badge_fr: 'PLP · Bientôt',
+        tagline: 'East Africa expansion target',
+        tagline_fr: 'Cible d\'expansion en Afrique de l\'Est',
+        body: "Kenya is on PLP's expansion plan, with Nairobi positioned as the regional gateway. Our infrastructure model pairs naturally with Kenya's mature mobile-money ecosystem and rapidly growing connectivity.",
+        body_fr: "Le Kenya figure sur le plan d'expansion de PLP, avec Nairobi positionnée comme la porte d'entrée régionale. Notre modèle d'infrastructure se marie naturellement à l'écosystème mature de mobile-money et à la connectivité en pleine croissance du Kenya.",
+        wiki: 'Kenya',
+        cta: 'Partner with us →', cta_fr: 'Devenez partenaire →',
+      },
+      'south-africa': {
+        flag: '🇿🇦', tier: 'soon',
+        name: 'South Africa', name_fr: 'Afrique du Sud',
+        badge: 'PLP · Coming Soon', badge_fr: 'PLP · Bientôt',
+        tagline: 'Southern Africa regional hub',
+        tagline_fr: 'Pôle régional pour l\'Afrique australe',
+        body: "South Africa is on PLP's roadmap as a regional infrastructure hub. Existing technical capacity, deep mining and finance sectors, and PTWO's growing chapter make it a natural anchor for Southern Africa programs.",
+        body_fr: "L'Afrique du Sud figure sur la feuille de route de PLP comme pôle régional d'infrastructure. La capacité technique existante, les secteurs minier et financier profonds, et le chapitre PTWO en plein essor en font un ancrage naturel pour les programmes en Afrique australe.",
+        wiki: 'South_Africa',
+        cta: 'Partner with us →', cta_fr: 'Devenez partenaire →',
+      },
+      usa: {
+        flag: '🇺🇸', tier: 'ptwo',
+        name: 'United States of America', name_fr: 'États-Unis d\'Amérique',
+        badge: 'PTWO · Global Mother Chapter', badge_fr: 'PTWO · Chapitre de la Mère Universelle',
+        tagline: 'The founding chapter of Universal Palm Tree Women',
+        tagline_fr: 'Le chapitre fondateur d\'Universal Palm Tree Women',
+        mascotName: 'Loredana · Global Mother', mascotImage: '../assets/images/loredana-usa-sprite.png',
+        body: "Universal Palm Tree Women Organization USA is the founding chapter — and Loredana, the Global Mother, is the figure who gave the entire movement its name. The USA chapter anchors the international PTWO network and the women's-empowerment programs that flow from it.",
+        body_fr: "L'Organisation Universelle des Femmes Palm Tree USA est le chapitre fondateur — et Loredana, la Mère Universelle, est la figure qui a donné son nom à tout le mouvement. Le chapitre USA ancre le réseau international PTWO et les programmes d'autonomisation des femmes qui en découlent.",
+        wiki: 'United_States',
+        cta: 'Meet Loredana →', cta_fr: 'Rencontrez Loredana →',
+      },
+      uk: {
+        flag: '🇬🇧', tier: 'ptwo',
+        name: 'United Kingdom', name_fr: 'Royaume-Uni',
+        badge: 'PTWO Chapter', badge_fr: 'Chapitre PTWO',
+        tagline: 'European headquarters · London',
+        tagline_fr: 'Siège européen · Londres',
+        body: "UPTW UK builds bridges between the Congolese diaspora and the home country, focusing on women's leadership, business mentorship, and cultural-heritage programs. London serves as our European headquarters.",
+        body_fr: "UPTW UK construit des ponts entre la diaspora congolaise et le pays d'origine, en mettant l'accent sur le leadership féminin, le mentorat d'entreprise et les programmes du patrimoine culturel. Londres sert de siège européen.",
+        wiki: 'London',
+        cta: 'Join the UK chapter →', cta_fr: 'Rejoindre le chapitre UK →',
+      },
+      france: {
+        flag: '🇫🇷', tier: 'ptwo',
+        name: 'France', name_fr: 'France',
+        badge: 'PTWO Chapter', badge_fr: 'Chapitre PTWO',
+        tagline: 'Francophone European hub · Paris',
+        tagline_fr: 'Pôle européen francophone · Paris',
+        body: "UPTW France connects French-speaking communities across Europe with Congolese women's-empowerment work. Paris hosts our French-language programming and diaspora networking.",
+        body_fr: "UPTW France relie les communautés francophones d'Europe au travail d'autonomisation des femmes congolaises. Paris accueille notre programmation en langue française et la mise en réseau de la diaspora.",
+        wiki: 'Paris',
+        cta: 'Join the France chapter →', cta_fr: 'Rejoindre le chapitre France →',
+      },
+      belgium: {
+        flag: '🇧🇪', tier: 'ptwo',
+        name: 'Belgium', name_fr: 'Belgique',
+        badge: 'PTWO Chapter', badge_fr: 'Chapitre PTWO',
+        tagline: 'EU advocacy hub · Brussels',
+        tagline_fr: 'Pôle de plaidoyer UE · Bruxelles',
+        body: "UPTW Belgium is rooted in the deep historical ties between Belgium and the DRC. Brussels serves as our Francophone advocacy hub, focused on EU policy work and diaspora engagement.",
+        body_fr: "UPTW Belgique est enracinée dans les liens historiques profonds entre la Belgique et la RDC. Bruxelles sert de pôle de plaidoyer francophone, axé sur le travail politique au sein de l'UE et l'engagement de la diaspora.",
+        wiki: 'Brussels',
+        cta: 'Join the Belgium chapter →', cta_fr: 'Rejoindre le chapitre Belgique →',
+      },
+      canada: {
+        flag: '🇨🇦', tier: 'ptwo',
+        name: 'Canada', name_fr: 'Canada',
+        badge: 'PTWO Chapter', badge_fr: 'Chapitre PTWO',
+        tagline: 'Toronto · Montréal · Ottawa',
+        tagline_fr: 'Toronto · Montréal · Ottawa',
+        body: "UPTW Canada brings together Congolese and broader African diaspora women across Ottawa, Toronto, and Montréal. Our Canadian chapter focuses on immigrant women's leadership and educational equity.",
+        body_fr: "UPTW Canada rassemble les femmes congolaises et de la diaspora africaine à Ottawa, Toronto et Montréal. Notre chapitre canadien se concentre sur le leadership des femmes immigrantes et l'équité éducative.",
+        wiki: 'Canada',
+        cta: 'Join the Canada chapter →', cta_fr: 'Rejoindre le chapitre Canada →',
+      },
+      india: {
+        flag: '🇮🇳', tier: 'ptwo',
+        name: 'India', name_fr: 'Inde',
+        badge: 'PTWO Chapter', badge_fr: 'Chapitre PTWO',
+        tagline: 'South Asia exchange · New Delhi',
+        tagline_fr: 'Échange en Asie du Sud · New Delhi',
+        body: "UPTW India connects women's-empowerment leaders across South Asia with the Palm Tree Women network. New Delhi hosts cross-cultural exchange programs between African and Indian women's communities.",
+        body_fr: "UPTW Inde relie les dirigeantes de l'autonomisation des femmes en Asie du Sud au réseau Palm Tree Women. New Delhi accueille des programmes d'échange interculturel entre les communautés féminines africaines et indiennes.",
+        wiki: 'New_Delhi',
+        cta: 'Join the India chapter →', cta_fr: 'Rejoindre le chapitre Inde →',
+      },
+      australia: {
+        flag: '🇦🇺', tier: 'ptwo',
+        name: 'Australia', name_fr: 'Australie',
+        badge: 'PTWO Chapter', badge_fr: 'Chapitre PTWO',
+        tagline: 'Asia-Pacific anchor · Sydney',
+        tagline_fr: 'Ancrage Asie-Pacifique · Sydney',
+        body: "UPTW Australia is the Pacific region's anchor for Palm Tree Women Organization. Sydney hosts diaspora networking and women's-leadership training programs for the broader Asia-Pacific community.",
+        body_fr: "UPTW Australie est l'ancrage de la région Pacifique pour Palm Tree Women Organization. Sydney accueille la mise en réseau de la diaspora et les programmes de formation au leadership féminin pour la communauté Asie-Pacifique au sens large.",
+        wiki: 'Sydney',
+        cta: 'Join the Australia chapter →', cta_fr: 'Rejoindre le chapitre Australie →',
+      },
+      senegal: {
+        flag: '🇸🇳', tier: 'ptwo',
+        name: 'Senegal', name_fr: 'Sénégal',
+        badge: 'PTWO Chapter', badge_fr: 'Chapitre PTWO',
+        tagline: 'Francophone West Africa hub · Dakar',
+        tagline_fr: 'Pôle Afrique de l\'Ouest francophone · Dakar',
+        body: "UPTW Senegal connects PTWO's network with Francophone West Africa. Dakar serves as our West African operational hub for cross-chapter collaboration and women's economic-development programs.",
+        body_fr: "UPTW Sénégal relie le réseau PTWO à l'Afrique de l'Ouest francophone. Dakar sert de pôle opérationnel ouest-africain pour la collaboration entre chapitres et les programmes de développement économique des femmes.",
+        wiki: 'Dakar',
+        cta: 'Join the Senegal chapter →', cta_fr: 'Rejoindre le chapitre Sénégal →',
+      },
+      cameroon: {
+        flag: '🇨🇲', tier: 'ptwo',
+        name: 'Cameroon', name_fr: 'Cameroun',
+        badge: 'PTWO Chapter', badge_fr: 'Chapitre PTWO',
+        tagline: 'Bilingual Central Africa hub · Yaoundé',
+        tagline_fr: 'Pôle bilingue Afrique centrale · Yaoundé',
+        body: "UPTW Cameroon bridges the Francophone and Anglophone women's-empowerment communities across Central Africa. Yaoundé hosts our bilingual programming and regional capacity-building work.",
+        body_fr: "UPTW Cameroun fait le pont entre les communautés francophones et anglophones d'autonomisation des femmes en Afrique centrale. Yaoundé accueille notre programmation bilingue et le renforcement des capacités régionales.",
+        wiki: 'Yaound%C3%A9',
+        cta: 'Join the Cameroon chapter →', cta_fr: 'Rejoindre le chapitre Cameroun →',
+      },
+      zambia: {
+        flag: '🇿🇲', tier: 'ptwo',
+        name: 'Zambia', name_fr: 'Zambie',
+        badge: 'PTWO Chapter', badge_fr: 'Chapitre PTWO',
+        tagline: 'Southern Africa anchor · Lusaka',
+        tagline_fr: 'Ancrage en Afrique australe · Lusaka',
+        body: "UPTW Zambia anchors Palm Tree Women Organization in Southern Africa, focusing on rural women's economic empowerment and cross-border cooperation with Congolese sister communities.",
+        body_fr: "UPTW Zambie ancre Palm Tree Women Organization en Afrique australe, en mettant l'accent sur l'autonomisation économique des femmes rurales et la coopération transfrontalière avec les communautés sœurs congolaises.",
+        wiki: 'Lusaka',
+        cta: 'Join the Zambia chapter →', cta_fr: 'Rejoindre le chapitre Zambie →',
+      },
+      zimbabwe: {
+        flag: '🇿🇼', tier: 'ptwo',
+        name: 'Zimbabwe', name_fr: 'Zimbabwe',
+        badge: 'PTWO Chapter', badge_fr: 'Chapitre PTWO',
+        tagline: 'Young, fast-growing chapter · Harare',
+        tagline_fr: 'Chapitre jeune en pleine croissance · Harare',
+        body: "UPTW Zimbabwe is a young, fast-growing chapter focused on women's entrepreneurship and educational mentorship across Harare and rural communities.",
+        body_fr: "UPTW Zimbabwe est un chapitre jeune en pleine croissance, axé sur l'entrepreneuriat féminin et le mentorat éducatif à Harare et dans les communautés rurales.",
+        wiki: 'Harare',
+        cta: 'Join the Zimbabwe chapter →', cta_fr: 'Rejoindre le chapitre Zimbabwe →',
+      },
+      botswana: {
+        flag: '🇧🇼', tier: 'ptwo',
+        name: 'Botswana', name_fr: 'Botswana',
+        badge: 'PTWO Chapter', badge_fr: 'Chapitre PTWO',
+        tagline: 'Rule-of-law mentorship hub · Gaborone',
+        tagline_fr: 'Pôle de mentorat selon l\'État de droit · Gaborone',
+        body: "UPTW Botswana works with women leaders in Gaborone and beyond, channeling Botswana's stability and rule-of-law tradition into mentorship for women across the broader region.",
+        body_fr: "UPTW Botswana travaille avec des dirigeantes à Gaborone et au-delà, canalisant la stabilité et la tradition de l'État de droit du Botswana dans le mentorat des femmes dans toute la région.",
+        wiki: 'Gaborone',
+        cta: 'Join the Botswana chapter →', cta_fr: 'Rejoindre le chapitre Botswana →',
+      },
+    };
+
+    // ── Panel wiring ────────────────────────────────────────────────
+    const countryPanel = document.getElementById('country-panel');
+    const countryPanelBackdrop = document.getElementById('country-panel-backdrop');
+    const countryPanelClose = document.getElementById('country-panel-close');
+    const cpFlag = document.getElementById('country-panel-flag');
+    const cpBadge = document.getElementById('country-panel-badge');
+    const cpTitle = document.getElementById('country-panel-title');
+    const cpTagline = document.getElementById('country-panel-tagline');
+    const cpMascot = document.getElementById('country-panel-mascot');
+    const cpBody = document.getElementById('country-panel-body');
+    const cpPhoto = document.getElementById('country-panel-photo');
+    const cpPhotoImg = document.getElementById('country-panel-photo-img');
+    const cpPhotoCredit = document.getElementById('country-panel-photo-credit');
+    const cpCta = document.getElementById('country-panel-cta');
+
+    function closeCountryPanel() {
+      countryPanel.classList.remove('open');
+      countryPanelBackdrop.classList.remove('open');
+      countryPanel.setAttribute('aria-hidden', 'true');
+    }
+    countryPanelClose.addEventListener('click', closeCountryPanel);
+    countryPanelBackdrop.addEventListener('click', closeCountryPanel);
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && countryPanel.classList.contains('open')) closeCountryPanel();
+    });
+
+    let _cpPhotoToken = 0;
+    async function openCountryPanel(countryId) {
+      const c = COUNTRIES[countryId];
+      if (!c) return;
+      // DRC zone bypasses the panel and opens the full deep-dive directly.
+      if (c.action === 'drc') { showDrcDetail(); return; }
+
+      cpFlag.textContent = c.flag || '';
+      cpBadge.textContent = localized(c, 'badge');
+      cpBadge.className = 'country-panel-badge tier-' + (c.tier || 'ptwo');
+      cpTitle.textContent = localized(c, 'name');
+      cpTagline.textContent = localized(c, 'tagline');
+      cpBody.textContent = localized(c, 'body');
+
+      // Mascot block — real mascot for DRC + USA, placeholder for others.
+      cpMascot.innerHTML = '';
+      if (c.mascotImage) {
+        cpMascot.classList.remove('placeholder');
+        const img = document.createElement('img');
+        img.src = c.mascotImage;
+        img.alt = c.mascotName;
+        const info = document.createElement('div');
+        info.className = 'country-panel-mascot-info';
+        const lang = (window.I18N && window.I18N.currentLang) || 'en';
+        info.innerHTML = `
+          <span class="country-panel-mascot-label">${lang === 'fr' ? 'Mascotte' : 'Mascot'}</span>
+          <span class="country-panel-mascot-name">${c.mascotName}</span>
+        `;
+        cpMascot.appendChild(img);
+        cpMascot.appendChild(info);
+      } else {
+        cpMascot.classList.add('placeholder');
+        const lang = (window.I18N && window.I18N.currentLang) || 'en';
+        cpMascot.innerHTML = `
+          <div class="mascot-slot" aria-hidden="true">🌴</div>
+          <div class="country-panel-mascot-info">
+            <span class="country-panel-mascot-label">${lang === 'fr' ? 'Mascotte' : 'Mascot'}</span>
+            <span class="country-panel-mascot-name">${lang === 'fr' ? 'Bientôt' : 'Coming Soon'}</span>
+          </div>
+        `;
+      }
+
+      // CTA — DRC zone bypasses to its detail view (handled above); other
+      // countries CTAs link to the contact page for now.
+      cpCta.textContent = localized(c, 'cta');
+      cpCta.setAttribute('href', '../pages/contact.html');
+
+      countryPanel.classList.add('open');
+      countryPanelBackdrop.classList.add('open');
+      countryPanel.setAttribute('aria-hidden', 'false');
+      countryPanel.scrollTop = 0;
+
+      // Fetch the country's Wikipedia photo (cached after first load).
+      const myToken = ++_cpPhotoToken;
+      cpPhoto.style.display = 'none';
+      cpPhotoImg.removeAttribute('src');
+      if (c.wiki) {
+        const src = await fetchWikiPhoto(c.wiki);
+        if (myToken !== _cpPhotoToken) return;
+        if (src) {
+          cpPhotoImg.src = src;
+          cpPhotoImg.alt = localized(c, 'name');
+          cpPhotoCredit.textContent = 'Wikipedia';
+          cpPhoto.style.display = '';
+        }
+      }
+    }
+
+    // Wire every flat-country-zone to the panel via delegation.
+    document.querySelectorAll('.flat-country-zone').forEach((zone) => {
+      zone.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const id = zone.dataset.country;
+        openCountryPanel(id);
+      });
     });
 
     // ── DRC Detail View — content & hotspot population ───────────────
