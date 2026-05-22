@@ -2528,7 +2528,11 @@
       const gap = 22 + zRect.width / 2;
       const bubbleW = bubbleEl.offsetWidth || 340;
       let topPx = zolaPxY - bubbleEl.offsetHeight / 2;
-      topPx = Math.max(20, Math.min(h - 40 - bubbleEl.offsetHeight, topPx));
+      // Top clamp matches the bottom edge of the layer-toggle row plus
+      // a small buffer so the bubble never tucks under the back-button /
+      // language-toggle / layer-toggle chrome at the top of the viewport
+      // (was bare 20px which crashed into the chrome on iPad portrait).
+      topPx = Math.max(110, Math.min(h - 40 - bubbleEl.offsetHeight, topPx));
 
       let leftPx;
       if (sideRight) {
@@ -3391,7 +3395,9 @@
       const gap = 22 + zRect.width / 2;
       const bubbleW = bubble.offsetWidth || 340;
       let topPx = zolaPxY - bubble.offsetHeight / 2;
-      topPx = Math.max(20, Math.min(h - 40 - bubble.offsetHeight, topPx));
+      // Keep the bubble below the back-button + layer-toggle chrome —
+      // same 110px clamp the DRC bubble uses for the same reason.
+      topPx = Math.max(110, Math.min(h - 40 - bubble.offsetHeight, topPx));
       let leftPx;
       if (sideRight) {
         leftPx = zolaPxX + gap;
