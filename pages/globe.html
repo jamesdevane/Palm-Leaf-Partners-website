@@ -883,6 +883,24 @@
       opacity: 1;
       pointer-events: auto;
     }
+    /* Area / region / line layers (full-canvas SVGs) sit at z-index 1.
+       Clickable pin / city layers (small HTML buttons) sit at z-index 5
+       so they always win pointer hits over the larger polygons they
+       overlap with. Without this, a Lubumbashi DR pin sitting on the
+       Southern Cassava & Maize polygon would route its click to the
+       agriculture region instead. */
+    .drc-layer-mining,
+    .drc-layer-grid,
+    .drc-layer-fiber,
+    .drc-layer-datacenter-svg,
+    .drc-layer-agriculture { z-index: 1; }
+    .drc-layer-mining-cities,
+    .drc-layer-grid-plants,
+    .drc-layer-fiber-cities,
+    .drc-layer-geothermal,
+    .drc-layer-datacenter,
+    .drc-layer-fishery,
+    .drc-layer-postoffices { z-index: 5; }
     /* Mining region polygons (SVG) — clickable hatched belts. */
     .drc-mining-region {
       cursor: pointer;
