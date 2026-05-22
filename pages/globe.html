@@ -1657,17 +1657,80 @@
       }
     }
 
+    // ── Zola movement audio (whoosh + arrival chime) ─────────────────
+    // Soft Web Audio cues that punctuate her walk. Whoosh on start (~80ms
+    // peak, ends at 300ms) signals movement; two-note chime (C5 → E5, a
+    // gentle major-third) lands on arrival. Both ~30% the volume of the
+    // view-transition swoosh so rapid clicks don't fatigue. Cancellation
+    // logic stops a pending chime when a new walk starts.
+    function playZolaMove() {
+      try {
+        _audioCtx = _audioCtx || new (window.AudioContext || window.webkitAudioContext)();
+        const ctx = _audioCtx;
+        if (ctx.state === 'suspended') ctx.resume();
+        const now = ctx.currentTime;
+        const noiseBuf = ctx.createBuffer(1, ctx.sampleRate * 0.35, ctx.sampleRate);
+        const data = noiseBuf.getChannelData(0);
+        for (let i = 0; i < data.length; i++) data[i] = Math.random() * 2 - 1;
+        const noise = ctx.createBufferSource();
+        noise.buffer = noiseBuf;
+        const filter = ctx.createBiquadFilter();
+        filter.type = 'bandpass';
+        filter.Q.value = 8;
+        filter.frequency.setValueAtTime(300, now);
+        filter.frequency.exponentialRampToValueAtTime(1500, now + 0.25);
+        const gain = ctx.createGain();
+        gain.gain.setValueAtTime(0, now);
+        gain.gain.linearRampToValueAtTime(0.08, now + 0.04);
+        gain.gain.linearRampToValueAtTime(0, now + 0.32);
+        noise.connect(filter).connect(gain).connect(ctx.destination);
+        noise.start(now);
+        noise.stop(now + 0.36);
+      } catch {}
+    }
+    function playZolaArrive() {
+      try {
+        _audioCtx = _audioCtx || new (window.AudioContext || window.webkitAudioContext)();
+        const ctx = _audioCtx;
+        if (ctx.state === 'suspended') ctx.resume();
+        const now = ctx.currentTime;
+        // Two-note chime C5 + E5 — bright warm major third.
+        const notes = [523.25, 659.25];
+        notes.forEach((freq, i) => {
+          const osc = ctx.createOscillator();
+          const g = ctx.createGain();
+          osc.type = 'sine';
+          const t = now + i * 0.07;
+          osc.frequency.setValueAtTime(freq, t);
+          g.gain.setValueAtTime(0, t);
+          g.gain.linearRampToValueAtTime(0.09, t + 0.03);
+          g.gain.exponentialRampToValueAtTime(0.001, t + 0.55);
+          osc.connect(g).connect(ctx.destination);
+          osc.start(t);
+          osc.stop(t + 0.6);
+        });
+      } catch {}
+    }
+
     // ── Zola journey trail ──────────────────────────────────────────
     // When a hotspot is clicked, Zola walks from her current position to
     // the new one. A dashed gold trail line is drawn between the two
-    // positions on the SVG layer and fades out over 5 seconds.
+    // positions on the SVG layer and fades out over 5 seconds. Audio
+    // cues fire at start (whoosh) and arrival (chime), with cancellation
+    // so rapid clicks chain cleanly without chime pile-up.
     const drcZola = document.getElementById('drc-zola');
     const drcTrail = document.getElementById('drc-trail');
     let zolaPos = { x: 12, y: 58 }; // starts at Kinshasa
+    let zolaChimeTimer = null;
 
     function walkZolaTo(x, y) {
-      // Draw a fading dashed line from current → target on the SVG layer.
-      if (Math.abs(x - zolaPos.x) > 0.1 || Math.abs(y - zolaPos.y) > 0.1) {
+      const moving = Math.abs(x - zolaPos.x) > 0.1 || Math.abs(y - zolaPos.y) > 0.1;
+      if (moving) {
+        // Cancel pending arrival chime from a previous walk so we don't
+        // hear two chimes when the user rapid-clicks.
+        if (zolaChimeTimer) { clearTimeout(zolaChimeTimer); zolaChimeTimer = null; }
+
+        // Draw the fading trail line.
         const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
         line.setAttribute('x1', zolaPos.x);
         line.setAttribute('y1', zolaPos.y);
@@ -1675,8 +1738,14 @@
         line.setAttribute('y2', y);
         line.setAttribute('class', 'drc-trail-line');
         drcTrail.appendChild(line);
-        // Auto-remove after the fade animation completes.
         setTimeout(() => line.remove(), 5200);
+
+        // Audio: whoosh now, chime just before the 1.5s walk lands.
+        playZolaMove();
+        zolaChimeTimer = setTimeout(() => {
+          playZolaArrive();
+          zolaChimeTimer = null;
+        }, 1400);
       }
       zolaPos = { x, y };
       drcZola.style.left = x + '%';
@@ -2400,8 +2469,11 @@
     let provinceZolaPos = { x: 50, y: 50 };
     let currentProvinceData = null;
 
+    let provinceChimeTimer = null;
     function walkProvinceZolaTo(x, y) {
-      if (Math.abs(x - provinceZolaPos.x) > 0.1 || Math.abs(y - provinceZolaPos.y) > 0.1) {
+      const moving = Math.abs(x - provinceZolaPos.x) > 0.1 || Math.abs(y - provinceZolaPos.y) > 0.1;
+      if (moving) {
+        if (provinceChimeTimer) { clearTimeout(provinceChimeTimer); provinceChimeTimer = null; }
         const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
         line.setAttribute('x1', provinceZolaPos.x);
         line.setAttribute('y1', provinceZolaPos.y);
@@ -2410,6 +2482,11 @@
         line.setAttribute('class', 'drc-trail-line');
         provinceTrail.appendChild(line);
         setTimeout(() => line.remove(), 5200);
+        playZolaMove();
+        provinceChimeTimer = setTimeout(() => {
+          playZolaArrive();
+          provinceChimeTimer = null;
+        }, 1400);
       }
       provinceZolaPos = { x, y };
       provinceZola.style.left = x + '%';
