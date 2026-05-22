@@ -212,9 +212,38 @@ const translations = {
   'phase.3.planned':    { en: 'Phase 3 · Planned',        fr: 'Phase 3 · Planifiée' },
 };
 
+/* ── Language detection ── */
+// First-visit default: respect the visitor's browser/OS language. A user
+// in Kinshasa with a French-language phone should land on the French site
+// automatically; a user in Texas with an English-language phone gets
+// English. The DRC (official language: French), France, Belgium, Senegal,
+// Canada (QC), and other Francophone regions all have French-coded
+// `navigator.language` values, so this covers the geographic ask without
+// any IP-geolocation call.
+//
+// IMPORTANT: detection runs ONLY when no `plp_lang` has been saved. The
+// moment the user explicitly clicks the EN/FR toggle, we save that choice
+// to localStorage and it takes precedence forever — auto-detection never
+// overrides a deliberate user preference.
+function detectInitialLang() {
+  let saved = null;
+  try { saved = localStorage.getItem('plp_lang'); } catch {}
+  if (saved === 'en' || saved === 'fr') return saved;
+  const candidates = [];
+  if (Array.isArray(navigator.languages)) candidates.push(...navigator.languages);
+  if (navigator.language) candidates.push(navigator.language);
+  for (const code of candidates) {
+    if (!code) continue;
+    const lc = code.toLowerCase();
+    if (lc.startsWith('fr')) return 'fr';
+    if (lc.startsWith('en')) return 'en';
+  }
+  return 'en';
+}
+
 /* ── Engine ── */
 const I18N = {
-  currentLang: localStorage.getItem('plp_lang') || 'en',
+  currentLang: detectInitialLang(),
 
   t(key) {
     const entry = translations[key];
