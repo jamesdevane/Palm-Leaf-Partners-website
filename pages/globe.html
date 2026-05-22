@@ -209,6 +209,52 @@
       box-shadow: 0 20px 80px rgba(0,0,0,0.65);
       user-select: none;
     }
+    /* Pan + zoom container — wraps the world map + all pins so they
+       move together as one piece. We animate `transform` to fly to
+       countries; pointer-events on individual pins still work because
+       transforms preserve hit testing. */
+    .flat-pannable {
+      position: absolute;
+      inset: 0;
+      transform-origin: 0 0;
+      transform: translate(0, 0) scale(1);
+      transition: transform 600ms cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: grab;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+    .flat-pannable.dragging {
+      cursor: grabbing;
+      transition: none; /* no animation while user is dragging */
+    }
+    .flat-pannable.zoomed-in .flat-label {
+      /* Smaller labels when zoomed in so they don't overpower the detail. */
+      font-size: 0.5rem;
+    }
+    /* "Back to world" pill — appears after zooming into a country. */
+    .map-reset-btn {
+      position: absolute;
+      top: 5.5rem; left: 50%;
+      transform: translateX(-50%);
+      z-index: 50;
+      background: rgba(27,67,50,0.92);
+      color: #F5F0E8;
+      border: 1px solid rgba(184,134,11,0.45);
+      padding: 0.5rem 1.1rem;
+      border-radius: 999px;
+      font-family: 'Georgia', serif;
+      font-size: 0.82rem;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      transition: background 160ms, color 160ms, border-color 160ms;
+    }
+    .map-reset-btn:hover {
+      background: rgba(27,67,50,1);
+      color: #B8860B;
+      border-color: #B8860B;
+    }
     .flat-pin {
       position: absolute;
       width: 14px; height: 14px;
@@ -307,6 +353,393 @@
       .flat-zola, .flat-loredana { width: 44px; }
       .flat-label { font-size: 0.58rem; }
       .flat-label.active { font-size: 0.66rem; }
+    }
+
+    /* ── DRC Detail View ─────────────────────────────────────────── */
+    .drc-detail-view {
+      position: fixed; inset: 0; z-index: 200;
+      display: flex; align-items: center; justify-content: center;
+      background: radial-gradient(ellipse at 50% 30%, #1a3a2c 0%, #050d0a 60%, #000 100%);
+      padding: 4rem 2rem 2rem;
+      opacity: 0;
+      pointer-events: none;
+      /* Cinematic swish: start small (camera far away) + slightly blurred,
+         animate to scale 1 (camera close, in focus). Paired with a Web
+         Audio whoosh in JS so the transition lands with audible weight. */
+      transform: scale(0.55);
+      filter: blur(8px);
+      transition:
+        opacity 750ms ease,
+        transform 750ms cubic-bezier(0.18, 0.85, 0.28, 1),
+        filter 600ms ease;
+    }
+    .drc-detail-view.visible {
+      opacity: 1;
+      pointer-events: auto;
+      transform: scale(1);
+      filter: blur(0);
+    }
+    .drc-detail-inner {
+      position: relative;
+      width: 100%;
+      max-width: 1100px;
+      aspect-ratio: 1 / 1;
+      max-height: calc(100vh - 6rem);
+    }
+    .drc-map {
+      width: 100%; height: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 20px 60px rgba(0,0,0,0.55));
+      user-select: none;
+      pointer-events: none;
+    }
+    .drc-hotspots {
+      position: absolute; inset: 0;
+      pointer-events: none; /* container is non-blocking; children re-enable */
+    }
+
+    /* Zola's journey trail — SVG layer over the map. Lines drawn here
+       fade out gradually so the user sees recent travel without clutter. */
+    .drc-trail {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      overflow: visible;
+    }
+    .drc-trail-line {
+      fill: none;
+      stroke: #B8860B;
+      stroke-width: 0.5;
+      stroke-dasharray: 1.4 1.1;
+      stroke-linecap: round;
+      filter: drop-shadow(0 0 1.2px rgba(255,220,140,0.7));
+      opacity: 0.9;
+      animation: drcTrailFade 5s ease-out forwards;
+    }
+    @keyframes drcTrailFade {
+      0%   { opacity: 0.9; stroke-dashoffset: 6; }
+      8%   { opacity: 0.9; stroke-dashoffset: 0; }
+      100% { opacity: 0; stroke-dashoffset: -6; }
+    }
+
+    /* Zola walking guide — small sprite that animates between hotspots. */
+    .drc-zola {
+      position: absolute;
+      width: 64px;
+      height: auto;
+      transform: translate(-50%, -100%);
+      pointer-events: none;
+      filter: drop-shadow(0 6px 14px rgba(0,0,0,0.6));
+      transition: left 1500ms cubic-bezier(0.4, 0, 0.2, 1),
+                  top 1500ms cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 5;
+    }
+    /* Subtle bobbing animation while idle. */
+    .drc-zola.idle {
+      animation: drcZolaBob 3.2s ease-in-out infinite;
+    }
+    @keyframes drcZolaBob {
+      0%, 100% { transform: translate(-50%, -100%); }
+      50%      { transform: translate(-50%, -102%); }
+    }
+
+    /* Province labels — italic gold place names, no pill background to
+       distinguish them from the landmark pulse-pills. Click to open
+       info panel + (future) zoom into province detail map. */
+    .drc-province {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      pointer-events: auto;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 0.15rem 0.5rem;
+      color: rgba(184,134,11,0.85);
+      font-family: 'Georgia', serif;
+      font-style: italic;
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-shadow: 0 1px 6px rgba(0,0,0,0.9), 0 0 12px rgba(0,0,0,0.5);
+      white-space: nowrap;
+      transition: color 200ms, transform 200ms;
+    }
+    .drc-province::before {
+      content: "·";
+      margin-right: 0.35rem;
+      color: rgba(184,134,11,0.5);
+    }
+    .drc-province:hover {
+      color: #F5F0E8;
+      transform: translate(-50%, -50%) scale(1.08);
+    }
+    .drc-province:hover::before { color: #B8860B; }
+
+
+    /* Animal/plant badges — circular medallion images that spin slowly
+       on the Y axis like a coin held by an invisible hand. */
+    .drc-badge {
+      position: absolute;
+      width: 56px; height: 56px;
+      transform: translate(-50%, -50%);
+      pointer-events: auto;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 0;
+      perspective: 400px;
+    }
+    .drc-badge img {
+      width: 100%; height: 100%;
+      animation: drcBadgeSpin 5.5s linear infinite;
+      transform-style: preserve-3d;
+      filter: drop-shadow(0 4px 12px rgba(0,0,0,0.6));
+      transition: filter 200ms, transform 200ms;
+    }
+    .drc-badge:hover img {
+      filter: drop-shadow(0 6px 18px rgba(184,134,11,0.8)) drop-shadow(0 0 8px rgba(255,220,140,0.5));
+      animation-duration: 2.5s; /* speed up on hover */
+    }
+    @keyframes drcBadgeSpin {
+      0%   { transform: rotateY(0deg); }
+      100% { transform: rotateY(360deg); }
+    }
+    /* Stagger the start phase so all badges aren't synchronized — looks
+       more alive when each spins at its own moment in the rotation. */
+    .drc-badge:nth-child(2n) img  { animation-delay: -1.2s; }
+    .drc-badge:nth-child(3n) img  { animation-delay: -2.4s; }
+    .drc-badge:nth-child(4n) img  { animation-delay: -3.6s; }
+    .drc-badge:nth-child(5n) img  { animation-delay: -4.5s; }
+
+    /* Landmark hotspots — non-circular, glow + pulse + emoji icon. */
+    .drc-landmark {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      pointer-events: auto;
+      cursor: pointer;
+      background: rgba(27,67,50,0.85);
+      border: 1px solid rgba(184,134,11,0.55);
+      border-radius: 999px;
+      padding: 0.35rem 0.7rem 0.35rem 0.5rem;
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      color: #F5F0E8;
+      font-family: 'Georgia', serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.5), 0 0 0 0 rgba(184,134,11,0.4);
+      animation: drcLandmarkPulse 2.4s ease-in-out infinite;
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      transition: background 180ms, border-color 180ms;
+    }
+    .drc-landmark:hover {
+      background: rgba(184,134,11,0.95);
+      color: #1B4332;
+      border-color: #B8860B;
+    }
+    .drc-landmark-icon { font-size: 1rem; line-height: 1; }
+    @keyframes drcLandmarkPulse {
+      0%, 100% { box-shadow: 0 4px 14px rgba(0,0,0,0.5), 0 0 0 0 rgba(184,134,11,0.4); }
+      50%      { box-shadow: 0 4px 14px rgba(0,0,0,0.5), 0 0 0 10px rgba(184,134,11,0); }
+    }
+
+    /* ── Speech bubble (replaces the right-side info panel) ─────────
+       Floats next to Zola on the illustrated map. Position is set in
+       JS based on Zola's location — bubble always flips to the side
+       with more room. Carries the full educational content; internal
+       scroll handles long bodies. */
+    .drc-bubble {
+      position: absolute;
+      width: 340px;
+      max-width: calc(100vw - 4rem);
+      max-height: 70vh;
+      overflow-y: auto;
+      background: linear-gradient(to bottom, #fdfaf3 0%, #f3ead8 100%);
+      color: #2c1810;
+      border: 2px solid #B8860B;
+      border-radius: 16px;
+      padding: 1.4rem 1.6rem 1.25rem;
+      box-shadow:
+        0 12px 36px rgba(0,0,0,0.5),
+        0 0 0 1px rgba(255,255,255,0.5) inset;
+      font-family: 'Georgia', serif;
+      opacity: 0;
+      pointer-events: none;
+      transform: scale(0.86);
+      transform-origin: var(--tail-origin, center bottom);
+      transition: opacity 280ms ease, transform 320ms cubic-bezier(0.34, 1.56, 0.64, 1),
+                  left 600ms cubic-bezier(0.4, 0, 0.2, 1),
+                  top 600ms cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 220;
+    }
+    .drc-bubble.open {
+      opacity: 1;
+      pointer-events: auto;
+      transform: scale(1);
+    }
+    /* Tail — small triangular flourish pointing at Zola. The .side-left
+       / .side-right modifier classes set which edge it sticks out from. */
+    .drc-bubble::after {
+      content: '';
+      position: absolute;
+      width: 18px; height: 18px;
+      background: linear-gradient(to bottom right, #fdfaf3, #f3ead8);
+      border: 2px solid #B8860B;
+      transform: rotate(45deg);
+      box-sizing: border-box;
+    }
+    .drc-bubble.side-right::after {
+      /* Bubble is to the right of Zola — tail points LEFT */
+      left: -10px;
+      top: 50%;
+      margin-top: -9px;
+      border-right: none;
+      border-top: none;
+    }
+    .drc-bubble.side-left::after {
+      /* Bubble is to the left of Zola — tail points RIGHT */
+      right: -10px;
+      top: 50%;
+      margin-top: -9px;
+      border-left: none;
+      border-bottom: none;
+    }
+    .drc-bubble.side-below::after {
+      /* Bubble is below Zola — tail points UP */
+      left: 50%;
+      margin-left: -9px;
+      top: -10px;
+      border-right: none;
+      border-bottom: none;
+    }
+    .drc-bubble-close {
+      position: absolute;
+      top: 0.55rem; right: 0.75rem;
+      width: 28px; height: 28px;
+      background: rgba(184,134,11,0.12);
+      border: none;
+      border-radius: 50%;
+      color: #7a5a30;
+      font-size: 1.3rem; line-height: 1;
+      cursor: pointer;
+      transition: background 160ms, color 160ms;
+    }
+    .drc-bubble-close:hover {
+      background: #B8860B;
+      color: #fdfaf3;
+    }
+    .drc-bubble-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.85rem;
+      margin-bottom: 1rem;
+      padding-right: 2rem;  /* leave room for close button */
+    }
+    .drc-bubble-icon {
+      font-size: 1.8rem;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+    .drc-bubble-icon:empty { display: none; }
+    .drc-bubble-image {
+      width: 64px; height: 64px;
+      object-fit: contain;
+      flex-shrink: 0;
+      filter: drop-shadow(0 3px 8px rgba(75,53,21,0.25));
+    }
+    .drc-bubble-image[src=""] { display: none; }
+    .drc-bubble-titlewrap {
+      flex: 1;
+      min-width: 0;  /* allow text to wrap */
+    }
+    .drc-bubble-title {
+      margin: 0 0 0.2rem 0;
+      color: #1B4332;
+      font-size: 1.15rem;
+      line-height: 1.2;
+      letter-spacing: 0.01em;
+    }
+    .drc-bubble-sub {
+      margin: 0;
+      color: #7a5a30;
+      font-size: 0.74rem;
+      font-style: italic;
+      letter-spacing: 0.04em;
+      line-height: 1.35;
+    }
+    .drc-bubble-body {
+      margin: 0 0 0.9rem 0;
+      color: rgba(44,24,16,0.92);
+      font-size: 0.87rem;
+      line-height: 1.55;
+    }
+    .drc-bubble-fact {
+      margin: 0;
+      padding: 0.75rem 0.9rem;
+      background: rgba(184,134,11,0.10);
+      border-left: 3px solid #B8860B;
+      border-radius: 0 6px 6px 0;
+      font-size: 0.79rem;
+      line-height: 1.5;
+      color: rgba(44,24,16,0.88);
+      font-style: italic;
+    }
+    .drc-bubble-fact:empty { display: none; }
+    .drc-bubble-fact::before {
+      content: "Did you know? ";
+      font-weight: 700;
+      font-style: normal;
+      color: #B8860B;
+    }
+    .drc-bubble-cta {
+      display: none;
+      margin-top: 0.85rem;
+      background: #B8860B;
+      color: #fdfaf3;
+      border: none;
+      padding: 0.55rem 1rem;
+      border-radius: 999px;
+      font-family: 'Georgia', serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      transition: background 160ms, transform 160ms;
+    }
+    .drc-bubble-cta:hover {
+      background: #1B4332;
+      transform: translateY(-1px);
+    }
+    .drc-bubble-cta.visible { display: inline-block; }
+
+    /* "Back to World" pill — top-left of detail view. */
+    .drc-back-btn {
+      position: absolute;
+      top: 1.5rem; left: 1.5rem;
+      z-index: 220;
+      background: rgba(20,40,30,0.85);
+      color: #F5F0E8;
+      border: 1px solid rgba(184,134,11,0.45);
+      padding: 0.55rem 1.1rem;
+      border-radius: 999px;
+      font-family: 'Georgia', serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      transition: background 160ms, color 160ms, border-color 160ms;
+    }
+    .drc-back-btn:hover {
+      background: rgba(184,134,11,0.95);
+      color: #1B4332;
+      border-color: #B8860B;
+    }
+
+    @media (max-width: 640px) {
+      .drc-badge { width: 40px; height: 40px; }
+      .drc-landmark { font-size: 0.6rem; padding: 0.25rem 0.55rem 0.25rem 0.4rem; }
+      .drc-bubble { width: calc(100vw - 2rem); max-width: 360px; }
     }
 
     /* ── Spin speed slider ─────────────────────────────────────────── */
@@ -415,69 +848,140 @@
   <!-- Flat-map view — equirectangular projection, pins overlaid at lat/lon →
        percent positions. Hidden by default; .visible toggles it on. -->
   <div class="flat-view" id="flat-view" aria-hidden="true">
+    <!-- Pan + zoom container. Everything inside (.flat-pannable) gets
+         transformed via CSS — translate to pan, scale to zoom — so the
+         existing world-map-flat.jpg + pins move together as one piece. -->
     <div class="flat-view-inner">
-      <img class="flat-map" src="../assets/images/world-map-flat.jpg" alt="World map" />
+      <div class="flat-pannable" id="flat-pannable">
+        <img class="flat-map" src="../assets/images/world-map-flat.jpg" alt="World map" />
 
-      <!-- DRC — active, gold, clickable. Zola stands on top of this pin. -->
-      <div class="flat-pin active" id="flat-pin-drc" style="left:56.67%; top:52.22%;" title="Democratic Republic of Congo · Palm Leaf Partners · Active"></div>
-      <img class="flat-zola" id="flat-zola" src="../assets/images/zola-globe-sprite.png" alt="Zola — Palm Leaf Partners mascot" style="left:56.67%; top:52.22%;" />
-      <div class="flat-label active" style="left:56.67%; top:52.22%;">DRC</div>
+        <!-- DRC — active, gold, clickable. Zola stands on top of this pin. -->
+        <div class="flat-pin active" id="flat-pin-drc" data-country="drc" style="left:56.67%; top:52.22%;" title="Democratic Republic of Congo · Palm Leaf Partners · Active"></div>
+        <img class="flat-zola" id="flat-zola" src="../assets/images/zola-globe-sprite.png" alt="Zola — Palm Leaf Partners mascot" style="left:56.67%; top:52.22%;" />
+        <div class="flat-label active" style="left:56.67%; top:52.22%;">DRC</div>
 
-      <!-- Coming Soon markets — green, smaller, non-interactive for now -->
-      <div class="flat-pin inactive" style="left:52.22%; top:45.00%;"></div>
-      <div class="flat-label" style="left:52.22%; top:45.00%;">Nigeria</div>
+        <!-- Coming Soon markets — green, smaller -->
+        <div class="flat-pin inactive" data-country="nigeria" style="left:52.22%; top:45.00%;"></div>
+        <div class="flat-label" style="left:52.22%; top:45.00%;">Nigeria</div>
 
-      <div class="flat-pin inactive" style="left:49.72%; top:46.11%;"></div>
-      <div class="flat-label" style="left:49.72%; top:46.11%;">Ghana</div>
+        <div class="flat-pin inactive" data-country="ghana" style="left:49.72%; top:46.11%;"></div>
+        <div class="flat-label" style="left:49.72%; top:46.11%;">Ghana</div>
 
-      <div class="flat-pin inactive" style="left:60.28%; top:50.56%;"></div>
-      <div class="flat-label" style="left:60.28%; top:50.56%;">Kenya</div>
+        <div class="flat-pin inactive" data-country="kenya" style="left:60.28%; top:50.56%;"></div>
+        <div class="flat-label" style="left:60.28%; top:50.56%;">Kenya</div>
 
-      <div class="flat-pin inactive" style="left:56.94%; top:66.11%;"></div>
-      <div class="flat-label" style="left:56.94%; top:66.11%;">South Africa</div>
+        <div class="flat-pin inactive" data-country="south-africa" style="left:56.94%; top:66.11%;"></div>
+        <div class="flat-label" style="left:56.94%; top:66.11%;">South Africa</div>
 
-      <!-- Palm Tree Women Organization locations — rose-gold, smallest pins.
-           Coordinates: country centroids (consistent with PLP pins), with
-           the exception of London (UK) which uses the city the user named. -->
-      <div class="flat-pin ptwo" style="left:49.96%; top:21.38%;"></div>
-      <div class="flat-label ptwo" style="left:49.96%; top:21.38%;">London</div>
+        <!-- PTWO chapters — rose-gold, smallest pins -->
+        <div class="flat-pin ptwo" data-country="uk" style="left:49.96%; top:21.38%;"></div>
+        <div class="flat-label ptwo" style="left:49.96%; top:21.38%;">London</div>
 
-      <div class="flat-pin ptwo" style="left:45.97%; top:41.95%;"></div>
-      <div class="flat-label ptwo" style="left:45.97%; top:41.95%;">Senegal</div>
+        <div class="flat-pin ptwo" data-country="senegal" style="left:45.97%; top:41.95%;"></div>
+        <div class="flat-label ptwo" style="left:45.97%; top:41.95%;">Senegal</div>
 
-      <div class="flat-pin ptwo" style="left:57.74%; top:57.30%;"></div>
-      <div class="flat-label ptwo" style="left:57.74%; top:57.30%;">Zambia</div>
+        <div class="flat-pin ptwo" data-country="zambia" style="left:57.74%; top:57.30%;"></div>
+        <div class="flat-label ptwo" style="left:57.74%; top:57.30%;">Zambia</div>
 
-      <div class="flat-pin ptwo" style="left:56.86%; top:62.39%;"></div>
-      <div class="flat-label ptwo" style="left:56.86%; top:62.39%;">Botswana</div>
+        <div class="flat-pin ptwo" data-country="botswana" style="left:56.86%; top:62.39%;"></div>
+        <div class="flat-label ptwo" style="left:56.86%; top:62.39%;">Botswana</div>
 
-      <div class="flat-pin ptwo" style="left:20.46%; top:18.82%;"></div>
-      <div class="flat-label ptwo" style="left:20.46%; top:18.82%;">Canada</div>
+        <div class="flat-pin ptwo" data-country="canada" style="left:20.46%; top:18.82%;"></div>
+        <div class="flat-label ptwo" style="left:20.46%; top:18.82%;">Canada</div>
 
-      <div class="flat-pin ptwo" style="left:71.93%; top:38.56%;"></div>
-      <div class="flat-label ptwo" style="left:71.93%; top:38.56%;">India</div>
+        <div class="flat-pin ptwo" data-country="india" style="left:71.93%; top:38.56%;"></div>
+        <div class="flat-label ptwo" style="left:71.93%; top:38.56%;">India</div>
 
-      <div class="flat-pin ptwo" style="left:58.10%; top:60.56%;"></div>
-      <div class="flat-label ptwo" style="left:58.10%; top:60.56%;">Zimbabwe</div>
+        <div class="flat-pin ptwo" data-country="zimbabwe" style="left:58.10%; top:60.56%;"></div>
+        <div class="flat-label ptwo" style="left:58.10%; top:60.56%;">Zimbabwe</div>
 
-      <div class="flat-pin ptwo" style="left:87.16%; top:64.04%;"></div>
-      <div class="flat-label ptwo" style="left:87.16%; top:64.04%;">Australia</div>
+        <div class="flat-pin ptwo" data-country="australia" style="left:87.16%; top:64.04%;"></div>
+        <div class="flat-label ptwo" style="left:87.16%; top:64.04%;">Australia</div>
 
-      <div class="flat-pin ptwo" style="left:53.43%; top:45.91%;"></div>
-      <div class="flat-label ptwo" style="left:53.43%; top:45.91%;">Cameroon</div>
+        <div class="flat-pin ptwo" data-country="cameroon" style="left:53.43%; top:45.91%;"></div>
+        <div class="flat-label ptwo" style="left:53.43%; top:45.91%;">Cameroon</div>
 
-      <div class="flat-pin ptwo" style="left:27.92%; top:28.61%;"></div>
-      <!-- Loredana — the Global Mother — stands on the USA marker, sister to
-           Zola on the DRC. Sprite is smaller because she's a secondary marker. -->
-      <img class="flat-loredana" src="../assets/images/loredana-usa-sprite.png" alt="Loredana — Global Mother (Palm Tree Women Organization, USA chapter)" style="left:27.92%; top:28.61%;" />
-      <div class="flat-label ptwo" style="left:27.92%; top:30.5%;">USA (Global Mother)</div>
+        <div class="flat-pin ptwo" data-country="usa" id="flat-pin-usa" style="left:27.92%; top:28.61%;"></div>
+        <!-- Loredana stands on USA -->
+        <img class="flat-loredana" id="flat-loredana" src="../assets/images/loredana-usa-sprite.png" alt="Loredana — Global Mother (Palm Tree Women Organization, USA chapter)" style="left:27.92%; top:28.61%;" />
+        <div class="flat-label ptwo" style="left:27.92%; top:30.5%;">USA (Global Mother)</div>
 
-      <div class="flat-pin ptwo" style="left:51.24%; top:21.94%;"></div>
-      <div class="flat-label ptwo" style="left:51.24%; top:21.94%;">Belgium</div>
+        <div class="flat-pin ptwo" data-country="belgium" style="left:51.24%; top:21.94%;"></div>
+        <div class="flat-label ptwo" style="left:51.24%; top:21.94%;">Belgium</div>
 
-      <div class="flat-pin ptwo" style="left:50.61%; top:24.32%;"></div>
-      <div class="flat-label ptwo" style="left:50.61%; top:24.32%;">France</div>
+        <div class="flat-pin ptwo" data-country="france" style="left:50.61%; top:24.32%;"></div>
+        <div class="flat-label ptwo" style="left:50.61%; top:24.32%;">France</div>
+      </div>
     </div>
+
+  </div>
+
+  <!-- DRC Detail View — fades in when the user clicks the DRC pin or Zola
+       on the flat-view world map. The illustrated DRC base map fills the
+       screen; badges + landmarks + provinces are rendered by JS at their
+       habitat / geographic positions. Zola walks between clicked hotspots
+       leaving a fading dashed gold trail. -->
+  <div class="drc-detail-view" id="drc-detail-view" aria-hidden="true">
+    <div class="drc-detail-inner">
+      <img class="drc-map" src="../assets/images/drc-illustrated.png" alt="Illustrated map of the Democratic Republic of the Congo" />
+      <!-- SVG layer for Zola's journey trail. ViewBox 0..100 lets us draw
+           in percentage coordinates that match every hotspot's positioning. -->
+      <svg class="drc-trail" id="drc-trail" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"></svg>
+      <div class="drc-hotspots" id="drc-hotspots"><!-- populated by JS --></div>
+      <!-- Zola — starts at Kinshasa (~12% / 58%), walks to each clicked hotspot. -->
+      <img class="drc-zola" id="drc-zola" src="../assets/images/zola-globe-sprite.png" alt="Zola — your guide" style="left:12%; top:58%;" />
+    </div>
+
+    <!-- Speech bubble — appears next to Zola when she arrives at a hotspot.
+         Flips to the left/right of Zola based on where she is so the bubble
+         never goes off-screen and never crowds the badge cluster. Carries
+         the full educational content with internal scroll when needed. -->
+    <div class="drc-bubble" id="drc-bubble" aria-hidden="true" role="dialog" aria-labelledby="drc-bubble-title">
+      <button class="drc-bubble-close" id="drc-bubble-close" aria-label="Close">×</button>
+      <div class="drc-bubble-header">
+        <div class="drc-bubble-icon" id="drc-bubble-icon" aria-hidden="true"></div>
+        <img class="drc-bubble-image" id="drc-bubble-image" alt="" />
+        <div class="drc-bubble-titlewrap">
+          <h2 class="drc-bubble-title" id="drc-bubble-title"></h2>
+          <p class="drc-bubble-sub" id="drc-bubble-sub"></p>
+        </div>
+      </div>
+      <p class="drc-bubble-body" id="drc-bubble-body"></p>
+      <p class="drc-bubble-fact" id="drc-bubble-fact"></p>
+      <button type="button" class="drc-bubble-cta" id="drc-bubble-cta">Explore this province →</button>
+    </div>
+
+    <button type="button" class="drc-back-btn" id="drc-back-btn">↶ Back to World</button>
+  </div>
+
+  <!-- Province Detail View — second-level zoom into a specific DRC province.
+       Single reusable element whose content (map image, hotspots, Zola
+       start position) is loaded dynamically per province from
+       PROVINCE_DETAILS. Same swish-zoom + sound + bubble + trail system
+       as the DRC view, just at the city/province level. -->
+  <div class="drc-detail-view province-detail-view" id="province-detail-view" aria-hidden="true">
+    <div class="drc-detail-inner">
+      <img class="drc-map" id="province-map" alt="Illustrated map of a DRC province" />
+      <svg class="drc-trail" id="province-trail" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"></svg>
+      <div class="drc-hotspots" id="province-hotspots"></div>
+      <img class="drc-zola" id="province-zola" src="../assets/images/zola-globe-sprite.png" alt="Zola — your guide" />
+    </div>
+
+    <div class="drc-bubble" id="province-bubble" aria-hidden="true" role="dialog" aria-labelledby="province-bubble-title">
+      <button class="drc-bubble-close" id="province-bubble-close" aria-label="Close">×</button>
+      <div class="drc-bubble-header">
+        <div class="drc-bubble-icon" id="province-bubble-icon" aria-hidden="true"></div>
+        <img class="drc-bubble-image" id="province-bubble-image" alt="" />
+        <div class="drc-bubble-titlewrap">
+          <h2 class="drc-bubble-title" id="province-bubble-title"></h2>
+          <p class="drc-bubble-sub" id="province-bubble-sub"></p>
+        </div>
+      </div>
+      <p class="drc-bubble-body" id="province-bubble-body"></p>
+      <p class="drc-bubble-fact" id="province-bubble-fact"></p>
+    </div>
+
+    <button type="button" class="drc-back-btn" id="province-back-btn">↶ Back to DRC</button>
   </div>
 
   <!-- Kinshasa clock -->
@@ -562,6 +1066,12 @@
   <script src="../js/vendor/three.min.js"></script>
   <script src="../js/vendor/OrbitControls.js"></script>
 
+  <!-- Google Maps API key infrastructure kept in /assets/maps-config.js
+       (gitignored locally, Vercel-injected for production) for future use —
+       e.g., when we want real Geocoding for DRC address lookup or live
+       route overlays. Not loaded by default — the flat view uses the
+       custom warm-satellite world map for brand consistency. -->
+
   <script>
   (function() {
 
@@ -597,19 +1107,622 @@
         b.classList.toggle('active', active);
         b.setAttribute('aria-pressed', String(active));
       });
+      // Lazy-init the Google Map the first time the user switches to flat.
+      if (isFlat) {
+        initFlatMap();
+      }
     }
 
     document.querySelectorAll('#view-toggle button').forEach((b) => {
       b.addEventListener('click', () => setView(b.dataset.view));
     });
 
-    // Flat-view interactions: clicking the gold DRC pin OR the Zola sprite
-    // opens the same project panel as the 3D version.
     function openProjectPanel() {
       document.getElementById('project-panel').classList.add('open');
     }
-    document.getElementById('flat-pin-drc').addEventListener('click', openProjectPanel);
-    document.getElementById('flat-zola').addEventListener('click', openProjectPanel);
+
+    // ── Country detail views ────────────────────────────────────────
+    // World map is the static menu — click a country pin to fade into
+    // that country's illustrated detail view (an exploration playground
+    // with animal/plant badges as spinning hotspots and landmark pins).
+    // Currently the DRC detail view is built; other countries fall back
+    // to the existing project panel (DRC only) or do nothing.
+    const drcDetailView = document.getElementById('drc-detail-view');
+    const drcBackBtn = document.getElementById('drc-back-btn');
+    const drcBubble = document.getElementById('drc-bubble');
+    const drcBubbleClose = document.getElementById('drc-bubble-close');
+
+    // ── Swish sound (Web Audio) ─────────────────────────────────────
+    // Generated procedurally so we don't need an audio file. The cue is
+    // a band-passed white-noise sweep that climbs in frequency, paired
+    // with a low "thump" — together they sell the camera-zoom-in feel.
+    // Browser autoplay policy is satisfied because the user clicks first.
+    let _audioCtx = null;
+    function playSwoosh() {
+      try {
+        _audioCtx = _audioCtx || new (window.AudioContext || window.webkitAudioContext)();
+        const ctx = _audioCtx;
+        if (ctx.state === 'suspended') ctx.resume();
+        const now = ctx.currentTime;
+
+        // Whoosh: filtered white noise rising in pitch.
+        const noiseBuf = ctx.createBuffer(1, ctx.sampleRate * 0.7, ctx.sampleRate);
+        const data = noiseBuf.getChannelData(0);
+        for (let i = 0; i < data.length; i++) data[i] = Math.random() * 2 - 1;
+        const noise = ctx.createBufferSource();
+        noise.buffer = noiseBuf;
+        const filter = ctx.createBiquadFilter();
+        filter.type = 'bandpass';
+        filter.Q.value = 6;
+        filter.frequency.setValueAtTime(180, now);
+        filter.frequency.exponentialRampToValueAtTime(2400, now + 0.45);
+        const noiseGain = ctx.createGain();
+        noiseGain.gain.setValueAtTime(0, now);
+        noiseGain.gain.linearRampToValueAtTime(0.22, now + 0.06);
+        noiseGain.gain.linearRampToValueAtTime(0, now + 0.55);
+        noise.connect(filter).connect(noiseGain).connect(ctx.destination);
+        noise.start(now);
+        noise.stop(now + 0.6);
+
+        // Low thump at the landing point (~450ms in) for impact.
+        const thump = ctx.createOscillator();
+        const thumpGain = ctx.createGain();
+        thump.type = 'sine';
+        thump.frequency.setValueAtTime(110, now + 0.4);
+        thump.frequency.exponentialRampToValueAtTime(45, now + 0.65);
+        thumpGain.gain.setValueAtTime(0, now + 0.4);
+        thumpGain.gain.linearRampToValueAtTime(0.18, now + 0.45);
+        thumpGain.gain.exponentialRampToValueAtTime(0.001, now + 0.75);
+        thump.connect(thumpGain).connect(ctx.destination);
+        thump.start(now + 0.4);
+        thump.stop(now + 0.8);
+      } catch (err) {
+        /* Audio failure shouldn't break the transition. */
+      }
+    }
+
+    // ── Zola journey trail ──────────────────────────────────────────
+    // When a hotspot is clicked, Zola walks from her current position to
+    // the new one. A dashed gold trail line is drawn between the two
+    // positions on the SVG layer and fades out over 5 seconds.
+    const drcZola = document.getElementById('drc-zola');
+    const drcTrail = document.getElementById('drc-trail');
+    let zolaPos = { x: 12, y: 58 }; // starts at Kinshasa
+
+    function walkZolaTo(x, y) {
+      // Draw a fading dashed line from current → target on the SVG layer.
+      if (Math.abs(x - zolaPos.x) > 0.1 || Math.abs(y - zolaPos.y) > 0.1) {
+        const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+        line.setAttribute('x1', zolaPos.x);
+        line.setAttribute('y1', zolaPos.y);
+        line.setAttribute('x2', x);
+        line.setAttribute('y2', y);
+        line.setAttribute('class', 'drc-trail-line');
+        drcTrail.appendChild(line);
+        // Auto-remove after the fade animation completes.
+        setTimeout(() => line.remove(), 5200);
+      }
+      zolaPos = { x, y };
+      drcZola.style.left = x + '%';
+      drcZola.style.top = y + '%';
+    }
+
+    function showDrcDetail() {
+      buildDrcHotspots(); // no-op after first build
+      playSwoosh();
+      drcDetailView.classList.add('visible');
+      drcDetailView.setAttribute('aria-hidden', 'false');
+      // Reset Zola to Kinshasa each time the detail view opens, so the
+      // journey starts from a consistent home position.
+      zolaPos = { x: 12, y: 58 };
+      drcZola.style.left = '12%';
+      drcZola.style.top = '58%';
+      drcZola.classList.add('idle');
+    }
+    function hideDrcDetail() {
+      drcDetailView.classList.remove('visible');
+      drcDetailView.setAttribute('aria-hidden', 'true');
+      drcBubble.classList.remove('open');
+    }
+    drcBackBtn.addEventListener('click', hideDrcDetail);
+    drcBubbleClose.addEventListener('click', () => {
+      drcBubble.classList.remove('open');
+      drcBubble.setAttribute('aria-hidden', 'true');
+    });
+
+    // Position the speech bubble relative to Zola. Bubble flips to whichever
+    // side has more room, vertically anchored near her shoulder. Numbers
+    // here are percent of the detail-inner box so the bubble travels with
+    // Zola when she walks — the CSS `transition: left/top` does the smooth.
+    function positionBubble() {
+      const zola = zolaPos; // { x, y } in percent
+      const bubbleEl = drcBubble;
+
+      // Decide which side: if Zola is in the left half of the map, put the
+      // bubble to her right; otherwise to her left. This keeps the bubble
+      // inside the visible area without overlapping Zola.
+      const sideRight = zola.x < 50;
+      bubbleEl.classList.toggle('side-right', sideRight);
+      bubbleEl.classList.toggle('side-left', !sideRight);
+      bubbleEl.classList.remove('side-below');
+
+      // Convert Zola's percent coords to actual pixels within the
+      // .drc-detail-inner box (the bubble is positioned absolute relative
+      // to that container).
+      const inner = document.querySelector('.drc-detail-inner');
+      if (!inner) return;
+      const w = inner.clientWidth;
+      const h = inner.clientHeight;
+
+      const zolaPxX = (zola.x / 100) * w;
+      const zolaPxY = (zola.y / 100) * h;
+
+      // Bubble starts 18px away from Zola's body, anchored to her shoulder.
+      const gap = 22;
+      const bubbleW = bubbleEl.offsetWidth || 340;
+      // Vertical anchor: align bubble's middle to ~10px above Zola's feet.
+      let topPx = zolaPxY - 90;
+      // Keep bubble fully on-screen vertically.
+      topPx = Math.max(20, Math.min(h - 40 - bubbleEl.offsetHeight, topPx));
+
+      let leftPx;
+      if (sideRight) {
+        leftPx = zolaPxX + gap;
+        // Don't let bubble run off the right edge.
+        if (leftPx + bubbleW > w - 20) {
+          leftPx = w - 20 - bubbleW;
+        }
+      } else {
+        leftPx = zolaPxX - gap - bubbleW;
+        if (leftPx < 20) leftPx = 20;
+      }
+
+      bubbleEl.style.left = leftPx + 'px';
+      bubbleEl.style.top = topPx + 'px';
+    }
+
+    document.getElementById('flat-pin-drc').addEventListener('click', (e) => {
+      e.stopPropagation();
+      showDrcDetail();
+    });
+    document.getElementById('flat-zola').addEventListener('click', (e) => {
+      e.stopPropagation();
+      showDrcDetail();
+    });
+
+    // ── DRC Detail View — content & hotspot population ───────────────
+    // Each landmark/badge is a data entry with its position on the
+    // illustrated DRC map (percent coordinates relative to the image)
+    // and the educational text shown when clicked. To add a new
+    // hotspot later, append to the array — no DOM editing needed.
+    const DRC_LANDMARKS = [
+      {
+        id: 'nyiragongo', icon: '🌋',
+        name: 'Mount Nyiragongo',
+        sub: 'Active stratovolcano · eastern DRC',
+        x: 84, y: 27,
+        body: "On the eastern edge of the DRC near Goma, Nyiragongo holds the world's largest persistent lava lake. The volcano's last major eruption in 2021 sent fast-moving lava through the city of Goma. Visible from space at night as a glowing red dot, it remains one of the most active and dangerous volcanoes on Earth.",
+        fact: "Nyiragongo's lava is unusually fluid — it can flow at up to 60 km/h, the fastest of any volcano on Earth.",
+      },
+      {
+        id: 'congo-river', icon: '🛶',
+        name: 'Congo River',
+        sub: "World's deepest river",
+        x: 22, y: 46,
+        body: "The Congo is Africa's most powerful river — second only to the Amazon in discharge volume and the deepest river on Earth, plunging more than 220 meters in some sections. It carves a 4,700 km arc across central Africa, draining a basin nearly the size of India. The river has been the DRC's commercial and cultural backbone for centuries.",
+        fact: "The Congo carries enough water to fill 50,000 Olympic swimming pools every minute.",
+      },
+    ];
+
+    // ── DRC Provinces (10 most notable of 26) ───────────────────────
+    // Each province is clickable and opens an info panel with capital,
+    // population, key industries, and a "Explore this province" CTA
+    // that will (Phase 2) open a deeper zoom into the province with
+    // city-level hotspots. Positions are approximate centroids on the
+    // illustrated map.
+    const DRC_PROVINCES = [
+      { id: 'kinshasa', name: 'Kinshasa', sub: 'Capital province · ~16 million', x: 14, y: 60,
+        body: "Both the city and the smallest province of the DRC. Sprawling along the southern bank of the Congo River, Kinshasa is the world's third-largest French-speaking city — an explosive cultural hub for music (rumba, soukous, ndombolo), fashion (the Sapeur movement), and visual art. Across the river sits Brazzaville, capital of the neighboring Republic of the Congo.",
+        fact: "Kinshasa and Brazzaville are the only two world capitals visible from each other across an international border." },
+      { id: 'kongo-central', name: 'Kongo Central', sub: 'Atlantic coast · Matadi port', x: 5, y: 64,
+        body: "The DRC's only Atlantic-facing province, anchored by the deep-water port of Matadi — the country's main commercial gateway to the sea. Home to the historic Kongo Kingdom that flourished here from the 14th to the 19th century.",
+        fact: "The DRC has only 37 km of Atlantic coastline — one of the shortest of any country with sea access." },
+      { id: 'equateur', name: 'Equateur', sub: 'Northwest rainforest', x: 26, y: 28,
+        body: "Northwestern DRC, named for the equator running through it. Vast lowland rainforests, the Lopori and Maringa Rivers, and the Salonga National Park — one of the largest protected rainforest areas in Africa. Major bonobo habitat.",
+        fact: "Equateur was the home province of Mobutu Sese Seko, who ruled the DRC (then Zaire) for 32 years." },
+      { id: 'tshopo', name: 'Tshopo', sub: 'Kisangani · river junction', x: 62, y: 27,
+        body: "Centered on the city of Kisangani, where the Lualaba River officially becomes the Congo River. The setting of Joseph Conrad's Heart of Darkness and V.S. Naipaul's A Bend in the River. Home to dense rainforest and the famous Wagenia fishermen.",
+        fact: "Kisangani sits exactly on the equator and at the head of the navigable Congo River — boats can go from here all the way to the Atlantic, 1,700 km away." },
+      { id: 'ituri-prov', name: 'Ituri', sub: 'Northeast · Mbuti homeland', x: 78, y: 18,
+        body: "Northeastern province dominated by the Ituri Rainforest. Home to the Mbuti and BaTwa peoples — hunter-gatherer cultures going back thousands of years. The ONLY place on Earth where the okapi lives in the wild. Also rich in gold deposits.",
+        fact: "The Ituri Forest is where the okapi was first described to Western science in 1901 — until then, scientists assumed it was a myth." },
+      { id: 'north-kivu', name: 'North Kivu', sub: 'Goma · Virunga · volcanic east', x: 86, y: 33,
+        body: "Eastern province on Lake Kivu, dominated by the Virunga Mountains and Mount Nyiragongo. Home to Virunga National Park — Africa's oldest and most biodiverse — and roughly half the world's surviving mountain gorillas. Long shadowed by armed conflict that has not deterred dedicated conservation work.",
+        fact: "Virunga's rangers risk their lives daily — over 200 have been killed defending the park since the 1990s." },
+      { id: 'south-kivu', name: 'South Kivu', sub: 'Bukavu · Lake Kivu south', x: 87, y: 47,
+        body: "Southern Lake Kivu province with the lakeside city of Bukavu, surrounded by terraced green hills. Kahuzi-Biega National Park here protects the world's last eastern lowland (Grauer's) gorillas. Coffee and tea grow on the volcanic slopes.",
+        fact: "Lake Kivu contains massive dissolved methane and CO₂ reserves at depth — both a hazard (a 'limnic eruption' could be catastrophic) and a future energy resource." },
+      { id: 'maniema', name: 'Maniema', sub: 'Central east · Lualaba River', x: 65, y: 50,
+        body: "Sparsely populated central-eastern province along the upper Lualaba (Congo) River. Rich in cassiterite (tin ore), coltan (used in electronics), and gold. Vast unprotected rainforests harbor leopards, forest elephants, and bonobos.",
+        fact: "Maniema's coltan is in roughly one out of every three smartphones manufactured worldwide." },
+      { id: 'kasai-central', name: 'Kasai Central', sub: 'Diamonds · Kuba culture', x: 45, y: 62,
+        body: "Central province world-famous for diamond mining around the city of Mbuji-Mayi — once a single mine produced 40% of the world's industrial diamonds. Home to the Kuba people, whose elaborate raffia textiles and royal regalia are held in major museums worldwide.",
+        fact: "Kuba royal robes are some of the most labor-intensive textiles ever made — a single piece can take years to weave, embroider, and dye." },
+      { id: 'haut-katanga', name: 'Haut-Katanga', sub: 'Lubumbashi · copper & cobalt', x: 65, y: 80,
+        body: "Southeastern mining heartland of the DRC, centered on Lubumbashi — the country's second-largest city. Holds some of the world's richest copper and cobalt deposits. The DRC produces over 70% of the world's cobalt, an essential metal for lithium-ion batteries.",
+        fact: "Nearly every electric vehicle battery in the world contains cobalt mined from Haut-Katanga." },
+    ];
+
+    // Badges — circular medallion images that spin as the user looks at
+    // them. Positions place each species in its real-world DRC habitat.
+    const DRC_BADGES = [
+      // ── Eastern volcanic / Virunga ─────────────────────────────
+      { file: 'highland_silverback.png', name: 'Mountain Gorilla', sub: 'Gorilla beringei beringei · Virunga', x: 88, y: 33,
+        body: "About half of the world's surviving mountain gorillas live in the eastern DRC's Virunga National Park. Adult males develop a silver patch of fur on their back as they mature, earning them the name 'silverback'. They live in family troops led by a dominant male.",
+        fact: "Each silverback's nose print is unique, like a human fingerprint." },
+      { file: 'gorilla.png', name: 'Lowland Gorilla', sub: 'Gorilla gorilla · western DRC', x: 12, y: 46,
+        body: "Western lowland gorillas live in the DRC's western rainforests. Smaller and lighter-furred than their mountain cousins, they spend more time in trees and have a more fruit-heavy diet. They're critically endangered, threatened by habitat loss and disease.",
+        fact: "Gorillas hum and sing while they eat — researchers call it 'food calls,' a sign of contentment." },
+      { file: 'lava_rock.png', name: 'Lava Rock', sub: 'Basalt from Nyiragongo', x: 92, y: 27,
+        body: "Centuries of eruptions have blanketed Nyiragongo's slopes in dark basaltic lava rock. The flows cooled into vast fields of porous black stone that local communities mine and use in construction.",
+        fact: "Some of the lava rock here is so light it floats on water." },
+      { file: 'rift_valley.png', name: 'Albertine Rift', sub: 'Great Rift Valley extension', x: 95, y: 38,
+        body: "The DRC's eastern edge is part of the Great Rift Valley, where two tectonic plates are slowly tearing Africa apart. The valley floor holds chains of deep lakes — Albert, Edward, Kivu, Tanganyika — and is bordered by volcanic mountains.",
+        fact: "The Albertine Rift hosts more endemic species than anywhere else in mainland Africa." },
+      { file: 'giant_lobelia.png', name: 'Giant Lobelia', sub: "Lobelia gibberoa · Virunga's alpine zone", x: 90, y: 30,
+        body: "An otherworldly plant that grows only above 3,000 meters in the Virunga Mountains. Its rosette of thick leaves traps water for the cold nights at altitude. Specimens can take 20 years to flower, then die.",
+        fact: "The giant lobelia stores water in its hollow stem, and small frogs sometimes live inside." },
+
+      // ── Northeastern Ituri ─────────────────────────────────────
+      { file: 'okapi.png', name: 'Okapi', sub: 'Okapia johnstoni · DRC-endemic', x: 78, y: 17,
+        body: "The DRC's national animal. Okapis look like a cross between a giraffe and a zebra — and they actually ARE the giraffe's closest living relative. They live ONLY in the Ituri Forest, nowhere else on Earth. Solitary, shy, and very hard to spot in the wild.",
+        fact: "An okapi's tongue is so long it can lick its own ears." },
+      { file: 'forest_orchid.png', name: 'Forest Orchid', sub: 'High-canopy epiphytes', x: 72, y: 21,
+        body: "The DRC rainforest hosts over 1,000 orchid species, most growing as epiphytes high in the canopy. They produce some of the world's most fragrant blooms, each species typically pollinated by a single specific insect.",
+        fact: "If a single pollinator species disappears, the orchid that depends on it follows." },
+
+      // ── Central rainforest ─────────────────────────────────────
+      { file: 'bonobo.png', name: 'Bonobo', sub: 'Pan paniscus · DRC-endemic, south of river', x: 48, y: 45,
+        body: "Found ONLY in the DRC, south of the Congo River. Bonobos share 98.7% of their DNA with humans and live in matriarchal troops where females lead. They resolve nearly all conflict through play, grooming, and affection rather than aggression.",
+        fact: "Bonobos are sometimes called 'the make-love-not-war ape' — they're the only great ape species with no documented lethal aggression in the wild." },
+      { file: 'chimpanzee.png', name: 'Chimpanzee', sub: 'Pan troglodytes · north of river', x: 55, y: 32,
+        body: "Chimps live north of the Congo River. They make tools, plan ahead, and have distinct cultures across different troops — each group has unique greetings, food-handling techniques, and grooming styles passed down generation to generation.",
+        fact: "Chimps have over 60 distinct food-related calls — essentially words for specific fruits and prey." },
+      { file: 'forest_elephant.png', name: 'Forest Elephant', sub: 'Loxodonta cyclotis · Salonga, Maiko', x: 45, y: 50,
+        body: "Smaller than savanna elephants, with straighter downward-pointing tusks. They live in dense rainforest where they carve paths through the undergrowth that other species follow. A single forest elephant disperses thousands of tree seeds per year — they shape the forest itself.",
+        fact: "Forest elephants are 'ecosystem architects' — without them, the rainforest's tree composition slowly collapses." },
+      { file: 'leopard.png', name: 'Leopard', sub: 'Panthera pardus · throughout DRC', x: 60, y: 42,
+        body: "Solitary, nocturnal, supremely adaptable. Leopards roam the DRC from rainforest to savanna, hunting at night and resting in trees during the day. Their rosette pattern lets them disappear into dappled light.",
+        fact: "Leopards regularly haul prey heavier than themselves up into trees to keep it safe from lions and hyenas." },
+      { file: 'pangolin.png', name: 'White-bellied Pangolin', sub: 'Phataginus tricuspis · trees', x: 36, y: 40,
+        body: "The world's most-trafficked wild mammal. The DRC's white-bellied pangolin lives in trees, using its prehensile tail to climb and its long sticky tongue to slurp up ants and termites. Covered head to tail in keratin scales — the same material as your fingernails.",
+        fact: "When threatened, a pangolin curls into a ball so tight that even a lion can't open it." },
+      { file: 'red_river_hog.png', name: 'Red River Hog', sub: 'Potamochoerus porcus', x: 41, y: 62,
+        body: "Bright orange-red wild pig with white facial stripes and long tassled ears. Lives in the dense forests of central and western DRC in groups of 6-20. Excellent swimmer — named for its willingness to cross rivers as a group.",
+        fact: "Red river hogs are excellent night-vision hunters — their eyes have a reflective layer that doubles available light." },
+
+      // ── Congo River corridor ───────────────────────────────────
+      { file: 'goliath_tigerfish.png', name: 'Goliath Tigerfish', sub: 'Hydrocynus goliath · Congo Basin only', x: 26, y: 55,
+        body: "One of the most fearsome freshwater predators on Earth. Reaches 1.5 meters and 50 kg. Native ONLY to the Congo River system. Its 32 razor-sharp teeth interlock perfectly when the jaws close.",
+        fact: "Local fishermen approach goliath tigerfish with religious respect — they're known to leap clean out of the water at low-flying birds." },
+      { file: 'nile_crocodile.png', name: 'Nile Crocodile', sub: 'Crocodylus niloticus · main channel', x: 30, y: 49,
+        body: "Africa's largest reptile. Up to 6 meters and 750 kg. Found throughout the DRC's larger rivers and lakes. Intelligent, social, and capable of coordinating group hunts.",
+        fact: "Nile crocs can recognize individual humans by sight and remember who has fed them or threatened them — for years." },
+      { file: 'dwarf_crocodile.png', name: 'Dwarf Crocodile', sub: 'Osteolaemus tetraspis · forest swamps', x: 53, y: 56,
+        body: "Africa's smallest crocodile — rarely exceeding 1.5 meters. Lives in slow forest streams and flooded swamps. Mostly nocturnal, spending the day in burrows it digs into the riverbank.",
+        fact: "Dwarf crocodiles are armored top to bottom — even their bellies have bony plates, unusual among crocodilians." },
+      { file: 'congo_otter.png', name: 'Congo Clawless Otter', sub: 'Aonyx congicus · river systems', x: 38, y: 53,
+        body: "Aquatic mammal of the Congo River and its tributaries. Lacks claws on its forepaws and uses its sensitive fingertips like hands to feel for prey in murky water. Often found in family groups.",
+        fact: "A Congo otter can hold its breath for six minutes while feeling for fish along the river bottom." },
+      { file: 'african_fish_eagle.png', name: 'African Fish Eagle', sub: 'Haliaeetus vocifer · over rivers and lakes', x: 26, y: 38,
+        body: "The high yelping call of the African fish eagle is the sound of the African wilderness. Found wherever there's open water in the DRC. Hunts by gliding low over the river and snatching fish from the surface.",
+        fact: "Its call is so iconic that filmmakers use it as audio shorthand for 'African wilderness' even in scenes set far from any fish eagle's range." },
+      { file: 'electric_catfish.png', name: 'Electric Catfish', sub: 'Malapterurus electricus · slow river', x: 19, y: 60,
+        body: "A nocturnal Congo River resident that can generate 450-volt electric shocks. Uses electricity both to stun prey and to defend itself.",
+        fact: "Ancient Egyptians depicted this fish on tomb walls as early as 2750 BC — its electric powers have been known to humans for over 4,000 years." },
+      { file: 'congo_tilapia.png', name: 'Congo Tilapia', sub: 'Tilapia rendalli · floodplains', x: 32, y: 64,
+        body: "An essential food fish for communities along the Congo River. Tilapias live in slow rivers and flooded grasslands, feeding on aquatic plants and small invertebrates.",
+        fact: "Tilapia mothers 'mouth-brood' — they hold up to 1,000 eggs and then their fry inside their mouths until the young are big enough to swim safely." },
+      { file: 'elephantfish.png', name: 'Elephantfish', sub: 'Mormyrops anguilloides · deep river', x: 23, y: 65,
+        body: "Named for its long trunk-like snout. Generates a weak electric field that it uses to 'see' the river bottom in pitch-dark, murky water.",
+        fact: "The elephantfish brain is the largest relative to body size of any non-mammalian vertebrate — bigger relative to body weight than a chimpanzee's." },
+
+      // ── Southern savanna (Katanga) ─────────────────────────────
+      { file: 'baobab_blossom.png', name: 'Baobab Blossom', sub: 'Adansonia digitata · southern savanna', x: 50, y: 76,
+        body: "The baobab tree blooms at night with massive white flowers that open for a single night and are pollinated by fruit bats. The fruits — long woody pods — contain a tart powder used in DRC traditional medicine and drinks.",
+        fact: "A single baobab can live 2,000 years and store 120,000 liters of water in its trunk." },
+      { file: 'congo_cocoa.png', name: 'Congo Cocoa', sub: 'Theobroma cacao · agricultural belt', x: 27, y: 70,
+        body: "Cocoa was introduced to the Congo in the late 1800s and is now an important export crop in the south of the country. Each pod contains 30-50 cocoa beans surrounded by sweet white pulp.",
+        fact: "Fresh cocoa pulp tastes like sweet citrus mousse — completely different from finished chocolate." },
+      { file: 'black_mamba.png', name: 'Black Mamba', sub: 'Dendroaspis polylepis · eastern savanna', x: 72, y: 68,
+        body: "One of the world's fastest snakes — up to 20 km/h. Despite the name, black mambas are actually gunmetal gray on the outside; only the inside of the mouth is jet black, displayed as a threat.",
+        fact: "A single bite delivers enough neurotoxin to kill an adult human in 20 minutes if untreated." },
+    ];
+
+    // Build the hotspot DOM once, on first DRC view open. Three layers:
+    // provinces (italic place names), landmarks (gold pulse pills), and
+    // animal/plant badges (spinning medallions). Click handlers also walk
+    // Zola to that hotspot's position with a fading trail.
+    let drcHotspotsBuilt = false;
+    function buildDrcHotspots() {
+      if (drcHotspotsBuilt) return;
+      drcHotspotsBuilt = true;
+      const container = document.getElementById('drc-hotspots');
+      const titleEl = document.getElementById('drc-bubble-title');
+      const subEl = document.getElementById('drc-bubble-sub');
+      const bodyEl = document.getElementById('drc-bubble-body');
+      const factEl = document.getElementById('drc-bubble-fact');
+      const iconEl = document.getElementById('drc-bubble-icon');
+      const imgEl = document.getElementById('drc-bubble-image');
+      const ctaEl = document.getElementById('drc-bubble-cta');
+
+      let currentProvince = null;
+      ctaEl.addEventListener('click', () => {
+        if (!currentProvince) return;
+        // Open the province deep-dive (Phase 2 — Kinshasa proof of concept).
+        // Other provinces fall back to a "coming soon" message until their
+        // Nano-painted maps + hotspot data are added.
+        if (PROVINCE_DETAILS[currentProvince.id]) {
+          openProvinceDetail(currentProvince.id);
+        } else {
+          alert(`${currentProvince.name} deep-dive is coming soon — we're building Kinshasa first as the proof of concept, then rolling out to the other 9 provinces.`);
+        }
+      });
+
+      function openInfo(item, kind) {
+        // Walk Zola to the hotspot location. This is the "narrative" part
+        // of the experience — every click is a journey to that place.
+        walkZolaTo(item.x, item.y);
+
+        titleEl.textContent = item.name;
+        subEl.textContent = item.sub || '';
+        bodyEl.textContent = item.body || '';
+        factEl.textContent = item.fact || '';
+        iconEl.textContent = item.icon || '';
+        if (item.file) {
+          imgEl.src = '../assets/images/badges/drc/' + item.file;
+          imgEl.style.display = '';
+        } else {
+          imgEl.removeAttribute('src');
+          imgEl.style.display = 'none';
+        }
+        // CTA is only shown when clicking a province — it leads to the
+        // (future) deeper zoom into the province's own illustrated map.
+        if (kind === 'province') {
+          currentProvince = item;
+          ctaEl.classList.add('visible');
+        } else {
+          currentProvince = null;
+          ctaEl.classList.remove('visible');
+        }
+        drcBubble.classList.add('open');
+        drcBubble.setAttribute('aria-hidden', 'false');
+        // Position the bubble next to Zola. Wait one frame so the bubble
+        // has its real measured size (offsetWidth/Height) for the math.
+        requestAnimationFrame(positionBubble);
+        // Re-position again after Zola's walk animation finishes (1500ms)
+        // so the bubble travels with her without overshooting.
+        setTimeout(positionBubble, 1550);
+      }
+
+      // Make openInfo accessible to the province deep-dive code below so
+      // it can reuse the same bubble + Zola walk pipeline.
+      window.__plpOpenInfo = openInfo;
+
+      // ─── Province Deep-Dive (Phase 2) ───────────────────────────
+    // Per-province data lookup. As more provinces get their illustrated
+    // maps + hotspot writeups, add entries here — the UI is generic.
+    const PROVINCE_DETAILS = {
+      kinshasa: {
+        name: 'Kinshasa',
+        mapSrc: '../assets/images/province-kinshasa-illustrated.png',
+        zolaStart: { x: 38, y: 40 },
+        hotspots: [
+          { id: 'gombe', icon: '🏛️', name: 'Gombe', sub: 'Government & Sapeur district', x: 38, y: 30,
+            body: "Kinshasa's downtown heart — embassies, government buildings, the central business district, and the spiritual home of the Sapeurs. By night, the Boulevard du 30 Juin transforms into a runway as the city's most elegant men display their carefully curated suits, hats, and shoes.",
+            fact: "Sapeur is short for Société des Ambianceurs et des Personnes Élégantes — and members may put a month's salary into a single pair of Westons or Versace tie. It's a 100-year-old movement of dignity through style." },
+          { id: 'marche-central', icon: '🛍️', name: 'Marché Central', sub: 'Central market · daily commerce hub', x: 42, y: 40,
+            body: "The largest market in central Africa by foot traffic. Tens of thousands of traders, fabric vendors, food sellers, and shoppers crowd its alleys daily. From wax-print pagnes to Congolese rumba CDs to live chickens — if it's sold anywhere in the country, it's sold here.",
+            fact: "The market never sleeps — even at 3 AM you'll find people buying coffee and beignets before the morning rush begins." },
+          { id: 'stade-martyrs', icon: '⚽', name: 'Stade des Martyrs', sub: 'National stadium · 80,000 seats', x: 50, y: 47,
+            body: "The Stade des Martyrs de la Pentecôte (Martyrs of Pentecost Stadium) — DRC's national stadium, named in memory of four government officials executed in 1966. Hosts Léopards (national football team) matches and the most explosive concerts in Central Africa.",
+            fact: "Congolese rumba and soukous are inseparable from this stadium — Papa Wemba, Werrason, Koffi Olomidé have all packed it to capacity." },
+          { id: 'boulevard-30-juin', icon: '🛣️', name: 'Boulevard du 30 Juin', sub: 'Main avenue · Independence Day', x: 35, y: 35,
+            body: "Kinshasa's main thoroughfare, named for June 30, 1960 — Congolese Independence Day. Cuts across the city center, lined with embassies, banks, and the offices of major Congolese companies. The boulevard is where every major political march and celebration happens.",
+            fact: "On Independence Day each year, military parades, civil-society marches, and Sapeur showcases all converge along this avenue." },
+          { id: 'kintambo', icon: '🏘️', name: 'Kintambo', sub: 'Oldest neighborhood · pre-colonial roots', x: 22, y: 32,
+            body: "Kinshasa's oldest neighborhood, founded as a fishing village on the south bank of Pool Malebo before colonial Léopoldville was carved out around it. Still has the city's most traditional markets and craftspeople — woodcarvers, weavers, traditional doctors.",
+            fact: "Before the city was renamed Kinshasa in 1966, this neighborhood gave the new capital its name — 'Kinshasa' was an existing village here long before Léopoldville was built." },
+          { id: 'ndjili-airport', icon: '✈️', name: 'N\'djili Airport', sub: 'International gateway · since 1955', x: 78, y: 50,
+            body: "DRC's main international airport, opened in 1955 and named after the N'djili neighborhood it sits in. Serves Kinshasa with daily connections to Brussels, Paris, Addis Ababa, Johannesburg, and Istanbul — the country's lifeline to the world.",
+            fact: "Until 2010 the airport had only one runway and frequently shut down for repairs — Belgian Airlines pilots called it 'the most challenging approach in West Africa'." },
+          { id: 'pool-malebo', icon: '🌊', name: 'Pool Malebo', sub: 'Where the Congo River widens', x: 50, y: 15,
+            body: "Also called Stanley Pool — the dramatic widening of the Congo River into a 35 km × 25 km lake-like expanse between Kinshasa and Brazzaville. Marks the end of the navigable Congo River from upstream and the start of the impassable rapids that lead to the Atlantic.",
+            fact: "Before colonization, fishing villages dotted Pool Malebo's banks — the Bobangi and Teke peoples have lived here for thousands of years. The pool was named 'Stanley' by Henry Morton Stanley in the 1870s, but Pool Malebo is now the official name." },
+          { id: 'beaux-arts', icon: '🎨', name: 'Académie des Beaux-Arts', sub: 'Art school · founded 1949', x: 28, y: 42,
+            body: "DRC's premier art and design school, founded in 1949. Trains painters, sculptors, ceramicists, and graphic designers — many of Congo's most celebrated contemporary artists studied here. The campus itself doubles as a sculpture garden.",
+            fact: "Chéri Samba, one of the most internationally collected African painters, taught at this academy and his bright narrative paintings hung in his studio nearby." },
+          { id: 'unikin', icon: '🎓', name: 'Université de Kinshasa', sub: 'UNIKIN · founded 1954', x: 45, y: 68,
+            body: "DRC's largest and oldest university, founded by Belgian Catholics in 1954 as Lovanium University. Sits on Mont Amba hill in the southern outskirts, with a vast campus covering forest, gardens, and brutalist 1950s academic architecture. Trained generations of Congolese leaders, journalists, doctors, and scientists.",
+            fact: "Patrice Lumumba, DRC's first prime minister, gave one of his most famous speeches here as a young man." },
+          { id: 'mont-ngafula', icon: '⛰️', name: 'Mont Ngafula', sub: 'Highest point in Kinshasa', x: 32, y: 78,
+            body: "A hilly forested area at the southern edge of the province, rising to about 700 meters — the highest natural point in the metropolitan area. From the top you can see all the way across Pool Malebo into Brazzaville on a clear day.",
+            fact: "Mont Ngafula is one of the last patches of original forest within Kinshasa's city limits — a few troops of red-tailed monkeys still live here." },
+        ],
+      },
+    };
+
+    // ─── Province view DOM + state ───────────────────────────────────
+    const provinceView = document.getElementById('province-detail-view');
+    const provinceMap = document.getElementById('province-map');
+    const provinceBubble = document.getElementById('province-bubble');
+    const provinceBubbleClose = document.getElementById('province-bubble-close');
+    const provinceTrail = document.getElementById('province-trail');
+    const provinceZola = document.getElementById('province-zola');
+    const provinceBackBtn = document.getElementById('province-back-btn');
+    let provinceBuilt = false;
+    let provinceZolaPos = { x: 50, y: 50 };
+    let currentProvinceData = null;
+
+    function walkProvinceZolaTo(x, y) {
+      if (Math.abs(x - provinceZolaPos.x) > 0.1 || Math.abs(y - provinceZolaPos.y) > 0.1) {
+        const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+        line.setAttribute('x1', provinceZolaPos.x);
+        line.setAttribute('y1', provinceZolaPos.y);
+        line.setAttribute('x2', x);
+        line.setAttribute('y2', y);
+        line.setAttribute('class', 'drc-trail-line');
+        provinceTrail.appendChild(line);
+        setTimeout(() => line.remove(), 5200);
+      }
+      provinceZolaPos = { x, y };
+      provinceZola.style.left = x + '%';
+      provinceZola.style.top = y + '%';
+    }
+
+    function positionProvinceBubble() {
+      const z = provinceZolaPos;
+      const bubble = provinceBubble;
+      const sideRight = z.x < 50;
+      bubble.classList.toggle('side-right', sideRight);
+      bubble.classList.toggle('side-left', !sideRight);
+      bubble.classList.remove('side-below');
+      const inner = provinceView.querySelector('.drc-detail-inner');
+      if (!inner) return;
+      const w = inner.clientWidth;
+      const h = inner.clientHeight;
+      const zolaPxX = (z.x / 100) * w;
+      const zolaPxY = (z.y / 100) * h;
+      const gap = 22;
+      const bubbleW = bubble.offsetWidth || 340;
+      let topPx = zolaPxY - 90;
+      topPx = Math.max(20, Math.min(h - 40 - bubble.offsetHeight, topPx));
+      let leftPx;
+      if (sideRight) {
+        leftPx = zolaPxX + gap;
+        if (leftPx + bubbleW > w - 20) leftPx = w - 20 - bubbleW;
+      } else {
+        leftPx = zolaPxX - gap - bubbleW;
+        if (leftPx < 20) leftPx = 20;
+      }
+      bubble.style.left = leftPx + 'px';
+      bubble.style.top = topPx + 'px';
+    }
+
+    function buildProvinceHotspots(provinceData) {
+      const container = document.getElementById('province-hotspots');
+      container.innerHTML = '';
+
+      const titleEl = document.getElementById('province-bubble-title');
+      const subEl = document.getElementById('province-bubble-sub');
+      const bodyEl = document.getElementById('province-bubble-body');
+      const factEl = document.getElementById('province-bubble-fact');
+      const iconEl = document.getElementById('province-bubble-icon');
+      const imgEl = document.getElementById('province-bubble-image');
+
+      function openProvinceInfo(item) {
+        walkProvinceZolaTo(item.x, item.y);
+        titleEl.textContent = item.name;
+        subEl.textContent = item.sub || '';
+        bodyEl.textContent = item.body || '';
+        factEl.textContent = item.fact || '';
+        iconEl.textContent = item.icon || '';
+        imgEl.removeAttribute('src');
+        imgEl.style.display = 'none';
+        provinceBubble.classList.add('open');
+        provinceBubble.setAttribute('aria-hidden', 'false');
+        requestAnimationFrame(positionProvinceBubble);
+        setTimeout(positionProvinceBubble, 1550);
+      }
+
+      for (const h of provinceData.hotspots) {
+        const el = document.createElement('button');
+        el.type = 'button';
+        el.className = 'drc-landmark';
+        el.style.left = h.x + '%';
+        el.style.top = h.y + '%';
+        el.innerHTML = `<span class="drc-landmark-icon" aria-hidden="true">${h.icon}</span><span>${h.name}</span>`;
+        el.addEventListener('click', () => openProvinceInfo(h));
+        container.appendChild(el);
+      }
+    }
+
+    function openProvinceDetail(provinceId) {
+      const data = PROVINCE_DETAILS[provinceId];
+      if (!data) return;
+      currentProvinceData = data;
+
+      // Close the DRC bubble — we're going deeper.
+      drcBubble.classList.remove('open');
+
+      provinceMap.src = data.mapSrc;
+      provinceMap.alt = `Illustrated map of ${data.name} province`;
+      provinceZolaPos = { ...data.zolaStart };
+      provinceZola.style.left = data.zolaStart.x + '%';
+      provinceZola.style.top = data.zolaStart.y + '%';
+      provinceZola.classList.add('idle');
+
+      buildProvinceHotspots(data);
+
+      // Swish-zoom + sound — same cinematic feel as the DRC entry.
+      playSwoosh();
+      provinceView.classList.add('visible');
+      provinceView.setAttribute('aria-hidden', 'false');
+    }
+
+    function closeProvinceDetail() {
+      provinceView.classList.remove('visible');
+      provinceView.setAttribute('aria-hidden', 'true');
+      provinceBubble.classList.remove('open');
+    }
+
+    provinceBackBtn.addEventListener('click', closeProvinceDetail);
+    provinceBubbleClose.addEventListener('click', () => {
+      provinceBubble.classList.remove('open');
+      provinceBubble.setAttribute('aria-hidden', 'true');
+    });
+
+      // Provinces (rendered first so they sit visually behind landmarks/badges).
+      for (const p of DRC_PROVINCES) {
+        const el = document.createElement('button');
+        el.type = 'button';
+        el.className = 'drc-province';
+        el.style.left = p.x + '%';
+        el.style.top = p.y + '%';
+        el.textContent = p.name;
+        el.addEventListener('click', () => openInfo(p, 'province'));
+        container.appendChild(el);
+      }
+
+      // Landmarks.
+      for (const lm of DRC_LANDMARKS) {
+        const el = document.createElement('button');
+        el.type = 'button';
+        el.className = 'drc-landmark';
+        el.style.left = lm.x + '%';
+        el.style.top = lm.y + '%';
+        el.innerHTML = `<span class="drc-landmark-icon" aria-hidden="true">${lm.icon}</span><span>${lm.name}</span>`;
+        el.addEventListener('click', () => openInfo(lm, 'landmark'));
+        container.appendChild(el);
+      }
+
+      // Animal/plant badges (rendered last so they sit on top).
+      for (const b of DRC_BADGES) {
+        const el = document.createElement('button');
+        el.type = 'button';
+        el.className = 'drc-badge';
+        el.style.left = b.x + '%';
+        el.style.top = b.y + '%';
+        el.title = b.name;
+        const img = document.createElement('img');
+        img.src = '../assets/images/badges/drc/' + b.file;
+        img.alt = b.name;
+        el.appendChild(img);
+        el.addEventListener('click', () => openInfo(b, 'badge'));
+        container.appendChild(el);
+      }
+    }
+
 
     // ── Spin speed slider ──────────────────────────────────────────
     // userSpeed is the user's chosen auto-rotation speed (0 = stopped).

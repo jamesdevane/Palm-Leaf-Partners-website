@@ -1,1 +1,7 @@
 .vercel
+
+# Google Maps API key — written at build time from $GOOGLE_MAPS_API_KEY,
+# kept locally for dev. Never commit the key itself.
+assets/maps-config.js
+.env
+.env.local
