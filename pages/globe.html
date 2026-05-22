@@ -147,6 +147,140 @@
     #loading .ls { font-size: 0.75rem; color: #B8860B; letter-spacing: 0.2em; text-transform: uppercase; }
     #loading .lb { width: 200px; height: 2px; background: rgba(255,255,255,0.1); border-radius: 2px; overflow: hidden; }
     #loading .lf { height: 100%; background: linear-gradient(90deg, #1B4332, #B8860B); width: 0%; transition: width 0.05s; }
+
+    /* ── View toggle (Globe ↔ Flat) ────────────────────────────────── */
+    .view-toggle {
+      display: inline-flex;
+      background: rgba(2,4,8,0.55);
+      border: 1px solid rgba(184,134,11,0.4);
+      border-radius: 999px;
+      padding: 3px;
+      gap: 2px;
+    }
+    .view-toggle button {
+      background: transparent;
+      border: none;
+      color: rgba(245,240,232,0.7);
+      font-family: 'Georgia', serif;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      padding: 0.4rem 1rem;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .view-toggle button:hover { color: #B8860B; }
+    .view-toggle button.active {
+      background: #B8860B;
+      color: #1B4332;
+      font-weight: 700;
+    }
+    .view-toggle .vt-icon { font-size: 1rem; line-height: 1; }
+    @media (max-width: 640px) {
+      .view-toggle button .vt-label { display: none; }
+      .view-toggle button { padding: 0.45rem 0.7rem; }
+    }
+
+    /* ── Flat-map view ─────────────────────────────────────────────── */
+    .flat-view {
+      position: fixed; inset: 0; z-index: 1;
+      display: none;
+      align-items: center; justify-content: center;
+      background:
+        radial-gradient(ellipse at 50% 35%, #0a1a2a 0%, #020408 60%, #000 100%);
+      padding: 5rem 2rem 3rem;
+    }
+    .flat-view.visible { display: flex; }
+    .flat-view-inner {
+      position: relative;
+      width: 100%;
+      max-width: 1800px;
+      aspect-ratio: 2 / 1;
+      max-height: calc(100vh - 8rem);
+    }
+    .flat-view-inner img.flat-map {
+      width: 100%; height: 100%;
+      object-fit: contain;
+      border-radius: 6px;
+      box-shadow: 0 20px 80px rgba(0,0,0,0.65);
+      user-select: none;
+    }
+    .flat-pin {
+      position: absolute;
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+    .flat-pin.active {
+      width: 18px; height: 18px;
+      background: #B8860B;
+      box-shadow:
+        0 0 0 4px rgba(184,134,11,0.25),
+        0 0 22px rgba(184,134,11,0.7);
+      animation: flatPulse 2.2s ease-in-out infinite;
+      pointer-events: auto;
+      cursor: pointer;
+    }
+    .flat-pin.inactive {
+      background: #40916C;
+      width: 10px; height: 10px;
+      opacity: 0.85;
+      box-shadow: 0 0 0 3px rgba(64,145,108,0.18);
+    }
+    @keyframes flatPulse {
+      0%, 100% {
+        box-shadow:
+          0 0 0 4px rgba(184,134,11,0.25),
+          0 0 22px rgba(184,134,11,0.7);
+      }
+      50% {
+        box-shadow:
+          0 0 0 9px rgba(184,134,11,0.10),
+          0 0 32px rgba(184,134,11,0.85);
+      }
+    }
+    .flat-label {
+      position: absolute;
+      transform: translate(-50%, 10px);
+      color: rgba(64,145,108,0.85);
+      font-size: 0.66rem;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      font-weight: 600;
+      pointer-events: none;
+      white-space: nowrap;
+      text-shadow: 0 1px 4px rgba(0,0,0,0.8);
+    }
+    .flat-label.active {
+      color: #B8860B;
+      font-size: 0.76rem;
+      letter-spacing: 0.15em;
+    }
+    .flat-zola {
+      position: absolute;
+      width: 64px;
+      height: auto;
+      transform: translate(-50%, -100%);
+      pointer-events: auto;
+      cursor: pointer;
+      animation: flatZolaBob 3.4s ease-in-out infinite;
+      filter: drop-shadow(0 6px 18px rgba(0,0,0,0.55));
+      user-select: none;
+    }
+    @keyframes flatZolaBob {
+      0%, 100% { transform: translate(-50%, -100%); }
+      50%      { transform: translate(-50%, -103%); }
+    }
+    @media (max-width: 640px) {
+      .flat-zola { width: 44px; }
+      .flat-label { font-size: 0.58rem; }
+      .flat-label.active { font-size: 0.66rem; }
+    }
   </style>
 </head>
 <body>
@@ -165,7 +299,46 @@
         <span class="sub">— PARTNERS —</span>
       </div>
     </a>
+
+    <!-- View toggle: switch between the 3D globe and the flat world map.
+         The flat map uses the same active-DRC pin / coming-soon green pins,
+         and Zola stands on the DRC there too. -->
+    <div class="view-toggle" id="view-toggle" role="group" aria-label="View mode">
+      <button type="button" data-view="globe" class="active" aria-pressed="true">
+        <span class="vt-icon" aria-hidden="true">🌍</span><span class="vt-label">Globe</span>
+      </button>
+      <button type="button" data-view="flat" aria-pressed="false">
+        <span class="vt-icon" aria-hidden="true">🗺</span><span class="vt-label">Flat</span>
+      </button>
+    </div>
+
     <a href="../index.html" class="back-btn">← Back to Site</a>
+  </div>
+
+  <!-- Flat-map view — equirectangular projection, pins overlaid at lat/lon →
+       percent positions. Hidden by default; .visible toggles it on. -->
+  <div class="flat-view" id="flat-view" aria-hidden="true">
+    <div class="flat-view-inner">
+      <img class="flat-map" src="../assets/images/world-map-flat.jpg" alt="World map" />
+
+      <!-- DRC — active, gold, clickable. Zola stands on top of this pin. -->
+      <div class="flat-pin active" id="flat-pin-drc" style="left:56.67%; top:52.22%;" title="Democratic Republic of Congo · Palm Leaf Partners · Active"></div>
+      <img class="flat-zola" id="flat-zola" src="../assets/images/zola-globe-sprite.png" alt="Zola — Palm Leaf Partners mascot" style="left:56.67%; top:52.22%;" />
+      <div class="flat-label active" style="left:56.67%; top:52.22%;">DRC</div>
+
+      <!-- Coming Soon markets — green, smaller, non-interactive for now -->
+      <div class="flat-pin inactive" style="left:52.22%; top:45.00%;"></div>
+      <div class="flat-label" style="left:52.22%; top:45.00%;">Nigeria</div>
+
+      <div class="flat-pin inactive" style="left:49.72%; top:46.11%;"></div>
+      <div class="flat-label" style="left:49.72%; top:46.11%;">Ghana</div>
+
+      <div class="flat-pin inactive" style="left:60.28%; top:50.56%;"></div>
+      <div class="flat-label" style="left:60.28%; top:50.56%;">Kenya</div>
+
+      <div class="flat-pin inactive" style="left:56.94%; top:66.11%;"></div>
+      <div class="flat-label" style="left:56.94%; top:66.11%;">South Africa</div>
+    </div>
   </div>
 
   <!-- Kinshasa clock -->
@@ -244,6 +417,43 @@
 
   <script>
   (function() {
+
+    // ── View toggle (Globe ↔ Flat) ───────────────────────────────────
+    // The Three.js scene keeps running in the background when flat view
+    // is active — we simply hide the canvas container with display:none.
+    // Cheap, and switching back is instant. Open project panel from the
+    // flat-view Zola/DRC pin reuses the same panel as the 3D Zola click.
+    const flatView = document.getElementById('flat-view');
+    const canvasContainer = document.getElementById('canvas-container');
+    const dragHint = document.querySelector('.drag-hint');
+    const infoPanel = document.querySelector('.info-panel');
+
+    function setView(mode) {
+      const isFlat = mode === 'flat';
+      flatView.classList.toggle('visible', isFlat);
+      flatView.setAttribute('aria-hidden', String(!isFlat));
+      canvasContainer.style.display = isFlat ? 'none' : '';
+      // Hide globe-specific overlays in flat mode.
+      if (dragHint) dragHint.style.display = isFlat ? 'none' : '';
+      if (infoPanel) infoPanel.style.display = isFlat ? 'none' : '';
+      document.querySelectorAll('#view-toggle button').forEach((b) => {
+        const active = b.dataset.view === mode;
+        b.classList.toggle('active', active);
+        b.setAttribute('aria-pressed', String(active));
+      });
+    }
+
+    document.querySelectorAll('#view-toggle button').forEach((b) => {
+      b.addEventListener('click', () => setView(b.dataset.view));
+    });
+
+    // Flat-view interactions: clicking the gold DRC pin OR the Zola sprite
+    // opens the same project panel as the 3D version.
+    function openProjectPanel() {
+      document.getElementById('project-panel').classList.add('open');
+    }
+    document.getElementById('flat-pin-drc').addEventListener('click', openProjectPanel);
+    document.getElementById('flat-zola').addEventListener('click', openProjectPanel);
 
     // ── Kinshasa clock (UTC+2) ──
     function updateClock() {
@@ -485,7 +695,12 @@
     const cSub  = document.getElementById('country-sub');
     const drcPin = PINS.find(p => p.active);
 
+    // Helper: is the flat view currently the active mode? Guards 3D raycast
+     // handlers so they don't fire ghost-hits while the canvas is hidden.
+    const isFlatMode = () => flatView.classList.contains('visible');
+
     function onPtr(e) {
+      if (isFlatMode()) return;
       const x = e.clientX ?? e.touches?.[0]?.clientX;
       const y = e.clientY ?? e.touches?.[0]?.clientY;
       if (x==null) return;
@@ -508,6 +723,7 @@
     window.addEventListener('mousemove', onPtr);
     window.addEventListener('touchmove', onPtr, {passive:true});
     window.addEventListener('click', e => {
+      if (isFlatMode()) return;
       mouse.x=(e.clientX/window.innerWidth)*2-1;
       mouse.y=-(e.clientY/window.innerHeight)*2+1;
       raycaster.setFromCamera(mouse,camera);
