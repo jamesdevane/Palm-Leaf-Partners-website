@@ -63,16 +63,16 @@ Object.assign(translations, {
     fr: 'Aujourd\'hui, les données les plus sensibles de la République Démocratique du Congo — dossiers gouvernementaux, systèmes financiers, infrastructure de télécommunications — sont en grande partie hébergées sur des serveurs hors du pays. Cela crée une vulnérabilité fondamentale : la RDC ne contrôle pas sa propre souveraineté numérique.'
   },
   'dc.body.p2': {
-    en: 'Palm Leaf Partners is planning the DRC\'s first data center designed to Uptime Institute Tier IV standards on Congolese soil — with a second disaster-recovery site in Lubumbashi. This facility is intended to host the national address registry, government cloud services, the call center data backbone, and enterprise systems. Final certification can only be issued by the Uptime Institute upon completion.',
-    fr: 'Palm Leaf Partners planifie le premier centre de données de la RDC conçu selon les normes Tier IV de l\'Uptime Institute sur le sol congolais — avec un deuxième site de reprise après sinistre à Lubumbashi. Cette installation est destinée à héberger le registre national des adresses, les services cloud gouvernementaux, le backbone de données des centres d\'appel et les systèmes d\'entreprise. La certification définitive ne peut être délivrée que par l\'Uptime Institute après l\'achèvement des travaux.'
+    en: 'Palm Leaf Partners is planning the DRC\'s first data center designed to Uptime Institute Tier III standards on Congolese soil — with a second disaster-recovery site in Lubumbashi. This facility is intended to host the national address registry, government cloud services, the call center data backbone, and enterprise systems. Final certification can only be issued by the Uptime Institute upon completion.',
+    fr: 'Palm Leaf Partners planifie le premier centre de données de la RDC conçu selon les normes Tier III de l\'Uptime Institute sur le sol congolais — avec un deuxième site de reprise après sinistre à Lubumbashi. Cette installation est destinée à héberger le registre national des adresses, les services cloud gouvernementaux, le backbone de données des centres d\'appel et les systèmes d\'entreprise. La certification définitive ne peut être délivrée que par l\'Uptime Institute après l\'achèvement des travaux.'
   },
   'dc.body.p3': {
-    en: 'A Tier IV design target corresponds to 99.995% availability — the highest design tier in the Uptime Institute framework, with fully fault-tolerant systems and no single point of failure. Operational uptime will be confirmed only after commissioning.',
-    fr: 'Un objectif de conception Tier IV correspond à 99,995% de disponibilité — le niveau de conception le plus élevé du cadre Uptime Institute, avec des systèmes entièrement tolérants aux pannes et aucun point de défaillance unique. La disponibilité opérationnelle ne sera confirmée qu\'après la mise en service.'
+    en: 'A Tier III design target corresponds to 99.982% availability — the second-highest design tier in the Uptime Institute framework, supporting concurrent maintenance of any component without service disruption. Operational uptime will be confirmed only after commissioning.',
+    fr: 'Un objectif de conception Tier III correspond à 99,982% de disponibilité — le deuxième niveau de conception le plus élevé du cadre Uptime Institute, permettant la maintenance simultanée de tout composant sans interruption de service. La disponibilité opérationnelle ne sera confirmée qu\'après la mise en service.'
   },
   'dc.beat1.body': {
-    en: 'The primary facility in Kinshasa is designed to Uptime Institute Tier IV standards — the highest design tier in the framework. Fully redundant power, cooling, and network paths mean no single failure can take the system down. The national address registry, government cloud services, and the call center data backbone are intended to live here. Sovereign. Secure. Permanent.',
-    fr: 'L\'installation principale de Kinshasa est conçue selon les normes Tier IV de l\'Uptime Institute — le niveau de conception le plus élevé du cadre. L\'alimentation électrique, le refroidissement et les chemins réseau entièrement redondants signifient qu\'aucune défaillance unique ne peut faire tomber le système. Le registre national des adresses, les services cloud gouvernementaux et le backbone de données des centres d\'appel sont destinés à y résider. Souverain. Sécurisé. Permanent.'
+    en: 'The primary facility in Kinshasa is designed to Uptime Institute Tier III standards — the second-highest design tier in the framework. Redundant power, cooling, and network paths support concurrent maintenance of any component without taking the system down. The national address registry, government cloud services, and the call center data backbone are intended to live here. Sovereign. Secure. Permanent.',
+    fr: 'L\'installation principale de Kinshasa est conçue selon les normes Tier III de l\'Uptime Institute — le deuxième niveau de conception le plus élevé du cadre. L\'alimentation électrique, le refroidissement et les chemins réseau redondants permettent la maintenance simultanée de tout composant sans faire tomber le système. Le registre national des adresses, les services cloud gouvernementaux et le backbone de données des centres d\'appel sont destinés à y résider. Souverain. Sécurisé. Permanent.'
   },
   'dc.beat2.body1': {
     en: 'Embedded within the facility is a dedicated Security Operations Center — a 24/7 command room staffed by cybersecurity professionals monitoring every system, every connection, and every threat in real time. The SOC protects not just the data center itself, but the entire Palm Leaf Partners infrastructure ecosystem — the address registry, the fiber backbone, and the call center network.',
@@ -146,7 +146,7 @@ Object.assign(translations, {
   'fb.starlink.latency': { en: 'Latency', fr: 'Latence' },
   'fb.starlink.speed': { en: 'Download Speed', fr: 'Vitesse de Téléchargement' },
   'fb.enables.h3': { en: 'What the Backbone Enables', fr: 'Ce que le Réseau Permet' },
-  'fb.enables.1': { en: 'High-capacity links to the Tier-IV data center in Kinshasa', fr: 'Liens à haute capacité vers le centre de données Tier-IV à Kinshasa' },
+  'fb.enables.1': { en: 'High-capacity links to the Tier-III data center in Kinshasa', fr: 'Liens à haute capacité vers le centre de données Tier-III à Kinshasa' },
   'fb.enables.2': { en: 'Low-latency connections between all regional call centers', fr: 'Connexions à faible latence entre tous les centres d\'appel régionaux' },
   'fb.enables.3': { en: 'Real-time access to the national address database from any point', fr: 'Accès en temps réel à la base de données nationale des adresses depuis n\'importe quel point' },
   'fb.enables.4': { en: 'Digital government services accessible from all 26 provinces', fr: 'Services gouvernementaux numériques accessibles depuis les 26 provinces' },
@@ -246,8 +246,8 @@ Object.assign(translations, {
   },
   'home.card.dc.h3': { en: 'Sovereign Data Center', fr: 'Centre de Données Souverain' },
   'home.card.dc.p': {
-    en: 'A two-site sovereign cloud — Kinshasa primary, Lubumbashi disaster-recovery — designed to Uptime Institute Tier IV standards, with a 24/7 Security Operations Center. The DRC\'s data stays in the DRC.',
-    fr: 'Un cloud souverain à deux sites — Kinshasa principal, Lubumbashi reprise après sinistre — conçu selon les normes Tier IV de l\'Uptime Institute, avec un Centre des Opérations de Sécurité 24/7. Les données de la RDC restent en RDC.'
+    en: 'A two-site sovereign cloud — Kinshasa primary, Lubumbashi disaster-recovery — designed to Uptime Institute Tier III standards, with a 24/7 Security Operations Center. The DRC\'s data stays in the DRC.',
+    fr: 'Un cloud souverain à deux sites — Kinshasa principal, Lubumbashi reprise après sinistre — conçu selon les normes Tier III de l\'Uptime Institute, avec un Centre des Opérations de Sécurité 24/7. Les données de la RDC restent en RDC.'
   },
   'home.card.cc.tag': { en: 'Phase 3 · Planned', fr: 'Phase 3 · Planifiée' },
   'home.card.cc.h3': { en: 'Regional Call Centers', fr: 'Centres d\'Appel Régionaux' },

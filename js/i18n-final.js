@@ -29,7 +29,7 @@ Object.assign(translations, {
   'map.feat.1': { en: 'GPS field capture with dual-validation protocol', fr: 'Capture GPS sur le terrain avec protocole de double validation' },
   'map.feat.2': { en: 'National address schema: province · territory · commune · street · number', fr: 'Schéma d\'adresse national : province · territoire · commune · rue · numéro' },
   'map.feat.3': { en: 'QR-coded physical address placards at every registered location', fr: 'Panneaux d\'adresse physiques avec code QR à chaque emplacement enregistré' },
-  'map.feat.4': { en: 'Stored in sovereign Tier-IV Data Center, Kinshasa', fr: 'Stocké dans le Centre de Données souverain Tier-IV, Kinshasa' },
+  'map.feat.4': { en: 'Stored in sovereign Tier-III Data Center, Kinshasa', fr: 'Stocké dans le Centre de Données souverain Tier-III, Kinshasa' },
   'map.feat.5': { en: 'Public address-verification API for commerce, banking &amp; logistics', fr: 'API publique de vérification d\'adresses pour le commerce, la banque et la logistique' },
   'map.feat.6': { en: 'Bilingual analytics dashboards for government agencies', fr: 'Tableaux de bord analytiques bilingues pour les agences gouvernementales' },
   'map.feat.7': { en: 'Direct integration with call center emergency dispatch system', fr: 'Intégration directe avec le système de dispatch d\'urgence des centres d\'appel' },
@@ -51,7 +51,7 @@ Object.assign(translations, {
   'cc.feat.3': { en: 'Live incident tracking with wall-map visualization', fr: 'Suivi des incidents en direct avec visualisation sur carte murale' },
   'cc.feat.4': { en: 'Multi-agency coordination across police, fire, and medical', fr: 'Coordination multi-agences entre police, pompiers et services médicaux' },
   'cc.feat.5': { en: 'Citizen services in 6 languages, 24/7', fr: 'Services aux citoyens en 6 langues, 24h/24 7j/7' },
-  'cc.feat.6': { en: 'All call data stored in the planned sovereign data center (designed to Tier IV standards)', fr: 'Toutes les données d\'appel stockées dans le centre de données souverain prévu (conçu selon les normes Tier IV)' },
+  'cc.feat.6': { en: 'All call data stored in the planned sovereign data center (designed to Tier III standards)', fr: 'Toutes les données d\'appel stockées dans le centre de données souverain prévu (conçu selon les normes Tier III)' },
   'cc.feat.7': { en: 'Shift supervisors and quality monitoring at every center', fr: 'Superviseurs de quart et contrôle qualité dans chaque centre' },
   'cc.feat.8': { en: 'Interconnected via national fiber backbone for low latency', fr: 'Interconnectés via le réseau fibre national pour une faible latence' },
   'cc.cta.p': {
@@ -73,22 +73,22 @@ Object.assign(translations, {
   'part.legal.eyebrow':  { en: 'Legal Framework', fr: 'Cadre Juridique' },
   'part.mou.eyebrow':    { en: 'Memoranda of Understanding', fr: 'Mémorandums d\'Entente' },
   'part.invest.eyebrow': { en: 'Investment Opportunities', fr: 'Opportunités d\'Investissement' },
-  'part.timeline.eyebrow':{ en: '25-Year Program', fr: 'Programme de 25 Ans' },
+  'part.timeline.eyebrow':{ en: '50-Year Program', fr: 'Programme de 50 Ans' },
   'part.ohada.p2': {
     en: 'This means our DRC contracts are enforceable under OHADA, our governance is transparent on both sides of the Atlantic, and our investors have the protections of both US corporate law and a mature, internationally recognized African legal framework.',
     fr: 'Cela signifie que nos contrats RDC sont exécutoires sous OHADA, notre gouvernance est transparente des deux côtés de l\'Atlantique, et nos investisseurs bénéficient des protections du droit américain des sociétés et d\'un cadre juridique africain mature et internationalement reconnu.'
   },
   'part.ppp.p2': {
-    en: 'PPP Law 20/018 provides the legal basis for our MOUs with SCPT and other government entities, establishes the revenue-sharing framework for the 25-year program, and ensures that the DRC government retains appropriate oversight and ownership rights.',
-    fr: 'La Loi PPP 20/018 fournit la base juridique de nos MOU avec la SCPT et d\'autres entités gouvernementales, établit le cadre de partage des revenus pour le programme de 25 ans et garantit que le gouvernement de la RDC conserve les droits de surveillance et de propriété appropriés.'
+    en: 'PPP Law 20/018 provides the legal basis for our MOUs with SCPT and other government entities, establishes the revenue-sharing framework for the 50-year program, and ensures that the DRC government retains appropriate oversight and ownership rights.',
+    fr: 'La Loi PPP 20/018 fournit la base juridique de nos MOU avec la SCPT et d\'autres entités gouvernementales, établit le cadre de partage des revenus pour le programme de 50 ans et garantit que le gouvernement de la RDC conserve les droits de surveillance et de propriété appropriés.'
   },
   'part.scpt.p': {
     en: 'Société Congolaise des Postes et Télécommunications (SCPT) — the DRC\'s national postal authority. This MOU authorizes Palm Leaf Partners to use SCPT\'s 100 post office locations as the distribution and registration network for the national address mapping program.',
     fr: 'Société Congolaise des Postes et Télécommunications (SCPT) — l\'autorité postale nationale de la RDC. Ce MOU autorise Palm Leaf Partners à utiliser les 100 bureaux de poste de la SCPT comme réseau de distribution et d\'enregistrement pour le programme de cartographie nationale des adresses.'
   },
   'part.dc.p': {
-    en: 'Authorization for the development of the DRC\'s Tier-IV sovereign data center and national fiber backbone network, including rights-of-way for fiber installation along national infrastructure corridors.',
-    fr: 'Autorisation pour le développement du centre de données souverain Tier-IV de la RDC et du réseau fibre national, y compris les droits de passage pour l\'installation de la fibre le long des corridors d\'infrastructure nationale.'
+    en: 'Authorization for the development of the DRC\'s Tier-III sovereign data center and national fiber backbone network, including rights-of-way for fiber installation along national infrastructure corridors.',
+    fr: 'Autorisation pour le développement du centre de données souverain Tier-III de la RDC et du réseau fibre national, y compris les droits de passage pour l\'installation de la fibre le long des corridors d\'infrastructure nationale.'
   },
   'part.cc.p': {
     en: 'Authorization for the development and operation of 5–10 regional emergency dispatch and citizen services call centers, integrated with the national address registry and operating under DRC government oversight.',
@@ -110,8 +110,8 @@ Object.assign(translations, {
   },
   'part.invest.dfi.h3': { en: 'DFI &amp; Institutional', fr: 'IFD &amp; Institutionnel' },
   'part.invest.dfi.p': {
-    en: 'Development Finance Institutions, impact investors, and institutional funds aligned with SDG infrastructure goals are invited to engage on concessional financing structures for the 25-year program.',
-    fr: 'Les Institutions de Financement du Développement, les investisseurs d\'impact et les fonds institutionnels alignés sur les objectifs d\'infrastructure des ODD sont invités à s\'engager sur des structures de financement concessionnelles pour le programme de 25 ans.'
+    en: 'Development Finance Institutions, impact investors, and institutional funds aligned with SDG infrastructure goals are invited to engage on concessional financing structures for the 50-year program.',
+    fr: 'Les Institutions de Financement du Développement, les investisseurs d\'impact et les fonds institutionnels alignés sur les objectifs d\'infrastructure des ODD sont invités à s\'engager sur des structures de financement concessionnelles pour le programme de 50 ans.'
   },
   'part.invest.btn': { en: 'Discuss a Partnership', fr: 'Discuter d\'un Partenariat' },
   'part.phase1.h4': { en: 'Phase 1 (Years 1–5) · Active', fr: 'Phase 1 (Années 1–5) · Active' },
@@ -121,15 +121,15 @@ Object.assign(translations, {
   },
   'part.phase2.h4': { en: 'Phase 2 (Years 3–8) · Development', fr: 'Phase 2 (Années 3–8) · Développement' },
   'part.phase2.p': {
-    en: 'Construction and commissioning of the data center designed to Uptime Institute Tier IV standards. National fiber backbone deployment along primary corridors. Starlink integration for rural last-mile coverage.',
-    fr: 'Construction et mise en service du centre de données conçu selon les normes Tier IV. Déploiement du réseau fibre national le long des corridors principaux. Intégration Starlink pour la couverture rurale du dernier kilomètre.'
+    en: 'Construction and commissioning of the data center designed to Uptime Institute Tier III standards. National fiber backbone deployment along primary corridors. Starlink integration for rural last-mile coverage.',
+    fr: 'Construction et mise en service du centre de données conçu selon les normes Tier III. Déploiement du réseau fibre national le long des corridors principaux. Intégration Starlink pour la couverture rurale du dernier kilomètre.'
   },
   'part.phase3.h4': { en: 'Phase 3 (Years 5–10) · Planned', fr: 'Phase 3 (Années 5–10) · Planifiée' },
   'part.phase3.p': {
     en: 'Regional call center network launch — 5 initial centers in Kinshasa, Lubumbashi, Goma, Kisangani, and Mbuji-Mayi. Emergency dispatch integration with national address registry.',
     fr: 'Lancement du réseau de centres d\'appel régionaux — 5 centres initiaux à Kinshasa, Lubumbashi, Goma, Kisangani et Mbuji-Mayi. Intégration du dispatch d\'urgence avec le registre national des adresses.'
   },
-  'part.phase4.h4': { en: 'Phase 4 (Years 10–25) · Vision', fr: 'Phase 4 (Années 10–25) · Vision' },
+  'part.phase4.h4': { en: 'Phase 4 (Years 10–50) · Vision', fr: 'Phase 4 (Années 10–50) · Vision' },
   'part.phase4.p': {
     en: 'Full national coverage — all 26 provinces connected, the target address register fully built out (up to ~20 million addresses, subject to scope validation), 10 call centers operational, enterprise cloud services available nationwide.',
     fr: 'Couverture nationale complète — les 26 provinces connectées, le registre cible des adresses entièrement constitué (jusqu\'à ~20 millions d\'adresses, sous réserve de validation du périmètre), 10 centres d\'appel opérationnels, services cloud d\'entreprise disponibles à l\'échelle nationale.'
