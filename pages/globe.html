@@ -385,6 +385,48 @@
       max-width: 1100px;
       aspect-ratio: 1 / 1;
       max-height: calc(100vh - 6rem);
+      /* Pinch / scroll zoom — pan via drag, scale via wheel or two-finger
+         pinch. transform-origin starts at center; updated to cursor or
+         pinch midpoint on each gesture. transition is set to none during
+         active gestures so motion is 1:1. */
+      transform-origin: 50% 50%;
+      transition: transform 200ms ease;
+      touch-action: none;  /* let our pointer events fully handle multi-touch */
+      will-change: transform;
+    }
+    .drc-detail-inner.zooming { transition: none; }
+    .drc-detail-inner.zoomed { cursor: grab; }
+    .drc-detail-inner.zoomed.dragging { cursor: grabbing; }
+    /* Zoom controls — small pill bottom-right of the detail view */
+    .drc-zoom-controls {
+      position: absolute;
+      bottom: 1.25rem; right: 1.25rem;
+      z-index: 230;
+      display: flex;
+      gap: 0.3rem;
+      background: rgba(20,40,30,0.85);
+      border: 1px solid rgba(184,134,11,0.45);
+      border-radius: 999px;
+      padding: 0.25rem;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+      font-family: 'Georgia', serif;
+    }
+    .drc-zoom-btn {
+      background: transparent;
+      border: none;
+      color: rgba(245,240,232,0.85);
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 160ms, color 160ms;
+    }
+    .drc-zoom-btn:hover {
+      background: rgba(184,134,11,0.2);
+      color: #B8860B;
     }
     .drc-map {
       width: 100%; height: 100%;
@@ -1373,6 +1415,13 @@
     </div>
 
     <button type="button" class="drc-back-btn" id="drc-back-btn">↶ Back to World</button>
+
+    <!-- Zoom controls for the DRC view — also exposes a reset to 1× -->
+    <div class="drc-zoom-controls" id="drc-zoom-controls">
+      <button type="button" class="drc-zoom-btn" id="drc-zoom-out" aria-label="Zoom out">−</button>
+      <button type="button" class="drc-zoom-btn" id="drc-zoom-reset" aria-label="Reset zoom">⊙</button>
+      <button type="button" class="drc-zoom-btn" id="drc-zoom-in" aria-label="Zoom in">+</button>
+    </div>
   </div>
 
   <!-- Province Detail View — second-level zoom into a specific DRC province.
@@ -1403,6 +1452,12 @@
     </div>
 
     <button type="button" class="drc-back-btn" id="province-back-btn">↶ Back to DRC</button>
+
+    <div class="drc-zoom-controls" id="province-zoom-controls">
+      <button type="button" class="drc-zoom-btn" id="province-zoom-out" aria-label="Zoom out">−</button>
+      <button type="button" class="drc-zoom-btn" id="province-zoom-reset" aria-label="Reset zoom">⊙</button>
+      <button type="button" class="drc-zoom-btn" id="province-zoom-in" aria-label="Zoom in">+</button>
+    </div>
   </div>
 
   <!-- Kinshasa clock -->
@@ -1639,7 +1694,136 @@
       drcZola.style.left = '12%';
       drcZola.style.top = '58%';
       drcZola.classList.add('idle');
+      // Reset zoom on each open.
+      drcZoom?.reset();
     }
+
+    // ── Pinch / drag / wheel zoom for detail views ──────────────────
+    // Reusable controller: transforms the given innerEl on pinch + wheel,
+    // pans on drag, ignores clicks on interactive hotspots so badges /
+    // landmarks / provinces stay clickable. Mobile uses two-finger pinch;
+    // desktop uses scroll wheel (Ctrl/Cmd not required).
+    function makeZoomController({ innerEl, rootEl, btnIn, btnOut, btnReset }) {
+      let scale = 1, tx = 0, ty = 0;
+      const MIN = 1, MAX = 4;
+      const pointers = new Map();
+      let pinchDist = 0;
+      let lastSingle = null;
+      let isDragging = false;
+
+      const INTERACTIVE = '.drc-badge, .drc-landmark, .drc-province, .drc-mining-city, .drc-mining-region, .drc-grid-plant, .drc-grid-line, .drc-fiber-city, .drc-fiber-line, .drc-geothermal-pin, .drc-datacenter-pin, .drc-fishery-pin, .drc-agri-region, .drc-zola, .drc-bubble, .drc-back-btn, .drc-layer-toggles, .drc-zoom-controls, button, a';
+
+      function apply(animate) {
+        innerEl.classList.toggle('zooming', !animate);
+        innerEl.style.transform = `translate(${tx}px, ${ty}px) scale(${scale})`;
+        innerEl.classList.toggle('zoomed', scale > 1.01);
+      }
+      function clampPan() {
+        // Allow proportional drift at higher scales, snap to centered when scale=1.
+        if (scale <= 1) { tx = 0; ty = 0; return; }
+        const w = innerEl.clientWidth;
+        const h = innerEl.clientHeight;
+        const maxX = ((scale - 1) * w) / 2;
+        const maxY = ((scale - 1) * h) / 2;
+        tx = Math.max(-maxX, Math.min(maxX, tx));
+        ty = Math.max(-maxY, Math.min(maxY, ty));
+      }
+      function zoomBy(factor, cx, cy) {
+        const newScale = Math.max(MIN, Math.min(MAX, scale * factor));
+        if (newScale === scale) return;
+        // Keep the cursor / pinch midpoint stationary in the viewport.
+        const rect = innerEl.getBoundingClientRect();
+        const ox = (cx ?? rect.left + rect.width / 2) - rect.left - rect.width / 2;
+        const oy = (cy ?? rect.top + rect.height / 2) - rect.top - rect.height / 2;
+        const k = newScale / scale;
+        tx = ox - (ox - tx) * k;
+        ty = oy - (oy - ty) * k;
+        scale = newScale;
+        clampPan();
+        apply(false);
+      }
+      function reset() {
+        scale = 1; tx = 0; ty = 0;
+        apply(true);
+      }
+
+      innerEl.addEventListener('pointerdown', (e) => {
+        if (e.target.closest(INTERACTIVE)) return;
+        pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+        if (pointers.size === 2) {
+          const [a, b] = Array.from(pointers.values());
+          pinchDist = Math.hypot(b.x - a.x, b.y - a.y);
+        } else if (pointers.size === 1 && scale > 1.01) {
+          isDragging = true;
+          innerEl.classList.add('dragging');
+          lastSingle = { x: e.clientX, y: e.clientY };
+        }
+        innerEl.setPointerCapture(e.pointerId);
+      });
+      innerEl.addEventListener('pointermove', (e) => {
+        if (!pointers.has(e.pointerId)) return;
+        pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+        if (pointers.size === 2) {
+          const [a, b] = Array.from(pointers.values());
+          const newDist = Math.hypot(b.x - a.x, b.y - a.y);
+          if (pinchDist > 0) {
+            const factor = newDist / pinchDist;
+            const midX = (a.x + b.x) / 2;
+            const midY = (a.y + b.y) / 2;
+            zoomBy(factor, midX, midY);
+          }
+          pinchDist = newDist;
+        } else if (isDragging && lastSingle) {
+          tx += e.clientX - lastSingle.x;
+          ty += e.clientY - lastSingle.y;
+          clampPan();
+          apply(false);
+          lastSingle = { x: e.clientX, y: e.clientY };
+        }
+      });
+      const endPointer = (e) => {
+        pointers.delete(e.pointerId);
+        if (pointers.size < 2) pinchDist = 0;
+        if (pointers.size === 0) {
+          isDragging = false;
+          lastSingle = null;
+          innerEl.classList.remove('dragging');
+        }
+        try { innerEl.releasePointerCapture(e.pointerId); } catch {}
+      };
+      innerEl.addEventListener('pointerup', endPointer);
+      innerEl.addEventListener('pointercancel', endPointer);
+
+      innerEl.addEventListener('wheel', (e) => {
+        // Only handle wheel inside the inner container; ignore on toggle
+        // bar, back button, etc.
+        if (e.target.closest('.drc-layer-toggles, .drc-zoom-controls, .drc-back-btn')) return;
+        e.preventDefault();
+        const factor = e.deltaY < 0 ? 1.12 : 1 / 1.12;
+        zoomBy(factor, e.clientX, e.clientY);
+      }, { passive: false });
+
+      btnIn?.addEventListener('click', () => zoomBy(1.3));
+      btnOut?.addEventListener('click', () => zoomBy(1 / 1.3));
+      btnReset?.addEventListener('click', reset);
+
+      // Double-tap / double-click to reset.
+      innerEl.addEventListener('dblclick', (e) => {
+        if (e.target.closest(INTERACTIVE)) return;
+        reset();
+      });
+
+      return { reset, zoomBy, get scale() { return scale; } };
+    }
+
+    const drcInner = drcDetailView.querySelector('.drc-detail-inner');
+    const drcZoom = makeZoomController({
+      innerEl: drcInner,
+      rootEl: drcDetailView,
+      btnIn: document.getElementById('drc-zoom-in'),
+      btnOut: document.getElementById('drc-zoom-out'),
+      btnReset: document.getElementById('drc-zoom-reset'),
+    });
     function hideDrcDetail() {
       drcDetailView.classList.remove('visible');
       drcDetailView.setAttribute('aria-hidden', 'true');
@@ -1656,34 +1840,27 @@
     // here are percent of the detail-inner box so the bubble travels with
     // Zola when she walks — the CSS `transition: left/top` does the smooth.
     function positionBubble() {
-      const zola = zolaPos; // { x, y } in percent
+      // Use Zola's actual rendered bounding rect (which respects any
+      // pan/zoom transform on the inner container) so the bubble stays
+      // glued to her on-screen position no matter the zoom level.
       const bubbleEl = drcBubble;
+      const dvRect = drcDetailView.getBoundingClientRect();
+      const zRect = drcZola.getBoundingClientRect();
+      if (!zRect.width || !dvRect.width) return;
 
-      // Decide which side: if Zola is in the left half of the map, put the
-      // bubble to her right; otherwise to her left. This keeps the bubble
-      // inside the visible area without overlapping Zola.
-      const sideRight = zola.x < 50;
+      const zolaPxX = zRect.left + zRect.width / 2 - dvRect.left;
+      const zolaPxY = zRect.top + zRect.height / 2 - dvRect.top;
+      const w = drcDetailView.clientWidth;
+      const h = drcDetailView.clientHeight;
+
+      const sideRight = zolaPxX < w / 2;
       bubbleEl.classList.toggle('side-right', sideRight);
       bubbleEl.classList.toggle('side-left', !sideRight);
       bubbleEl.classList.remove('side-below');
 
-      // Convert Zola's percent coords to actual pixels within the
-      // .drc-detail-inner box (the bubble is positioned absolute relative
-      // to that container).
-      const inner = document.querySelector('.drc-detail-inner');
-      if (!inner) return;
-      const w = inner.clientWidth;
-      const h = inner.clientHeight;
-
-      const zolaPxX = (zola.x / 100) * w;
-      const zolaPxY = (zola.y / 100) * h;
-
-      // Bubble starts 18px away from Zola's body, anchored to her shoulder.
-      const gap = 22;
+      const gap = 22 + zRect.width / 2;
       const bubbleW = bubbleEl.offsetWidth || 340;
-      // Vertical anchor: align bubble's middle to ~10px above Zola's feet.
-      let topPx = zolaPxY - 90;
-      // Keep bubble fully on-screen vertically.
+      let topPx = zolaPxY - bubbleEl.offsetHeight / 2;
       topPx = Math.max(20, Math.min(h - 40 - bubbleEl.offsetHeight, topPx));
 
       let leftPx;
@@ -1751,7 +1928,7 @@
       { id: 'equateur', name: 'Equateur', sub: 'Northwest rainforest', x: 26, y: 28,
         body: "Northwestern DRC, named for the equator running through it. Vast lowland rainforests, the Lopori and Maringa Rivers, and the Salonga National Park — one of the largest protected rainforest areas in Africa. Major bonobo habitat.",
         fact: "Equateur was the home province of Mobutu Sese Seko, who ruled the DRC (then Zaire) for 32 years." },
-      { id: 'tshopo', name: 'Tshopo', sub: 'Kisangani · river junction', x: 62, y: 27,
+      { id: 'tshopo', name: 'Tshopo', sub: 'Kisangani · river junction', x: 56, y: 31,
         body: "Centered on the city of Kisangani, where the Lualaba River officially becomes the Congo River. The setting of Joseph Conrad's Heart of Darkness and V.S. Naipaul's A Bend in the River. Home to dense rainforest and the famous Wagenia fishermen.",
         fact: "Kisangani sits exactly on the equator and at the head of the navigable Congo River — boats can go from here all the way to the Atlantic, 1,700 km away." },
       { id: 'ituri-prov', name: 'Ituri', sub: 'Northeast · Mbuti homeland', x: 78, y: 18,
@@ -2228,21 +2405,24 @@
     }
 
     function positionProvinceBubble() {
-      const z = provinceZolaPos;
       const bubble = provinceBubble;
-      const sideRight = z.x < 50;
+      const dvRect = provinceView.getBoundingClientRect();
+      const zRect = provinceZola.getBoundingClientRect();
+      if (!zRect.width || !dvRect.width) return;
+
+      const zolaPxX = zRect.left + zRect.width / 2 - dvRect.left;
+      const zolaPxY = zRect.top + zRect.height / 2 - dvRect.top;
+      const w = provinceView.clientWidth;
+      const h = provinceView.clientHeight;
+
+      const sideRight = zolaPxX < w / 2;
       bubble.classList.toggle('side-right', sideRight);
       bubble.classList.toggle('side-left', !sideRight);
       bubble.classList.remove('side-below');
-      const inner = provinceView.querySelector('.drc-detail-inner');
-      if (!inner) return;
-      const w = inner.clientWidth;
-      const h = inner.clientHeight;
-      const zolaPxX = (z.x / 100) * w;
-      const zolaPxY = (z.y / 100) * h;
-      const gap = 22;
+
+      const gap = 22 + zRect.width / 2;
       const bubbleW = bubble.offsetWidth || 340;
-      let topPx = zolaPxY - 90;
+      let topPx = zolaPxY - bubble.offsetHeight / 2;
       topPx = Math.max(20, Math.min(h - 40 - bubble.offsetHeight, topPx));
       let leftPx;
       if (sideRight) {
@@ -2315,7 +2495,17 @@
       playSwoosh();
       provinceView.classList.add('visible');
       provinceView.setAttribute('aria-hidden', 'false');
+      provinceZoom?.reset();
     }
+
+    const provinceInner = provinceView.querySelector('.drc-detail-inner');
+    const provinceZoom = makeZoomController({
+      innerEl: provinceInner,
+      rootEl: provinceView,
+      btnIn: document.getElementById('province-zoom-in'),
+      btnOut: document.getElementById('province-zoom-out'),
+      btnReset: document.getElementById('province-zoom-reset'),
+    });
 
     function closeProvinceDetail() {
       provinceView.classList.remove('visible');
