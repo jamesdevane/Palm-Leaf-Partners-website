@@ -778,6 +778,203 @@
       50%      { box-shadow: 0 3px 12px rgba(0,0,0,0.55), 0 0 0 8px rgba(196,120,66,0); }
     }
 
+    /* ── Grid layer ─────────────────────────────────────────────────
+       Transmission lines as SVG paths with amber glow + slow pulse;
+       hydro plants as larger pulsing pin buttons. */
+    .drc-grid-line {
+      fill: none;
+      stroke: #e8c455;
+      stroke-width: 0.55;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      filter: url(#grid-glow) drop-shadow(0 0 1.5px rgba(232,196,85,0.65));
+      cursor: pointer;
+      animation: drcGridPulse 4s ease-in-out infinite;
+      transition: stroke-width 200ms, filter 200ms;
+    }
+    .drc-grid-line:hover {
+      stroke-width: 0.9;
+      stroke: #ffd96b;
+    }
+    @keyframes drcGridPulse {
+      0%, 100% { opacity: 0.7; }
+      50%      { opacity: 1; }
+    }
+    .drc-grid-plant {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      pointer-events: auto;
+      cursor: pointer;
+      background: linear-gradient(135deg, #f6cd5b 0%, #c79a2f 100%);
+      color: #1B4332;
+      border: 1.5px solid #fff5d0;
+      border-radius: 999px;
+      padding: 0.35rem 0.7rem 0.35rem 0.5rem;
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      font-family: 'Georgia', serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      box-shadow:
+        0 0 0 0 rgba(232,196,85,0.55),
+        0 4px 14px rgba(0,0,0,0.5);
+      animation: drcGridPlantPulse 2.8s ease-in-out infinite;
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      white-space: nowrap;
+      transition: transform 180ms;
+    }
+    .drc-grid-plant:hover {
+      transform: translate(-50%, -50%) scale(1.1);
+      filter: brightness(1.1);
+    }
+    .drc-grid-plant .gp-icon { font-size: 1rem; line-height: 1; }
+    @keyframes drcGridPlantPulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(232,196,85,0.5), 0 4px 14px rgba(0,0,0,0.5); }
+      50%      { box-shadow: 0 0 0 12px rgba(232,196,85,0), 0 4px 14px rgba(0,0,0,0.5); }
+    }
+
+    /* ── Fiber layer ────────────────────────────────────────────────
+       Dashed gold lines with flowing-light animation (the dash offset
+       animates so the dashes appear to flow along the line — like
+       packets traveling). Faster + brighter than the grid. */
+    .drc-fiber-line {
+      fill: none;
+      stroke: #ffd96b;
+      stroke-width: 0.55;
+      stroke-linecap: round;
+      stroke-dasharray: 1.6 1.4;
+      filter: url(#fiber-glow) drop-shadow(0 0 1.8px rgba(255,217,107,0.85));
+      cursor: pointer;
+      animation: drcFiberFlow 1.6s linear infinite;
+      transition: stroke-width 200ms;
+    }
+    .drc-fiber-line:hover { stroke-width: 0.95; }
+    @keyframes drcFiberFlow {
+      0%   { stroke-dashoffset: 6; }
+      100% { stroke-dashoffset: 0; }
+    }
+    .drc-fiber-city {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      pointer-events: auto;
+      cursor: pointer;
+      width: 16px; height: 16px;
+      background: #ffd96b;
+      border: 2px solid #fff5d0;
+      border-radius: 50%;
+      box-shadow:
+        0 0 12px rgba(255,217,107,0.85),
+        0 0 0 0 rgba(255,217,107,0.5);
+      animation: drcFiberCityPulse 1.8s ease-in-out infinite;
+      transition: transform 180ms;
+    }
+    .drc-fiber-city:hover { transform: translate(-50%, -50%) scale(1.4); }
+    @keyframes drcFiberCityPulse {
+      0%, 100% { box-shadow: 0 0 12px rgba(255,217,107,0.85), 0 0 0 0 rgba(255,217,107,0.5); }
+      50%      { box-shadow: 0 0 20px rgba(255,217,107,1),   0 0 0 8px rgba(255,217,107,0); }
+    }
+
+    /* ── Geothermal layer ───────────────────────────────────────────
+       Red-orange pulsing dots in the eastern volcanic rift. */
+    .drc-geothermal-pin {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      pointer-events: auto;
+      cursor: pointer;
+      width: 22px; height: 22px;
+      background: radial-gradient(circle, #ff7842 0%, #c93a1a 70%, transparent 100%);
+      border-radius: 50%;
+      border: none;
+      animation: drcGeothermalPulse 2.2s ease-in-out infinite;
+      filter: drop-shadow(0 0 8px rgba(255,120,66,0.7));
+      transition: transform 180ms;
+    }
+    .drc-geothermal-pin:hover { transform: translate(-50%, -50%) scale(1.3); }
+    @keyframes drcGeothermalPulse {
+      0%, 100% { transform: translate(-50%, -50%) scale(1);   opacity: 0.85; }
+      50%      { transform: translate(-50%, -50%) scale(1.25); opacity: 1; }
+    }
+
+    /* ── Data Center layer ──────────────────────────────────────────
+       Two large facility pins with a connecting data link line. */
+    .drc-datacenter-link {
+      fill: none;
+      stroke: #B8860B;
+      stroke-width: 0.5;
+      stroke-dasharray: 0.9 0.7;
+      filter: drop-shadow(0 0 1.2px rgba(184,134,11,0.7));
+      animation: drcDcFlow 2.4s linear infinite;
+      opacity: 0.85;
+    }
+    @keyframes drcDcFlow {
+      0%   { stroke-dashoffset: 3.2; }
+      100% { stroke-dashoffset: 0; }
+    }
+    .drc-datacenter-pin {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      pointer-events: auto;
+      cursor: pointer;
+      background: linear-gradient(135deg, #1B4332 0%, #0d2a20 100%);
+      color: #fdfaf3;
+      border: 2px solid #B8860B;
+      border-radius: 10px;
+      padding: 0.4rem 0.7rem;
+      display: inline-flex; align-items: center; gap: 0.45rem;
+      font-family: 'Georgia', serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      box-shadow:
+        0 0 0 0 rgba(184,134,11,0.5),
+        0 4px 14px rgba(0,0,0,0.55);
+      animation: drcDcPulse 2.6s ease-in-out infinite;
+      transition: transform 180ms;
+      white-space: nowrap;
+    }
+    .drc-datacenter-pin:hover { transform: translate(-50%, -50%) scale(1.1); }
+    .drc-datacenter-pin .dc-icon { font-size: 1rem; line-height: 1; }
+    @keyframes drcDcPulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(184,134,11,0.45), 0 4px 14px rgba(0,0,0,0.55); }
+      50%      { box-shadow: 0 0 0 10px rgba(184,134,11,0),    0 4px 14px rgba(0,0,0,0.55); }
+    }
+
+    /* ── Fishery layer ──────────────────────────────────────────────
+       Blue-green dots on lakes and rivers. */
+    .drc-fishery-pin {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      pointer-events: auto;
+      cursor: pointer;
+      width: 18px; height: 18px;
+      background: radial-gradient(circle, #4a9b8e 0%, #2a6b62 100%);
+      border: 2px solid rgba(255,255,255,0.4);
+      border-radius: 50%;
+      box-shadow: 0 0 8px rgba(74,155,142,0.65);
+      animation: drcFisheryFloat 3.2s ease-in-out infinite;
+      transition: transform 180ms;
+    }
+    .drc-fishery-pin:hover { transform: translate(-50%, -50%) scale(1.4); }
+    @keyframes drcFisheryFloat {
+      0%, 100% { transform: translate(-50%, -50%); }
+      50%      { transform: translate(-50%, -52%); }
+    }
+
+    /* ── Agriculture layer ──────────────────────────────────────────
+       Soft green-gold hatched regions covering crop belts. */
+    .drc-agri-region {
+      cursor: pointer;
+      stroke: rgba(107,139,111,0.7);
+      stroke-width: 0.2;
+      transition: filter 200ms, stroke-width 200ms;
+    }
+    .drc-agri-region:hover {
+      filter: brightness(1.2);
+      stroke-width: 0.5;
+    }
+
     /* Layer toggle bar — sits at the top center of the DRC detail view. */
     .drc-layer-toggles {
       position: absolute;
@@ -1067,6 +1264,61 @@
       <!-- Mining city pins layer (HTML for easier styling than SVG icons) -->
       <div class="drc-layer drc-layer-mining-cities" id="drc-mining-cities"></div>
 
+      <!-- Grid (electric infrastructure) — SVG for transmission lines,
+           HTML container for power-plant pins. -->
+      <svg class="drc-layer drc-layer-grid" id="drc-grid-svg" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+        <defs>
+          <filter id="grid-glow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="0.6" result="blur" />
+            <feMerge>
+              <feMergeNode in="blur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+        </defs>
+      </svg>
+      <div class="drc-layer drc-layer-grid-plants" id="drc-grid-plants"></div>
+
+      <!-- Fiber backbone — dashed flowing gold lines + city endpoint pins. -->
+      <svg class="drc-layer drc-layer-fiber" id="drc-fiber-svg" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+        <defs>
+          <filter id="fiber-glow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="0.5" result="blur" />
+            <feMerge>
+              <feMergeNode in="blur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+        </defs>
+      </svg>
+      <div class="drc-layer drc-layer-fiber-cities" id="drc-fiber-cities"></div>
+
+      <!-- Geothermal — red-orange pulsing dots in the eastern Rift. -->
+      <div class="drc-layer drc-layer-geothermal" id="drc-geothermal"></div>
+
+      <!-- Data Center — 2 facility pins (Kinshasa primary, Lubumbashi DR)
+           connected by a data link. -->
+      <svg class="drc-layer drc-layer-datacenter-svg" id="drc-datacenter-svg" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"></svg>
+      <div class="drc-layer drc-layer-datacenter" id="drc-datacenter"></div>
+
+      <!-- Fishery — blue-green fish markers on lakes + Pool Malebo + Congo River. -->
+      <div class="drc-layer drc-layer-fishery" id="drc-fishery"></div>
+
+      <!-- Agriculture — soft green-gold hatched regions over crop belts. -->
+      <svg class="drc-layer drc-layer-agriculture" id="drc-agriculture-svg" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+        <defs>
+          <pattern id="hatch-agri-food" patternUnits="userSpaceOnUse" width="2.8" height="2.8" patternTransform="rotate(135)">
+            <line x1="0" y1="0" x2="0" y2="2.8" stroke="#6b8b6f" stroke-width="0.6" />
+          </pattern>
+          <pattern id="hatch-agri-cocoa" patternUnits="userSpaceOnUse" width="2.8" height="2.8" patternTransform="rotate(135)">
+            <line x1="0" y1="0" x2="0" y2="2.8" stroke="#8c5e2a" stroke-width="0.6" />
+          </pattern>
+          <pattern id="hatch-agri-coffee" patternUnits="userSpaceOnUse" width="2.8" height="2.8" patternTransform="rotate(135)">
+            <line x1="0" y1="0" x2="0" y2="2.8" stroke="#7a4a26" stroke-width="0.6" />
+          </pattern>
+        </defs>
+      </svg>
+
       <!-- SVG layer for Zola's journey trail. ViewBox 0..100 lets us draw
            in percentage coordinates that match every hotspot's positioning. -->
       <svg class="drc-trail" id="drc-trail" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"></svg>
@@ -1081,22 +1333,22 @@
       <button type="button" class="drc-layer-btn" data-layer="mining" aria-pressed="false">
         <span class="lt-icon" aria-hidden="true">⛏️</span><span class="lt-label">Mining</span>
       </button>
-      <button type="button" class="drc-layer-btn" data-layer="grid" aria-pressed="false" data-stub="true">
+      <button type="button" class="drc-layer-btn" data-layer="grid" aria-pressed="false">
         <span class="lt-icon" aria-hidden="true">⚡</span><span class="lt-label">Grid</span>
       </button>
-      <button type="button" class="drc-layer-btn" data-layer="fiber" aria-pressed="false" data-stub="true">
+      <button type="button" class="drc-layer-btn" data-layer="fiber" aria-pressed="false">
         <span class="lt-icon" aria-hidden="true">📡</span><span class="lt-label">Fiber</span>
       </button>
-      <button type="button" class="drc-layer-btn" data-layer="geothermal" aria-pressed="false" data-stub="true">
+      <button type="button" class="drc-layer-btn" data-layer="geothermal" aria-pressed="false">
         <span class="lt-icon" aria-hidden="true">🌋</span><span class="lt-label">Geothermal</span>
       </button>
-      <button type="button" class="drc-layer-btn" data-layer="data-center" aria-pressed="false" data-stub="true">
+      <button type="button" class="drc-layer-btn" data-layer="datacenter" aria-pressed="false">
         <span class="lt-icon" aria-hidden="true">🏢</span><span class="lt-label">Data Center</span>
       </button>
-      <button type="button" class="drc-layer-btn" data-layer="fishery" aria-pressed="false" data-stub="true">
+      <button type="button" class="drc-layer-btn" data-layer="fishery" aria-pressed="false">
         <span class="lt-icon" aria-hidden="true">🐟</span><span class="lt-label">Fishery</span>
       </button>
-      <button type="button" class="drc-layer-btn" data-layer="agriculture" aria-pressed="false" data-stub="true">
+      <button type="button" class="drc-layer-btn" data-layer="agriculture" aria-pressed="false">
         <span class="lt-icon" aria-hidden="true">🌾</span><span class="lt-label">Agriculture</span>
       </button>
     </div>
@@ -1974,30 +2226,275 @@
       }
     }
 
-    // Layer toggle behavior. Mining is wired; the other six show a toast
-    // until their data is added.
+    // ─── Grid layer data + builder ───────────────────────────────────
+    const GRID_PLANTS = [
+      { id: 'inga', name: 'Inga Dam Complex', sub: 'Hydroelectric · 1.7 GW today, 40 GW potential',
+        x: 5, y: 64, icon: '⚡',
+        body: "Inga I and Inga II on the Congo River near Matadi produce ~1.7 GW today — together powering Kinshasa, most of western DRC, and feeding the long-distance HVDC line that carries electricity 1,700 km southeast to the Katanga mining belt. The proposed Grand Inga, if fully built, would be the largest hydroelectric plant on Earth at roughly 40 GW — more than three times the Three Gorges Dam.",
+        fact: "The Congo River drops 96 meters in a 14 km stretch at the Inga site — the largest concentration of hydroelectric potential anywhere in the world." },
+      { id: 'ruzizi', name: 'Ruzizi Hydro', sub: 'Eastern grid · Lake Kivu outflow',
+        x: 86, y: 47, icon: '⚡',
+        body: "Three power stations on the Ruzizi River where it drains Lake Kivu — Ruzizi I, II, and III (under construction). Powers North and South Kivu (Goma, Bukavu) plus parts of neighboring Rwanda and Burundi. Eastern DRC's grid is completely disconnected from the western Inga system — they operate as separate electrical islands.",
+        fact: "Lake Kivu also holds enough dissolved methane at depth to power the region for decades — slowly being extracted by Rwanda's KivuWatt project on the eastern shore." },
+      { id: 'nzilo', name: 'Nzilo / Mwadingusha Hydro', sub: 'Katanga regional · feeds the mines',
+        x: 60, y: 80, icon: '⚡',
+        body: "Smaller hydro stations on the Lualaba River and its tributaries in Katanga. Built in the 1930s by Belgian mining interests to power the Lubumbashi smelter, they still feed the regional mining grid today — supplementing the Inga HVDC line.",
+        fact: "The Nzilo Dam, completed in 1953, was the largest civil engineering project in colonial Belgian Congo." },
+    ];
+    const GRID_LINES = [
+      { id: 'hvdc-main', name: 'Inga–Kolwezi HVDC Line', sub: '1,700 km · the cobalt belt lifeline',
+        path: 'M 5,64 L 13,58 L 26,62 L 38,67 L 45,68 L 52,82 L 67,85',
+        x: 35, y: 70,
+        body: "One of Africa's most important infrastructure assets. The 1,700 km High-Voltage DC line carries power from Inga in the far west all the way to the copper-cobalt mines around Kolwezi and Lubumbashi. Built in the 1970s as the longest HVDC line in the world at the time, it has been refurbished multiple times and remains the backbone of DRC's economy.",
+        fact: "When the HVDC line goes down — as it does periodically — the global cobalt supply chain feels it within days." },
+      { id: 'eastern-grid', name: 'Eastern Isolated Grid', sub: 'Goma · Bukavu · Ruzizi',
+        path: 'M 84,35 L 86,40 L 87,47',
+        x: 85, y: 40,
+        body: "Eastern DRC's electrical island. Powered by the Ruzizi hydro complex, it serves Goma, Bukavu, and surrounding cities but is NOT connected to the western Inga grid. Connecting east and west is one of the most discussed infrastructure projects in central Africa.",
+        fact: "Connecting the eastern and western DRC grids would require crossing 1,500 km of rainforest — one of the most challenging transmission projects ever proposed in Africa." },
+    ];
+    let gridBuilt = false;
+    function buildGridLayer() {
+      if (gridBuilt) return;
+      gridBuilt = true;
+      const svg = document.getElementById('drc-grid-svg');
+      const plantsEl = document.getElementById('drc-grid-plants');
+      for (const ln of GRID_LINES) {
+        const p = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        p.setAttribute('d', ln.path);
+        p.setAttribute('class', 'drc-grid-line');
+        p.style.pointerEvents = 'auto';
+        p.addEventListener('click', () => window.__plpOpenInfo?.(ln, 'grid-line'));
+        svg.appendChild(p);
+      }
+      for (const pl of GRID_PLANTS) {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'drc-grid-plant';
+        btn.style.left = pl.x + '%';
+        btn.style.top = pl.y + '%';
+        btn.innerHTML = `<span class="gp-icon" aria-hidden="true">${pl.icon}</span><span>${pl.name.split(' ')[0]}</span>`;
+        btn.addEventListener('click', () => window.__plpOpenInfo?.(pl, 'grid-plant'));
+        plantsEl.appendChild(btn);
+      }
+    }
+
+    // ─── Fiber layer ─────────────────────────────────────────────────
+    // SCPT-aligned 6-city fiber backbone per PLP site copy. Lines
+    // animate with flowing gold dashes — the "light moving along
+    // the fiber" effect Eddie envisioned.
+    const FIBER_CITIES = [
+      { id: 'fiber-kinshasa',  name: 'Kinshasa',  x: 13, y: 58, sub: 'Backbone hub · Atlantic side' },
+      { id: 'fiber-mbujimayi', name: 'Mbuji-Mayi', x: 45, y: 68, sub: 'Central node · diamond region' },
+      { id: 'fiber-lubumbashi',name: 'Lubumbashi', x: 67, y: 85, sub: 'Southeast hub · mining HQ' },
+      { id: 'fiber-bukavu',    name: 'Bukavu',     x: 87, y: 47, sub: 'East node · Lake Kivu' },
+      { id: 'fiber-goma',      name: 'Goma',       x: 84, y: 35, sub: 'Northeast hub · Virunga gateway' },
+      { id: 'fiber-kisangani', name: 'Kisangani',  x: 62, y: 27, sub: 'Northern node · Congo River head' },
+    ];
+    const FIBER_LINES = [
+      { id: 'fiber-backbone', name: 'SCPT National Fiber Backbone', sub: '6 cities · Starlink last mile',
+        path: 'M 13,58 L 45,68 L 67,85 L 87,47 L 84,35 L 62,27 L 13,58',
+        x: 45, y: 50,
+        body: "Palm Leaf Partners is building the DRC's first national fiber backbone in partnership with SCPT (Société Congolaise des Postes et Télécommunications). Six cities — Kinshasa, Mbuji-Mayi, Lubumbashi, Bukavu, Goma, Kisangani — connected by buried fiber along the existing road corridors. Starlink fills the gaps for ~100 remote sites that aren't on the fiber route. Together they deliver low-latency internet to communities that have never had it.",
+        fact: "Today, internet penetration in rural DRC is below 5%. The backbone could push national connectivity past 50% within a decade." },
+    ];
+    let fiberBuilt = false;
+    function buildFiberLayer() {
+      if (fiberBuilt) return;
+      fiberBuilt = true;
+      const svg = document.getElementById('drc-fiber-svg');
+      const citiesEl = document.getElementById('drc-fiber-cities');
+      for (const ln of FIBER_LINES) {
+        const p = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        p.setAttribute('d', ln.path);
+        p.setAttribute('class', 'drc-fiber-line');
+        p.style.pointerEvents = 'auto';
+        p.addEventListener('click', () => window.__plpOpenInfo?.(ln, 'fiber-line'));
+        svg.appendChild(p);
+      }
+      for (const c of FIBER_CITIES) {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'drc-fiber-city';
+        btn.style.left = c.x + '%';
+        btn.style.top = c.y + '%';
+        btn.title = c.name;
+        btn.addEventListener('click', () => window.__plpOpenInfo?.({
+          ...c,
+          body: `One of the six anchor cities on PLP's SCPT national fiber backbone. ${c.sub.split('·')[1]?.trim() ?? ''} High-capacity fiber arriving here links residents and businesses to the global internet — and to each other within DRC for the first time.`,
+          fact: "Before the backbone, calling between Kinshasa and Lubumbashi often routed through Europe — a round-trip of 14,000 km for a domestic call.",
+        }, 'fiber-city'));
+        citiesEl.appendChild(btn);
+      }
+    }
+
+    // ─── Geothermal layer ────────────────────────────────────────────
+    const GEOTHERMAL_SITES = [
+      { id: 'nyiragongo-geo', name: 'Nyiragongo Geothermal', sub: 'Goma · volcanic heat', x: 84, y: 32, icon: '🌋',
+        body: "The Nyiragongo and Nyamuragira volcanoes mark some of the most active geothermal activity on Earth. The heat in the rock below could be tapped for clean electricity generation. Pilot studies have identified zones near Goma where deep-well geothermal could produce 100+ MW.",
+        fact: "Nyiragongo's lava lake — the largest in the world — radiates measurable heat into the atmosphere visible to satellites." },
+      { id: 'kivu-methane', name: 'Lake Kivu Methane', sub: 'Dissolved methane reserves', x: 87, y: 44, icon: '💨',
+        body: "Lake Kivu holds an estimated 60 billion cubic meters of dissolved methane and 300 billion cubic meters of dissolved CO₂, both trapped at depth by water pressure. Carefully extracted, the methane can power gas turbines. Carelessly disturbed, the lake could 'overturn' in a catastrophic limnic eruption.",
+        fact: "Only three lakes in the world have this kind of dissolved-gas inventory: Kivu, Nyos, and Monoun — and the latter two have already erupted catastrophically." },
+      { id: 'kibirizi', name: 'Kibirizi Hot Springs', sub: 'South Kivu geothermal field', x: 86, y: 52, icon: '♨️',
+        body: "A hot springs field south of Lake Kivu, identified in exploration surveys as a potential geothermal site. Surface water temperatures exceed 80°C in some pools. Commercial exploration is still in early stages.",
+        fact: "Local communities have used the Kibirizi hot springs for traditional medicine and bathing for centuries before geologists arrived." },
+    ];
+    let geothermalBuilt = false;
+    function buildGeothermalLayer() {
+      if (geothermalBuilt) return;
+      geothermalBuilt = true;
+      const el = document.getElementById('drc-geothermal');
+      for (const g of GEOTHERMAL_SITES) {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'drc-geothermal-pin';
+        btn.style.left = g.x + '%';
+        btn.style.top = g.y + '%';
+        btn.title = g.name;
+        btn.addEventListener('click', () => window.__plpOpenInfo?.(g, 'geothermal'));
+        el.appendChild(btn);
+      }
+    }
+
+    // ─── Data Center layer ───────────────────────────────────────────
+    const DATACENTER_SITES = [
+      { id: 'dc-kinshasa', name: 'Kinshasa Primary', sub: 'Sovereign cloud · Tier III design', x: 14, y: 56, icon: '🏢',
+        body: "Palm Leaf Partners' planned primary data center site in the DRC's capital. Designed to Uptime Institute Tier III standards, it will host the national address registry, government cloud services, the call center data backbone, and enterprise systems. Sovereign, meaning the DRC's data stays on Congolese soil under DRC law.",
+        fact: "Today, most of the DRC's most sensitive data is hosted on servers in Europe — the Kinshasa primary will be the first time the country fully controls its own digital infrastructure." },
+      { id: 'dc-lubumbashi', name: 'Lubumbashi DR', sub: 'Disaster recovery · Tier III design', x: 67, y: 84, icon: '🏢',
+        body: "PLP's planned disaster-recovery data center site, 1,800 km from Kinshasa for geographic redundancy. Data replicates continuously between the two sites. If Kinshasa goes down for any reason, Lubumbashi takes over within seconds.",
+        fact: "Two-site geographic redundancy is the gold standard for sovereign cloud infrastructure — only a handful of African countries operate at this level." },
+    ];
+    let dcBuilt = false;
+    function buildDataCenterLayer() {
+      if (dcBuilt) return;
+      dcBuilt = true;
+      const svg = document.getElementById('drc-datacenter-svg');
+      const el = document.getElementById('drc-datacenter');
+      // Connecting data-link line between the two sites
+      const link = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      link.setAttribute('d', 'M 14,56 L 30,65 L 50,75 L 67,84');
+      link.setAttribute('class', 'drc-datacenter-link');
+      svg.appendChild(link);
+      for (const dc of DATACENTER_SITES) {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'drc-datacenter-pin';
+        btn.style.left = dc.x + '%';
+        btn.style.top = dc.y + '%';
+        btn.innerHTML = `<span class="dc-icon" aria-hidden="true">${dc.icon}</span><span>${dc.name}</span>`;
+        btn.addEventListener('click', () => window.__plpOpenInfo?.(dc, 'datacenter'));
+        el.appendChild(btn);
+      }
+    }
+
+    // ─── Fishery layer ───────────────────────────────────────────────
+    const FISHERY_SITES = [
+      { id: 'tanganyika', name: 'Lake Tanganyika', sub: 'Deepest lake in Africa · sardine fishery', x: 88, y: 60, icon: '🐟',
+        body: "The world's longest freshwater lake (673 km), second-deepest (1,470 m), and one of the most biodiverse — over 250 endemic fish species. The Tanganyika sardine fishery, centered on Kalemie, employs tens of thousands of artisanal fishermen and feeds millions across the Great Lakes region.",
+        fact: "Lake Tanganyika's deep water hasn't mixed with the surface in over 800 years — its bottom layer is anoxic and contains some of the oldest unmixed water in the world." },
+      { id: 'kivu-fish', name: 'Lake Kivu', sub: 'Sambaza fishery · night-light fleet', x: 87, y: 46, icon: '🐟',
+        body: "Lake Kivu's sambaza (a small sardine, Limnothrissa miodon) fishery is famous for its night-light fishing fleet — fishermen string oil lamps across triangular outrigger boats to attract sambaza to the surface. The sight of hundreds of lamps on the lake at night is one of the iconic images of eastern DRC.",
+        fact: "Sambaza were introduced to Lake Kivu from Lake Tanganyika in the 1950s and now make up 99% of the lake's fish biomass." },
+      { id: 'albert', name: 'Lake Albert', sub: 'Northwestern fishery · Uganda border', x: 85, y: 12, icon: '🐟',
+        body: "On the DRC-Uganda border, Lake Albert is the second-largest of the Albertine Rift lakes. Major species: tilapia, Nile perch, and several endemic cichlids. The fishing communities here straddle two nations.",
+        fact: "Lake Albert is also a major oil exploration site — significant petroleum reserves discovered beneath its bed in the 2000s on both DRC and Uganda sides." },
+      { id: 'pool-malebo-fish', name: 'Pool Malebo Fishery', sub: 'Congo River widening at Kinshasa', x: 12, y: 55, icon: '🐟',
+        body: "The 350 km² pool where the Congo River widens at Kinshasa supports a massive artisanal fishery. The legendary Wagenia fishermen, working at the Stanley Falls just upstream at Kisangani, use elaborate wooden tripod traps that have remained nearly unchanged for centuries.",
+        fact: "The Wagenia fish-trap technique at Boyoma Falls (Kisangani) is one of the only intact pre-industrial freshwater fishing systems still in commercial operation worldwide." },
+      { id: 'congo-river-fish', name: 'Congo River Main Channel', sub: 'Goliath tigerfish · catfish · tilapia', x: 30, y: 50, icon: '🐟',
+        body: "The Congo River main channel is one of the most biodiverse freshwater systems on Earth — over 800 fish species, including the legendary goliath tigerfish (Hydrocynus goliath). Subsistence fishing along the river feeds communities all the way from Kisangani to the Atlantic.",
+        fact: "Scientists are still discovering new fish species in the Congo River — at least 20 new species described since 2010 alone." },
+    ];
+    let fisheryBuilt = false;
+    function buildFisheryLayer() {
+      if (fisheryBuilt) return;
+      fisheryBuilt = true;
+      const el = document.getElementById('drc-fishery');
+      for (const f of FISHERY_SITES) {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'drc-fishery-pin';
+        btn.style.left = f.x + '%';
+        btn.style.top = f.y + '%';
+        btn.title = f.name;
+        btn.addEventListener('click', () => window.__plpOpenInfo?.(f, 'fishery'));
+        el.appendChild(btn);
+      }
+    }
+
+    // ─── Agriculture layer ───────────────────────────────────────────
+    const AGRI_REGIONS = [
+      { id: 'agri-west', name: 'Western Food Belt', sub: 'Cassava · maize · beans',
+        x: 18, y: 60,
+        fill: 'url(#hatch-agri-food)',
+        points: '6,58 22,55 24,68 8,68 4,62',
+        body: "Kongo Central and Kwilu provinces — DRC's main subsistence farming belt. Cassava (the country's primary food staple), maize, beans, peanuts, sweet potatoes. Most production is small-scale, feeding the dense Kinshasa population and nearby cities.",
+        fact: "DRC is the world's third-largest cassava producer — and the average Congolese eats more cassava per year than people in any other African country." },
+      { id: 'agri-cocoa', name: 'Equatorial Cocoa & Palm Belt', sub: 'Cocoa · palm oil · rubber',
+        x: 40, y: 35,
+        fill: 'url(#hatch-agri-cocoa)',
+        points: '25,25 60,25 60,42 25,42',
+        body: "Stretching from Equateur province through Mongala and Tshopo, the equatorial belt is DRC's main cash-crop region. Cocoa, palm oil, rubber, coffee — historically developed during Belgian colonial rule and still producing today. Beni in the northeast is a key cocoa export hub.",
+        fact: "DRC was once Africa's largest palm oil producer in the 1970s — production has since shrunk but the historic plantations and processing infrastructure remain." },
+      { id: 'agri-coffee', name: 'Kivu Coffee & Tea Belt', sub: 'Volcanic-slope arabica · tea',
+        x: 88, y: 40,
+        fill: 'url(#hatch-agri-coffee)',
+        points: '82,32 92,32 92,55 82,55',
+        body: "On the volcanic slopes of North and South Kivu, smallholder farmers grow some of the world's best arabica coffee at altitude. Tea plantations cover the cooler highlands. Bukavu and Goma are the main collection and export hubs.",
+        fact: "Kivu arabica coffee was once shipped to Europe alongside Ethiopian and Kenyan beans as a premium origin — Bukavu coffee is regaining that reputation today." },
+      { id: 'agri-south', name: 'Southern Cassava & Maize', sub: 'Katanga food production',
+        x: 60, y: 78,
+        fill: 'url(#hatch-agri-food)',
+        points: '45,68 75,72 78,88 50,88',
+        body: "Cassava and maize farming across the Katanga / Haut-Katanga / Lualaba provinces. Feeds the dense mining-belt populations of Kolwezi, Likasi, and Lubumbashi. Increasingly under pressure from mining expansion taking arable land.",
+        fact: "A 2022 study found that Katanga farmers lose roughly 15% of crop yields to dust from nearby cobalt mining operations." },
+    ];
+    let agriBuilt = false;
+    function buildAgricultureLayer() {
+      if (agriBuilt) return;
+      agriBuilt = true;
+      const svg = document.getElementById('drc-agriculture-svg');
+      for (const r of AGRI_REGIONS) {
+        const poly = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+        poly.setAttribute('points', r.points);
+        poly.setAttribute('fill', r.fill);
+        poly.setAttribute('class', 'drc-agri-region');
+        poly.setAttribute('opacity', '0.7');
+        poly.style.pointerEvents = 'auto';
+        poly.addEventListener('click', () => window.__plpOpenInfo?.(r, 'agri-region'));
+        svg.appendChild(poly);
+      }
+    }
+
+    // Layer registry — maps toggle button data-layer to its build function
+    // and the DOM elements that should show/hide on toggle.
     const layerToggles = document.getElementById('drc-layer-toggles');
     const layerElements = {
-      mining: [document.getElementById('drc-mining-svg'), document.getElementById('drc-mining-cities')],
+      mining:      { build: buildMiningLayer,    els: ['drc-mining-svg', 'drc-mining-cities'] },
+      grid:        { build: buildGridLayer,      els: ['drc-grid-svg', 'drc-grid-plants'] },
+      fiber:       { build: buildFiberLayer,     els: ['drc-fiber-svg', 'drc-fiber-cities'] },
+      geothermal:  { build: buildGeothermalLayer,els: ['drc-geothermal'] },
+      datacenter:  { build: buildDataCenterLayer,els: ['drc-datacenter-svg', 'drc-datacenter'] },
+      fishery:     { build: buildFisheryLayer,   els: ['drc-fishery'] },
+      agriculture: { build: buildAgricultureLayer, els: ['drc-agriculture-svg'] },
     };
     layerToggles.addEventListener('click', (e) => {
       const btn = e.target.closest('.drc-layer-btn');
       if (!btn) return;
       const layer = btn.dataset.layer;
+      const config = layerElements[layer];
+      if (!config) return;
 
-      // Stub layers — friendly toast, no state change.
-      if (btn.dataset.stub === 'true') {
-        alert(`The ${btn.querySelector('.lt-label').textContent} layer is coming soon. Mining is built today as the proof of concept; the other layers follow with the same toggle pattern.`);
-        return;
-      }
-
-      if (layer === 'mining') buildMiningLayer();
+      config.build();
 
       const now = btn.getAttribute('aria-pressed') === 'true';
       const next = !now;
       btn.setAttribute('aria-pressed', String(next));
-      const els = layerElements[layer] || [];
-      for (const el of els) el?.classList.toggle('visible', next);
+      for (const id of config.els) {
+        document.getElementById(id)?.classList.toggle('visible', next);
+      }
     });
 
       // Provinces (rendered first so they sit visually behind landmarks/badges).
