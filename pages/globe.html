@@ -1963,6 +1963,25 @@
       // Voices load asynchronously in most browsers — re-pick when they arrive.
       speechSynthesis.onvoiceschanged = () => { _ttsVoice = null; pickTtsVoice(); };
     }
+
+    // iOS Safari blocks speechSynthesis.speak() unless it's first called
+    // synchronously from inside a user gesture. Because Zola's narration
+    // fires from a setTimeout (1500ms after the click chime), iOS sees
+    // those calls as autoplay and silently drops them. Workaround: on
+    // the very first user interaction with the page, fire one silent
+    // empty utterance to "prime" the speech engine. After that, every
+    // subsequent timed speak() works as expected.
+    function primeSpeechOnce() {
+      if (!('speechSynthesis' in window)) return;
+      try {
+        const utt = new SpeechSynthesisUtterance('');
+        utt.volume = 0;
+        speechSynthesis.speak(utt);
+      } catch {}
+    }
+    document.addEventListener('pointerdown', primeSpeechOnce, { once: true, capture: true });
+    document.addEventListener('touchstart', primeSpeechOnce, { once: true, capture: true });
+    document.addEventListener('click', primeSpeechOnce, { once: true, capture: true });
     function speakZola(text) {
       if (window.__plpMuted || !('speechSynthesis' in window) || !text) return;
       try {
