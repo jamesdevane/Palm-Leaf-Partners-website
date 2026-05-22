@@ -884,6 +884,42 @@
       text-align: right;
       letter-spacing: 0.02em;
     }
+    /* "Coming Soon" placeholder — shown for PLP-built projects that
+       don't have a real-world photo yet (data centers, fiber backbone,
+       etc.). Themed dark + gold to match the rest of the bubble. */
+    .drc-bubble-photo-soon {
+      width: 100%;
+      height: 130px;
+      border-radius: 6px;
+      background:
+        linear-gradient(135deg, rgba(20,40,30,0.95) 0%, rgba(40,55,40,0.95) 100%),
+        repeating-linear-gradient(45deg, rgba(184,134,11,0.08) 0 8px, transparent 8px 16px);
+      background-blend-mode: overlay;
+      border: 1px solid rgba(184,134,11,0.45);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 0.35rem;
+      color: #F5F0E8;
+      font-family: 'Georgia', serif;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.18);
+    }
+    .drc-bubble-photo-soon .soon-icon {
+      font-size: 1.4rem;
+      filter: drop-shadow(0 0 6px rgba(184,134,11,0.65));
+    }
+    .drc-bubble-photo-soon .soon-text {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #B8860B;
+    }
+    .drc-bubble-photo-soon .soon-sub {
+      font-size: 0.6rem;
+      color: rgba(245,240,232,0.55);
+      letter-spacing: 0.08em;
+      text-transform: none;
+      font-style: italic;
+    }
     .drc-bubble-fact::before {
       content: "Did you know? ";
       font-weight: 700;
@@ -1983,13 +2019,36 @@
     // Render the photo block for a given item into a figure/img/credit
     // trio. Token guards against late-arriving fetches racing across
     // rapid hotspot clicks — only the last requested item populates.
+    // For PLP-built projects without a real-world photo (item.coming_soon
+    // = true), shows a themed "Coming Soon / Bientôt" placeholder instead.
     let _photoToken = 0;
     async function loadBubblePhoto(item, figureEl, imgEl, creditEl) {
       const myToken = ++_photoToken;
       figureEl.classList.remove('has-photo');
       figureEl.setAttribute('aria-hidden', 'true');
       imgEl.removeAttribute('src');
+      imgEl.style.display = '';
       creditEl.textContent = '';
+      // Wipe any stale placeholder from a previous render.
+      const oldSoon = figureEl.querySelector('.drc-bubble-photo-soon');
+      if (oldSoon) oldSoon.remove();
+
+      if (item.coming_soon) {
+        const lang = (window.I18N && window.I18N.currentLang) || 'en';
+        const soon = document.createElement('div');
+        soon.className = 'drc-bubble-photo-soon';
+        soon.innerHTML = `
+          <span class="soon-icon" aria-hidden="true">🚧</span>
+          <span class="soon-text">${lang === 'fr' ? 'Bientôt' : 'Coming Soon'}</span>
+          <span class="soon-sub">${lang === 'fr' ? 'Projet Palm Leaf Partners' : 'A Palm Leaf Partners project'}</span>
+        `;
+        imgEl.style.display = 'none';
+        figureEl.insertBefore(soon, creditEl);
+        figureEl.classList.add('has-photo');
+        figureEl.setAttribute('aria-hidden', 'false');
+        return;
+      }
+
       let src = null;
       let credit = '';
       if (item.photo) {
@@ -3760,6 +3819,80 @@
         poly.addEventListener('click', () => window.__plpOpenInfo?.(r, 'agri-region'));
         svg.appendChild(poly);
       }
+    }
+
+    // ─── Layer photo population ─────────────────────────────────────
+    // Wire wiki article slugs onto real-world places (mining cities,
+    // dams, lakes, agriculture regions) so their bubbles show a real
+    // photo from Wikipedia. Mark PLP-built projects (data centers,
+    // fiber backbone, geothermal projects) as `coming_soon: true` so
+    // they get the themed Coming Soon / Bientôt placeholder instead.
+    {
+      const set = (arr, byId) => {
+        for (const item of arr) {
+          const conf = byId[item.id];
+          if (!conf) continue;
+          if (conf.wiki && !item.wiki) item.wiki = conf.wiki;
+          if (conf.coming_soon) item.coming_soon = true;
+        }
+      };
+      set(MINING_REGIONS, {
+        'katanga-belt':   { wiki: 'Katanga_Copperbelt' },
+        'kasai-diamonds': { wiki: 'Mbuji-Mayi' },
+        'maniema-coltan': { wiki: 'Coltan' },
+        'ituri-gold':     { wiki: 'Kibali_Gold_Mine' },
+      });
+      set(MINING_CITIES, {
+        'kolwezi':         { wiki: 'Kolwezi' },
+        'lubumbashi-mine': { wiki: 'Lubumbashi' },
+        'mbujimayi':       { wiki: 'Mbuji-Mayi' },
+        'manono':          { wiki: 'Manono,_Tanganyika' },
+        'bunia':           { wiki: 'Bunia' },
+      });
+      set(GRID_PLANTS, {
+        'inga':   { wiki: 'Inga_dams' },
+        'ruzizi': { wiki: 'Ruzizi_Dam' },
+        'nzilo':  { wiki: 'Nzilo_Dam' },
+      });
+      set(GRID_LINES, {
+        'hvdc-main':     { wiki: 'Inga%E2%80%93Shaba_HVDC_system' },
+        'eastern-grid':  { coming_soon: true },
+      });
+      set(FIBER_CITIES, {
+        'fiber-kinshasa':   { wiki: 'Kinshasa' },
+        'fiber-mbujimayi':  { wiki: 'Mbuji-Mayi' },
+        'fiber-lubumbashi': { wiki: 'Lubumbashi' },
+        'fiber-bukavu':     { wiki: 'Bukavu' },
+        'fiber-goma':       { wiki: 'Goma' },
+        'fiber-kisangani':  { wiki: 'Kisangani' },
+      });
+      set(FIBER_LINES, {
+        'fiber-backbone': { coming_soon: true },
+      });
+      set(GEOTHERMAL_SITES, {
+        'nyiragongo-geo': { wiki: 'Mount_Nyiragongo' },
+        'kivu-methane':   { wiki: 'Lake_Kivu' },
+        'kibirizi':       { coming_soon: true },
+      });
+      set(DATACENTER_SITES, {
+        'dc-kinshasa':   { coming_soon: true },
+        'dc-lubumbashi': { coming_soon: true },
+      });
+      set(FISHERY_SITES, {
+        'tanganyika':        { wiki: 'Lake_Tanganyika' },
+        'kivu-fish':         { wiki: 'Lake_Kivu' },
+        'albert':            { wiki: 'Lake_Albert_(Africa)' },
+        'pool-malebo-fish':  { wiki: 'Pool_Malebo' },
+        'congo-river-fish':  { wiki: 'Congo_River' },
+      });
+      set(AGRI_REGIONS, {
+        'agri-west':   { wiki: 'Cassava' },
+        'agri-cocoa':  { wiki: 'Theobroma_cacao' },
+        'agri-coffee': { wiki: 'Coffea_arabica' },
+        'agri-south':  { wiki: 'Cassava' },
+      });
+      // SCPT post offices — a PLP build-out program, not yet operational.
+      POST_OFFICE_INFO.coming_soon = true;
     }
 
     // Layer registry — maps toggle button data-layer to its build function
