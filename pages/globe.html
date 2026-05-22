@@ -1775,10 +1775,9 @@
         b.classList.toggle('active', active);
         b.setAttribute('aria-pressed', String(active));
       });
-      // Lazy-init the Google Map the first time the user switches to flat.
-      if (isFlat) {
-        initFlatMap();
-      }
+      // The flat view used to lazy-init a Google Map here; that approach
+      // was replaced by a static illustrated world-map image with pin
+      // overlays, so no init call is needed anymore.
     }
 
     document.querySelectorAll('#view-toggle button').forEach((b) => {
