@@ -379,29 +379,74 @@
       transform: translate(-50%, -100%);
       pointer-events: auto;
       cursor: pointer;
-      animation: flatZolaBob 3.4s ease-in-out infinite;
-      filter: drop-shadow(0 6px 18px rgba(0,0,0,0.55));
+      animation:
+        flatZolaBob 3.4s ease-in-out infinite,
+        flatZolaGlow 3.2s ease-in-out infinite;
+      /* Initial glow — gold/honey halo. The glow animation re-defines
+         the filter on every frame so the static value below is just
+         a fallback before the animation kicks in. */
+      filter:
+        drop-shadow(0 0 14px rgba(255, 215, 100, 0.7))
+        drop-shadow(0 0 28px rgba(184, 134, 11, 0.45))
+        drop-shadow(0 6px 18px rgba(0,0,0,0.55));
       user-select: none;
     }
     @keyframes flatZolaBob {
       0%, 100% { transform: translate(-50%, -100%); }
       50%      { transform: translate(-50%, -103%); }
     }
+    /* Princess glow — a soft pulsing halo behind Zola so she reads
+       at a glance on the busy illustrated world map. */
+    @keyframes flatZolaGlow {
+      0%, 100% {
+        filter:
+          drop-shadow(0 0 10px rgba(255, 215, 100, 0.55))
+          drop-shadow(0 0 22px rgba(184, 134, 11, 0.3))
+          drop-shadow(0 6px 18px rgba(0,0,0,0.55));
+      }
+      50% {
+        filter:
+          drop-shadow(0 0 20px rgba(255, 215, 100, 0.9))
+          drop-shadow(0 0 40px rgba(184, 134, 11, 0.6))
+          drop-shadow(0 6px 18px rgba(0,0,0,0.55));
+      }
+    }
     /* Loredana — Global Mother on USA. Same size as Zola so the two
-       chapter mascots read as equal pillars of PTWO. */
+       chapter mascots read as equal pillars of PTWO. Rose-gold halo
+       to match PTWO's brand color, paired with Zola's gold so the
+       two figures read as a coherent set. */
     .flat-loredana {
       position: absolute;
       width: 64px;
       height: auto;
       transform: translate(-50%, -100%);
       pointer-events: none;
-      animation: flatLoredanaBob 4.2s ease-in-out infinite;
-      filter: drop-shadow(0 6px 18px rgba(0,0,0,0.55));
+      animation:
+        flatLoredanaBob 4.2s ease-in-out infinite,
+        flatLoredanaGlow 3.8s ease-in-out infinite;
+      filter:
+        drop-shadow(0 0 14px rgba(255, 200, 210, 0.7))
+        drop-shadow(0 0 28px rgba(183, 110, 121, 0.45))
+        drop-shadow(0 6px 18px rgba(0,0,0,0.55));
       user-select: none;
     }
     @keyframes flatLoredanaBob {
       0%, 100% { transform: translate(-50%, -100%); }
       50%      { transform: translate(-50%, -103%); }
+    }
+    @keyframes flatLoredanaGlow {
+      0%, 100% {
+        filter:
+          drop-shadow(0 0 10px rgba(255, 200, 210, 0.55))
+          drop-shadow(0 0 22px rgba(183, 110, 121, 0.3))
+          drop-shadow(0 6px 18px rgba(0,0,0,0.55));
+      }
+      50% {
+        filter:
+          drop-shadow(0 0 20px rgba(255, 200, 210, 0.9))
+          drop-shadow(0 0 40px rgba(183, 110, 121, 0.6))
+          drop-shadow(0 6px 18px rgba(0,0,0,0.55));
+      }
     }
     @media (max-width: 640px) {
       .flat-zola, .flat-loredana { width: 44px; }
@@ -1303,7 +1348,7 @@
 
         <!-- DRC — active, gold, clickable. Zola stands on top of this pin. -->
         <div class="flat-pin active" id="flat-pin-drc" data-country="drc" style="left:56.67%; top:52.22%;" title="Democratic Republic of Congo · Palm Leaf Partners · Active"></div>
-        <img class="flat-zola" id="flat-zola" src="../assets/images/zola-globe-sprite.png" alt="Zola — Palm Leaf Partners mascot" style="left:53%; top:52.22%;" />
+        <img class="flat-zola" id="flat-zola" src="../assets/images/zola-globe-sprite.png" alt="Zola — Palm Leaf Partners mascot" style="left:50%; top:64%;" />
         <div class="flat-label active" style="left:56.67%; top:52.22%;">DRC</div>
 
         <!-- Coming Soon markets — green, smaller -->
@@ -1733,28 +1778,38 @@
     });
 
     // ── Voice narration (browser SpeechSynthesis) ───────────────────
-    // Zola's signature voice is French. When the site is in English mode,
-    // a French voice reads the English copy with a French accent — her
-    // DRC-rooted brand voice. When the site toggles to French (via the
-    // global plp_lang i18n toggle), the same French voice reads native
-    // French content. Falls back to an English voice only on systems
-    // that have no French voice installed at all.
+    // Zola's voice follows the site language: English visitors hear a
+    // natural English voice (Samantha / Aria / Microsoft female English),
+    // French visitors hear a native French voice (Amelie / Marie /
+    // Microsoft Hortense). The voice cache is keyed on the current
+    // language and reset on plp:langchange so the picker re-runs when
+    // the user toggles EN/FR mid-session.
     let _ttsVoice = null;
+    let _ttsVoiceLang = null;
     function pickTtsVoice() {
       if (!('speechSynthesis' in window)) return null;
-      if (_ttsVoice) return _ttsVoice;
+      const lang = (window.I18N && window.I18N.currentLang) || 'en';
+      if (_ttsVoice && _ttsVoiceLang === lang) return _ttsVoice;
       const voices = speechSynthesis.getVoices();
       if (!voices.length) return null;
-      _ttsVoice =
-        voices.find((v) => /amelie|audrey|marie|julie|caroline|hortense|virginie|chantal|celine/i.test(v.name) && v.lang.startsWith('fr')) ||
-        voices.find((v) => /female/i.test(v.name) && v.lang.startsWith('fr')) ||
-        voices.find((v) => v.lang === 'fr-FR') ||
-        voices.find((v) => v.lang === 'fr-CA') ||
-        voices.find((v) => v.lang.startsWith('fr')) ||
-        voices.find((v) => /samantha|aria|fiona/i.test(v.name) && v.lang.startsWith('en')) ||
-        voices.find((v) => v.lang === 'en-US' || v.lang === 'en-GB') ||
-        voices.find((v) => v.lang.startsWith('en')) ||
-        voices[0];
+      if (lang === 'fr') {
+        _ttsVoice =
+          voices.find((v) => /amelie|audrey|marie|julie|caroline|hortense|virginie|chantal|celine/i.test(v.name) && v.lang.startsWith('fr')) ||
+          voices.find((v) => /female/i.test(v.name) && v.lang.startsWith('fr')) ||
+          voices.find((v) => v.lang === 'fr-FR') ||
+          voices.find((v) => v.lang === 'fr-CA') ||
+          voices.find((v) => v.lang.startsWith('fr')) ||
+          voices.find((v) => v.lang.startsWith('en')) ||
+          voices[0];
+      } else {
+        _ttsVoice =
+          voices.find((v) => /samantha|aria|fiona|tessa|karen|moira|kate|hazel|jenny|libby/i.test(v.name) && v.lang.startsWith('en')) ||
+          voices.find((v) => /female/i.test(v.name) && v.lang.startsWith('en')) ||
+          voices.find((v) => v.lang === 'en-US' || v.lang === 'en-GB') ||
+          voices.find((v) => v.lang.startsWith('en')) ||
+          voices[0];
+      }
+      _ttsVoiceLang = lang;
       return _ttsVoice;
     }
     if ('speechSynthesis' in window) {
@@ -1799,10 +1854,13 @@
     }
 
     // When the user toggles language elsewhere (the home-page selector
-    // dispatches `plp:langchange`), cancel any in-flight speech so we
-    // don't hear English text trail off in a half-changed state.
+    // or the on-page globe lang-toggle), cancel any in-flight speech
+    // and force the picker to re-evaluate so the next utterance uses
+    // the new language's voice.
     window.addEventListener('plp:langchange', () => {
       try { speechSynthesis.cancel(); } catch {}
+      _ttsVoice = null;
+      _ttsVoiceLang = null;
     });
 
     // ── Swish sound (Web Audio) ─────────────────────────────────────
