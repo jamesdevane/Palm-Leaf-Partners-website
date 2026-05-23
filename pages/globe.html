@@ -2168,13 +2168,17 @@
       transform: rotate(-360deg);
     }
 
-    /* Refresh button + corner chip are always visible whenever the page
-       is in flat/DRC immersive mode, regardless of viewport width — so
-       PC users testing a shrunk/DevTools-mobile preview also see them.
-       The full mobile layout (vertical flag rail, full-bleed map, etc.)
-       is still gated to @media below. */
+    /* Refresh button is always visible whenever the page is in
+       flat/DRC immersive mode, regardless of viewport width. */
     body.flat-immersive .mobile-refresh-btn,
     body.drc-immersive  .mobile-refresh-btn { display: inline-flex; }
+
+    /* Hide the top-bar's "← Back to Site" link in immersive views at
+       all widths — it was overlapping the EN/FR language toggle in the
+       top-right corner. Mobile shows the floating corner-chip instead;
+       desktop users can use browser back. */
+    body.flat-immersive .top-bar .back-btn,
+    body.drc-immersive  .top-bar .back-btn { display: none; }
 
     /* Mobile immersive layout — bumped from 640px to 1024px so shrunk
        desktop windows + small tablets + DevTools mobile previews all
@@ -2321,22 +2325,22 @@
       body.flat-immersive .flat-map-buffer[data-side="left"]  { left: -100%; }
       body.flat-immersive .flat-map-buffer[data-side="right"] { left:  100%; }
 
-      /* On mobile, country selection happens via the left flag rail, NOT
-         by tapping shapes on the map. Disabling pointer-events on the
-         on-map clickables means a drag that starts over Africa / DRC /
-         Zola passes straight through to the .flat-pannable so the JS
-         controller actually initiates the drag instead of treating it
-         as a click. Was the root cause of the "starts to scroll but
-         locks up" symptom — the controller's onInteractive check was
-         skipping drag-init whenever the finger landed on a country
-         zone, which is most of the visible viewport. */
+      /* On mobile, country selection happens via the left flag rail, not
+         by tapping shapes on the map. Country zones / labels / pins /
+         flags are disabled — they cover most of the viewport at default
+         zoom and were blocking drag initiation. Mascots STAY clickable
+         (Eddie wants tappable Zola + Loredana); drag from over them
+         simply starts a click instead — user has plenty of map area
+         around them to start a drag from. */
       body.flat-immersive .flat-country-zone,
-      body.flat-immersive .flat-zola,
-      body.flat-immersive .flat-loredana,
       body.flat-immersive .flat-label,
       body.flat-immersive .flat-pin,
       body.flat-immersive .flat-flag {
         pointer-events: none;
+      }
+      body.flat-immersive .flat-zola,
+      body.flat-immersive .flat-loredana {
+        pointer-events: auto;
       }
 
       /* === Left-edge vertical flag rail (transparent) ===
