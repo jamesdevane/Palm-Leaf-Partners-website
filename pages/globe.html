@@ -1043,6 +1043,49 @@
       .flat-melissa { width: 42px; }
     }
 
+    /* Eddie — The Cartographer. PLP-side human, not Palm Folk. Subtle
+       sapling roots at feet, earth-tone halo distinct from the women's. */
+    .flat-eddie {
+      position: absolute;
+      width: 58px;
+      height: auto;
+      transform: translate(-50%, -100%) scale(1);
+      pointer-events: auto;
+      cursor: pointer;
+      animation:
+        flatEddieBob 5.0s ease-in-out infinite,
+        flatEddieGlow 4.4s ease-in-out infinite;
+      filter:
+        drop-shadow(0 0 1.5px rgba(255,255,255,0.95))
+        drop-shadow(0 0 10px rgba(100,55,20,0.85))
+        drop-shadow(0 0 22px rgba(184,134,11,0.45))
+        drop-shadow(0 6px 18px rgba(0,0,0,0.6));
+      user-select: none;
+    }
+    @keyframes flatEddieBob {
+      0%, 100% { transform: translate(-50%, -100%) scale(1); }
+      50%      { transform: translate(-50%, -103%) scale(1.04); }
+    }
+    @keyframes flatEddieGlow {
+      0%, 100% {
+        filter:
+          drop-shadow(0 0 1.5px rgba(255,255,255,0.95))
+          drop-shadow(0 0 8px rgba(100,55,20,0.75))
+          drop-shadow(0 0 18px rgba(184,134,11,0.35))
+          drop-shadow(0 6px 18px rgba(0,0,0,0.6));
+      }
+      50% {
+        filter:
+          drop-shadow(0 0 2px rgba(255,255,255,1))
+          drop-shadow(0 0 14px rgba(100,55,20,1))
+          drop-shadow(0 0 30px rgba(184,134,11,0.65))
+          drop-shadow(0 6px 18px rgba(0,0,0,0.6));
+      }
+    }
+    @media (max-width: 640px) {
+      .flat-eddie { width: 40px; }
+    }
+
     /* ── Mascot character cards — hover-reveal info boxes ───────────
        Floating card that appears above each mascot on hover (desktop),
        showing the character's name, title, mythic backstory line, and
@@ -1175,6 +1218,7 @@
     .flat-mascot-card.flat-zola-card     { border-left: 3px solid #4a9b6e;  }   /* forest green */
     .flat-mascot-card.flat-loredana-card { border-left: 3px solid #E8D9B8;  }   /* angelic cream */
     .flat-mascot-card.flat-melissa-card  { border-left: 3px solid #4A5DAA;  }   /* justiciar navy */
+    .flat-mascot-card.flat-eddie-card    { border-left: 3px solid #8B5A2B;  }   /* cartographer cognac */
     /* When the JS viewport-aware positioning flips the card BELOW the
        mascot (because there isn't room above), flip the pointer-arrow
        (kite) to point UP toward the mascot. */
@@ -1190,7 +1234,8 @@
        transform shift adds a subtle "rise" feel. */
     .flat-zola:hover ~ .flat-zola-card,
     .flat-loredana:hover ~ .flat-loredana-card,
-    .flat-melissa:hover ~ .flat-melissa-card {
+    .flat-melissa:hover ~ .flat-melissa-card,
+    .flat-eddie:hover ~ .flat-eddie-card {
       opacity: 1;
       visibility: visible;
       transform: translate(-50%, calc(-100% - 92px));
@@ -2598,7 +2643,8 @@
       }
       body.flat-immersive .flat-zola,
       body.flat-immersive .flat-loredana,
-      body.flat-immersive .flat-melissa {
+      body.flat-immersive .flat-melissa,
+      body.flat-immersive .flat-eddie {
         pointer-events: auto;
       }
 
@@ -2896,8 +2942,25 @@
              pixel-perfect pin placement on a non-equirectangular
              illustrated projection. -->
         <img class="flat-loredana" id="flat-loredana" src="../assets/images/loredana-usa-sprite.png?v=angelic-praying" alt="Loredana — Global Mother (Palm Tree Women Organization, USA chapter)" style="left:22%; top:42%;" />
-        <img class="flat-melissa" id="flat-melissa" src="../assets/images/melissa-usa-sprite.png?v=v1" alt="Melissa — Justiciar (Universal Palm Tree Women Organization)" style="left:13%; top:50%;" />
-        <div class="flat-mascot-card flat-melissa-card" aria-hidden="true" style="left:13%; top:50%;">
+        <img class="flat-melissa" id="flat-melissa" src="../assets/images/melissa-usa-sprite.png?v=v1" alt="Melissa — Justiciar (Universal Palm Tree Women Organization)" style="left:19%; top:46%;" />
+        <img class="flat-eddie" id="flat-eddie" src="../assets/images/eddie-cartographer-sprite.png?v=v1" alt="Eddie — The Cartographer (Palm Leaf Partners)" style="left:25%; top:46%;" />
+        <div class="flat-mascot-card flat-eddie-card" aria-hidden="true" style="left:25%; top:46%;">
+          <div class="mc-header">
+            <div class="mc-name">Eddie</div>
+            <div class="mc-title">The Cartographer</div>
+          </div>
+          <div class="mc-tagline">Surveys the world, lays the foundation, traces the future.</div>
+          <div class="mc-section">Powers</div>
+          <ul class="mc-powers">
+            <li><span class="mc-icon">🗺</span> <strong>Survey</strong> — reveal hidden region</li>
+            <li><span class="mc-icon">🏗</span> <strong>Foundation</strong> — instant-build infrastructure</li>
+            <li><span class="mc-icon">📡</span> <strong>Signal Tower</strong> — connect remote villages</li>
+            <li><span class="mc-icon">🌐</span> <strong>Atlas</strong> — fast-travel surveyed regions</li>
+            <li><span class="mc-icon">🔮</span> <strong>Foresight</strong> — preview future timelines</li>
+            <li><span class="mc-icon">🔐</span> <strong>Sovereignty</strong> — protect from exploitation</li>
+          </ul>
+        </div>
+        <div class="flat-mascot-card flat-melissa-card" aria-hidden="true" style="left:19%; top:46%;">
           <div class="mc-header">
             <div class="mc-name">Melissa</div>
             <div class="mc-title">The Justiciar</div>
@@ -3838,6 +3901,15 @@
       let pinchDist = 0;
       let lastSingle = null;
       let isDragging = false;
+      // Drag candidate: when the pointer lands on an INTERACTIVE element
+      // we don't immediately start a drag (would steal the click). But
+      // when zoomed in, the user often wants to pan from a point that
+      // happens to sit on a flag/label/country-zone — so we record the
+      // landing point and promote to a real drag only if the pointer
+      // moves beyond a small threshold. If the pointer lifts before the
+      // threshold, the original click fires normally on the element.
+      let dragCandidate = null;
+      const DRAG_THRESHOLD_PX = 6;
       // Inertia / momentum state. After a drag releases, the controller
       // keeps applying the last-known velocity with exponential
       // deceleration so the map glides to a stop instead of stopping
@@ -3886,7 +3958,7 @@
         inertiaRaf = requestAnimationFrame(tick);
       }
 
-      const INTERACTIVE = '.drc-badge, .drc-landmark, .drc-province, .drc-mining-city, .drc-mining-region, .drc-grid-plant, .drc-grid-line, .drc-fiber-city, .drc-fiber-line, .drc-geothermal-pin, .drc-datacenter-pin, .drc-fishery-pin, .drc-agri-region, .drc-zola, .drc-bubble, .drc-back-btn, .drc-layer-toggles, .drc-zoom-controls, .flat-pin, .flat-flag, .flat-zola, .flat-loredana, .flat-melissa, .flat-label, .flat-country-zone, .lang-toggle, .view-toggle, .map-reset-btn, .flat-zoom-controls, button, a';
+      const INTERACTIVE = '.drc-badge, .drc-landmark, .drc-province, .drc-mining-city, .drc-mining-region, .drc-grid-plant, .drc-grid-line, .drc-fiber-city, .drc-fiber-line, .drc-geothermal-pin, .drc-datacenter-pin, .drc-fishery-pin, .drc-agri-region, .drc-zola, .drc-bubble, .drc-back-btn, .drc-layer-toggles, .drc-zoom-controls, .flat-pin, .flat-flag, .flat-zola, .flat-loredana, .flat-melissa, .flat-eddie, .flat-label, .flat-country-zone, .lang-toggle, .view-toggle, .map-reset-btn, .flat-zoom-controls, button, a';
 
       function apply(animate) {
         innerEl.classList.toggle('zooming', !animate);
@@ -4033,28 +4105,41 @@
           const [a, b] = Array.from(pointers.values());
           pinchDist = Math.hypot(b.x - a.x, b.y - a.y);
           try { innerEl.setPointerCapture(e.pointerId); } catch {}
-        } else if (pointers.size === 1 && !onInteractive) {
-          // Single-finger drag: start panning if either (a) we're
-          // zoomed in OR (b) the inner content is bigger than its
-          // container even at scale=1. The mobile wide world map
-          // (.flat-pannable 200vw inside a 100vw .flat-view) is the
-          // second case — without this branch the user couldn't drag
-          // horizontally to reveal Americas / Asia at default zoom.
+        } else if (pointers.size === 1) {
+          // Single-finger / single-mouse: figure out whether panning is
+          // even possible from this state. Panning works when either
+          // (a) we're zoomed in OR (b) the inner content is wider/taller
+          // than its container even at scale=1 (the mobile wide world
+          // map case — .flat-pannable 200vw inside 100vw .flat-view).
           const renderedW = innerEl.clientWidth * scale;
           const renderedH = innerEl.clientHeight * scale;
           const containerW = rootEl?.clientWidth || renderedW;
           const containerH = rootEl?.clientHeight || renderedH;
           const canPanX = renderedW > containerW + 1;
           const canPanY = renderedH > containerH + 1;
-          if (scale > 1.01 || canPanX || canPanY) {
+          const canPan = scale > 1.01 || canPanX || canPanY;
+          if (!canPan) return;
+
+          if (!onInteractive) {
+            // Definite drag — empty map area. Start panning right away.
             isDragging = true;
             innerEl.classList.add('dragging');
             lastSingle = { x: e.clientX, y: e.clientY };
             try { innerEl.setPointerCapture(e.pointerId); } catch {}
+          } else {
+            // Landed on an interactive element (flag, label, badge, etc.)
+            // while panning is possible — record as a CANDIDATE drag.
+            // The pointermove handler will promote this to a real drag
+            // if the pointer travels beyond DRAG_THRESHOLD_PX. If the
+            // pointer lifts without crossing the threshold, the click
+            // fires normally on the underlying element.
+            dragCandidate = {
+              x: e.clientX,
+              y: e.clientY,
+              pointerId: e.pointerId,
+            };
           }
         }
-        // Single-finger plain tap: no capture, no drag — let the click
-        // event flow normally to the underlying hotspot button.
       });
       // Single-finger drag handler — bound to DOCUMENT, not innerEl, so
        // it survives the pointer moving over the flag rail / chrome / off
@@ -4066,6 +4151,22 @@
       function handleSinglePointerMove(e) {
         if (!pointers.has(e.pointerId)) return;
         if (pointers.size !== 1) return;
+        // Promote a drag candidate (landed on interactive element) into
+        // a real drag once the pointer has moved past the threshold.
+        // Without this, on PC at zoom > 1 the pointer almost always
+        // lands on a flag / label / country zone, so drag never
+        // started — the "can't grab the map when zoomed" bug.
+        if (!isDragging && dragCandidate && e.pointerId === dragCandidate.pointerId) {
+          const ddx = e.clientX - dragCandidate.x;
+          const ddy = e.clientY - dragCandidate.y;
+          if (Math.hypot(ddx, ddy) > DRAG_THRESHOLD_PX) {
+            isDragging = true;
+            innerEl.classList.add('dragging');
+            lastSingle = { x: dragCandidate.x, y: dragCandidate.y };
+            try { innerEl.setPointerCapture(e.pointerId); } catch {}
+            dragCandidate = null;
+          }
+        }
         if (!isDragging || !lastSingle) return;
         pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
         const dx = e.clientX - lastSingle.x;
@@ -4101,6 +4202,12 @@
         const wasDragging = isDragging;
         pointers.delete(e.pointerId);
         if (pointers.size < 2) pinchDist = 0;
+        // Always clear the drag candidate when this pointer ends. If we
+        // never crossed the drag threshold, the click event still fires
+        // on the original interactive target (we never captured).
+        if (dragCandidate && e.pointerId === dragCandidate.pointerId) {
+          dragCandidate = null;
+        }
         if (pointers.size === 0) {
           isDragging = false;
           lastSingle = null;
@@ -4296,6 +4403,12 @@
       e.stopPropagation();
       openCountryPanel('melissa');
     });
+    // Eddie (The Cartographer, PLP) → his OWN slide-in panel (key 'eddie'
+    // in the COUNTRIES map). Right of Loredana on the USA painted area.
+    document.getElementById('flat-eddie')?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      openCountryPanel('eddie');
+    });
 
     // Mascot hover-card viewport-edge-aware positioning. When a card
     // would render off-screen (top edge below 0, right edge past viewport
@@ -4308,6 +4421,7 @@
         { mascotId: 'flat-zola',     cardSel: '.flat-zola-card' },
         { mascotId: 'flat-loredana', cardSel: '.flat-loredana-card' },
         { mascotId: 'flat-melissa',  cardSel: '.flat-melissa-card' },
+        { mascotId: 'flat-eddie',    cardSel: '.flat-eddie-card' },
       ];
       for (const { mascotId, cardSel } of setups) {
         const mascot = document.getElementById(mascotId);
@@ -4455,6 +4569,21 @@
         body_fr: "L'Organisation Universelle des Femmes Palm Tree USA est le chapitre fondateur — et Loredana, la Mère Universelle, est la figure qui a donné son nom à tout le mouvement. Le chapitre USA ancre le réseau international UPTW et les programmes d'autonomisation des femmes qui en découlent.",
         wiki: 'United_States',
         cta: 'Meet Loredana →', cta_fr: 'Rencontrez Loredana →',
+      },
+      // Eddie = The Cartographer (PLP, Human). The world-builder of
+      // the universe. Lives on the USA painted area east of Loredana.
+      // Opens his OWN panel — Cartographer-specific story focused on
+      // mapping, infrastructure, and the mortal-hero arc.
+      eddie: {
+        flag: '🧭', tier: 'ptwo',
+        name: 'Eddie · The Cartographer', name_fr: 'Eddie · Le Cartographe',
+        badge: 'Palm Leaf Partners · The Cartographer', badge_fr: 'Palm Leaf Partners · Le Cartographe',
+        tagline: 'Surveys the world, lays the foundation, traces the future.',
+        tagline_fr: "Arpente le monde, pose les fondations, trace l'avenir.",
+        mascotName: 'Eddie · The Cartographer', mascotImage: '../assets/images/eddie-cartographer-sprite.png?v=v1',
+        body: "Eddie is The Cartographer — the world-builder of the Palm Leaf Partners universe. Where the women of UPTW carry the spirit, voice, and wildness, Eddie carries the mind: surveying hidden territory, laying the foundation of new infrastructure, tracing the patterns that connect remote villages into a sovereign network. He wields no innate magic — his powers come from mastered instruments, learned knowledge, and the long discipline of mapping the unknown. He cannot build on land Loredana has not blessed; he cannot lock sovereignty without Melissa's prior treaty. Together with Zola in the forest, the four form the Council that holds humanitarian civilization upright.",
+        body_fr: "Eddie est Le Cartographe — le bâtisseur du monde de l'univers Palm Leaf Partners. Là où les femmes d'UPTW portent l'esprit, la voix et la nature sauvage, Eddie porte l'esprit cartographe : arpenter les territoires cachés, poser les fondations de nouvelles infrastructures, tracer les voies qui relient les villages reculés en un réseau souverain. Il ne possède pas de magie innée — ses pouvoirs viennent d'instruments maîtrisés, d'un savoir appris et de la longue discipline de cartographier l'inconnu. Il ne peut bâtir sur une terre que Loredana n'a pas bénie ; il ne peut garantir la souveraineté sans le traité préalable de Melissa. Avec Zola dans la forêt, les quatre forment le Conseil qui soutient la civilisation humanitaire.",
+        cta: 'Meet Eddie →', cta_fr: 'Rencontrez Eddie →',
       },
       // Melissa = the Justiciar character. Lives on the same painted
       // USA region as Loredana (west coast pin) but opens her OWN panel
