@@ -2395,10 +2395,13 @@
         if (!src && tryFirst !== 'en') {
           try { src = await fetchWikiPhotoFrom('en', article); } catch {}
         }
-        _photoCache.set(article, src);
+        // Only cache SUCCESSFUL lookups — a transient network failure
+        // or pre-fix-deploy cache hit shouldn't permanently lock the
+        // bubble photo to "no image" for the rest of the session. A
+        // later click on the same hotspot will retry the API.
+        if (src) _photoCache.set(article, src);
         return src;
       } catch {
-        _photoCache.set(article, null);
         return null;
       }
     }
