@@ -680,22 +680,33 @@
          visually instead of label text growing into a collision. */
       transform: translate(-50%, 10px) scale(calc(1 / var(--map-scale, 1)));
       transform-origin: top center;
-      color: rgba(64,145,108,0.85);
+      /* Cream label text with a tight black "stroke" via 4-directional
+         text-shadow — reads cleanly on every tier color (gold, amber,
+         rose-gold, ocean blue) without the pink-on-pink / green-on-green
+         contrast issues the previous tier-colored labels had. */
+      color: #F5F0E8;
+      text-shadow:
+        -1px -1px 0 rgba(0,0,0,0.95),
+         1px -1px 0 rgba(0,0,0,0.95),
+        -1px  1px 0 rgba(0,0,0,0.95),
+         1px  1px 0 rgba(0,0,0,0.95),
+         0 1px 6px rgba(0,0,0,0.7);
       font-size: 0.66rem;
       letter-spacing: 0.13em;
       text-transform: uppercase;
-      font-weight: 600;
+      font-weight: 700;
       pointer-events: none;
       white-space: nowrap;
-      text-shadow: 0 1px 4px rgba(0,0,0,0.8);
     }
+    /* DRC label — same cream stroke, just slightly larger to read as
+       the active tier. */
     .flat-label.active {
-      color: #B8860B;
       font-size: 0.76rem;
       letter-spacing: 0.15em;
     }
+    /* PTWO labels — same cream stroke, slightly smaller to keep them
+       visually subordinate to the active DRC. */
     .flat-label.ptwo {
-      color: rgba(183,110,121,0.9);
       font-size: 0.6rem;
       letter-spacing: 0.1em;
     }
