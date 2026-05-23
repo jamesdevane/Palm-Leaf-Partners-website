@@ -785,7 +785,11 @@
     .drc-detail-view {
       position: fixed; inset: 0; z-index: 200;
       display: flex; align-items: center; justify-content: center;
-      background: radial-gradient(ellipse at 50% 30%, #1a3a2c 0%, #050d0a 60%, #000 100%);
+      /* Pure-black grayscale vignette. The old dark-green tint was
+         competing with the palm-frame foliage at the edges — going
+         monochrome lets the palm leaves pop and gives the map a
+         cinematic spotlight feel. */
+      background: radial-gradient(ellipse at 50% 30%, #1a1a1a 0%, #050505 60%, #000 100%);
       padding: 4rem 2rem 2rem;
       opacity: 0;
       pointer-events: none;
