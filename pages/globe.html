@@ -938,7 +938,17 @@
     .drc-badge img {
       width: 100%; height: 100%;
       animation: drcBadgeSpin 8s linear infinite;
-      transform-style: preserve-3d;
+      /* Explicit backface-visibility + will-change tells iPad Safari to
+         pre-allocate a GPU layer for the spinning image — without these,
+         the badge sometimes fails to paint on first DRC view open.
+         transform-style: preserve-3d was REMOVED — the img has no 3D
+         children, so it does nothing useful here, AND combining it with
+         a continuous rotateY animation triggers an iPad render bug
+         where the image stays invisible until something else forces a
+         repaint. */
+      backface-visibility: visible;
+      -webkit-backface-visibility: visible;
+      will-change: transform;
       filter: drop-shadow(0 3px 8px rgba(0,0,0,0.55));
       transition: filter 200ms, transform 200ms;
     }
@@ -956,11 +966,12 @@
     .drc-badge:nth-child(3n) img  { animation-delay: -3.4s; }
     .drc-badge:nth-child(4n) img  { animation-delay: -5.1s; }
     .drc-badge:nth-child(5n) img  { animation-delay: -6.8s; }
-    /* (Previously paused badge spins when the DRC view was off-screen,
-       but iPad Safari treated the paused state as a render hint that
-       stopped the images from drawing at all when the DRC view came
-       back. The mobile backdrop-filter removal + slower 8s spin is
-       enough perf relief without needing to pause.) */
+    /* When the DRC view is hidden, remove the animation entirely
+       (animation: none) rather than pausing it. animation-play-state:
+       paused had an iPad bug where the badge wouldn't repaint when the
+       view came back; setting animation: none + restoring on .visible
+       cleanly drops the GPU work without that bug. */
+    .drc-detail-view:not(.visible) .drc-badge img { animation: none; }
     /* Respect user reduced-motion preference — disables every spin /
        glow keyframe across the page for accessibility AND power saving. */
     @media (prefers-reduced-motion: reduce) {
@@ -3431,6 +3442,31 @@
         'haut-katanga':  'Haut-Katanga',
       };
       for (const p of DRC_PROVINCES) if (wikiByProvinceId[p.id]) p.wiki = wikiByProvinceId[p.id];
+    }
+
+    // Preload the 24 wildlife badge PNGs as soon as the page is idle.
+    // The badges live inside .drc-detail-view which is opacity: 0 by
+    // default, and iPad Safari defers image decoding for elements
+    // inside an opacity-0 container — so when the user first opened
+    // the DRC view, they'd stare at empty circles for several seconds
+    // while iPad downloaded + decoded each PNG on demand. Preloading
+    // via Image() warms the HTTP + decode cache so the badges are
+    // ready instantly on first open.
+    if (typeof DRC_BADGES !== 'undefined') {
+      const preloadBadges = () => {
+        for (const b of DRC_BADGES) {
+          const img = new Image();
+          img.decoding = 'async';
+          img.src = '../assets/images/badges/drc/' + b.file;
+        }
+      };
+      // Use requestIdleCallback when available so this doesn't fight
+      // first paint / critical interaction. Fall back to setTimeout.
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(preloadBadges, { timeout: 1500 });
+      } else {
+        setTimeout(preloadBadges, 500);
+      }
     }
 
     // Build the hotspot DOM once, on first DRC view open. Three layers:
