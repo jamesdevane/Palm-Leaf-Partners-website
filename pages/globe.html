@@ -3744,34 +3744,46 @@
         // Single-finger plain tap: no capture, no drag — let the click
         // event flow normally to the underlying hotspot button.
       });
+      // Single-finger drag handler — bound to DOCUMENT, not innerEl, so
+       // it survives the pointer moving over the flag rail / chrome / off
+       // the pannable. setPointerCapture is "best effort" but on PC mouse
+       // it can release silently when the pointer crosses certain z-index
+       // boundaries, which was the "moves a few pixels then stops" bug.
+       // Pinch (2 pointers) stays on innerEl since it needs to see touches
+       // landing on the map.
+      function handleSinglePointerMove(e) {
+        if (!pointers.has(e.pointerId)) return;
+        if (pointers.size !== 1) return;
+        if (!isDragging || !lastSingle) return;
+        pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+        const dx = e.clientX - lastSingle.x;
+        const dy = e.clientY - lastSingle.y;
+        tx += dx;
+        ty += dy;
+        panVel.x = dx;
+        panVel.y = dy;
+        lastMoveTs = performance.now();
+        if (isElastic()) applyElastic(); else clampPan();
+        apply(false);
+        lastSingle = { x: e.clientX, y: e.clientY };
+      }
+      document.addEventListener('pointermove', handleSinglePointerMove);
+
+      // Innel-level move handler — only handles pinch (multi-touch).
+      // Single-finger drag is handled at document level above.
       innerEl.addEventListener('pointermove', (e) => {
         if (!pointers.has(e.pointerId)) return;
+        if (pointers.size !== 2) return;
         pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
-        if (pointers.size === 2) {
-          const [a, b] = Array.from(pointers.values());
-          const newDist = Math.hypot(b.x - a.x, b.y - a.y);
-          if (pinchDist > 0) {
-            const factor = newDist / pinchDist;
-            const midX = (a.x + b.x) / 2;
-            const midY = (a.y + b.y) / 2;
-            zoomBy(factor, midX, midY);
-          }
-          pinchDist = newDist;
-        } else if (isDragging && lastSingle) {
-          const dx = e.clientX - lastSingle.x;
-          const dy = e.clientY - lastSingle.y;
-          tx += dx;
-          ty += dy;
-          // Track velocity for inertia. Last move's delta IS the
-          // instantaneous velocity in px/frame; combined with the
-          // deceleration in startInertia(), gives natural glide.
-          panVel.x = dx;
-          panVel.y = dy;
-          lastMoveTs = performance.now();
-          if (isElastic()) applyElastic(); else clampPan();
-          apply(false);
-          lastSingle = { x: e.clientX, y: e.clientY };
+        const [a, b] = Array.from(pointers.values());
+        const newDist = Math.hypot(b.x - a.x, b.y - a.y);
+        if (pinchDist > 0) {
+          const factor = newDist / pinchDist;
+          const midX = (a.x + b.x) / 2;
+          const midY = (a.y + b.y) / 2;
+          zoomBy(factor, midX, midY);
         }
+        pinchDist = newDist;
       });
       const endPointer = (e) => {
         const wasDragging = isDragging;
