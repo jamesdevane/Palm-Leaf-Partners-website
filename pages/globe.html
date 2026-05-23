@@ -2123,52 +2123,89 @@
       display: block;
     }
 
-    /* Mobile refresh button — circular, floats above zoom controls. */
+    /* Mobile refresh button — circular, prominent.
+       Placed top-right so it's the first thing the user's thumb sees on
+       a portrait phone — far from the bottom-right zoom controls (no
+       collision), far from the left-edge flag rail, and above the
+       view-toggle so it doesn't fight the EN/FR + Globe/Flat pills.
+       Gold ring + glow = Age-of-Empires-Mobile "primary action" treatment. */
     .mobile-refresh-btn {
       display: none;
       position: fixed;
-      bottom: 5rem; right: 0.9rem;
-      z-index: 270;
-      width: 44px; height: 44px;
+      /* Pinned to safe-area-aware top-right corner so iPhone notch / Samsung
+         status-bar doesn't crop it. env(safe-area-inset-*) falls back to 0 on
+         browsers without the spec. */
+      top: calc(env(safe-area-inset-top, 0px) + 0.7rem);
+      right: calc(env(safe-area-inset-right, 0px) + 0.7rem);
+      z-index: 320;        /* above country-panel (290), backdrop (280), corner chip (265), zoom controls (230) */
+      width: 48px; height: 48px;
       align-items: center; justify-content: center;
-      background: rgba(20,30,25,0.85);
-      border: 1px solid rgba(184,134,11,0.55);
+      background: rgba(184,134,11,0.95);      /* solid gold — no transparency game so it reads on ANY map color */
+      border: 2px solid #F5F0E8;
       border-radius: 50%;
-      color: #F5F0E8;
+      color: #1B4332;
       cursor: pointer;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      box-shadow: 0 4px 14px rgba(0,0,0,0.6);
-      transition: background 200ms, border-color 200ms, transform 600ms ease;
+      box-shadow:
+        0 0 0 2px rgba(184,134,11,0.35),      /* outer halo */
+        0 6px 20px rgba(0,0,0,0.65);
+      transition: background 200ms, border-color 200ms, transform 500ms ease;
+      /* Make sure tapping the icon (svg child) hits the button — Samsung
+         Internet sometimes routes the tap to a child <svg> with no handler. */
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
     }
+    .mobile-refresh-btn > svg { pointer-events: none; }
     .mobile-refresh-btn:hover,
     .mobile-refresh-btn:active {
-      background: rgba(184,134,11,0.9);
-      color: #1B4332;
+      background: #1B4332;
+      color: #B8860B;
       border-color: #B8860B;
       transform: rotate(-360deg);
     }
 
     @media (max-width: 640px) {
-      /* Reveal the corner chip + hide the desktop chrome on immersive views. */
+      /* Reveal the corner chip + hide the desktop chrome on immersive views.
+         IMPORTANT: don't `display:none` the whole .top-bar — that would also
+         remove its descendants (the mobile-corner-chip, mobile-refresh-btn,
+         and view-toggle) from the render tree no matter how they're
+         positioned. Instead, hide the bar's *background+layout* by
+         collapsing it to zero height + transparent + non-blocking, then
+         individually hide ONLY the desktop chrome children (logo + back).
+         The mobile-aware children all use position:fixed so they survive
+         their parent collapsing. */
       body.flat-immersive .mobile-corner-chip,
       body.drc-immersive  .mobile-corner-chip { display: inline-flex; }
       body.flat-immersive .mobile-refresh-btn,
       body.drc-immersive  .mobile-refresh-btn { display: inline-flex; }
       body.flat-immersive .top-bar,
-      body.drc-immersive  .top-bar { display: none; }
+      body.drc-immersive  .top-bar {
+        background: transparent;
+        padding: 0;
+        height: 0;
+        pointer-events: none;
+      }
+      body.flat-immersive .top-bar .logo,
+      body.drc-immersive  .top-bar .logo,
+      body.flat-immersive .top-bar .back-btn,
+      body.drc-immersive  .top-bar .back-btn { display: none; }
       body.flat-immersive .kinshasa-clock,
       body.drc-immersive  .kinshasa-clock { display: none; }
 
-      /* View-toggle becomes a small floating pill at top-right just
-         under the language toggle on the flat view. Hidden in the DRC
-         deep-dive — you're already inside the country, the back button
-         is your nav. */
+      /* View-toggle on mobile becomes a small floating pill at the
+         bottom-center. The refresh button claims top-right now (gold,
+         prominent — primary action). Bottom-center is the thumb-friendly
+         spot for secondary nav and won't collide with the bottom-right
+         zoom pill or the left-edge flag rail. pointer-events:auto re-
+         enables clicks since the parent .top-bar gets pointer-events:none
+         on immersive views (so the now-zero-height bar doesn't swallow
+         taps over the map). */
       body.flat-immersive .view-toggle {
         position: fixed !important;
-        top: 3rem;
-        right: 0.6rem;
-        left: auto;
+        bottom: calc(env(safe-area-inset-bottom, 0px) + 0.6rem);
+        left: 50%;
+        right: auto;
+        top: auto;
+        transform: translateX(-50%);
         z-index: 260;
         background: rgba(20,30,25,0.78);
         border: 1px solid rgba(184,134,11,0.45);
@@ -2177,66 +2214,99 @@
         -webkit-backdrop-filter: blur(10px);
         padding: 3px;
         box-shadow: 0 4px 14px rgba(0,0,0,0.55);
+        pointer-events: auto;
       }
+      /* Re-enable pointer events on the other top-bar children that
+         survive the bar's pointer-events:none on immersive views. */
+      body.flat-immersive .mobile-corner-chip,
+      body.drc-immersive  .mobile-corner-chip,
+      body.flat-immersive .mobile-refresh-btn,
+      body.drc-immersive  .mobile-refresh-btn { pointer-events: auto; }
       body.drc-immersive .view-toggle { display: none; }
       /* Mobile corner chip likewise hides in DRC view — the DRC back
          button replaces it as the primary nav. */
       body.drc-immersive .mobile-corner-chip { display: none; }
 
-      /* === Flat-view: full-bleed pannable world map === */
-      /* .flat-view-inner stays at viewport size (so children positioned
-         at left:0 — e.g. the flag rail — anchor to the visible left
-         edge). The .flat-pannable inside is forced wider (200vw, twice
-         the viewport) and shifted left -50vw so its center aligns to
-         the viewport center. .flat-view's overflow:hidden clips the
-         overflow on both sides. clampPan() allows tx pan up to ±50vw
-         at scale=1 because rendered (200vw) > container (100vw). */
+      /* === Flat-view: Age-of-Empires-Mobile style world ===
+         OLD: .flat-pannable was 200vw × 100vh with object-fit:contain,
+         which on a 360×740 portrait phone rendered the 2:1 image at
+         ~720×360 centered vertically — leaving huge black bars top &
+         bottom. NEW: we size .flat-pannable to (200vh × 100vh) so the
+         2:1 source image fills viewport height with NO letterbox. The
+         user pans horizontally to explore the world (and at scale=1
+         vertical pan is locked to 0 because the image is exactly as
+         tall as the viewport). Past the east/west edge, an elastic
+         rubber-band resistance kicks in (handled in JS via the
+         elasticEdges option on makeZoomController) so the world feels
+         alive — pull-past-edge stretches, release snaps back. iOS
+         Maps + AoE-Mobile use the exact same pattern. */
       body.flat-immersive .flat-view {
         padding: 0;
         align-items: center;
         justify-content: center;
         overflow: hidden;
+        background: #000;     /* if any pixel is ever exposed, paint it pure black, not the radial gradient (still no letterbox by design) */
       }
       body.flat-immersive .flat-view-inner {
         width: 100vw !important;
         max-width: 100vw !important;
         height: 100vh !important;
+        height: 100dvh !important;     /* iOS Safari dynamic vh — avoids the address-bar gap that re-introduces a black sliver */
         max-height: 100vh !important;
+        max-height: 100dvh !important;
         aspect-ratio: auto !important;
         flex-shrink: 0;
         margin: 0;
         padding: 0;
         position: relative;
+        overflow: hidden;
       }
+      /* The pannable is a 2:1 strip sized to fully cover the viewport in
+         both orientations.
+
+         Portrait phone (e.g. 360×740): 200vh = 1480px wide, 100vh = 740px
+         tall — the image fills the height, user pans east/west.
+         Landscape phone (e.g. 740×360): 200vh = 720px would leave a
+         20px black sliver east+west, so we use width: max(200vh, 100vw)
+         and matching height: max(100vh, 50vw). 2:1 ratio preserved →
+         no letterbox in EITHER orientation.
+
+         centered horizontally + vertically via calc() so when the image
+         is bigger than the viewport on one axis, the overhang is split
+         evenly. clampPan() in JS uses element.clientWidth/Height so the
+         math automatically follows whatever size CSS resolves to.    */
       body.flat-immersive .flat-pannable {
         position: absolute !important;
         inset: auto !important;
-        top: 0;
-        left: -50vw;
-        width: 200vw !important;
-        height: 100vh !important;
-        /* JS controller owns the entire touch gesture so pan stays smooth
-           — the browser was previously fighting it for vertical pan via
-           the pan-y hint, causing jitter. PTR is covered by the explicit
-           refresh button instead of the browser gesture. */
+        top: calc((100vh - max(100vh, 50vw)) / 2);
+        left: calc((100vw - max(200vh, 100vw)) / 2);
+        width: max(200vh, 100vw) !important;
+        height: max(100vh, 50vw) !important;
+        /* JS controller owns every touch gesture — pan, pinch, momentum.
+           Past the east/west edge, elasticEdges in the JS controller
+           gives a rubber-band stretch + snap-back. PTR is replaced by
+           the prominent gold refresh button at top-right.              */
         touch-action: none;
         will-change: transform;
       }
-      /* IMG fills the wider .flat-pannable — 2:1 source ratio fits
-         200vw × 100vh exactly without letterboxing. */
+      /* IMG fills the 200vh × 100vh pannable — source is 2:1, container
+         is 2:1, so cover === contain and there's no letterbox at all. */
       body.flat-immersive .flat-view-inner img.flat-map {
         width: 100%;
         height: 100%;
-        object-fit: contain;
+        object-fit: cover;
         object-position: center;
         border-radius: 0;
         box-shadow: none;
       }
 
-      /* === Left-edge vertical flag rail (transparent) === */
+      /* === Left-edge vertical flag rail (transparent) ===
+         Sits under the stacked lang-toggle (top-left) + mobile-corner-chip
+         (just under lang) on the left edge. Bottom clearance is bumped to
+         leave room for the floating view-toggle pill at bottom-center. */
       body.flat-immersive .flat-network-strip {
-        top: 3.2rem;          /* below the floating corner chip */
-        bottom: 1rem;
+        top: 6rem;                 /* under lang-toggle + corner-chip stack */
+        bottom: 3.5rem;            /* clearance for bottom-center view-toggle */
         left: 0;
         right: auto;
         flex-direction: column;
@@ -2255,11 +2325,11 @@
       }
       body.flat-immersive .flat-network-flags {
         flex-direction: column;
-        align-items: flex-start;     /* don't stretch buttons past the IMG */
+        align-items: flex-start;
         border: none;
         box-shadow: none;
-        padding: 0.35rem 0.55rem 0.35rem 0.4rem;
-        gap: 0.55rem;
+        padding: 0.25rem 0.45rem 0.25rem 0.3rem;
+        gap: 0.18rem;                /* ~3px between flags (was ~9px) */
         overflow-y: auto;
         overflow-x: visible;
         max-width: none !important;
@@ -2285,11 +2355,11 @@
         -webkit-appearance: none;
         appearance: none;
         line-height: 0;
-        padding: 6px 8px 6px 4px;     /* extra clickable area around the flag */
+        padding: 3px 6px 3px 3px;     /* tighter; tap target still ~30px from gap + IMG */
         display: inline-flex;
         align-items: center;
         justify-content: flex-start;
-        min-height: 36px;
+        min-height: 28px;
         pointer-events: auto;
       }
       body.flat-immersive .flat-network-flags::-webkit-scrollbar { display: none; }
@@ -2340,15 +2410,47 @@
       .country-panel-inner { padding: 1.6rem 1.25rem 2rem; }
       .country-panel-close { top: 0.85rem; right: 0.85rem; }
 
-      /* Language toggle stays top-right, slightly smaller. */
+      /* Language toggle: stays top-right on the 3D globe view, but
+         moves to top-LEFT on flat / DRC immersive views so the new
+         gold refresh button can claim the top-right corner. On the
+         3D globe view (no immersive class), it's still top-right per
+         the desktop default. The mobile-corner-chip also lives top-
+         left when shown — but it's only visible on flat/DRC and we
+         tuck it just under the language toggle. */
       .lang-toggle.globe-lang {
-        top: 0.6rem; right: 0.6rem;
+        top: calc(env(safe-area-inset-top, 0px) + 0.6rem);
+        right: calc(env(safe-area-inset-right, 0px) + 0.6rem);
+      }
+      body.flat-immersive .lang-toggle.globe-lang,
+      body.drc-immersive  .lang-toggle.globe-lang {
+        top: calc(env(safe-area-inset-top, 0px) + 0.6rem);
+        left: calc(env(safe-area-inset-left, 0px) + 0.6rem);
+        right: auto;
+      }
+      body.flat-immersive .mobile-corner-chip,
+      body.drc-immersive  .mobile-corner-chip {
+        /* Stack under the language toggle (which is at ~0.6rem + ~28px tall) */
+        top: calc(env(safe-area-inset-top, 0px) + 3rem);
+        left: calc(env(safe-area-inset-left, 0px) + 0.6rem);
       }
 
       /* DRC detail view also goes full-bleed on mobile (already does,
          but ensure the layer-toggle bar doesn't overlap the corner
          chip — push it down a hair on mobile). */
       body.drc-immersive .drc-layer-toggles { top: 0.6rem; }
+
+      /* Hide the +/-/reset zoom pill on mobile flat-immersive — pinch to
+         zoom is the native gesture, the buttons just collide with the new
+         bottom-center view-toggle and double-tap-to-reset still works. */
+      body.flat-immersive .flat-zoom-controls { display: none; }
+
+      /* DRC view's zoom pill stays (its hotspot layout is dense — zoom
+         buttons help) but shifts up to make room for any future bottom
+         chrome and away from iOS Safari home-indicator. */
+      body.drc-immersive .drc-zoom-controls {
+        bottom: calc(env(safe-area-inset-bottom, 0px) + 0.8rem);
+        right: calc(env(safe-area-inset-right, 0px) + 0.6rem);
+      }
     }
   </style>
 </head>
@@ -2385,10 +2487,11 @@
       <span data-i18n="globe.back.site">← Back</span>
     </a>
 
-    <!-- Mobile refresh button — visible fallback while we sort out why
-         Samsung Internet's native pull-to-refresh isn't firing inside
-         the immersive flat / DRC views. Circle + arrow icon, bottom-
-         right above the zoom controls. Hidden on desktop. -->
+    <!-- Mobile refresh button — gold pill at top-right of the immersive
+         flat / DRC views. Samsung Internet's native pull-to-refresh
+         doesn't fire because the .flat-pannable's touch-action: none
+         eats the vertical drag; this button is the deliberate, always-
+         visible alternative. Hidden on desktop. -->
     <button type="button" class="mobile-refresh-btn" id="mobile-refresh-btn" aria-label="Refresh page" title="Refresh">
       <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
         <polyline points="23 4 23 10 17 10"></polyline>
@@ -3350,7 +3453,11 @@
     // pans on drag, ignores clicks on interactive hotspots so badges /
     // landmarks / provinces stay clickable. Mobile uses two-finger pinch;
     // desktop uses scroll wheel (Ctrl/Cmd not required).
-    function makeZoomController({ innerEl, rootEl, btnIn, btnOut, btnReset }) {
+    function makeZoomController({ innerEl, rootEl, btnIn, btnOut, btnReset, elasticEdges = false }) {
+      // elasticEdges may be a boolean OR a function returning a boolean
+      // (so the flat-view controller can dynamically opt in/out based on
+      // viewport size at gesture time, not just at construction time).
+      const isElastic = () => (typeof elasticEdges === 'function' ? elasticEdges() : elasticEdges);
       let scale = 1, tx = 0, ty = 0;
       const MIN = 1, MAX = 4;
       const pointers = new Map();
@@ -3364,6 +3471,16 @@
       let panVel = { x: 0, y: 0 };
       let lastMoveTs = 0;
       let inertiaRaf = 0;
+      // Elastic-edge state: when elasticEdges is true (the flat world map),
+      // panning past the clamp bound stretches with progressive resistance
+      // (the iOS Maps / Age-of-Empires-Mobile rubber-band feel), then
+      // snaps back when the finger releases. Tracks whether we're currently
+      // in an overscroll snap-back animation.
+      let snapBackRaf = 0;
+      function cancelSnapBack() {
+        if (snapBackRaf) cancelAnimationFrame(snapBackRaf);
+        snapBackRaf = 0;
+      }
       function cancelInertia() {
         if (inertiaRaf) cancelAnimationFrame(inertiaRaf);
         inertiaRaf = 0;
@@ -3374,15 +3491,28 @@
           // Stop when the glide is barely moving.
           if (Math.abs(panVel.x) < 0.4 && Math.abs(panVel.y) < 0.4) {
             inertiaRaf = 0;
+            // If we coasted into an overscroll region, snap back.
+            if (isElastic()) {
+              const { maxX, maxY } = getBounds();
+              if (Math.abs(tx) > maxX || Math.abs(ty) > maxY) startSnapBack();
+            }
             return;
           }
           tx += panVel.x;
           ty += panVel.y;
-          // 0.94 deceleration → ~30 frames (~0.5s) until rest at typical
-          // flick speeds. Tune higher for longer glide, lower for snappier.
-          panVel.x *= 0.94;
-          panVel.y *= 0.94;
-          clampPan();
+          // 0.95 deceleration → longer, more "weighty" glide than the old
+          // 0.94. Eddie wanted "feel of a real game map" — AoE Mobile uses
+          // ~0.95-0.96 momentum coefficient. Velocity also damps faster
+          // once we cross into overscroll territory so the elastic feels
+          // rubbery, not loose.
+          let decel = 0.95;
+          if (isElastic()) {
+            const { maxX, maxY } = getBounds();
+            if (Math.abs(tx) > maxX || Math.abs(ty) > maxY) decel = 0.78;
+          }
+          panVel.x *= decel;
+          panVel.y *= decel;
+          if (isElastic()) applyElastic(); else clampPan();
           apply(false);
           inertiaRaf = requestAnimationFrame(tick);
         };
@@ -3400,21 +3530,68 @@
         // constant as the map zooms — preventing labels from bunching up.
         innerEl.style.setProperty('--map-scale', scale);
       }
-      function clampPan() {
-        // Pan range = (rendered content size − visible container size) / 2.
-        // At scale=1 with content fitting the container, both terms equal →
-        // tx/ty clamped to 0 (the original desktop behavior). On mobile the
-        // .flat-pannable is wider than its .flat-view container (200vw vs
-        // 100vw), so even at scale=1 the user can drag horizontally to
-        // reveal Americas / Asia. rootEl is the visible container.
+      // Bounds: how far tx / ty are allowed before they're clamped (or
+      // before elastic resistance kicks in). Computed each call so resizes
+      // and zoom changes are tracked.
+      function getBounds() {
         const w = innerEl.clientWidth;
         const h = innerEl.clientHeight;
         const containerW = rootEl?.clientWidth || w;
         const containerH = rootEl?.clientHeight || h;
-        const maxX = Math.max(0, (w * scale - containerW) / 2);
-        const maxY = Math.max(0, (h * scale - containerH) / 2);
+        return {
+          maxX: Math.max(0, (w * scale - containerW) / 2),
+          maxY: Math.max(0, (h * scale - containerH) / 2),
+        };
+      }
+      function clampPan() {
+        const { maxX, maxY } = getBounds();
         tx = Math.max(-maxX, Math.min(maxX, tx));
         ty = Math.max(-maxY, Math.min(maxY, ty));
+      }
+      // Apply elastic resistance to a raw translation: any portion outside
+      // [-max, max] is scaled by an asymptotic curve so the user can drag
+      // past the edge but with progressively stiffer rubber. Pulled from
+      // the same approach iOS Safari + Apple Maps use. RESIST=0.55 means
+      // a 100px overscroll renders as ~55px of visible drag at the start
+      // and approaches zero additional movement as the user keeps pulling.
+      function elastic(value, max) {
+        if (max <= 0 || Math.abs(value) <= max) return value;
+        const over = Math.abs(value) - max;
+        const sign = Math.sign(value);
+        // Logarithmic-ish dampening (Apple's "rubber band" formula).
+        const stretched = max + (over * 0.55) / (1 + over / (max + 1));
+        return sign * stretched;
+      }
+      function applyElastic() {
+        if (!isElastic()) { clampPan(); return; }
+        const { maxX, maxY } = getBounds();
+        tx = elastic(tx, maxX);
+        ty = elastic(ty, maxY);
+      }
+      // Snap-back animation: ease tx/ty back into the hard bounds after
+      // the user releases an overscrolled drag. Single rAF loop, drops
+      // out as soon as we're inside the clamp box.
+      function startSnapBack() {
+        cancelSnapBack();
+        const step = () => {
+          const { maxX, maxY } = getBounds();
+          const targetX = Math.max(-maxX, Math.min(maxX, tx));
+          const targetY = Math.max(-maxY, Math.min(maxY, ty));
+          const dx = targetX - tx;
+          const dy = targetY - ty;
+          if (Math.abs(dx) < 0.3 && Math.abs(dy) < 0.3) {
+            tx = targetX; ty = targetY;
+            apply(false);
+            snapBackRaf = 0;
+            return;
+          }
+          // 18% per frame ≈ 5-frame settle, snappy but not jarring.
+          tx += dx * 0.18;
+          ty += dy * 0.18;
+          apply(false);
+          snapBackRaf = requestAnimationFrame(step);
+        };
+        snapBackRaf = requestAnimationFrame(step);
       }
       function zoomBy(factor, cx, cy, animate = false) {
         const newScale = Math.max(MIN, Math.min(MAX, scale * factor));
@@ -3438,9 +3615,10 @@
       }
 
       innerEl.addEventListener('pointerdown', (e) => {
-        // Any new touch cancels in-flight inertia — the user is taking
-        // control again.
+        // Any new touch cancels in-flight inertia / snap-back — the user
+        // is taking control again.
         cancelInertia();
+        cancelSnapBack();
         // Always track every pointer regardless of where it landed —
         // pinch zoom (two-finger gesture) must work over ANY part of
         // the map, including over badges/landmarks/provinces. Previous
@@ -3497,12 +3675,12 @@
           tx += dx;
           ty += dy;
           // Track velocity for inertia. Last move's delta IS the
-          // instantaneous velocity in px/frame; combined with the 0.94
+          // instantaneous velocity in px/frame; combined with the
           // deceleration in startInertia(), gives natural glide.
           panVel.x = dx;
           panVel.y = dy;
           lastMoveTs = performance.now();
-          clampPan();
+          if (isElastic()) applyElastic(); else clampPan();
           apply(false);
           lastSingle = { x: e.clientX, y: e.clientY };
         }
@@ -3524,6 +3702,13 @@
           } else {
             panVel.x = 0;
             panVel.y = 0;
+            // No flick → if we're sitting in overscroll territory, snap
+            // back to the hard bounds. (Inertia handles its own snap-back
+            // at the end of its glide.)
+            if (isElastic()) {
+              const { maxX, maxY } = getBounds();
+              if (Math.abs(tx) > maxX || Math.abs(ty) > maxY) startSnapBack();
+            }
           }
         }
         try { innerEl.releasePointerCapture(e.pointerId); } catch {}
@@ -3586,12 +3771,30 @@
     // the math to work; the INTERACTIVE selector was extended to keep
     // pins, mascots, and toggles clickable while gestures are active.
     const flatPannable = document.getElementById('flat-pannable');
+    // Mobile gets the elastic-edge "rubber band" behavior on the world
+    // map for an AoE-Mobile feel — the user can drag past the east/west
+    // map edge with progressive resistance and watch it snap back when
+    // they release. Desktop keeps the hard clamp (the bounds are 0 at
+    // scale=1 because the image already fits, so elastic would feel
+    // broken there). Re-checked on resize / orientation change.
+    const isTouchViewport = () => window.matchMedia('(max-width: 640px)').matches;
     const flatZoom = makeZoomController({
       innerEl: flatPannable,
       rootEl: document.getElementById('flat-view'),
       btnIn: document.getElementById('flat-zoom-in'),
       btnOut: document.getElementById('flat-zoom-out'),
       btnReset: document.getElementById('flat-zoom-reset'),
+      elasticEdges: isTouchViewport,    // function → checked dynamically on each gesture
+    });
+    // Orientation change or window resize can shrink the pannable below
+    // the user's current pan offset (e.g. they were viewing Asia in
+    // portrait, then rotated to landscape and the world is now smaller).
+    // Reset the flat-view zoom so they always land at the visible center
+    // after a layout change — cheap, predictable, no math headaches.
+    let _flatResizeTimer = 0;
+    window.addEventListener('resize', () => {
+      clearTimeout(_flatResizeTimer);
+      _flatResizeTimer = setTimeout(() => { try { flatZoom.reset(); } catch {} }, 120);
     });
     function hideDrcDetail() {
       drcDetailView.classList.remove('visible');
