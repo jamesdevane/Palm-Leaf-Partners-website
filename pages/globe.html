@@ -2278,10 +2278,11 @@
       body.flat-immersive .flat-pannable {
         position: absolute !important;
         inset: auto !important;
-        top: calc((100vh - max(100vh, 50vw)) / 2);
+        top: 0;                                              /* lock to viewport top */
         left: calc((100vw - max(200vh, 100vw)) / 2);
         width: max(200vh, 100vw) !important;
-        height: max(100vh, 50vw) !important;
+        height: 100dvh !important;                           /* exact viewport height — no vertical pan, only left/right scroll */
+        max-height: 100dvh !important;
         /* JS controller owns every touch gesture — pan, pinch, momentum.
            Past the east/west edge, elasticEdges in the JS controller
            gives a rubber-band stretch + snap-back. PTR is replaced by
@@ -2323,6 +2324,24 @@
       }
       body.flat-immersive .flat-map-buffer[data-side="left"]  { left: -100%; }
       body.flat-immersive .flat-map-buffer[data-side="right"] { left:  100%; }
+
+      /* On mobile, country selection happens via the left flag rail, NOT
+         by tapping shapes on the map. Disabling pointer-events on the
+         on-map clickables means a drag that starts over Africa / DRC /
+         Zola passes straight through to the .flat-pannable so the JS
+         controller actually initiates the drag instead of treating it
+         as a click. Was the root cause of the "starts to scroll but
+         locks up" symptom — the controller's onInteractive check was
+         skipping drag-init whenever the finger landed on a country
+         zone, which is most of the visible viewport. */
+      body.flat-immersive .flat-country-zone,
+      body.flat-immersive .flat-zola,
+      body.flat-immersive .flat-loredana,
+      body.flat-immersive .flat-label,
+      body.flat-immersive .flat-pin,
+      body.flat-immersive .flat-flag {
+        pointer-events: none;
+      }
 
       /* === Left-edge vertical flag rail (transparent) ===
          Sits under the stacked lang-toggle (top-left) + mobile-corner-chip
@@ -3595,12 +3614,13 @@
       }
       function clampPan() {
         const { maxX, maxY } = getBounds();
-        // In wrap mode, x is unbounded (apply() does the modulo); only
-        // clamp y. Otherwise clamp both axes.
         if (!wrapActive()) {
           tx = Math.max(-maxX, Math.min(maxX, tx));
         }
-        ty = Math.max(-maxY, Math.min(maxY, ty));
+        // When maxY is 0 (no vertical pan room — mobile flat-view sized
+        // to exact viewport height), lock ty to 0 hard. Math.min(0, ...)
+        // would do this but be explicit for clarity.
+        ty = maxY === 0 ? 0 : Math.max(-maxY, Math.min(maxY, ty));
       }
       // Apply elastic resistance to a raw translation: any portion outside
       // [-max, max] is scaled by an asymptotic curve so the user can drag
@@ -3619,12 +3639,13 @@
       function applyElastic() {
         if (!isElastic()) { clampPan(); return; }
         const { maxX, maxY } = getBounds();
-        // In wrap mode the x-axis has no edges, so no rubber-band on x.
-        // Y still gets elastic resistance at its bounds.
         if (!wrapActive()) {
           tx = elastic(tx, maxX);
         }
-        ty = elastic(ty, maxY);
+        // elastic() with max=0 returns the raw value unchanged (no
+        // dampening), which would let ty drift unbounded. Lock to 0
+        // when there's no vertical pan room.
+        ty = maxY === 0 ? 0 : elastic(ty, maxY);
       }
       // Snap-back animation: ease tx/ty back into the hard bounds after
       // the user releases an overscrolled drag. Single rAF loop, drops
