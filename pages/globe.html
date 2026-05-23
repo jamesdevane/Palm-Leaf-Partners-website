@@ -997,7 +997,8 @@
       width: 64px;
       height: auto;
       transform: translate(-50%, -100%) scale(1);
-      pointer-events: none;
+      pointer-events: auto;
+      cursor: pointer;
       animation:
         flatLoredanaBob 4.2s ease-in-out infinite,
         flatLoredanaGlow 3.8s ease-in-out infinite;
@@ -4014,6 +4015,50 @@
     document.getElementById('flat-zola')?.addEventListener('click', (e) => {
       e.stopPropagation();
       showDrcDetail();
+    });
+    // Loredana → USA / UPTW Global Mother country panel.
+    document.getElementById('flat-loredana')?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      openCountryPanel('usa');
+    });
+
+    // ── 2D country-zone hover updates the Kinshasa clock ─────────────
+    // On desktop the clock has always switched timezones when the user
+    // hovers a 3D-globe pin; mirror that here for the 2D flat map's
+    // country zones. Touch devices don't fire mouseenter reliably so we
+    // skip the wiring there — the country panel slide-up shows the same
+    // info on tap.
+    const COUNTRY_TZ = {
+      drc:           { timezone: 'Africa/Kinshasa',      clockLabel: 'Kinshasa, DRC',         clockLabel_fr: 'Kinshasa, RDC' },
+      usa:           { timezone: 'America/New_York',     clockLabel: 'Eastern Time, USA',     clockLabel_fr: "Heure de l'Est, États-Unis" },
+      canada:        { timezone: 'America/Toronto',      clockLabel: 'Ottawa, Canada',        clockLabel_fr: 'Ottawa, Canada' },
+      australia:     { timezone: 'Australia/Sydney',     clockLabel: 'Sydney, Australia',     clockLabel_fr: 'Sydney, Australie' },
+      india:         { timezone: 'Asia/Kolkata',         clockLabel: 'New Delhi, India',      clockLabel_fr: 'New Delhi, Inde' },
+      'south-africa':{ timezone: 'Africa/Johannesburg',  clockLabel: 'Johannesburg, ZA',      clockLabel_fr: 'Johannesburg, AdS' },
+      nigeria:       { timezone: 'Africa/Lagos',         clockLabel: 'Lagos, Nigeria',        clockLabel_fr: 'Lagos, Nigéria' },
+      ghana:         { timezone: 'Africa/Accra',         clockLabel: 'Accra, Ghana',          clockLabel_fr: 'Accra, Ghana' },
+      kenya:         { timezone: 'Africa/Nairobi',       clockLabel: 'Nairobi, Kenya',        clockLabel_fr: 'Nairobi, Kenya' },
+      uk:            { timezone: 'Europe/London',        clockLabel: 'London, UK',            clockLabel_fr: 'Londres, Royaume-Uni' },
+      france:        { timezone: 'Europe/Paris',         clockLabel: 'Paris, France',         clockLabel_fr: 'Paris, France' },
+      belgium:       { timezone: 'Europe/Brussels',      clockLabel: 'Brussels, Belgium',     clockLabel_fr: 'Bruxelles, Belgique' },
+      senegal:       { timezone: 'Africa/Dakar',         clockLabel: 'Dakar, Senegal',        clockLabel_fr: 'Dakar, Sénégal' },
+      cameroon:      { timezone: 'Africa/Douala',        clockLabel: 'Yaoundé, Cameroon',     clockLabel_fr: 'Yaoundé, Cameroun' },
+      zambia:        { timezone: 'Africa/Lusaka',        clockLabel: 'Lusaka, Zambia',        clockLabel_fr: 'Lusaka, Zambie' },
+      zimbabwe:      { timezone: 'Africa/Harare',        clockLabel: 'Harare, Zimbabwe',      clockLabel_fr: 'Harare, Zimbabwe' },
+      botswana:      { timezone: 'Africa/Gaborone',      clockLabel: 'Gaborone, Botswana',    clockLabel_fr: 'Gaborone, Botswana' },
+    };
+    document.querySelectorAll('.flat-country-zone').forEach((zone) => {
+      const country = zone.dataset.country;
+      const tzInfo = COUNTRY_TZ[country];
+      if (!tzInfo) return;
+      zone.addEventListener('mouseenter', () => {
+        hoveredPin = tzInfo;
+        if (window.__plpRefreshClock) window.__plpRefreshClock();
+      });
+      zone.addEventListener('mouseleave', () => {
+        hoveredPin = null;
+        if (window.__plpRefreshClock) window.__plpRefreshClock();
+      });
     });
 
     // ── Country detail panel — Tier 1 for every PLP/UPTW chapter ─────
