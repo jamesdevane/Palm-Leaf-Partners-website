@@ -2070,6 +2070,204 @@
       .speed-slider { width: 90px; }
       .speed-control .speed-label { display: none; }
     }
+
+    /* ──────────────────────────────────────────────────────────────
+       MOBILE IMMERSIVE REDESIGN — Age of Empires Mobile pattern.
+
+       On phones, the world map fills the entire viewport. Top-bar +
+       Kinshasa clock are hidden because they eat screen real estate;
+       they're replaced by floating corner chips (palm + Back, lang
+       toggle). 17 chapter flags become a transparent vertical rail
+       pinned to the left edge — scrollable when not all fit. Country
+       panel slides up from the bottom as a bottom sheet so it doesn't
+       fight the right-edge zoom controls.
+
+       Triggers under 640px viewport — desktop layout stays untouched.
+
+       Body classes (toggled in setView / hideDrcDetail):
+         body.flat-immersive   → flat 2D world map active
+         body.drc-immersive    → DRC or province detail view active
+       The 3D globe view keeps the normal top-bar so the landing
+       experience still shows branding.
+       ────────────────────────────────────────────────────────────── */
+    .mobile-corner-chip {
+      display: none;     /* shown only on mobile + flat/drc view */
+      position: fixed;
+      top: 0.6rem; left: 0.6rem;
+      z-index: 265;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.28rem 0.7rem 0.28rem 0.32rem;
+      background: rgba(20,30,25,0.78);
+      border: 1px solid rgba(184,134,11,0.5);
+      border-radius: 999px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0 4px 14px rgba(0,0,0,0.55);
+      color: #F5F0E8;
+      text-decoration: none;
+      font-family: 'Georgia', serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      transition: background 160ms, border-color 160ms;
+    }
+    .mobile-corner-chip:hover,
+    .mobile-corner-chip:active {
+      background: rgba(184,134,11,0.85);
+      color: #1B4332;
+      border-color: #B8860B;
+    }
+    .mobile-corner-chip img {
+      width: 26px; height: 26px;
+      border-radius: 50%;
+      display: block;
+    }
+
+    @media (max-width: 640px) {
+      /* Reveal the corner chip + hide the desktop chrome on immersive views. */
+      body.flat-immersive .mobile-corner-chip,
+      body.drc-immersive  .mobile-corner-chip { display: inline-flex; }
+      body.flat-immersive .top-bar,
+      body.drc-immersive  .top-bar { display: none; }
+      body.flat-immersive .kinshasa-clock,
+      body.drc-immersive  .kinshasa-clock { display: none; }
+
+      /* View-toggle becomes a small floating pill at top-right just
+         under the language toggle on the flat view. Hidden in the DRC
+         deep-dive — you're already inside the country, the back button
+         is your nav. */
+      body.flat-immersive .view-toggle {
+        position: fixed !important;
+        top: 3rem;
+        right: 0.6rem;
+        left: auto;
+        z-index: 260;
+        background: rgba(20,30,25,0.78);
+        border: 1px solid rgba(184,134,11,0.45);
+        border-radius: 999px;
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        padding: 3px;
+        box-shadow: 0 4px 14px rgba(0,0,0,0.55);
+      }
+      body.drc-immersive .view-toggle { display: none; }
+      /* Mobile corner chip likewise hides in DRC view — the DRC back
+         button replaces it as the primary nav. */
+      body.drc-immersive .mobile-corner-chip { display: none; }
+
+      /* === Flat-view: map fills the entire viewport === */
+      body.flat-immersive .flat-view { padding: 0; }
+      body.flat-immersive .flat-view-inner {
+        max-width: none !important;
+        max-height: 100vh !important;
+        width: 100vw;
+        height: 100vh;
+        aspect-ratio: auto !important;
+        margin: 0;
+        padding: 0;
+      }
+      /* Cover the viewport instead of letterboxing. Object-position bias
+         55% horizontal (slightly east) + 55% vertical drops Africa into
+         the visible viewport center. Americas + Asia reveal themselves
+         when the user pinches to zoom in and pans — the AoE pattern. */
+      body.flat-immersive .flat-view-inner img.flat-map {
+        object-fit: cover;
+        object-position: 55% 55%;
+        border-radius: 0;
+        box-shadow: none;
+      }
+
+      /* === Left-edge vertical flag rail (transparent) === */
+      body.flat-immersive .flat-network-strip {
+        top: 3.2rem;          /* below the floating corner chip */
+        bottom: 1rem;
+        left: 0;
+        right: auto;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0;
+        pointer-events: none;
+      }
+      body.flat-immersive .flat-network-title { display: none; }
+      body.flat-immersive .flat-network-pill-wrap {
+        width: auto;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+      }
+      body.flat-immersive .flat-network-flags {
+        flex-direction: column;
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        padding: 0.35rem 0.5rem;
+        gap: 0.55rem;
+        overflow-y: auto;
+        overflow-x: hidden;
+        max-height: 100%;
+        pointer-events: auto;
+        scrollbar-width: none;
+      }
+      body.flat-immersive .flat-network-flags::-webkit-scrollbar { display: none; }
+      body.flat-immersive .flat-network-flag img {
+        width: 34px; height: 23px;
+        border-width: 1.5px;
+        /* Dual shadow: thin dark ring + soft drop so flags read on any
+           map color (gold DRC, blue ocean, green forest). */
+        box-shadow:
+          0 0 0 1px rgba(0,0,0,0.65),
+          0 3px 10px rgba(0,0,0,0.7);
+      }
+      body.flat-immersive .flat-network-flag[data-tier="active"] img {
+        width: 38px; height: 26px;
+        border-width: 2.5px;
+        box-shadow:
+          0 0 0 1px rgba(0,0,0,0.7),
+          0 0 14px rgba(184,134,11,0.65),
+          0 3px 12px rgba(0,0,0,0.7);
+      }
+      /* Hover tooltip not used on touch — the country panel is the
+         source of truth for flag names. */
+      body.flat-immersive .flat-network-tooltip { display: none; }
+
+      /* === Country panel → bottom sheet === */
+      .country-panel {
+        top: auto;
+        right: 0; left: 0;
+        bottom: 0;
+        width: 100vw;
+        max-width: 100vw;
+        height: 78vh;
+        border-radius: 22px 22px 0 0;
+        transform: translateY(100%);
+        box-shadow: 0 -22px 60px rgba(0,0,0,0.55);
+      }
+      .country-panel.open { transform: translateY(0); }
+      /* Decorative drag handle at top of the bottom sheet. */
+      .country-panel::before {
+        content: '';
+        position: absolute;
+        top: 0.55rem; left: 50%;
+        width: 44px; height: 4px;
+        transform: translateX(-50%);
+        background: rgba(27,67,50,0.28);
+        border-radius: 999px;
+      }
+      .country-panel-inner { padding: 1.6rem 1.25rem 2rem; }
+      .country-panel-close { top: 0.85rem; right: 0.85rem; }
+
+      /* Language toggle stays top-right, slightly smaller. */
+      .lang-toggle.globe-lang {
+        top: 0.6rem; right: 0.6rem;
+      }
+
+      /* DRC detail view also goes full-bleed on mobile (already does,
+         but ensure the layer-toggle bar doesn't overlap the corner
+         chip — push it down a hair on mobile). */
+      body.drc-immersive .drc-layer-toggles { top: 0.6rem; }
+    }
   </style>
 </head>
 <body>
@@ -2094,6 +2292,15 @@
         <span class="name">PALM LEAF</span>
         <span class="sub">— PARTNERS —</span>
       </div>
+    </a>
+
+    <!-- Mobile-only floating top-left chip (palm + Back to site).
+         Hidden on desktop (CSS display:none until @media kicks in AND
+         body has .flat-immersive / .drc-immersive). Replaces the heavy
+         top-bar on phones to free up screen real estate for the map. -->
+    <a href="../index.html" class="mobile-corner-chip" aria-label="Back to Palm Leaf Partners site">
+      <img src="../assets/images/plp-logo-nav.png" alt="" />
+      <span data-i18n="globe.back.site">← Back</span>
     </a>
 
     <!-- View toggle: switch between the 3D globe and the flat world map.
@@ -2600,6 +2807,12 @@
       flatView.classList.toggle('visible', isFlat);
       flatView.setAttribute('aria-hidden', String(!isFlat));
       canvasContainer.style.display = isFlat ? 'none' : '';
+      // Mobile immersive: flat-view triggers full-bleed map, vertical
+      // flag rail, bottom-sheet country panel, hidden top-bar/clock.
+      // Body class lets the CSS @media (max-width:640px) rules target
+      // only when flat is actually active (so the 3D globe view keeps
+      // standard branding chrome).
+      document.body.classList.toggle('flat-immersive', isFlat);
       // Hide globe-specific overlays in flat mode (slider has no meaning
       // when nothing's spinning, drag-hint is for the 3D scene, country
       // info-panel is driven by 3D hover).
@@ -3021,11 +3234,14 @@
       document.getElementById('country-panel-backdrop')?.classList.remove('open');
       drcDetailView.classList.add('visible');
       drcDetailView.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('drc-immersive');
       // Reset Zola to Kinshasa each time the detail view opens, so the
-      // journey starts from a consistent home position.
-      zolaPos = { x: 12, y: 58 };
-      drcZola.style.left = '12%';
-      drcZola.style.top = '58%';
+      // journey starts from a consistent home position. (20,56) matches
+      // the inline HTML position — was (12,58), which hung Zola off the
+      // panhandle into the palm-frame void.
+      zolaPos = { x: 20, y: 56 };
+      drcZola.style.left = '20%';
+      drcZola.style.top = '56%';
       drcZola.classList.add('idle');
       // Reset zoom on each open.
       drcZoom?.reset();
@@ -3212,6 +3428,7 @@
     function hideDrcDetail() {
       drcDetailView.classList.remove('visible');
       drcDetailView.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('drc-immersive');
       drcBubble.classList.remove('open');
       if (window.speechSynthesis) speechSynthesis.cancel();
     }
@@ -4575,6 +4792,7 @@
       playSwoosh();
       provinceView.classList.add('visible');
       provinceView.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('drc-immersive');
       provinceZoom?.reset();
     }
 
@@ -4590,6 +4808,11 @@
     function closeProvinceDetail() {
       provinceView.classList.remove('visible');
       provinceView.setAttribute('aria-hidden', 'true');
+      // Keep drc-immersive ON if we're returning to the DRC view, OFF
+      // if we're returning to the flat world map.
+      if (!drcDetailView.classList.contains('visible')) {
+        document.body.classList.remove('drc-immersive');
+      }
       provinceBubble.classList.remove('open');
       if (window.speechSynthesis) speechSynthesis.cancel();
     }
