@@ -15,7 +15,13 @@
        that would otherwise interfere with our pinch / drag handlers. */
     html { touch-action: manipulation; -webkit-text-size-adjust: 100%; }
     body { -webkit-tap-highlight-color: transparent; -webkit-touch-callout: none; }
-    #canvas-container { position: fixed; inset: 0; }
+    /* 3D globe canvas. touch-action: pan-y lets single-finger vertical
+       drags go to the browser (so Samsung/Chrome/iOS pull-to-refresh
+       works), while horizontal drag still routes to Three.js
+       OrbitControls for globe rotation. Pinch-zoom still works because
+       pinch is multi-touch, which pan-y doesn't intercept. Globe
+       auto-rotates so the loss of vertical-drag rotate is unnoticeable. */
+    #canvas-container { position: fixed; inset: 0; touch-action: pan-y; }
 
     .top-bar {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
@@ -2372,7 +2378,7 @@
       <svg class="drc-trail" id="drc-trail" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"></svg>
       <div class="drc-hotspots" id="drc-hotspots"><!-- populated by JS --></div>
       <!-- Zola — starts at Kinshasa (~12% / 58%), walks to each clicked hotspot. -->
-      <img class="drc-zola" id="drc-zola" src="../assets/images/zola-globe-sprite.png" alt="Zola — your guide" style="left:12%; top:58%;" />
+      <img class="drc-zola" id="drc-zola" src="../assets/images/zola-globe-sprite.png" alt="Zola — your guide" style="left:20%; top:56%;" />
     </div>
 
     <!-- Layer toggle bar — Mining is wired, the others show a "coming
@@ -3661,12 +3667,12 @@
     // city-level hotspots. Positions are approximate centroids on the
     // illustrated map.
     const DRC_PROVINCES = [
-      { id: 'kinshasa', name: 'Kinshasa', name_fr: 'Kinshasa', sub: 'Capital province · ~16 million', sub_fr: 'Province de la capitale · ~16 millions', x: 14, y: 60,
+      { id: 'kinshasa', name: 'Kinshasa', name_fr: 'Kinshasa', sub: 'Capital province · ~16 million', sub_fr: 'Province de la capitale · ~16 millions', x: 23, y: 62,
         body: "Both the city and the smallest province of the DRC. Sprawling along the southern bank of the Congo River, Kinshasa is the world's third-largest French-speaking city — an explosive cultural hub for music (rumba, soukous, ndombolo), fashion (the Sapeur movement), and visual art. Across the river sits Brazzaville, capital of the neighboring Republic of the Congo.",
         body_fr: "À la fois la ville et la plus petite province de la RDC. S'étalant le long de la rive sud du fleuve Congo, Kinshasa est la troisième plus grande ville francophone du monde — un pôle culturel explosif pour la musique (rumba, soukous, ndombolo), la mode (le mouvement Sapeur) et les arts visuels. De l'autre côté du fleuve se trouve Brazzaville, capitale de la République voisine du Congo.",
         fact: "Kinshasa and Brazzaville are the only two world capitals visible from each other across an international border.",
         fact_fr: "Kinshasa et Brazzaville sont les deux seules capitales au monde visibles l'une de l'autre par-dessus une frontière internationale." },
-      { id: 'kongo-central', name: 'Kongo Central', name_fr: 'Kongo-Central', sub: 'Atlantic coast · Matadi port', sub_fr: 'Côte atlantique · port de Matadi', x: 5, y: 64,
+      { id: 'kongo-central', name: 'Kongo Central', name_fr: 'Kongo-Central', sub: 'Atlantic coast · Matadi port', sub_fr: 'Côte atlantique · port de Matadi', x: 15, y: 67,
         body: "The DRC's only Atlantic-facing province, anchored by the deep-water port of Matadi — the country's main commercial gateway to the sea. Home to the historic Kongo Kingdom that flourished here from the 14th to the 19th century.",
         body_fr: "La seule province de la RDC ouverte sur l'Atlantique, ancrée par le port en eau profonde de Matadi — la principale porte commerciale du pays vers la mer. Berceau de l'historique Royaume du Kongo qui a prospéré ici du XIVe au XIXe siècle.",
         fact: "The DRC has only 37 km of Atlantic coastline — one of the shortest of any country with sea access.",
@@ -3722,7 +3728,7 @@
         body_fr: "Environ la moitié des gorilles de montagne survivants au monde vivent dans le Parc national des Virunga, à l'est de la RDC. Les mâles adultes développent une plaque de fourrure argentée sur le dos en vieillissant, ce qui leur vaut le nom de « dos argenté ». Ils vivent en troupes familiales dirigées par un mâle dominant.",
         fact: "Each silverback's nose print is unique, like a human fingerprint.",
         fact_fr: "L'empreinte du nez de chaque dos argenté est unique, comme une empreinte digitale humaine." },
-      { file: 'gorilla.png', name: 'Lowland Gorilla', name_fr: 'Gorille de plaine', sub: 'Gorilla gorilla · western DRC', sub_fr: 'Gorilla gorilla · ouest de la RDC', x: 12, y: 46,
+      { file: 'gorilla.png', name: 'Lowland Gorilla', name_fr: 'Gorille de plaine', sub: 'Gorilla gorilla · western DRC', sub_fr: 'Gorilla gorilla · ouest de la RDC', x: 28, y: 38,
         body: "Western lowland gorillas live in the DRC's western rainforests. Smaller and lighter-furred than their mountain cousins, they spend more time in trees and have a more fruit-heavy diet. They're critically endangered, threatened by habitat loss and disease.",
         body_fr: "Les gorilles de plaine de l'Ouest vivent dans les forêts pluviales occidentales de la RDC. Plus petits et au pelage plus clair que leurs cousins des montagnes, ils passent plus de temps dans les arbres et ont un régime plus riche en fruits. Ils sont en danger critique d'extinction, menacés par la perte d'habitat et les maladies.",
         fact: "Gorillas hum and sing while they eat — researchers call it 'food calls,' a sign of contentment.",
@@ -3813,7 +3819,7 @@
         body_fr: "Le cri aigu et glapissant du pygargue vocifère est le son emblématique de la nature sauvage africaine. On le trouve partout où il y a de l'eau libre en RDC. Il chasse en planant à basse altitude au-dessus du fleuve et en attrapant des poissons à la surface.",
         fact: "Its call is so iconic that filmmakers use it as audio shorthand for 'African wilderness' even in scenes set far from any fish eagle's range.",
         fact_fr: "Son cri est si emblématique que les cinéastes l'utilisent comme raccourci sonore pour évoquer « la nature sauvage africaine », même dans des scènes situées loin de son aire de répartition." },
-      { file: 'electric_catfish.png', name: 'Electric Catfish', name_fr: 'Poisson-chat électrique', sub: 'Malapterurus electricus · slow river', sub_fr: 'Malapterurus electricus · fleuves lents', x: 19, y: 60,
+      { file: 'electric_catfish.png', name: 'Electric Catfish', name_fr: 'Poisson-chat électrique', sub: 'Malapterurus electricus · slow river', sub_fr: 'Malapterurus electricus · fleuves lents', x: 28, y: 62,
         body: "A nocturnal Congo River resident that can generate 450-volt electric shocks. Uses electricity both to stun prey and to defend itself.",
         body_fr: "Habitant nocturne du fleuve Congo qui peut générer des décharges électriques de 450 volts. Il utilise l'électricité à la fois pour étourdir ses proies et pour se défendre.",
         fact: "Ancient Egyptians depicted this fish on tomb walls as early as 2750 BC — its electric powers have been known to humans for over 4,000 years.",
