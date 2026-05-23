@@ -897,6 +897,15 @@
       filter: drop-shadow(0 20px 60px rgba(0,0,0,0.55));
       user-select: none;
       pointer-events: none;
+      /* The illustrated map JPEG has a baked-in black canvas around
+         the painted country shape. mix-blend-mode: screen mathematically
+         treats black as the identity — i.e. fully transparent — so the
+         country floats directly on the page's background instead of
+         sitting inside a black rectangle. The painted country's colors
+         stay vibrant because the underlying page background is
+         near-black (#1a1a1a → #000 grayscale vignette), so the screen
+         blend doesn't visibly shift the country's hues. */
+      mix-blend-mode: screen;
     }
     .drc-hotspots {
       position: absolute; inset: 0;
