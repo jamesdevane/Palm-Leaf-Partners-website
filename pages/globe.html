@@ -34,11 +34,29 @@
     .top-bar .logo-text .name { font-size: 1rem; font-weight: 700; color: #F5F0E8; letter-spacing: 0.05em; display: block; }
     .top-bar .logo-text .sub { font-size: 0.6rem; color: #B8860B; letter-spacing: 0.18em; text-transform: uppercase; display: block; }
     .top-bar .back-btn {
-      color: rgba(245,240,232,0.7); font-size: 0.82rem; font-weight: 500;
-      text-decoration: none; border: 1px solid rgba(184,134,11,0.4);
-      padding: 0.4rem 1rem; border-radius: 20px; transition: all 0.2s;
+      /* Floating bottom-left pill on ALL views (3D globe, 2D flat) so
+         it's consistent across the site and never collides with the
+         top-right chrome stack (lang-toggle / refresh / clock). DRC
+         view has its own .drc-back-btn at the same position so we
+         hide this one there to avoid stacking. */
+      position: fixed;
+      bottom: calc(env(safe-area-inset-bottom, 0px) + 1rem);
+      left: calc(env(safe-area-inset-left, 0px) + 1rem);
+      z-index: 220;
+      color: rgba(245,240,232,0.85); font-size: 0.82rem; font-weight: 500;
+      text-decoration: none;
+      background: rgba(20,30,25,0.78);
+      border: 1px solid rgba(184,134,11,0.5);
+      padding: 0.45rem 1rem; border-radius: 999px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0 4px 14px rgba(0,0,0,0.5);
+      transition: all 0.2s;
     }
-    .top-bar .back-btn:hover { color: #B8860B; border-color: #B8860B; }
+    .top-bar .back-btn:hover { color: #1B4332; background: #B8860B; border-color: #B8860B; }
+    /* DRC view has its own back button (Back to World); hide the
+       top-bar back button there so they don't stack. */
+    body.drc-immersive .top-bar .back-btn { display: none; }
 
     /* Kinshasa time clock */
     .kinshasa-clock {
@@ -2174,12 +2192,8 @@
     body.flat-immersive .mobile-refresh-btn,
     body.drc-immersive  .mobile-refresh-btn { display: inline-flex; }
 
-    /* Hide the top-bar's "← Back to Site" link in immersive views at
-       all widths — it was overlapping the EN/FR language toggle in the
-       top-right corner. Mobile shows the floating corner-chip instead;
-       desktop users can use browser back. */
-    body.flat-immersive .top-bar .back-btn,
-    body.drc-immersive  .top-bar .back-btn { display: none; }
+    /* Back-btn now floats bottom-left on all views (its own rule
+       above), so no longer needs to be hidden in immersive views. */
 
     /* Clock stays visible in immersive views — Eddie likes it. The
        refresh button is now positioned BELOW the clock instead. */
