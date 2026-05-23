@@ -2282,11 +2282,12 @@
          math automatically follows whatever size CSS resolves to.    */
       body.flat-immersive .flat-pannable {
         position: absolute !important;
-        inset: auto !important;
-        top: 0;                                              /* lock to viewport top */
-        left: calc((100vw - max(200vh, 100vw)) / 2);
+        top: 0 !important;
+        left: 0 !important;            /* west edge of the map flush against viewport left */
+        right: auto !important;
+        bottom: auto !important;
         width: max(200vh, 100vw) !important;
-        height: 100dvh !important;                           /* exact viewport height — no vertical pan, only left/right scroll */
+        height: 100dvh !important;     /* viewport height exactly — no vertical pan */
         max-height: 100dvh !important;
         /* JS controller owns every touch gesture — pan, pinch, momentum.
            Past the east/west edge, elasticEdges in the JS controller
@@ -3488,7 +3489,13 @@
     // pans on drag, ignores clicks on interactive hotspots so badges /
     // landmarks / provinces stay clickable. Mobile uses two-finger pinch;
     // desktop uses scroll wheel (Ctrl/Cmd not required).
-    function makeZoomController({ innerEl, rootEl, btnIn, btnOut, btnReset, elasticEdges = false, wrapX = false }) {
+    function makeZoomController({ innerEl, rootEl, btnIn, btnOut, btnReset, elasticEdges = false, wrapX = false, panAnchor = 'center' }) {
+      // panAnchor: 'center' (default) → inner element is centered inside its
+      // container, so pan range is symmetric ±(overflow/2). 'left' → inner
+      // element is anchored at the container's left edge, so pan range is
+      // asymmetric: tx ∈ [-(overflow), 0] — drag east only, never overscroll
+      // past the west edge. Used by the mobile flat-view where the map is
+      // anchored at viewport left and the user drags east to reveal more.
       // elasticEdges + wrapX may be booleans OR functions returning booleans
       // (so the flat-view controller can dynamically opt in/out based on
       // viewport size at gesture time, not just at construction time).
@@ -3531,27 +3538,20 @@
       function startInertia() {
         cancelInertia();
         const tick = () => {
-          // Stop when the glide is barely moving.
           if (Math.abs(panVel.x) < 0.4 && Math.abs(panVel.y) < 0.4) {
             inertiaRaf = 0;
-            // If we coasted into an overscroll region, snap back.
             if (isElastic()) {
-              const { maxX, maxY } = getBounds();
-              if (Math.abs(tx) > maxX || Math.abs(ty) > maxY) startSnapBack();
+              const { minX, maxX, minY, maxY } = getBounds();
+              if (tx > maxX || tx < minX || ty > maxY || ty < minY) startSnapBack();
             }
             return;
           }
           tx += panVel.x;
           ty += panVel.y;
-          // 0.95 deceleration → longer, more "weighty" glide than the old
-          // 0.94. Eddie wanted "feel of a real game map" — AoE Mobile uses
-          // ~0.95-0.96 momentum coefficient. Velocity also damps faster
-          // once we cross into overscroll territory so the elastic feels
-          // rubbery, not loose.
           let decel = 0.95;
           if (isElastic()) {
-            const { maxX, maxY } = getBounds();
-            if (Math.abs(tx) > maxX || Math.abs(ty) > maxY) decel = 0.78;
+            const { minX, maxX, minY, maxY } = getBounds();
+            if (tx > maxX || tx < minX || ty > maxY || ty < minY) decel = 0.78;
           }
           panVel.x *= decel;
           panVel.y *= decel;
@@ -3585,25 +3585,27 @@
       // Bounds: how far tx / ty are allowed before they're clamped (or
       // before elastic resistance kicks in). Computed each call so resizes
       // and zoom changes are tracked.
+      // For panAnchor='center', returns minX/maxX symmetric around 0.
+      // For panAnchor='left', returns minX = -overflow, maxX = 0 — tx is
+      // never positive (would pull the map past its west edge).
       function getBounds() {
         const w = innerEl.clientWidth;
         const h = innerEl.clientHeight;
         const containerW = rootEl?.clientWidth || w;
         const containerH = rootEl?.clientHeight || h;
-        return {
-          maxX: Math.max(0, (w * scale - containerW) / 2),
-          maxY: Math.max(0, (h * scale - containerH) / 2),
-        };
+        const overflowX = Math.max(0, w * scale - containerW);
+        const overflowY = Math.max(0, h * scale - containerH);
+        if (panAnchor === 'left') {
+          return { minX: -overflowX, maxX: 0, minY: -overflowY / 2, maxY: overflowY / 2 };
+        }
+        return { minX: -overflowX / 2, maxX: overflowX / 2, minY: -overflowY / 2, maxY: overflowY / 2 };
       }
       function clampPan() {
-        const { maxX, maxY } = getBounds();
+        const { minX, maxX, minY, maxY } = getBounds();
         if (!wrapActive()) {
-          tx = Math.max(-maxX, Math.min(maxX, tx));
+          tx = Math.max(minX, Math.min(maxX, tx));
         }
-        // When maxY is 0 (no vertical pan room — mobile flat-view sized
-        // to exact viewport height), lock ty to 0 hard. Math.min(0, ...)
-        // would do this but be explicit for clarity.
-        ty = maxY === 0 ? 0 : Math.max(-maxY, Math.min(maxY, ty));
+        ty = (maxY === 0 && minY === 0) ? 0 : Math.max(minY, Math.min(maxY, ty));
       }
       // Apply elastic resistance to a raw translation: any portion outside
       // [-max, max] is scaled by an asymptotic curve so the user can drag
@@ -3621,14 +3623,26 @@
       }
       function applyElastic() {
         if (!isElastic()) { clampPan(); return; }
-        const { maxX, maxY } = getBounds();
+        const { minX, maxX, minY, maxY } = getBounds();
         if (!wrapActive()) {
-          tx = elastic(tx, maxX);
+          if (panAnchor === 'left') {
+            // Eddie's "locked to the left side of the map" — hard stop
+            // at BOTH bounds, no rubber-band. Black background never
+            // visible because the map fills the viewport at all times.
+            tx = Math.max(minX, Math.min(maxX, tx));
+          } else {
+            // Centered controllers (DRC + province detail views) keep
+            // the symmetric iOS-Maps rubber-band feel.
+            tx = elastic(tx, maxX);
+          }
         }
-        // elastic() with max=0 returns the raw value unchanged (no
-        // dampening), which would let ty drift unbounded. Lock to 0
-        // when there's no vertical pan room.
-        ty = maxY === 0 ? 0 : elastic(ty, maxY);
+        if (maxY === 0 && minY === 0) {
+          ty = 0;
+        } else if (panAnchor === 'left') {
+          ty = Math.max(minY, Math.min(maxY, ty));
+        } else {
+          ty = elastic(ty, maxY);
+        }
       }
       // Snap-back animation: ease tx/ty back into the hard bounds after
       // the user releases an overscrolled drag. Single rAF loop, drops
@@ -3636,9 +3650,9 @@
       function startSnapBack() {
         cancelSnapBack();
         const step = () => {
-          const { maxX, maxY } = getBounds();
-          const targetX = Math.max(-maxX, Math.min(maxX, tx));
-          const targetY = Math.max(-maxY, Math.min(maxY, ty));
+          const { minX, maxX, minY, maxY } = getBounds();
+          const targetX = Math.max(minX, Math.min(maxX, tx));
+          const targetY = Math.max(minY, Math.min(maxY, ty));
           const dx = targetX - tx;
           const dy = targetY - ty;
           if (Math.abs(dx) < 0.3 && Math.abs(dy) < 0.3) {
@@ -3846,8 +3860,9 @@
       btnIn: document.getElementById('flat-zoom-in'),
       btnOut: document.getElementById('flat-zoom-out'),
       btnReset: document.getElementById('flat-zoom-reset'),
-      elasticEdges: isTouchViewport,    // function → checked dynamically on each gesture
-      wrapX: false,                      // bounded left-to-right scroll per Eddie's revised spec — no wrap
+      elasticEdges: isTouchViewport,
+      wrapX: false,
+      panAnchor: 'left',     // map is anchored to viewport left edge — drag east to reveal Asia/Australia, west edge is hard-stop locked
     });
     // Orientation change or window resize can shrink the pannable below
     // the user's current pan offset (e.g. they were viewing Asia in
