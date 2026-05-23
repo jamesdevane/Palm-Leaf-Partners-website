@@ -350,6 +350,18 @@
       --map-scale: 1;
     }
     .flat-pannable.zooming { transition: none; }
+    /* Kill HTML5 native drag on EVERY <img> inside the pannable map.
+       Without this, a real mouse mousedown on the world-map image or on
+       a mascot sprite triggers the browser's native drag-and-drop
+       (ghost image of the picture lifts off the cursor) which silently
+       eats the pointermove stream — so our pan controller never sees
+       movement. The flag IMGs already had this explicitly; this rule
+       extends the same protection to the whole pannable subtree. */
+    .flat-pannable img {
+      -webkit-user-drag: none;
+      user-select: none;
+      pointer-events: auto;
+    }
     .flat-pannable.zoomed {
       cursor: grab;
       /* Zoomed in → controller needs the full pointer stream for drag-pan. */
@@ -493,6 +505,76 @@
       line-height: 1.55;
       color: rgba(27,67,50,0.92);
       margin: 0 0 1rem;
+    }
+    /* Character powers / traits block. Sits between the bio body and
+       the (optional) wiki photo. Visual language mirrors the on-map
+       hover-card powers list — gold-uppercase section label, dotted
+       gold rule, two-column grid (icon + descriptor) — so the slide
+       panel feels like an expanded version of the same card. */
+    .country-panel-powers {
+      margin: 1.4rem 0 0.4rem;
+      padding: 0.9rem 1rem 0.8rem;
+      background: rgba(20,40,30,0.6);
+      border: 1px solid rgba(184,134,11,0.28);
+      border-radius: 8px;
+    }
+    .country-panel-powers .cpp-section-label {
+      font-size: 0.62rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #D9A93D;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 0.55rem;
+    }
+    .country-panel-powers .cpp-section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(to right, rgba(184,134,11,0.45) 0%, rgba(184,134,11,0) 100%);
+    }
+    .country-panel-powers .cpp-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .country-panel-powers .cpp-list li {
+      display: grid;
+      grid-template-columns: 26px 1fr;
+      align-items: baseline;
+      gap: 0.6rem;
+      padding: 0.22rem 0;
+      font-size: 0.82rem;
+      color: rgba(245,240,232,0.9);
+      line-height: 1.35;
+    }
+    .country-panel-powers .cpp-list strong {
+      color: #F5F0E8;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+    }
+    .country-panel-powers .cpp-icon {
+      font-size: 1.05rem;
+      line-height: 1;
+      text-align: center;
+      filter: drop-shadow(0 1px 2px rgba(0,0,0,0.5));
+    }
+    /* Species-trait variant — moss-green tint instead of warm gold to
+       signal "shared by all Palm Folk" rather than "unique to this
+       character". Sits above the per-character Powers block. */
+    .country-panel-powers.country-panel-species {
+      background: rgba(28,60,42,0.65);
+      border-color: rgba(120,180,140,0.35);
+      margin-top: 1.4rem;
+      margin-bottom: 0.9rem;
+    }
+    .country-panel-powers.country-panel-species .cpp-section-label {
+      color: #B7E0BE;
+    }
+    .country-panel-powers.country-panel-species .cpp-section-label::after {
+      background: linear-gradient(to right, rgba(120,180,140,0.45) 0%, rgba(120,180,140,0) 100%);
     }
     .country-panel-photo {
       margin: 0 0 1.1rem;
@@ -2648,6 +2730,21 @@
         pointer-events: auto;
       }
 
+      /* Mobile-only mascot positions for the USA trio. On PC the painted
+         USA area sits around left:22%/top:42% but the mobile pannable is
+         a 2:1 strip (200vh wide × 100vh tall) — same percentages land
+         lower-right of the country shape. Shift up + west so the three
+         line up over the contiguous-USA painted area. PC inline styles
+         remain authoritative there (this media query is mobile-only). */
+      body.flat-immersive .flat-loredana { left: 15% !important; top: 33% !important; }
+      body.flat-immersive .flat-melissa  { left: 12% !important; top: 37% !important; }
+      body.flat-immersive .flat-eddie    { left: 18% !important; top: 37% !important; }
+      /* Hover cards on mobile are unused (no hover) but keep them in
+         sync so any tap-driven preview lands in the right spot. */
+      body.flat-immersive .flat-loredana-card { left: 15% !important; top: 33% !important; }
+      body.flat-immersive .flat-melissa-card  { left: 12% !important; top: 37% !important; }
+      body.flat-immersive .flat-eddie-card    { left: 18% !important; top: 37% !important; }
+
       /* === Left-edge vertical flag rail (transparent) ===
          Sits under the stacked lang-toggle (top-left) + mobile-corner-chip
          (just under lang) on the left edge. Bottom clearance is bumped to
@@ -2870,7 +2967,7 @@
          existing world-map-flat.jpg + pins move together as one piece. -->
     <div class="flat-view-inner">
       <div class="flat-pannable" id="flat-pannable">
-        <img class="flat-map" src="../assets/images/world-map-flat.jpg?v=clean" alt="World map" />
+        <img class="flat-map" src="../assets/images/world-map-flat.jpg?v=clean" alt="World map" draggable="false" />
         <!-- East-west wrap-around buffers — pixel-identical copies of the
              canonical map, positioned one tile-width to each side. Only
              visible on mobile (CSS-gated). The JS zoom controller's wrap
@@ -2910,7 +3007,7 @@
              — the redundant pulsing pin + DRC label that would have
              landed over Kenya (the illustrated map isn't equirectangular)
              have been removed. -->
-        <img class="flat-zola" id="flat-zola" src="../assets/images/zola-globe-sprite.png" alt="Zola — Palm Leaf Partners mascot" style="left:50%; top:64%;" />
+        <img class="flat-zola" id="flat-zola" src="../assets/images/zola-globe-sprite.png" alt="Zola — Palm Leaf Partners mascot" style="left:50%; top:64%;" draggable="false" />
         <div class="flat-mascot-card flat-zola-card" aria-hidden="true" style="left:50%; top:64%;">
           <div class="mc-header">
             <div class="mc-name">Zola</div>
@@ -2941,9 +3038,9 @@
              at the bottom of the view so we don't have to chase
              pixel-perfect pin placement on a non-equirectangular
              illustrated projection. -->
-        <img class="flat-loredana" id="flat-loredana" src="../assets/images/loredana-usa-sprite.png?v=angelic-praying" alt="Loredana — Global Mother (Palm Tree Women Organization, USA chapter)" style="left:22%; top:42%;" />
-        <img class="flat-melissa" id="flat-melissa" src="../assets/images/melissa-usa-sprite.png?v=v1" alt="Melissa — Justiciar (Universal Palm Tree Women Organization)" style="left:19%; top:46%;" />
-        <img class="flat-eddie" id="flat-eddie" src="../assets/images/eddie-cartographer-sprite.png?v=v1" alt="Eddie — The Cartographer (Palm Leaf Partners)" style="left:25%; top:46%;" />
+        <img class="flat-loredana" id="flat-loredana" src="../assets/images/loredana-usa-sprite.png?v=angelic-praying" alt="Loredana — Global Mother (Palm Tree Women Organization, USA chapter)" style="left:22%; top:42%;" draggable="false" />
+        <img class="flat-melissa" id="flat-melissa" src="../assets/images/melissa-usa-sprite.png?v=v1" alt="Melissa — Justiciar (Universal Palm Tree Women Organization)" style="left:19%; top:46%;" draggable="false" />
+        <img class="flat-eddie" id="flat-eddie" src="../assets/images/eddie-cartographer-sprite.png?v=v1" alt="Eddie — The Cartographer (Palm Leaf Partners)" style="left:25%; top:46%;" draggable="false" />
         <div class="flat-mascot-card flat-eddie-card" aria-hidden="true" style="left:25%; top:46%;">
           <div class="mc-header">
             <div class="mc-name">Eddie</div>
@@ -3099,6 +3196,23 @@
       <p class="country-panel-tagline" id="country-panel-tagline"></p>
       <div class="country-panel-mascot" id="country-panel-mascot"></div>
       <p class="country-panel-body" id="country-panel-body"></p>
+      <!-- Palm-Folk species trait — Rooted Council + Sympathic Bond.
+           Shared by ALL UPTW women (Loredana, Melissa, Zola, Tier-2
+           sisters). Renders ABOVE the per-character powers so the
+           reader sees what's true of the species before what's
+           unique to the individual. Eddie's panel (human) hides this. -->
+      <div class="country-panel-powers country-panel-species" id="country-panel-species" aria-hidden="true" style="display:none">
+        <div class="cpp-section-label" id="country-panel-species-label">Species Trait · Palm Folk</div>
+        <ul class="cpp-list" id="country-panel-species-list"></ul>
+      </div>
+      <!-- Character powers / traits — populated for Loredana, Melissa,
+           Eddie (and any future character entries). Hidden by default;
+           openCountryPanel toggles visibility based on whether the
+           country entry has a `powers` array. -->
+      <div class="country-panel-powers" id="country-panel-powers" aria-hidden="true" style="display:none">
+        <div class="cpp-section-label" id="country-panel-powers-label">Powers &amp; Traits</div>
+        <ul class="cpp-list" id="country-panel-powers-list"></ul>
+      </div>
       <figure class="country-panel-photo" id="country-panel-photo" aria-hidden="true" style="display:none">
         <img id="country-panel-photo-img" alt="" />
         <figcaption class="country-panel-photo-credit" id="country-panel-photo-credit"></figcaption>
@@ -4069,12 +4183,19 @@
         const newScale = Math.max(MIN, Math.min(MAX, scale * factor));
         if (newScale === scale) return;
         // Keep the cursor / pinch midpoint stationary in the viewport.
+        // Derivation: with transform-origin: center, a screen point shifts
+        // outward from the transformed center by factor (k-1) when scaling
+        // by k. To pin the cursor point in place, shift the element by
+        // ox*(1-k) where ox is the cursor's offset from the *current
+        // transformed* center. Previous formula `tx = ox - (ox - tx) * k`
+        // double-counted tx in the multiplication, which made the map
+        // visibly drift toward one side with every wheel tick.
         const rect = innerEl.getBoundingClientRect();
         const ox = (cx ?? rect.left + rect.width / 2) - rect.left - rect.width / 2;
         const oy = (cy ?? rect.top + rect.height / 2) - rect.top - rect.height / 2;
         const k = newScale / scale;
-        tx = ox - (ox - tx) * k;
-        ty = oy - (oy - ty) * k;
+        tx += ox * (1 - k);
+        ty += oy * (1 - k);
         scale = newScale;
         clampPan();
         // animate=true uses the CSS transition for smooth wheel/button zoom.
@@ -4085,6 +4206,14 @@
         scale = 1; tx = 0; ty = 0;
         apply(true);
       }
+
+      // Native HTML5 drag (ghost-image-on-cursor) absolutely kills the
+      // pointermove stream — the browser swallows the rest of the gesture
+      // as a DnD operation. CSS `-webkit-user-drag: none` covers Chromium/
+      // Safari; this listener catches Firefox + any element where the CSS
+      // didn't apply (e.g. dynamically inserted images). Belt-and-suspenders
+      // because "can't grab the map" is one of the worst-feeling regressions.
+      innerEl.addEventListener('dragstart', (e) => e.preventDefault());
 
       innerEl.addEventListener('pointerdown', (e) => {
         // Any new touch cancels in-flight inertia / snap-back — the user
@@ -4305,7 +4434,7 @@
       btnReset: document.getElementById('flat-zoom-reset'),
       elasticEdges: isTouchViewport,
       wrapX: false,
-      panAnchor: 'left',     // map is anchored to viewport left edge — drag east to reveal Asia/Australia, west edge is hard-stop locked
+      panAnchor: 'center',   // when zoomed, the map can be dragged in EITHER direction — overflow is split equally either side of the viewport center
     });
     // Orientation change or window resize can shrink the pannable below
     // the user's current pan offset (e.g. they were viewing Asia in
@@ -4386,9 +4515,15 @@
       e.stopPropagation();
       showDrcDetail();
     });
+    // Zola → her OWN character panel (NOT the DRC zoom). Clicking on the
+    // SURROUNDING painted DRC area still zooms into the DRC detail view
+    // (handled by the .flat-country-zone[data-country="drc"] listener
+    // which calls openCountryPanel('drc') → action:'drc' → showDrcDetail),
+    // but tapping the mascot herself opens her character story + powers
+    // — same pattern as Loredana, Melissa, Eddie.
     document.getElementById('flat-zola')?.addEventListener('click', (e) => {
       e.stopPropagation();
-      showDrcDetail();
+      openCountryPanel('zola');
     });
     // Loredana → USA / UPTW Global Mother country panel.
     document.getElementById('flat-loredana')?.addEventListener('click', (e) => {
@@ -4498,6 +4633,23 @@
 
     // ── Country detail panel — Tier 1 for every PLP/UPTW chapter ─────
     // Click a country zone (or click Loredana for USA) → slide-in panel
+    // Species trait shared by EVERY Palm Folk woman in the universe
+    // (Loredana, Melissa, Zola, and all future Tier-2 sisters). Rendered
+    // ABOVE the per-character Powers block so the reader sees what's
+    // true of the species before what's unique to the individual.
+    // Eddie (human) does NOT get this — and that is the point. His
+    // Signal Tower power is the human equivalent.
+    const PALM_FOLK_SPECIES = [
+      { icon: '🌐', name: 'Rooted Council',
+        desc: 'voluntary mind-bridge across the network — instant comms, no infrastructure required' },
+      { icon: '💗', name: 'Sympathic Bond',
+        desc: "involuntary echo of pain AND joy across all sisters — one's victory lifts the network, one's wound reaches every root" },
+      { icon: '🛡',  name: "Sister's Shield",
+        desc: 'voluntarily hide her own pain so the network is spared — an act of love that costs her alone' },
+    ];
+    const PALM_FOLK_SPECIES_LABEL = 'Species Trait · Palm Folk';
+    const PALM_FOLK_SPECIES_LABEL_FR = 'Trait d\'espèce · Peuple du Palmier';
+
     // with chapter info + mascot + Wikipedia photo + CTA. DRC and its
     // Zola pin still bypass into the full DRC detail view (above).
     const COUNTRIES = {
@@ -4560,6 +4712,7 @@
       },
       usa: {
         flag: '🇺🇸', tier: 'ptwo',
+        palmFolk: true,
         name: 'United States of America', name_fr: 'États-Unis d\'Amérique',
         badge: 'UPTW USA · Global Mother Chapter', badge_fr: 'UPTW USA · Chapitre de la Mère Universelle',
         tagline: 'The founding chapter of Universal Palm Tree Women',
@@ -4567,8 +4720,45 @@
         mascotName: 'Loredana · Global Mother', mascotImage: '../assets/images/loredana-usa-sprite.png?v=angelic-praying',
         body: "Universal Palm Tree Women Organization USA is the founding chapter — and Loredana, the Global Mother, is the figure who gave the entire movement its name. The USA chapter anchors the international UPTW network and the women's-empowerment programs that flow from it.",
         body_fr: "L'Organisation Universelle des Femmes Palm Tree USA est le chapitre fondateur — et Loredana, la Mère Universelle, est la figure qui a donné son nom à tout le mouvement. Le chapitre USA ancre le réseau international UPTW et les programmes d'autonomisation des femmes qui en découlent.",
-        wiki: 'United_States',
+        // wiki photo intentionally omitted — Loredana's panel uses the
+        // mascot portrait + powers list instead of the generic US-flag
+        // Wikipedia image.
+        powers: [
+          { icon: '📖', name: 'Verse of Strength', desc: 'morale boost' },
+          { icon: '✨', name: 'Sanctify',          desc: '2× building output' },
+          { icon: '👁',  name: 'Soul Speaker',      desc: 'reveals village needs' },
+          { icon: '🌉', name: 'Bridge of Faith',   desc: 'foreign funding' },
+          { icon: '🙏', name: 'Prayer Circle',     desc: 'group healing' },
+          { icon: '🕊',  name: 'Sanctuary',         desc: 'refugee protection' },
+          { icon: '⛪', name: "Crusader's Resolve", desc: '+action capacity' },
+        ],
+        powersLabel: 'Powers & Traits', powersLabel_fr: 'Pouvoirs & Traits',
         cta: 'Meet Loredana →', cta_fr: 'Rencontrez Loredana →',
+      },
+      // Zola = the founding mascot of the Palm Leaf Partners universe.
+      // The DRC's painted area zooms into the full DRC detail view; THIS
+      // entry is for tapping Zola HERSELF — opens her character panel
+      // with bio + powers, mirroring Loredana / Melissa / Eddie.
+      zola: {
+        flag: '🇨🇩', tier: 'active',
+        palmFolk: true,
+        name: 'Zola · Heart of the Forest', name_fr: 'Zola · Cœur de la Forêt',
+        badge: 'Palm Leaf Partners · DRC', badge_fr: 'Palm Leaf Partners · RDC',
+        tagline: 'Walks the rainforest. Listens to villages first, builds second.',
+        tagline_fr: "Arpente la forêt tropicale. Écoute les villages d'abord, bâtit ensuite.",
+        mascotName: 'Zola · Heart of the Forest', mascotImage: '../assets/images/zola-globe-sprite.png',
+        body: "Zola is the founding mascot of Palm Leaf Partners — born of the Congolese rainforest and of the communities that live within it. Where Loredana speaks the spirit of UPTW and Melissa speaks its law, Zola speaks the LAND: she carries the wisdom of the village elders, the names of the rivers, the geometry of the canopy. She is the bridge between traditional sovereignty and modern infrastructure. Every project the Council touches in the DRC must first be heard, seen, and blessed by Zola.",
+        body_fr: "Zola est la mascotte fondatrice de Palm Leaf Partners — née de la forêt tropicale congolaise et des communautés qui y vivent. Là où Loredana porte l'esprit de l'UPTW et Melissa en porte la loi, Zola porte la TERRE : elle porte la sagesse des anciens du village, le nom des rivières, la géométrie de la canopée. Elle est le pont entre la souveraineté traditionnelle et l'infrastructure moderne. Tout projet que le Conseil touche en RDC doit d'abord être entendu, vu et béni par Zola.",
+        powers: [
+          { icon: '🌳', name: 'Canopy Sight',   desc: 'reveal forest paths' },
+          { icon: '🗣',  name: 'Elder Voice',    desc: 'unlock village trust' },
+          { icon: '🌿', name: 'Root Network',   desc: 'connect communities' },
+          { icon: '🦋', name: 'Wild Companion', desc: 'summon forest allies' },
+          { icon: '🛡',  name: 'Land Blessing',  desc: 'shield projects from harm' },
+          { icon: '🌾', name: "Harvest's Gift", desc: 'boost local yield' },
+        ],
+        powersLabel: 'Powers & Traits', powersLabel_fr: 'Pouvoirs & Traits',
+        cta: 'Meet Zola →', cta_fr: 'Rencontrez Zola →',
       },
       // Eddie = The Cartographer (PLP, Human). The world-builder of
       // the universe. Lives on the USA painted area east of Loredana.
@@ -4583,6 +4773,15 @@
         mascotName: 'Eddie · The Cartographer', mascotImage: '../assets/images/eddie-cartographer-sprite.png?v=v1',
         body: "Eddie is The Cartographer — the world-builder of the Palm Leaf Partners universe. Where the women of UPTW carry the spirit, voice, and wildness, Eddie carries the mind: surveying hidden territory, laying the foundation of new infrastructure, tracing the patterns that connect remote villages into a sovereign network. He wields no innate magic — his powers come from mastered instruments, learned knowledge, and the long discipline of mapping the unknown. He cannot build on land Loredana has not blessed; he cannot lock sovereignty without Melissa's prior treaty. Together with Zola in the forest, the four form the Council that holds humanitarian civilization upright.",
         body_fr: "Eddie est Le Cartographe — le bâtisseur du monde de l'univers Palm Leaf Partners. Là où les femmes d'UPTW portent l'esprit, la voix et la nature sauvage, Eddie porte l'esprit cartographe : arpenter les territoires cachés, poser les fondations de nouvelles infrastructures, tracer les voies qui relient les villages reculés en un réseau souverain. Il ne possède pas de magie innée — ses pouvoirs viennent d'instruments maîtrisés, d'un savoir appris et de la longue discipline de cartographier l'inconnu. Il ne peut bâtir sur une terre que Loredana n'a pas bénie ; il ne peut garantir la souveraineté sans le traité préalable de Melissa. Avec Zola dans la forêt, les quatre forment le Conseil qui soutient la civilisation humanitaire.",
+        powers: [
+          { icon: '🗺', name: 'Survey',       desc: 'reveal hidden region' },
+          { icon: '🏗', name: 'Foundation',   desc: 'instant-build infrastructure' },
+          { icon: '📡', name: 'Signal Tower', desc: 'connect remote villages' },
+          { icon: '🌐', name: 'Atlas',        desc: 'fast-travel surveyed regions' },
+          { icon: '🔮', name: 'Foresight',    desc: 'preview future timelines' },
+          { icon: '🔐', name: 'Sovereignty',  desc: 'protect from exploitation' },
+        ],
+        powersLabel: 'Powers & Traits', powersLabel_fr: 'Pouvoirs & Traits',
         cta: 'Meet Eddie →', cta_fr: 'Rencontrez Eddie →',
       },
       // Melissa = the Justiciar character. Lives on the same painted
@@ -4590,6 +4789,7 @@
       // — different content focused on legal advocacy / justice work.
       melissa: {
         flag: '🇺🇸', tier: 'ptwo',
+        palmFolk: true,
         name: 'United States of America', name_fr: 'États-Unis d\'Amérique',
         badge: 'UPTW USA · The Justiciar', badge_fr: 'UPTW USA · La Justiciaire',
         tagline: 'Defender of the law. Speaks for those who cannot speak for themselves.',
@@ -4597,6 +4797,14 @@
         mascotName: 'Melissa · The Justiciar', mascotImage: '../assets/images/melissa-usa-sprite.png?v=v1',
         body: "Melissa is the Justiciar of the UPTW universe — the keeper of the rule of law and the voice of the voiceless. Where Loredana speaks the spirit of the movement, Melissa speaks its law: drafting protections, untangling injustice, brokering treaties between communities. Her work spans courtrooms, charters, and the quiet conversations where rights are won. She stands beside Loredana on the Founding Chapter, scales of justice held aloft.",
         body_fr: "Melissa est la Justiciaire de l'univers UPTW — gardienne de l'État de droit et voix de ceux qui n'en ont pas. Là où Loredana porte l'esprit du mouvement, Melissa en porte la loi : rédiger les protections, démêler l'injustice, négocier des traités entre communautés. Son œuvre traverse les salles d'audience, les chartes, et les conversations discrètes où se gagnent les droits. Elle se tient aux côtés de Loredana, balance de la justice élevée.",
+        powers: [
+          { icon: '⚖️', name: 'Writ of Justice',  desc: 'protect from corruption' },
+          { icon: '🔍', name: 'Truth-Seeker',    desc: 'reveal bad actors' },
+          { icon: '📜', name: 'Treaty',          desc: 'broker peace deals' },
+          { icon: '🏛',  name: 'Court Summons',   desc: 'pull legal resources' },
+          { icon: '🔨', name: 'Verdict',         desc: 'settle disputes' },
+        ],
+        powersLabel: 'Powers & Traits', powersLabel_fr: 'Pouvoirs & Traits',
         cta: 'Meet Melissa →', cta_fr: 'Rencontrez Melissa →',
       },
       uk: {
@@ -4748,6 +4956,28 @@
       if (e.key === 'Escape' && countryPanel.classList.contains('open')) closeCountryPanel();
     });
 
+    // Decode a flag emoji into its ISO 3166-1 alpha-2 country code by
+    // walking the two regional-indicator codepoints (U+1F1E6..U+1F1FF
+    // map to A..Z). Returns lower-case code (e.g. "us") or null for
+    // emojis that aren't country flags. Used to substitute a local SVG
+    // for the flag emoji on Windows, where flag glyphs fall back to
+    // the bare letter codes.
+    function countryCodeFromFlagEmoji(flag) {
+      if (!flag) return null;
+      const chars = Array.from(flag);
+      if (chars.length !== 2) return null;
+      const letters = chars.map((ch) => {
+        const cp = ch.codePointAt(0);
+        if (cp < 0x1F1E6 || cp > 0x1F1FF) return null;
+        return String.fromCharCode(0x41 + (cp - 0x1F1E6));
+      });
+      if (letters.some((l) => l === null)) return null;
+      let code = letters.join('').toLowerCase();
+      // Map ISO codes to the slugs actually used in /assets/images/flags/.
+      if (code === 'gb') code = 'gb';  // already named gb.svg
+      return code;
+    }
+
     let _cpPhotoToken = 0;
     async function openCountryPanel(countryId) {
       const c = COUNTRIES[countryId];
@@ -4755,7 +4985,24 @@
       // DRC zone bypasses the panel and opens the full deep-dive directly.
       if (c.action === 'drc') { showDrcDetail(); return; }
 
-      cpFlag.textContent = c.flag || '';
+      // Render the country flag as an SVG image when we have one — Windows
+      // doesn't ship flag-emoji glyphs in any system font, so the emoji
+      // falls back to showing the regional-indicator letter codes (e.g.
+      // "🇺🇸" renders as "US" on Windows desktop). The SVG path keeps the
+      // panel consistent across mobile / macOS / Windows. Non-country
+      // emojis (e.g. the compass 🧭) fall through to the text path.
+      cpFlag.innerHTML = '';
+      const code = countryCodeFromFlagEmoji(c.flag);
+      if (code) {
+        const img = document.createElement('img');
+        img.src = `../assets/images/flags/${code}.svg`;
+        img.alt = c.flag;
+        img.draggable = false;
+        img.style.cssText = 'width:3.2rem; height:auto; display:block; border-radius:4px; box-shadow:0 2px 8px rgba(0,0,0,0.35);';
+        cpFlag.appendChild(img);
+      } else {
+        cpFlag.textContent = c.flag || '';
+      }
       cpBadge.textContent = localized(c, 'badge');
       cpBadge.className = 'country-panel-badge tier-' + (c.tier || 'ptwo');
       cpTitle.textContent = localized(c, 'name');
@@ -4788,6 +5035,49 @@
             <span class="country-panel-mascot-name">${lang === 'fr' ? 'Bientôt' : 'Coming Soon'}</span>
           </div>
         `;
+      }
+
+      // Palm Folk species trait — shown for any country entry flagged
+      // `palmFolk: true` (Loredana / Melissa / Zola today, all Tier-2
+      // sisters later). Eddie's panel hides it: he is human and uses
+      // Signal Tower for the same range that roots provide them.
+      const cpSpecies = document.getElementById('country-panel-species');
+      const cpSpeciesList = document.getElementById('country-panel-species-list');
+      const cpSpeciesLabel = document.getElementById('country-panel-species-label');
+      if (c.palmFolk) {
+        const lang = (window.I18N && window.I18N.currentLang) || 'en';
+        cpSpeciesLabel.textContent =
+          lang === 'fr' ? PALM_FOLK_SPECIES_LABEL_FR : PALM_FOLK_SPECIES_LABEL;
+        cpSpeciesList.innerHTML = PALM_FOLK_SPECIES.map((p) => `
+          <li><span class="cpp-icon">${p.icon}</span><span><strong>${p.name}</strong> — ${p.desc}</span></li>
+        `).join('');
+        cpSpecies.style.display = '';
+        cpSpecies.setAttribute('aria-hidden', 'false');
+      } else {
+        cpSpecies.style.display = 'none';
+        cpSpecies.setAttribute('aria-hidden', 'true');
+        cpSpeciesList.innerHTML = '';
+      }
+
+      // Character powers / traits — populated when the country entry
+      // defines a `powers` array (currently the four character panels:
+      // usa/Loredana, melissa, eddie, zola). All others stay hidden.
+      const cpPowers = document.getElementById('country-panel-powers');
+      const cpPowersList = document.getElementById('country-panel-powers-list');
+      const cpPowersLabel = document.getElementById('country-panel-powers-label');
+      if (Array.isArray(c.powers) && c.powers.length > 0) {
+        const lang = (window.I18N && window.I18N.currentLang) || 'en';
+        cpPowersLabel.textContent =
+          (lang === 'fr' ? c.powersLabel_fr : c.powersLabel) || 'Powers & Traits';
+        cpPowersList.innerHTML = c.powers.map((p) => `
+          <li><span class="cpp-icon">${p.icon}</span><span><strong>${p.name}</strong> — ${p.desc}</span></li>
+        `).join('');
+        cpPowers.style.display = '';
+        cpPowers.setAttribute('aria-hidden', 'false');
+      } else {
+        cpPowers.style.display = 'none';
+        cpPowers.setAttribute('aria-hidden', 'true');
+        cpPowersList.innerHTML = '';
       }
 
       // CTA — DRC zone bypasses to its detail view (handled above); other
@@ -6797,9 +7087,15 @@
       { lat: -19.0154, lon:  29.1549, label: 'Zimbabwe',  label_fr: 'Zimbabwe',  sub: 'UPTW', sub_fr: 'UPTW', timezone: 'Africa/Harare',       clockLabel: 'Harare, Zimbabwe',   clockLabel_fr: 'Harare, Zimbabwe',      color: 0xB76E79, sprite: null, active: false, ptwo: true },
       { lat: -25.2744, lon: 133.7751, label: 'Australia', label_fr: 'Australie', sub: 'UPTW', sub_fr: 'UPTW', timezone: 'Australia/Sydney',    clockLabel: 'Sydney, Australia',  clockLabel_fr: 'Sydney, Australie',     color: 0xB76E79, sprite: null, active: false, ptwo: true },
       { lat:   7.3697, lon:  12.3547, label: 'Cameroon',  label_fr: 'Cameroun',  sub: 'UPTW', sub_fr: 'UPTW', timezone: 'Africa/Douala',       clockLabel: 'Yaoundé, Cameroon',  clockLabel_fr: 'Yaoundé, Cameroun',     color: 0xB76E79, sprite: null, active: false, ptwo: true },
-      // USA — pinned on the Virginia / West Virginia border at user request.
-      // Label notes the "Global Mother" designation for UPTW's USA chapter.
+      // USA — the Council trio (Loredana / Melissa / Eddie) clustered
+      // across the eastern US. Three pins at distinct lat/lon so the
+      // mascots don't z-fight on the globe; together they read as "the
+      // USA chapter" the same way they do on the flat map. Loredana is
+      // the geographic anchor (VA); Melissa sits west (KY), Eddie east
+      // (NJ) — a small triangle of the Council on the globe surface.
       { lat:  38.5,    lon: -79.5,    label: 'USA (Global Mother)', label_fr: 'États-Unis (Mère du Monde)', shortLabel: 'USA', sub: 'UPTW · Global Mother', sub_fr: 'UPTW · Mère du Monde', mascotName: 'Loredana', tooltipTitle: 'Loredana · Global Mother', tooltipTitle_fr: 'Loredana · Mère du Monde', tagline: 'Universal Palm Tree Women USA', tagline_fr: 'Organisation Universelle des Femmes Palm Tree USA', timezone: 'America/New_York', clockLabel: 'Eastern Time, USA', clockLabel_fr: 'Heure de l\'Est, États-Unis', color: 0xB76E79, sprite: '../assets/images/loredana-usa-sprite.png?v=angelic-praying', active: false, ptwo: true },
+      { lat:  37.8,    lon: -85.5,    label: 'USA (Justiciar)',      label_fr: 'États-Unis (Justiciaire)',     shortLabel: 'USA', sub: 'UPTW · The Justiciar',     sub_fr: 'UPTW · La Justiciaire',     mascotName: 'Melissa',  tooltipTitle: 'Melissa · The Justiciar',  tooltipTitle_fr: 'Melissa · La Justiciaire', tagline: 'Defender of the law',        tagline_fr: 'Défenseure du droit',       timezone: 'America/New_York', clockLabel: 'Eastern Time, USA', clockLabel_fr: 'Heure de l\'Est, États-Unis', color: 0x4A5DAA, sprite: '../assets/images/melissa-usa-sprite.png?v=v1',          active: false, ptwo: true },
+      { lat:  39.5,    lon: -74.5,    label: 'USA (Cartographer)',   label_fr: 'États-Unis (Cartographe)',     shortLabel: 'USA', sub: 'PLP · The Cartographer',   sub_fr: 'PLP · Le Cartographe',     mascotName: 'Eddie',    tooltipTitle: 'Eddie · The Cartographer', tooltipTitle_fr: 'Eddie · Le Cartographe',   tagline: 'Surveys the world',           tagline_fr: 'Arpente le monde',           timezone: 'America/New_York', clockLabel: 'Eastern Time, USA', clockLabel_fr: 'Heure de l\'Est, États-Unis', color: 0x8B5A2B, sprite: '../assets/images/eddie-cartographer-sprite.png?v=v1', active: false, ptwo: true },
       { lat:  50.5039, lon:   4.4699, label: 'Belgium',   label_fr: 'Belgique',  sub: 'UPTW', sub_fr: 'UPTW', timezone: 'Europe/Brussels',     clockLabel: 'Brussels, Belgium',  clockLabel_fr: 'Bruxelles, Belgique',   color: 0xB76E79, sprite: null, active: false, ptwo: true },
       { lat:  46.2276, lon:   2.2137, label: 'France',    label_fr: 'France',    sub: 'UPTW', sub_fr: 'UPTW', timezone: 'Europe/Paris',        clockLabel: 'Paris, France',      clockLabel_fr: 'Paris, France',         color: 0xB76E79, sprite: null, active: false, ptwo: true },
     ];
