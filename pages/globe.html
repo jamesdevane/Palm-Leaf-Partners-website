@@ -3035,7 +3035,7 @@
         tagline_fr: 'Pôle bilingue Afrique centrale · Yaoundé',
         body: "UPTW Cameroon bridges the Francophone and Anglophone women's-empowerment communities across Central Africa. Yaoundé hosts our bilingual programming and regional capacity-building work.",
         body_fr: "UPTW Cameroun fait le pont entre les communautés francophones et anglophones d'autonomisation des femmes en Afrique centrale. Yaoundé accueille notre programmation bilingue et le renforcement des capacités régionales.",
-        wiki: 'Yaound%C3%A9',
+        wiki: 'Cameroon',
         cta: 'Join the Cameroon chapter →', cta_fr: 'Rejoindre le chapitre Cameroun →',
       },
       zambia: {
@@ -4585,10 +4585,10 @@
         }
       };
       set(MINING_REGIONS, {
-        'katanga-belt':   { wiki: 'Katanga_Copperbelt' },
+        'katanga-belt':   { wiki: 'Cobalt_mining' },        // Katanga_Copperbelt lacks a lead image
         'kasai-diamonds': { wiki: 'Mbuji-Mayi' },
         'maniema-coltan': { wiki: 'Coltan' },
-        'ituri-gold':     { wiki: 'Kibali_Gold_Mine' },
+        'ituri-gold':     { wiki: 'Gold_mining' },          // Kibali_Gold_Mine lacks a lead image
       });
       set(MINING_CITIES, {
         'kolwezi':         { wiki: 'Kolwezi' },
@@ -4599,11 +4599,11 @@
       });
       set(GRID_PLANTS, {
         'inga':   { wiki: 'Inga_dams' },
-        'ruzizi': { wiki: 'Ruzizi_Dam' },
-        'nzilo':  { wiki: 'Nzilo_Dam' },
+        'ruzizi': { wiki: 'Ruzizi_River' },                  // Ruzizi_Dam lacks a lead image
+        'nzilo':  { wiki: 'Inga_dams' },                     // Nzilo_Dam lacks one — use sibling hydro article
       });
       set(GRID_LINES, {
-        'hvdc-main':     { wiki: 'Inga%E2%80%93Shaba_HVDC_system' },
+        'hvdc-main':     { wiki: 'High-voltage_direct_current' }, // Inga-Shaba article didn't resolve via REST API
         'eastern-grid':  { coming_soon: true },
       });
       set(FIBER_CITIES, {
@@ -4653,15 +4653,15 @@
         'marche-central':     'Kinshasa',
         'stade-martyrs':      'Stade_des_Martyrs',
         'boulevard-30-juin':  'Boulevard_du_30_Juin',
-        'kintambo':           'Kintambo',
-        'ndjili-airport':     'N%27djili_International_Airport',
+        'kintambo':           'Kinshasa',                  // stub on en-wiki — point at parent city
+        'ndjili-airport':     'Kinshasa',                  // stub on en-wiki + pre-encoded char broke fetch
         'pool-malebo':        'Pool_Malebo',
         'beaux-arts':         'Kinshasa',
         'unikin':             'University_of_Kinshasa',
-        'mont-ngafula':       'Mont-Ngafula',
+        'mont-ngafula':       'Kinshasa',                  // stub on en-wiki — point at parent city
         // Kongo Central
         'matadi':             'Matadi',
-        'boma':               'Boma',
+        'boma':               'Kongo_Central',             // Boma article lacks a lead image
         'inga-prov':          'Inga_dams',
         'mbanza-ngungu':      'Mbanza-Ngungu',
         'kc-atlantic':        'Muanda',
@@ -4671,7 +4671,7 @@
         'salonga':            'Salonga_National_Park',
         'tumba':              'Lake_Tumba',
         'bonobo-habitat':     'Bonobo',
-        'lopori':             'Lopori_River',
+        'lopori':             'Congo_Basin',               // Lopori_River lacks a lead image
         'equator-equateur':   'Equator',
         // Tshopo
         'kisangani':          'Kisangani',
@@ -4685,8 +4685,8 @@
         'ituri-forest-prov':  'Ituri_Rainforest',
         'lake-albert':        'Lake_Albert_(Africa)',
         'okapi-reserve':      'Okapi_Wildlife_Reserve',
-        'kibali':             'Kibali_Gold_Mine',
-        'mongbwalu':          'Mongbwalu',
+        'kibali':             'Gold_mining',               // Kibali_Gold_Mine lacks a lead image
+        'mongbwalu':          'Gold_mining',               // Mongbwalu lacks a lead image
         // Nord-Kivu
         'goma':               'Goma',
         'virunga-park':       'Virunga_National_Park',
@@ -4715,10 +4715,10 @@
         'lulua':              'Lulua_River',
         // Haut-Katanga
         'lubumbashi-prov':    'Lubumbashi',
-        'likasi':             'Likasi',
+        'likasi':             'Lubumbashi',                // Likasi lacks a lead image — use the neighboring city
         'kasenga':            'Kasenga',
-        'kundelungu':         'Kundelungu_National_Park',
-        'bunkeya':            'Bunkeya',
+        'kundelungu':         'Miombo',                    // park + falls articles lack lead images; use the woodland the body describes
+        'bunkeya':            'Yeke_Kingdom',              // Bunkeya was the Yeke royal capital, body emphasizes that
         'lufira':             'Lufira_River',
       };
       for (const province of Object.values(PROVINCE_DETAILS)) {
