@@ -2168,11 +2168,23 @@
       transform: rotate(-360deg);
     }
 
-    @media (max-width: 640px) {
+    /* Refresh button + corner chip are always visible whenever the page
+       is in flat/DRC immersive mode, regardless of viewport width — so
+       PC users testing a shrunk/DevTools-mobile preview also see them.
+       The full mobile layout (vertical flag rail, full-bleed map, etc.)
+       is still gated to @media below. */
+    body.flat-immersive .mobile-refresh-btn,
+    body.drc-immersive  .mobile-refresh-btn { display: inline-flex; }
+
+    /* Mobile immersive layout — bumped from 640px to 1024px so shrunk
+       desktop windows + small tablets + DevTools mobile previews all
+       get the same touch-friendly chrome (vertical flag rail, hand-grab
+       drag, big refresh button). Above 1024px we use the standard
+       desktop layout. */
+    @media (max-width: 1024px) {
       /* Reveal the corner chip + hide the desktop chrome on immersive views.
          IMPORTANT: don't `display:none` the whole .top-bar — that would also
-         remove its descendants (the mobile-corner-chip, mobile-refresh-btn,
-         and view-toggle) from the render tree no matter how they're
+         remove its descendants from the render tree no matter how they're
          positioned. Instead, hide the bar's *background+layout* by
          collapsing it to zero height + transparent + non-blocking, then
          individually hide ONLY the desktop chrome children (logo + back).
