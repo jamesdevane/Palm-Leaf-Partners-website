@@ -1055,7 +1055,7 @@
       /* left + top set inline matching the mascot — card hovers ABOVE
          the mascot's head using the negative-Y transform. */
       transform: translate(-50%, calc(-100% - 80px));
-      width: 280px;
+      width: 320px;
       background:
         linear-gradient(180deg, rgba(28,38,33,0.97) 0%, rgba(18,26,22,0.97) 100%);
       border: 1px solid rgba(184,134,11,0.7);
@@ -1151,9 +1151,12 @@
       grid-template-columns: 22px 1fr;
       align-items: baseline;
       gap: 0.5rem;
-      padding: 0.22rem 0;
-      font-size: 0.7rem;
+      padding: 0.14rem 0;
+      font-size: 0.68rem;
       color: rgba(245,240,232,0.88);
+      white-space: nowrap;       /* keep each power on one line */
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     .flat-mascot-card .mc-powers strong {
       color: #F5F0E8;
@@ -2871,11 +2874,11 @@
           <div class="mc-section">Powers</div>
           <ul class="mc-powers">
             <li><span class="mc-icon">🌱</span> <strong>Sprout</strong> — instant crop growth</li>
-            <li><span class="mc-icon">🌿</span> <strong>Verdant Heal</strong> — forest-medicine healing</li>
+            <li><span class="mc-icon">🌿</span> <strong>Verdant Heal</strong> — herbal healing</li>
             <li><span class="mc-icon">🌳</span> <strong>Tree Mother</strong> — wasteland → forest</li>
             <li><span class="mc-icon">🌧</span> <strong>Rain Calling</strong> — break droughts</li>
-            <li><span class="mc-icon">🛤</span> <strong>Forest Path</strong> — fast travel between forests</li>
-            <li><span class="mc-icon">🦍</span> <strong>Animal Companions</strong> — gorilla guards, okapi messengers</li>
+            <li><span class="mc-icon">🛤</span> <strong>Forest Path</strong> — fast travel</li>
+            <li><span class="mc-icon">🦍</span> <strong>Animal Companions</strong> — wildlife allies</li>
           </ul>
         </div>
 
@@ -2902,11 +2905,11 @@
           <div class="mc-tagline">Speaks for those who cannot speak for themselves.</div>
           <div class="mc-section">Powers</div>
           <ul class="mc-powers">
-            <li><span class="mc-icon">⚖️</span> <strong>Writ of Justice</strong> — protect villages from corrupt officials</li>
-            <li><span class="mc-icon">🔍</span> <strong>Truth-Seeker</strong> — reveal hidden corruption + bad actors</li>
-            <li><span class="mc-icon">📜</span> <strong>Treaty</strong> — non-aggression deal with hostile factions</li>
-            <li><span class="mc-icon">🏛</span> <strong>Court Summons</strong> — extract resources via legal channels</li>
-            <li><span class="mc-icon">🔨</span> <strong>Verdict</strong> — settle disputes between villages</li>
+            <li><span class="mc-icon">⚖️</span> <strong>Writ of Justice</strong> — protect from corruption</li>
+            <li><span class="mc-icon">🔍</span> <strong>Truth-Seeker</strong> — reveal bad actors</li>
+            <li><span class="mc-icon">📜</span> <strong>Treaty</strong> — broker peace deals</li>
+            <li><span class="mc-icon">🏛</span> <strong>Court Summons</strong> — pull legal resources</li>
+            <li><span class="mc-icon">🔨</span> <strong>Verdict</strong> — settle disputes</li>
           </ul>
         </div>
         <div class="flat-mascot-card flat-loredana-card" aria-hidden="true" style="left:22%; top:42%;">
@@ -2917,13 +2920,13 @@
           <div class="mc-tagline">Founding chapter. Carries a Bible — quotes verse at any moment.</div>
           <div class="mc-section">Powers</div>
           <ul class="mc-powers">
-            <li><span class="mc-icon">📖</span> <strong>Verse of Strength</strong> — Bible-quoted morale boost</li>
-            <li><span class="mc-icon">✨</span> <strong>Sanctify</strong> — bless buildings, 2× output</li>
-            <li><span class="mc-icon">👁</span> <strong>Soul Speaker</strong> — reveals what each village needs</li>
-            <li><span class="mc-icon">🌉</span> <strong>Bridge of Faith</strong> — opens foreign funding channels</li>
-            <li><span class="mc-icon">🙏</span> <strong>Prayer Circle</strong> — spiritual healing across villages</li>
+            <li><span class="mc-icon">📖</span> <strong>Verse of Strength</strong> — morale boost</li>
+            <li><span class="mc-icon">✨</span> <strong>Sanctify</strong> — 2× building output</li>
+            <li><span class="mc-icon">👁</span> <strong>Soul Speaker</strong> — reveals village needs</li>
+            <li><span class="mc-icon">🌉</span> <strong>Bridge of Faith</strong> — foreign funding</li>
+            <li><span class="mc-icon">🙏</span> <strong>Prayer Circle</strong> — group healing</li>
             <li><span class="mc-icon">🕊</span> <strong>Sanctuary</strong> — refugee protection</li>
-            <li><span class="mc-icon">⛪</span> <strong>Crusader's Resolve</strong> — boost action capacity</li>
+            <li><span class="mc-icon">⛪</span> <strong>Crusader's Resolve</strong> — +action capacity</li>
           </ul>
         </div>
       </div>
