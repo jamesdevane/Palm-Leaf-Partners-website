@@ -308,11 +308,10 @@
       cursor: grabbing;
       transition: none; /* no animation while user is dragging */
     }
-    .flat-pannable.zoomed-in .flat-label,
-    .flat-pannable.zoomed .flat-label {
-      /* Smaller labels when zoomed in so they don't overpower the detail. */
-      font-size: 0.5rem;
-    }
+    /* Inverse-scale on .flat-label transform already keeps labels at a
+       constant visible size as the map zooms — no need for an extra
+       font-size shrink when .zoomed. Removed the previous 0.5rem
+       override that was making zoomed-in labels nearly unreadable. */
 
     /* ── Country detail panel (Tier 1 — every country gets a card) ───
        Slides in from the right when a country is clicked. The DRC's
@@ -691,7 +690,7 @@
         -1px  1px 0 rgba(0,0,0,0.95),
          1px  1px 0 rgba(0,0,0,0.95),
          0 1px 6px rgba(0,0,0,0.7);
-      font-size: 0.66rem;
+      font-size: 0.95rem;
       letter-spacing: 0.13em;
       text-transform: uppercase;
       font-weight: 700;
@@ -701,13 +700,13 @@
     /* DRC label — same cream stroke, just slightly larger to read as
        the active tier. */
     .flat-label.active {
-      font-size: 0.76rem;
+      font-size: 1.05rem;
       letter-spacing: 0.15em;
     }
     /* PTWO labels — same cream stroke, slightly smaller to keep them
        visually subordinate to the active DRC. */
     .flat-label.ptwo {
-      font-size: 0.6rem;
+      font-size: 0.85rem;
       letter-spacing: 0.1em;
     }
     .flat-zola {
@@ -1885,18 +1884,18 @@
         <div class="flat-country-zone tier-ptwo" data-country="canada"       style="left:29%; top:18%;  width:24%; height:18%;" title="Canada · PTWO"></div>
         <div class="flat-country-zone tier-ptwo" data-country="australia"    style="left:88%; top:78%;  width:16%; height:18%;" title="Australia · PTWO"></div>
         <div class="flat-country-zone tier-ptwo" data-country="india"        style="left:72%; top:39%;  width:10%; height:13%;" title="India · PTWO"></div>
-        <div class="flat-country-zone tier-soon" data-country="south-africa" style="left:56%; top:69%;  width:9%;  height:10%;" title="South Africa · Coming Soon"></div>
-        <div class="flat-country-zone tier-soon" data-country="nigeria"      style="left:52%; top:48%;  width:6%;  height:7%;"  title="Nigeria · Coming Soon"></div>
-        <div class="flat-country-zone tier-soon" data-country="ghana"        style="left:49%; top:50%;  width:4%;  height:6%;"  title="Ghana · Coming Soon"></div>
-        <div class="flat-country-zone tier-soon" data-country="kenya"        style="left:60%; top:55%;  width:5%;  height:7%;"  title="Kenya · Coming Soon"></div>
+        <div class="flat-country-zone tier-soon" data-country="south-africa" style="left:58%; top:76%;  width:9%;  height:10%;" title="South Africa · Coming Soon"></div>
+        <div class="flat-country-zone tier-soon" data-country="nigeria"      style="left:50%; top:52%;  width:6%;  height:7%;"  title="Nigeria · Coming Soon"></div>
+        <div class="flat-country-zone tier-soon" data-country="ghana"        style="left:46%; top:53%;  width:4%;  height:6%;"  title="Ghana · Coming Soon"></div>
+        <div class="flat-country-zone tier-soon" data-country="kenya"        style="left:62%; top:58%;  width:5%;  height:7%;"  title="Kenya · Coming Soon"></div>
         <div class="flat-country-zone tier-ptwo" data-country="uk"           style="left:50%; top:24%;  width:5%;  height:7%;"  title="United Kingdom · PTWO"></div>
         <div class="flat-country-zone tier-ptwo" data-country="france"       style="left:51%; top:27%;  width:5%;  height:7%;"  title="France · PTWO"></div>
         <div class="flat-country-zone tier-ptwo" data-country="belgium"      style="left:51%; top:24%;  width:3%;  height:5%;"  title="Belgium · PTWO"></div>
-        <div class="flat-country-zone tier-ptwo" data-country="senegal"      style="left:46%; top:46%;  width:5%;  height:6%;"  title="Senegal · PTWO"></div>
-        <div class="flat-country-zone tier-ptwo" data-country="cameroon"     style="left:54%; top:50%;  width:4%;  height:6%;"  title="Cameroon · PTWO"></div>
-        <div class="flat-country-zone tier-ptwo" data-country="zambia"       style="left:58%; top:61%;  width:6%;  height:6%;"  title="Zambia · PTWO"></div>
-        <div class="flat-country-zone tier-ptwo" data-country="zimbabwe"     style="left:58%; top:65%;  width:5%;  height:5%;"  title="Zimbabwe · PTWO"></div>
-        <div class="flat-country-zone tier-ptwo" data-country="botswana"     style="left:57%; top:67%;  width:6%;  height:5%;"  title="Botswana · PTWO"></div>
+        <div class="flat-country-zone tier-ptwo" data-country="senegal"      style="left:44%; top:49%;  width:5%;  height:6%;"  title="Senegal · PTWO"></div>
+        <div class="flat-country-zone tier-ptwo" data-country="cameroon"     style="left:54%; top:55%;  width:4%;  height:6%;"  title="Cameroon · PTWO"></div>
+        <div class="flat-country-zone tier-ptwo" data-country="zambia"       style="left:58%; top:66%;  width:6%;  height:6%;"  title="Zambia · PTWO"></div>
+        <div class="flat-country-zone tier-ptwo" data-country="zimbabwe"     style="left:60%; top:70%;  width:5%;  height:5%;"  title="Zimbabwe · PTWO"></div>
+        <div class="flat-country-zone tier-ptwo" data-country="botswana"     style="left:57%; top:73%;  width:6%;  height:5%;"  title="Botswana · PTWO"></div>
         <div class="flat-country-zone tier-active" data-country="drc"        style="left:51%; top:65%;  width:8%;  height:13%;" title="DRC · Active"></div>
 
 
@@ -1906,31 +1905,34 @@
              have been removed. -->
         <img class="flat-zola" id="flat-zola" src="../assets/images/zola-globe-sprite.png" alt="Zola — Palm Leaf Partners mascot" style="left:50%; top:64%;" />
 
-        <!-- Coming Soon markets — green, smaller -->
-        <div class="flat-pin inactive" data-country="nigeria" style="left:52.22%; top:45.00%;"></div>
-        <div class="flat-label" style="left:52.22%; top:45.00%;">Nigeria</div>
+        <!-- Coming Soon markets — green, smaller. Repositioned to land
+             on the painted countries (the illustrated map's projection
+             isn't equirectangular so the lat/lon-calculated coords from
+             before put pins in the Sahara and Indian Ocean). -->
+        <div class="flat-pin inactive" data-country="nigeria" style="left:50%; top:52%;"></div>
+        <div class="flat-label" style="left:50%; top:52%;">Nigeria</div>
 
-        <div class="flat-pin inactive" data-country="ghana" style="left:49.72%; top:46.11%;"></div>
-        <div class="flat-label" style="left:49.72%; top:46.11%;">Ghana</div>
+        <div class="flat-pin inactive" data-country="ghana" style="left:46%; top:53%;"></div>
+        <div class="flat-label" style="left:46%; top:53%;">Ghana</div>
 
-        <div class="flat-pin inactive" data-country="kenya" style="left:60.28%; top:50.56%;"></div>
-        <div class="flat-label" style="left:60.28%; top:50.56%;">Kenya</div>
+        <div class="flat-pin inactive" data-country="kenya" style="left:62%; top:58%;"></div>
+        <div class="flat-label" style="left:62%; top:58%;">Kenya</div>
 
-        <div class="flat-pin inactive" data-country="south-africa" style="left:56.94%; top:66.11%;"></div>
-        <div class="flat-label" style="left:56.94%; top:66.11%;">South Africa</div>
+        <div class="flat-pin inactive" data-country="south-africa" style="left:58%; top:76%;"></div>
+        <div class="flat-label" style="left:58%; top:76%;">South Africa</div>
 
         <!-- PTWO chapters — rose-gold, smallest pins -->
         <div class="flat-pin ptwo" data-country="uk" style="left:49.96%; top:21.38%;"></div>
         <div class="flat-label ptwo" style="left:49.96%; top:21.38%;">London</div>
 
-        <div class="flat-pin ptwo" data-country="senegal" style="left:45.97%; top:41.95%;"></div>
-        <div class="flat-label ptwo" style="left:45.97%; top:41.95%;">Senegal</div>
+        <div class="flat-pin ptwo" data-country="senegal" style="left:44%; top:49%;"></div>
+        <div class="flat-label ptwo" style="left:44%; top:49%;">Senegal</div>
 
-        <div class="flat-pin ptwo" data-country="zambia" style="left:57.74%; top:57.30%;"></div>
-        <div class="flat-label ptwo" style="left:57.74%; top:57.30%;">Zambia</div>
+        <div class="flat-pin ptwo" data-country="zambia" style="left:58%; top:66%;"></div>
+        <div class="flat-label ptwo" style="left:58%; top:66%;">Zambia</div>
 
-        <div class="flat-pin ptwo" data-country="botswana" style="left:56.86%; top:62.39%;"></div>
-        <div class="flat-label ptwo" style="left:56.86%; top:62.39%;">Botswana</div>
+        <div class="flat-pin ptwo" data-country="botswana" style="left:57%; top:73%;"></div>
+        <div class="flat-label ptwo" style="left:57%; top:73%;">Botswana</div>
 
         <div class="flat-pin ptwo" data-country="canada" style="left:20.46%; top:18.82%;"></div>
         <div class="flat-label ptwo" style="left:20.46%; top:18.82%;">Canada</div>
@@ -1938,16 +1940,16 @@
         <div class="flat-pin ptwo" data-country="india" style="left:71.93%; top:38.56%;"></div>
         <div class="flat-label ptwo" style="left:71.93%; top:38.56%;">India</div>
 
-        <div class="flat-pin ptwo" data-country="zimbabwe" style="left:58.10%; top:60.56%;"></div>
-        <div class="flat-label ptwo" style="left:58.10%; top:60.56%;">Zimbabwe</div>
+        <div class="flat-pin ptwo" data-country="zimbabwe" style="left:60%; top:70%;"></div>
+        <div class="flat-label ptwo" style="left:60%; top:70%;">Zimbabwe</div>
 
         <!-- Australia: pin sits ON the painted Australia landmass; the
              "Australia" text label is REMOVED because the painted world
              map already shows "AUSTRALIA" baked into the artwork. -->
         <div class="flat-pin ptwo" data-country="australia" style="left:88%; top:78%;"></div>
 
-        <div class="flat-pin ptwo" data-country="cameroon" style="left:53.43%; top:45.91%;"></div>
-        <div class="flat-label ptwo" style="left:53.43%; top:45.91%;">Cameroon</div>
+        <div class="flat-pin ptwo" data-country="cameroon" style="left:54%; top:55%;"></div>
+        <div class="flat-label ptwo" style="left:54%; top:55%;">Cameroon</div>
 
         <div class="flat-pin ptwo" data-country="usa" id="flat-pin-usa" style="left:27.92%; top:28.61%;"></div>
         <!-- Loredana stands on USA -->
