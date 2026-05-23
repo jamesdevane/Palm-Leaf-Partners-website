@@ -799,6 +799,23 @@
         transform 750ms cubic-bezier(0.18, 0.85, 0.28, 1),
         filter 600ms ease;
     }
+    /* Palm-leaf canopy overlay — universal frame layered on top of the
+       DRC + province detail views. Frame stretches to the viewport so
+       when the device rotates / browser resizes, the foliage and the
+       map underneath rescale together (the map container's padding is
+       in the same percentage units the frame uses). pointer-events:
+       none so the frame never intercepts taps meant for the map. */
+    .drc-detail-view::after,
+    .province-detail-view::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: url("../assets/images/palm-frame.png");
+      background-size: 100% 100%;
+      background-repeat: no-repeat;
+      pointer-events: none;
+      z-index: 25; /* above the .drc-detail-inner content, below bubble + chrome */
+    }
     .drc-detail-view.visible {
       opacity: 1;
       pointer-events: auto;
