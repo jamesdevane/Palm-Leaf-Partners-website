@@ -2184,14 +2184,12 @@
     /* Clock stays visible in immersive views — Eddie likes it. The
        refresh button is now positioned BELOW the clock instead. */
 
-    /* View-toggle (Globe / 2D) — float as bottom-center pill in
-       immersive views at all widths (not just mobile). Was sitting in
-       the top-bar at the right end, which overlapped with the EN/FR
-       toggle in the top-right corner. Hidden in DRC view (the back
-       button is the primary nav there). */
-    body.flat-immersive .view-toggle {
+    /* View-toggle (Globe / 2D) — always floats as a bottom-center pill,
+       on EVERY view (3D globe, 2D flat, DRC consistency). Hidden in
+       the DRC deep-dive since the back button is the primary nav. */
+    .view-toggle {
       position: fixed !important;
-      bottom: calc(env(safe-area-inset-bottom, 0px) + 0.6rem);
+      bottom: calc(env(safe-area-inset-bottom, 0px) + 0.8rem);
       left: 50%;
       right: auto;
       top: auto;
