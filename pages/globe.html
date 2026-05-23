@@ -290,11 +290,14 @@
       cursor: grab;
       user-select: none;
       -webkit-user-select: none;
-      /* iOS Safari hijacks pinch / drag gestures for its own page zoom /
-         scroll behavior unless we explicitly opt out via touch-action.
-         Without this, the 2D world map is unresponsive to touch on iPad
-         and iPhone (the DRC + province detail maps already had this). */
-      touch-action: none;
+      /* Touch gestures: at default zoom (scale=1) the whole map already
+         fits the viewport — nothing to drag-pan — so we let the browser
+         keep the vertical axis. That preserves pull-to-refresh on Samsung
+         Chrome / Android / iOS Safari without breaking pinch-to-zoom
+         (pinch is multi-touch, not pan-y, so our controller still gets
+         it). The instant the user zooms in (.zoomed is added), we flip to
+         touch-action:none so single-finger drag-pan works.  */
+      touch-action: pan-y;
       -webkit-touch-callout: none;
       -webkit-tap-highlight-color: transparent;
       /* Drives the inverse-scale on labels (see .flat-label below) so
@@ -303,7 +306,11 @@
       --map-scale: 1;
     }
     .flat-pannable.zooming { transition: none; }
-    .flat-pannable.zoomed { cursor: grab; }
+    .flat-pannable.zoomed {
+      cursor: grab;
+      /* Zoomed in → controller needs the full pointer stream for drag-pan. */
+      touch-action: none;
+    }
     .flat-pannable.dragging {
       cursor: grabbing;
       transition: none; /* no animation while user is dragging */
@@ -590,7 +597,7 @@
       box-shadow: 0 0 36px rgba(184,133,58,0.5);
       filter: brightness(1.08);
     }
-    /* PTWO tier — rose-gold */
+    /* UPTW tier — rose-gold */
     .flat-country-zone.tier-ptwo:hover {
       background: radial-gradient(circle, rgba(194,138,138,0.32) 0%, rgba(183,110,121,0.18) 50%, transparent 92%);
       transform: translate(-50%, -50%) scale(1.05);
@@ -631,6 +638,202 @@
       color: #B8860B;
       border-color: #B8860B;
     }
+    /* ── Country flag markers (replacing the old colored dots) ─────
+       Each PLP / UPTW country gets a small flag image with a tooltip
+       country name appearing on hover. Tier identity is conveyed via
+       a colored border on the flag (gold = active, amber = coming
+       soon, rose-gold = UPTW chapter). Clicks pass through to the
+       larger .flat-country-zone hit area that wraps each flag. */
+    .flat-flag {
+      position: absolute;
+      /* Removed the inverse-scale that was keeping flags at constant
+         viewport size — flags now grow with the map zoom so they
+         stay readable when the user zooms in. Tooltip text keeps its
+         inverse scale so the popup doesn't oversize. */
+      transform: translate(-50%, -50%);
+      transform-origin: center center;
+      pointer-events: auto;
+      cursor: pointer;
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      filter: drop-shadow(0 3px 8px rgba(0,0,0,0.6));
+      transition: filter 200ms;
+    }
+    .flat-flag:hover { filter: drop-shadow(0 4px 14px rgba(184,134,11,0.85)); }
+    .flat-flag img {
+      width: 32px;
+      height: 22px;
+      object-fit: cover;
+      border-radius: 3px;
+      border: 2px solid rgba(184,134,11,0.6);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.45);
+      user-select: none;
+      -webkit-user-drag: none;
+      transition: transform 200ms, border-color 200ms;
+    }
+    .flat-flag:hover img { transform: scale(1.15); border-color: #B8860B; }
+    .flat-flag[data-tier="active"] img { border-color: #B8860B; border-width: 3px; width: 38px; height: 26px; }
+    .flat-flag[data-tier="soon"]   img { border-color: rgba(184,133,58,0.85); }
+    .flat-flag[data-tier="ptwo"]   img { border-color: rgba(194,138,138,0.85); }
+    .flat-flag-tip {
+      font-family: 'Georgia', serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #F5F0E8;
+      background: rgba(20,30,25,0.92);
+      border: 1px solid rgba(184,134,11,0.55);
+      border-radius: 999px;
+      padding: 0.18rem 0.55rem;
+      white-space: nowrap;
+      opacity: 0;
+      /* Counter-scale so the tooltip stays at constant viewport size
+         even when the parent .flat-flag scales with the map zoom. */
+      transform: translateY(-4px) scale(calc(1 / var(--map-scale, 1)));
+      transform-origin: center bottom;
+      transition: opacity 180ms, transform 180ms;
+      pointer-events: none;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.95);
+    }
+    .flat-flag:hover .flat-flag-tip {
+      opacity: 1;
+      transform: translateY(0) scale(calc(1 / var(--map-scale, 1)));
+    }
+    /* On touch devices, tooltips don't make sense (no hover) — and
+       the country detail panel that opens on tap already shows the
+       full country name in its header. */
+    @media (hover: none) and (pointer: coarse) {
+      .flat-flag-tip { display: none; }
+    }
+
+    /* ── Global Network strip (bottom of 2D map) ──────────────────
+       Every PLP/UPTW chapter listed in one place, regardless of
+       where the country sits on the painted map. Solves the
+       "is this flag actually on the painted country" placement
+       problem. Sits inside .flat-view-inner so it scales with the
+       map container; positioned at bottom, doesn't affect map
+       zoom/pan because pointer-events are limited to the flags. */
+    .flat-network-strip {
+      position: absolute;
+      left: 0; right: 0;
+      bottom: 1.2rem;
+      z-index: 12;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.35rem;
+      pointer-events: none;
+    }
+    .flat-network-strip .flat-network-pill-wrap {
+      position: relative;          /* anchor for the floating tooltip */
+      pointer-events: none;
+      display: flex;
+      justify-content: center;
+      width: 100%;
+    }
+    .flat-network-title {
+      font-family: 'Georgia', serif;
+      font-size: 0.62rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(245,240,232,0.75);
+      font-weight: 600;
+      text-shadow:
+        -1px -1px 0 rgba(0,0,0,0.95),
+         1px -1px 0 rgba(0,0,0,0.95),
+        -1px  1px 0 rgba(0,0,0,0.95),
+         1px  1px 0 rgba(0,0,0,0.95);
+    }
+    .flat-network-flags {
+      display: flex;
+      gap: 0.5rem;
+      padding: 0.45rem 0.85rem;
+      background: rgba(20,30,25,0.78);
+      border: 1px solid rgba(184,134,11,0.45);
+      border-radius: 999px;
+      pointer-events: auto;
+      max-width: calc(100% - 2rem);
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+    }
+    .flat-network-flags::-webkit-scrollbar { display: none; }
+    .flat-network-flag {
+      flex: 0 0 auto;
+      position: relative;
+      cursor: pointer;
+      transition: transform 200ms;
+    }
+    .flat-network-flag img {
+      width: 36px;
+      height: 24px;
+      object-fit: cover;
+      border-radius: 3px;
+      border: 2px solid rgba(184,134,11,0.55);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+      display: block;
+      user-select: none;
+      -webkit-user-drag: none;
+      transition: border-color 200ms, transform 200ms;
+    }
+    .flat-network-flag:hover { transform: translateY(-3px); }
+    .flat-network-flag:hover img { border-color: #B8860B; transform: scale(1.08); }
+    .flat-network-flag[data-tier="active"] img { border-color: #B8860B; border-width: 3px; }
+    .flat-network-flag[data-tier="soon"]   img { border-color: rgba(184,133,58,0.85); }
+    .flat-network-flag[data-tier="ptwo"]   img { border-color: rgba(194,138,138,0.85); }
+    /* Per-flag .net-name kept for screen readers / data-tooltip source,
+       but visually hidden — the shared floating tooltip below replaces it
+       (the scrolling pill clips an absolutely-positioned child even with
+       overflow-x:auto, because browsers force overflow-y:auto too). */
+    .flat-network-flag .net-name {
+      position: absolute;
+      width: 1px; height: 1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
+    }
+    /* Shared floating tooltip — sibling of .flat-network-flags so it
+       sits OUTSIDE the overflow:auto scroll pill and can render above it
+       without being clipped. Position is set via JS to follow the
+       currently-hovered flag. */
+    .flat-network-tooltip {
+      position: absolute;
+      bottom: calc(100% + 0.4rem);
+      left: 0;
+      transform: translateX(-50%);
+      font-family: 'Georgia', serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-weight: 700;
+      white-space: nowrap;
+      color: #F5F0E8;
+      background: rgba(20,30,25,0.95);
+      border: 1px solid rgba(184,134,11,0.55);
+      border-radius: 999px;
+      padding: 0.22rem 0.7rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 180ms;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.45);
+      z-index: 5;
+    }
+    .flat-network-tooltip.visible { opacity: 1; }
+    @media (max-width: 640px) {
+      .flat-network-strip { bottom: 0.6rem; }
+      .flat-network-title { font-size: 0.55rem; letter-spacing: 0.18em; }
+      .flat-network-flag img { width: 30px; height: 20px; border-width: 1.5px; }
+      .flat-network-flag[data-tier="active"] img { border-width: 2.5px; }
+      .flat-network-tooltip { font-size: 0.62rem; padding: 0.18rem 0.55rem; }
+    }
+    @media (hover: none) and (pointer: coarse) {
+      .flat-network-tooltip { display: none; }
+    }
+
     .flat-pin {
       position: absolute;
       width: 14px; height: 14px;
@@ -703,86 +906,97 @@
       font-size: 1.05rem;
       letter-spacing: 0.15em;
     }
-    /* PTWO labels — same cream stroke, slightly smaller to keep them
+    /* UPTW labels — same cream stroke, slightly smaller to keep them
        visually subordinate to the active DRC. */
     .flat-label.ptwo {
       font-size: 0.85rem;
       letter-spacing: 0.1em;
     }
+    /* Zola visibility treatment — the gold DRC zone she stands on used
+       to camouflage her gold halo (same color = no contrast). The fix
+       is a game-character silhouette stack: a bright white inner edge
+       crispens her outline against any background, then a deep forest
+       green halo separates her from the painted map. Adds a subtle
+       scale-pulse so the eye is drawn to her. */
     .flat-zola {
       position: absolute;
       width: 64px;
       height: auto;
-      transform: translate(-50%, -100%);
+      transform: translate(-50%, -100%) scale(1);
       pointer-events: auto;
       cursor: pointer;
       animation:
         flatZolaBob 3.4s ease-in-out infinite,
         flatZolaGlow 3.2s ease-in-out infinite;
-      /* Initial glow — gold/honey halo. The glow animation re-defines
-         the filter on every frame so the static value below is just
-         a fallback before the animation kicks in. */
       filter:
-        drop-shadow(0 0 14px rgba(255, 215, 100, 0.7))
-        drop-shadow(0 0 28px rgba(184, 134, 11, 0.45))
-        drop-shadow(0 6px 18px rgba(0,0,0,0.55));
+        drop-shadow(0 0 1.5px rgba(255,255,255,0.95))
+        drop-shadow(0 0 10px rgba(18,40,28,0.9))
+        drop-shadow(0 0 22px rgba(18,40,28,0.55))
+        drop-shadow(0 6px 18px rgba(0,0,0,0.6));
       user-select: none;
     }
     @keyframes flatZolaBob {
-      0%, 100% { transform: translate(-50%, -100%); }
-      50%      { transform: translate(-50%, -103%); }
+      0%, 100% { transform: translate(-50%, -100%) scale(1); }
+      50%      { transform: translate(-50%, -103%) scale(1.04); }
     }
-    /* Princess glow — a soft pulsing halo behind Zola so she reads
-       at a glance on the busy illustrated world map. */
     @keyframes flatZolaGlow {
       0%, 100% {
         filter:
-          drop-shadow(0 0 10px rgba(255, 215, 100, 0.55))
-          drop-shadow(0 0 22px rgba(184, 134, 11, 0.3))
-          drop-shadow(0 6px 18px rgba(0,0,0,0.55));
+          drop-shadow(0 0 1.5px rgba(255,255,255,0.95))
+          drop-shadow(0 0 8px rgba(18,40,28,0.75))
+          drop-shadow(0 0 18px rgba(18,40,28,0.4))
+          drop-shadow(0 6px 18px rgba(0,0,0,0.6));
       }
       50% {
         filter:
-          drop-shadow(0 0 20px rgba(255, 215, 100, 0.9))
-          drop-shadow(0 0 40px rgba(184, 134, 11, 0.6))
-          drop-shadow(0 6px 18px rgba(0,0,0,0.55));
+          drop-shadow(0 0 2px rgba(255,255,255,1))
+          drop-shadow(0 0 14px rgba(18,40,28,1))
+          drop-shadow(0 0 30px rgba(18,40,28,0.7))
+          drop-shadow(0 6px 18px rgba(0,0,0,0.6));
       }
     }
     /* Loredana — Global Mother on USA. Same size as Zola so the two
-       chapter mascots read as equal pillars of PTWO. Rose-gold halo
-       to match PTWO's brand color, paired with Zola's gold so the
+       chapter mascots read as equal pillars of UPTW. Rose-gold halo
+       to match UPTW's brand color, paired with Zola's gold so the
        two figures read as a coherent set. */
+    /* Loredana — same silhouette treatment as Zola so she reads as her
+       paired pillar. White edge + dark halo for contrast against the
+       light-tan painted USA terrain, with a hint of rose-gold preserved
+       in the outer ring to keep her UPTW brand color. */
     .flat-loredana {
       position: absolute;
       width: 64px;
       height: auto;
-      transform: translate(-50%, -100%);
+      transform: translate(-50%, -100%) scale(1);
       pointer-events: none;
       animation:
         flatLoredanaBob 4.2s ease-in-out infinite,
         flatLoredanaGlow 3.8s ease-in-out infinite;
       filter:
-        drop-shadow(0 0 14px rgba(255, 200, 210, 0.7))
-        drop-shadow(0 0 28px rgba(183, 110, 121, 0.45))
-        drop-shadow(0 6px 18px rgba(0,0,0,0.55));
+        drop-shadow(0 0 1.5px rgba(255,255,255,0.95))
+        drop-shadow(0 0 10px rgba(60,30,40,0.85))
+        drop-shadow(0 0 22px rgba(183,110,121,0.45))
+        drop-shadow(0 6px 18px rgba(0,0,0,0.6));
       user-select: none;
     }
     @keyframes flatLoredanaBob {
-      0%, 100% { transform: translate(-50%, -100%); }
-      50%      { transform: translate(-50%, -103%); }
+      0%, 100% { transform: translate(-50%, -100%) scale(1); }
+      50%      { transform: translate(-50%, -103%) scale(1.04); }
     }
     @keyframes flatLoredanaGlow {
       0%, 100% {
         filter:
-          drop-shadow(0 0 10px rgba(255, 200, 210, 0.55))
-          drop-shadow(0 0 22px rgba(183, 110, 121, 0.3))
-          drop-shadow(0 6px 18px rgba(0,0,0,0.55));
+          drop-shadow(0 0 1.5px rgba(255,255,255,0.95))
+          drop-shadow(0 0 8px rgba(60,30,40,0.75))
+          drop-shadow(0 0 18px rgba(183,110,121,0.35))
+          drop-shadow(0 6px 18px rgba(0,0,0,0.6));
       }
       50% {
         filter:
-          drop-shadow(0 0 20px rgba(255, 200, 210, 0.9))
-          drop-shadow(0 0 40px rgba(183, 110, 121, 0.6))
-          drop-shadow(0 6px 18px rgba(0,0,0,0.55));
+          drop-shadow(0 0 2px rgba(255,255,255,1))
+          drop-shadow(0 0 14px rgba(60,30,40,1))
+          drop-shadow(0 0 30px rgba(183,110,121,0.65))
+          drop-shadow(0 6px 18px rgba(0,0,0,0.6));
       }
     }
     @media (max-width: 640px) {
@@ -868,11 +1082,18 @@
          active gestures so motion is 1:1. */
       transform-origin: 50% 50%;
       transition: transform 320ms cubic-bezier(0.25, 0.8, 0.25, 1);
-      touch-action: none;  /* let our pointer events fully handle multi-touch */
+      /* At scale=1 the map already fits the frame — no drag-pan to lose —
+         so keep vertical pan for pull-to-refresh + page scroll. Pinch is
+         multi-touch and still routes to our controller. We flip to
+         touch-action:none once .zoomed is on so drag-pan takes over. */
+      touch-action: pan-y;
       will-change: transform;
     }
     .drc-detail-inner.zooming { transition: none; }
-    .drc-detail-inner.zoomed { cursor: grab; }
+    .drc-detail-inner.zoomed {
+      cursor: grab;
+      touch-action: none;
+    }
     .drc-detail-inner.zoomed.dragging { cursor: grabbing; }
     /* Zoom controls — small pill bottom-right of the detail view */
     .drc-zoom-controls {
@@ -1668,10 +1889,13 @@
     /* Layer toggle bar — sits at the top center of the DRC detail view. */
     .drc-layer-toggles {
       position: absolute;
-      /* The bar lives on its own row below the back button + language
-         toggle so French labels (e.g. "Retour au monde") never collide
-         with the centered chip strip — at any viewport width. */
-      top: 4rem;
+      /* Layer-toggle bar sits at the top of the detail view, level with
+         the EN/FR language toggle. The "Back to World" button used to
+         live in the top-left and pushed this bar to a 2nd row; we moved
+         the back button to bottom-left so the top is free. Result: more
+         vertical breathing room above Zola, who was being covered on
+         laptop screens. */
+      top: 1.5rem;
       left: 50%;
       transform: translateX(-50%);
       z-index: 230;
@@ -1718,15 +1942,18 @@
       /* Stack the back button on its own row above the layer-toggle bar so
          the chips don't collide with it on narrow phones. The back button
          shrinks to icon + short label to save vertical space. */
-      .drc-layer-toggles { top: 3.6rem; padding: 0.2rem; gap: 0.15rem; }
+      .drc-layer-toggles { top: 0.75rem; padding: 0.2rem; gap: 0.15rem; }
       .drc-layer-btn { padding: 0.3rem 0.55rem; font-size: 0.62rem; }
       .drc-layer-btn .lt-label { display: none; }
     }
 
-    /* "Back to World" pill — top-left of detail view. */
+    /* "Back to World" pill — bottom-left of detail view. Was top-left,
+       moved here so the layer-toggle bar can take the top row level with
+       EN/FR and free up the area above Zola on laptop screens. Bottom-
+       right is occupied by the zoom controls, so left side is clear. */
     .drc-back-btn {
       position: absolute;
-      top: 1.5rem; left: 1.5rem;
+      bottom: 1.5rem; left: 1.5rem;
       z-index: 220;
       background: rgba(20,40,30,0.85);
       color: #F5F0E8;
@@ -1752,7 +1979,7 @@
       .drc-landmark { font-size: 0.6rem; padding: 0.25rem 0.55rem 0.25rem 0.4rem; }
       .drc-bubble { width: calc(100vw - 2rem); max-width: 360px; }
       .drc-back-btn {
-        top: 0.75rem; left: 0.75rem;
+        bottom: 0.75rem; left: 0.75rem;
         padding: 0.4rem 0.8rem;
         font-size: 0.72rem;
       }
@@ -1884,22 +2111,22 @@
              the highlighted world map's painted regions. Width/height in
              percent of the map's width/height. The matching pin still
              sits inside each zone for click handling. -->
-        <div class="flat-country-zone tier-ptwo" data-country="usa"          style="left:22%; top:32%;  width:18%; height:18%;" title="USA · PTWO Global Mother"></div>
-        <div class="flat-country-zone tier-ptwo" data-country="canada"       style="left:29%; top:18%;  width:24%; height:18%;" title="Canada · PTWO"></div>
-        <div class="flat-country-zone tier-ptwo" data-country="australia"    style="left:88%; top:78%;  width:16%; height:18%;" title="Australia · PTWO"></div>
-        <div class="flat-country-zone tier-ptwo" data-country="india"        style="left:72%; top:39%;  width:10%; height:13%;" title="India · PTWO"></div>
-        <div class="flat-country-zone tier-soon" data-country="south-africa" style="left:55%; top:76%;  width:9%;  height:10%;" title="South Africa · Coming Soon"></div>
-        <div class="flat-country-zone tier-soon" data-country="nigeria"      style="left:47%; top:52%;  width:6%;  height:7%;"  title="Nigeria · Coming Soon"></div>
-        <div class="flat-country-zone tier-soon" data-country="ghana"        style="left:43%; top:53%;  width:4%;  height:6%;"  title="Ghana · Coming Soon"></div>
-        <div class="flat-country-zone tier-soon" data-country="kenya"        style="left:56%; top:60%;  width:5%;  height:7%;"  title="Kenya · Coming Soon"></div>
-        <div class="flat-country-zone tier-ptwo" data-country="uk"           style="left:50%; top:24%;  width:5%;  height:7%;"  title="United Kingdom · PTWO"></div>
-        <div class="flat-country-zone tier-ptwo" data-country="france"       style="left:51%; top:27%;  width:5%;  height:7%;"  title="France · PTWO"></div>
-        <div class="flat-country-zone tier-ptwo" data-country="belgium"      style="left:51%; top:24%;  width:3%;  height:5%;"  title="Belgium · PTWO"></div>
-        <div class="flat-country-zone tier-ptwo" data-country="senegal"      style="left:41%; top:49%;  width:5%;  height:6%;"  title="Senegal · PTWO"></div>
-        <div class="flat-country-zone tier-ptwo" data-country="cameroon"     style="left:51%; top:55%;  width:4%;  height:6%;"  title="Cameroon · PTWO"></div>
-        <div class="flat-country-zone tier-ptwo" data-country="zambia"       style="left:55%; top:66%;  width:6%;  height:6%;"  title="Zambia · PTWO"></div>
-        <div class="flat-country-zone tier-ptwo" data-country="zimbabwe"     style="left:57%; top:70%;  width:5%;  height:5%;"  title="Zimbabwe · PTWO"></div>
-        <div class="flat-country-zone tier-ptwo" data-country="botswana"     style="left:54%; top:73%;  width:6%;  height:5%;"  title="Botswana · PTWO"></div>
+        <div class="flat-country-zone tier-ptwo" data-country="usa"          style="left:22%; top:32%;  width:18%; height:18%;" title="USA · UPTW Global Mother"></div>
+        <div class="flat-country-zone tier-ptwo" data-country="canada"       style="left:29%; top:18%;  width:24%; height:18%;" title="Canada · UPTW"></div>
+        <div class="flat-country-zone tier-ptwo" data-country="australia"    style="left:88%; top:78%;  width:16%; height:18%;" title="Australia · UPTW"></div>
+        <div class="flat-country-zone tier-ptwo" data-country="india"        style="left:72%; top:39%;  width:10%; height:13%;" title="India · UPTW"></div>
+        <div class="flat-country-zone tier-soon" data-country="south-africa" style="left:60%; top:76%;  width:9%;  height:10%;" title="South Africa · Coming Soon"></div>
+        <div class="flat-country-zone tier-soon" data-country="nigeria"      style="left:54%; top:53%;  width:6%;  height:7%;"  title="Nigeria · Coming Soon"></div>
+        <div class="flat-country-zone tier-soon" data-country="ghana"        style="left:52%; top:54%;  width:4%;  height:6%;"  title="Ghana · Coming Soon"></div>
+        <div class="flat-country-zone tier-soon" data-country="kenya"        style="left:62%; top:58%;  width:5%;  height:7%;"  title="Kenya · Coming Soon"></div>
+        <div class="flat-country-zone tier-ptwo" data-country="uk"           style="left:50%; top:24%;  width:5%;  height:7%;"  title="United Kingdom · UPTW"></div>
+        <div class="flat-country-zone tier-ptwo" data-country="france"       style="left:51%; top:27%;  width:5%;  height:7%;"  title="France · UPTW"></div>
+        <div class="flat-country-zone tier-ptwo" data-country="belgium"      style="left:51%; top:24%;  width:3%;  height:5%;"  title="Belgium · UPTW"></div>
+        <div class="flat-country-zone tier-ptwo" data-country="senegal"      style="left:50%; top:51%;  width:5%;  height:6%;"  title="Senegal · UPTW"></div>
+        <div class="flat-country-zone tier-ptwo" data-country="cameroon"     style="left:56%; top:55%;  width:4%;  height:6%;"  title="Cameroon · UPTW"></div>
+        <div class="flat-country-zone tier-ptwo" data-country="zambia"       style="left:60%; top:65%;  width:6%;  height:6%;"  title="Zambia · UPTW"></div>
+        <div class="flat-country-zone tier-ptwo" data-country="zimbabwe"     style="left:61%; top:69%;  width:5%;  height:5%;"  title="Zimbabwe · UPTW"></div>
+        <div class="flat-country-zone tier-ptwo" data-country="botswana"     style="left:59%; top:72%;  width:6%;  height:5%;"  title="Botswana · UPTW"></div>
         <div class="flat-country-zone tier-active" data-country="drc"        style="left:51%; top:65%;  width:8%;  height:13%;" title="DRC · Active"></div>
 
 
@@ -1909,63 +2136,101 @@
              have been removed. -->
         <img class="flat-zola" id="flat-zola" src="../assets/images/zola-globe-sprite.png" alt="Zola — Palm Leaf Partners mascot" style="left:50%; top:64%;" />
 
-        <!-- Coming Soon markets — green, smaller. Repositioned to land
-             on the painted countries (the illustrated map's projection
-             isn't equirectangular so the lat/lon-calculated coords from
-             before put pins in the Sahara and Indian Ocean). Africa-wide
-             3% west shift applied after initial calibration. -->
-        <div class="flat-pin inactive" data-country="nigeria" style="left:47%; top:52%;"></div>
-        <div class="flat-label" style="left:47%; top:52%;">Nigeria</div>
+        <!-- Country flag markers — replaced the old colored-dot pins +
+             text-label combo with small flag icons that show a tooltip
+             with the country name on hover. Tier identity (active /
+             coming-soon / ptwo) comes from a colored border on the
+             flag, not from a pink-tinted country region underneath. -->
 
-        <div class="flat-pin inactive" data-country="ghana" style="left:43%; top:53%;"></div>
-        <div class="flat-label" style="left:43%; top:53%;">Ghana</div>
-
-        <div class="flat-pin inactive" data-country="kenya" style="left:56%; top:60%;"></div>
-        <div class="flat-label" style="left:56%; top:60%;">Kenya</div>
-
-        <div class="flat-pin inactive" data-country="south-africa" style="left:55%; top:76%;"></div>
-        <div class="flat-label" style="left:55%; top:76%;">South Africa</div>
-
-        <!-- PTWO chapters — rose-gold, smallest pins -->
-        <div class="flat-pin ptwo" data-country="uk" style="left:49.96%; top:21.38%;"></div>
-        <div class="flat-label ptwo" style="left:49.96%; top:21.38%;">London</div>
-
-        <div class="flat-pin ptwo" data-country="senegal" style="left:41%; top:49%;"></div>
-        <div class="flat-label ptwo" style="left:41%; top:49%;">Senegal</div>
-
-        <div class="flat-pin ptwo" data-country="zambia" style="left:55%; top:66%;"></div>
-        <div class="flat-label ptwo" style="left:55%; top:66%;">Zambia</div>
-
-        <div class="flat-pin ptwo" data-country="botswana" style="left:54%; top:73%;"></div>
-        <div class="flat-label ptwo" style="left:54%; top:73%;">Botswana</div>
-
-        <div class="flat-pin ptwo" data-country="canada" style="left:20.46%; top:18.82%;"></div>
-        <div class="flat-label ptwo" style="left:20.46%; top:18.82%;">Canada</div>
-
-        <div class="flat-pin ptwo" data-country="india" style="left:71.93%; top:38.56%;"></div>
-        <div class="flat-label ptwo" style="left:71.93%; top:38.56%;">India</div>
-
-        <div class="flat-pin ptwo" data-country="zimbabwe" style="left:57%; top:70%;"></div>
-        <div class="flat-label ptwo" style="left:57%; top:70%;">Zimbabwe</div>
-
-        <!-- Australia: pin sits ON the painted Australia landmass; the
-             "Australia" text label is REMOVED because the painted world
-             map already shows "AUSTRALIA" baked into the artwork. -->
-        <div class="flat-pin ptwo" data-country="australia" style="left:88%; top:78%;"></div>
-
-        <div class="flat-pin ptwo" data-country="cameroon" style="left:51%; top:55%;"></div>
-        <div class="flat-label ptwo" style="left:51%; top:55%;">Cameroon</div>
-
-        <div class="flat-pin ptwo" data-country="usa" id="flat-pin-usa" style="left:27.92%; top:28.61%;"></div>
-        <!-- Loredana stands on USA -->
+        <!-- Loredana stays on the painted USA — she's the visual
+             anchor for the UPTW Global Mother chapter, paired
+             conceptually with Zola standing on the DRC. All other
+             chapter flags moved to the "Our Global Network" strip
+             at the bottom of the view so we don't have to chase
+             pixel-perfect pin placement on a non-equirectangular
+             illustrated projection. -->
         <img class="flat-loredana" id="flat-loredana" src="../assets/images/loredana-usa-sprite.png" alt="Loredana — Global Mother (Palm Tree Women Organization, USA chapter)" style="left:22%; top:42%;" />
-        <div class="flat-label ptwo" style="left:27.92%; top:30.5%;">USA (Global Mother)</div>
+      </div>
 
-        <div class="flat-pin ptwo" data-country="belgium" style="left:51.24%; top:21.94%;"></div>
-        <div class="flat-label ptwo" style="left:51.24%; top:21.94%;">Belgium</div>
-
-        <div class="flat-pin ptwo" data-country="france" style="left:50.61%; top:24.32%;"></div>
-        <div class="flat-label ptwo" style="left:50.61%; top:24.32%;">France</div>
+      <!-- "Our Global Network" — every chapter flag in one ribbon at
+           the bottom of the 2D map. Click any flag → country detail
+           panel. Solves the "where is each country on the painted
+           map" placement problem; gives every chapter equal billing. -->
+      <div class="flat-network-strip" aria-label="Palm Tree Women Organization chapters">
+        <div class="flat-network-title">Our Global Network</div>
+        <div class="flat-network-pill-wrap">
+          <div class="flat-network-tooltip" id="flat-network-tooltip" role="tooltip"></div>
+        <div class="flat-network-flags">
+          <button type="button" class="flat-network-flag" data-country="drc" data-tier="active">
+            <img src="../assets/images/flags/cd.svg" alt="Democratic Republic of Congo" draggable="false" />
+            <span class="net-name">DR Congo</span>
+          </button>
+          <button type="button" class="flat-network-flag" data-country="usa" data-tier="ptwo">
+            <img src="../assets/images/flags/us.svg" alt="UPTW USA · Global Mother" draggable="false" />
+            <span class="net-name">UPTW USA · Global Mother</span>
+          </button>
+          <button type="button" class="flat-network-flag" data-country="nigeria" data-tier="soon">
+            <img src="../assets/images/flags/ng.svg" alt="Nigeria" draggable="false" />
+            <span class="net-name">Nigeria</span>
+          </button>
+          <button type="button" class="flat-network-flag" data-country="ghana" data-tier="soon">
+            <img src="../assets/images/flags/gh.svg" alt="Ghana" draggable="false" />
+            <span class="net-name">Ghana</span>
+          </button>
+          <button type="button" class="flat-network-flag" data-country="kenya" data-tier="soon">
+            <img src="../assets/images/flags/ke.svg" alt="Kenya" draggable="false" />
+            <span class="net-name">Kenya</span>
+          </button>
+          <button type="button" class="flat-network-flag" data-country="south-africa" data-tier="soon">
+            <img src="../assets/images/flags/za.svg" alt="South Africa" draggable="false" />
+            <span class="net-name">South Africa</span>
+          </button>
+          <button type="button" class="flat-network-flag" data-country="uk" data-tier="ptwo">
+            <img src="../assets/images/flags/gb.svg" alt="United Kingdom" draggable="false" />
+            <span class="net-name">United Kingdom</span>
+          </button>
+          <button type="button" class="flat-network-flag" data-country="france" data-tier="ptwo">
+            <img src="../assets/images/flags/fr.svg" alt="France" draggable="false" />
+            <span class="net-name">France</span>
+          </button>
+          <button type="button" class="flat-network-flag" data-country="belgium" data-tier="ptwo">
+            <img src="../assets/images/flags/be.svg" alt="Belgium" draggable="false" />
+            <span class="net-name">Belgium</span>
+          </button>
+          <button type="button" class="flat-network-flag" data-country="canada" data-tier="ptwo">
+            <img src="../assets/images/flags/ca.svg" alt="Canada" draggable="false" />
+            <span class="net-name">Canada</span>
+          </button>
+          <button type="button" class="flat-network-flag" data-country="india" data-tier="ptwo">
+            <img src="../assets/images/flags/in.svg" alt="India" draggable="false" />
+            <span class="net-name">India</span>
+          </button>
+          <button type="button" class="flat-network-flag" data-country="australia" data-tier="ptwo">
+            <img src="../assets/images/flags/au.svg" alt="Australia" draggable="false" />
+            <span class="net-name">Australia</span>
+          </button>
+          <button type="button" class="flat-network-flag" data-country="senegal" data-tier="ptwo">
+            <img src="../assets/images/flags/sn.svg" alt="Senegal" draggable="false" />
+            <span class="net-name">Senegal</span>
+          </button>
+          <button type="button" class="flat-network-flag" data-country="cameroon" data-tier="ptwo">
+            <img src="../assets/images/flags/cm.svg" alt="Cameroon" draggable="false" />
+            <span class="net-name">Cameroon</span>
+          </button>
+          <button type="button" class="flat-network-flag" data-country="zambia" data-tier="ptwo">
+            <img src="../assets/images/flags/zm.svg" alt="Zambia" draggable="false" />
+            <span class="net-name">Zambia</span>
+          </button>
+          <button type="button" class="flat-network-flag" data-country="zimbabwe" data-tier="ptwo">
+            <img src="../assets/images/flags/zw.svg" alt="Zimbabwe" draggable="false" />
+            <span class="net-name">Zimbabwe</span>
+          </button>
+          <button type="button" class="flat-network-flag" data-country="botswana" data-tier="ptwo">
+            <img src="../assets/images/flags/bw.svg" alt="Botswana" draggable="false" />
+            <span class="net-name">Botswana</span>
+          </button>
+        </div>
+        </div>
       </div>
     </div>
 
@@ -1979,7 +2244,7 @@
     </div>
   </div>
 
-  <!-- Country detail panel — Tier 1 card for every PLP/PTWO chapter.
+  <!-- Country detail panel — Tier 1 card for every PLP/UPTW chapter.
        Opens when the user clicks any country zone (except DRC which
        still bypasses straight into the full DRC detail view). -->
   <div class="country-panel-backdrop" id="country-panel-backdrop"></div>
@@ -2763,7 +3028,7 @@
       let lastSingle = null;
       let isDragging = false;
 
-      const INTERACTIVE = '.drc-badge, .drc-landmark, .drc-province, .drc-mining-city, .drc-mining-region, .drc-grid-plant, .drc-grid-line, .drc-fiber-city, .drc-fiber-line, .drc-geothermal-pin, .drc-datacenter-pin, .drc-fishery-pin, .drc-agri-region, .drc-zola, .drc-bubble, .drc-back-btn, .drc-layer-toggles, .drc-zoom-controls, .flat-pin, .flat-zola, .flat-loredana, .flat-label, .flat-country-zone, .lang-toggle, .view-toggle, .map-reset-btn, .flat-zoom-controls, button, a';
+      const INTERACTIVE = '.drc-badge, .drc-landmark, .drc-province, .drc-mining-city, .drc-mining-region, .drc-grid-plant, .drc-grid-line, .drc-fiber-city, .drc-fiber-line, .drc-geothermal-pin, .drc-datacenter-pin, .drc-fishery-pin, .drc-agri-region, .drc-zola, .drc-bubble, .drc-back-btn, .drc-layer-toggles, .drc-zoom-controls, .flat-pin, .flat-flag, .flat-zola, .flat-loredana, .flat-label, .flat-country-zone, .lang-toggle, .view-toggle, .map-reset-btn, .flat-zoom-controls, button, a';
 
       function apply(animate) {
         innerEl.classList.toggle('zooming', !animate);
@@ -3001,7 +3266,7 @@
       showDrcDetail();
     });
 
-    // ── Country detail panel — Tier 1 for every PLP/PTWO chapter ─────
+    // ── Country detail panel — Tier 1 for every PLP/UPTW chapter ─────
     // Click a country zone (or click Loredana for USA) → slide-in panel
     // with chapter info + mascot + Wikipedia photo + CTA. DRC and its
     // Zola pin still bypass into the full DRC detail view (above).
@@ -3058,27 +3323,27 @@
         badge: 'PLP · Coming Soon', badge_fr: 'PLP · Bientôt',
         tagline: 'Southern Africa regional hub',
         tagline_fr: 'Pôle régional pour l\'Afrique australe',
-        body: "South Africa is on PLP's roadmap as a regional infrastructure hub. Existing technical capacity, deep mining and finance sectors, and PTWO's growing chapter make it a natural anchor for Southern Africa programs.",
-        body_fr: "L'Afrique du Sud figure sur la feuille de route de PLP comme pôle régional d'infrastructure. La capacité technique existante, les secteurs minier et financier profonds, et le chapitre PTWO en plein essor en font un ancrage naturel pour les programmes en Afrique australe.",
+        body: "South Africa is on PLP's roadmap as a regional infrastructure hub. Existing technical capacity, deep mining and finance sectors, and UPTW's growing chapter make it a natural anchor for Southern Africa programs.",
+        body_fr: "L'Afrique du Sud figure sur la feuille de route de PLP comme pôle régional d'infrastructure. La capacité technique existante, les secteurs minier et financier profonds, et le chapitre UPTW en plein essor en font un ancrage naturel pour les programmes en Afrique australe.",
         wiki: 'South_Africa',
         cta: 'Partner with us →', cta_fr: 'Devenez partenaire →',
       },
       usa: {
         flag: '🇺🇸', tier: 'ptwo',
         name: 'United States of America', name_fr: 'États-Unis d\'Amérique',
-        badge: 'PTWO · Global Mother Chapter', badge_fr: 'PTWO · Chapitre de la Mère Universelle',
+        badge: 'UPTW USA · Global Mother Chapter', badge_fr: 'UPTW USA · Chapitre de la Mère Universelle',
         tagline: 'The founding chapter of Universal Palm Tree Women',
         tagline_fr: 'Le chapitre fondateur d\'Universal Palm Tree Women',
         mascotName: 'Loredana · Global Mother', mascotImage: '../assets/images/loredana-usa-sprite.png',
-        body: "Universal Palm Tree Women Organization USA is the founding chapter — and Loredana, the Global Mother, is the figure who gave the entire movement its name. The USA chapter anchors the international PTWO network and the women's-empowerment programs that flow from it.",
-        body_fr: "L'Organisation Universelle des Femmes Palm Tree USA est le chapitre fondateur — et Loredana, la Mère Universelle, est la figure qui a donné son nom à tout le mouvement. Le chapitre USA ancre le réseau international PTWO et les programmes d'autonomisation des femmes qui en découlent.",
+        body: "Universal Palm Tree Women Organization USA is the founding chapter — and Loredana, the Global Mother, is the figure who gave the entire movement its name. The USA chapter anchors the international UPTW network and the women's-empowerment programs that flow from it.",
+        body_fr: "L'Organisation Universelle des Femmes Palm Tree USA est le chapitre fondateur — et Loredana, la Mère Universelle, est la figure qui a donné son nom à tout le mouvement. Le chapitre USA ancre le réseau international UPTW et les programmes d'autonomisation des femmes qui en découlent.",
         wiki: 'United_States',
         cta: 'Meet Loredana →', cta_fr: 'Rencontrez Loredana →',
       },
       uk: {
         flag: '🇬🇧', tier: 'ptwo',
         name: 'United Kingdom', name_fr: 'Royaume-Uni',
-        badge: 'PTWO Chapter', badge_fr: 'Chapitre PTWO',
+        badge: 'UPTW Chapter', badge_fr: 'Chapitre UPTW',
         tagline: 'European headquarters · London',
         tagline_fr: 'Siège européen · Londres',
         body: "UPTW UK builds bridges between the Congolese diaspora and the home country, focusing on women's leadership, business mentorship, and cultural-heritage programs. London serves as our European headquarters.",
@@ -3089,7 +3354,7 @@
       france: {
         flag: '🇫🇷', tier: 'ptwo',
         name: 'France', name_fr: 'France',
-        badge: 'PTWO Chapter', badge_fr: 'Chapitre PTWO',
+        badge: 'UPTW Chapter', badge_fr: 'Chapitre UPTW',
         tagline: 'Francophone European hub · Paris',
         tagline_fr: 'Pôle européen francophone · Paris',
         body: "UPTW France connects French-speaking communities across Europe with Congolese women's-empowerment work. Paris hosts our French-language programming and diaspora networking.",
@@ -3100,7 +3365,7 @@
       belgium: {
         flag: '🇧🇪', tier: 'ptwo',
         name: 'Belgium', name_fr: 'Belgique',
-        badge: 'PTWO Chapter', badge_fr: 'Chapitre PTWO',
+        badge: 'UPTW Chapter', badge_fr: 'Chapitre UPTW',
         tagline: 'EU advocacy hub · Brussels',
         tagline_fr: 'Pôle de plaidoyer UE · Bruxelles',
         body: "UPTW Belgium is rooted in the deep historical ties between Belgium and the DRC. Brussels serves as our Francophone advocacy hub, focused on EU policy work and diaspora engagement.",
@@ -3111,7 +3376,7 @@
       canada: {
         flag: '🇨🇦', tier: 'ptwo',
         name: 'Canada', name_fr: 'Canada',
-        badge: 'PTWO Chapter', badge_fr: 'Chapitre PTWO',
+        badge: 'UPTW Chapter', badge_fr: 'Chapitre UPTW',
         tagline: 'Toronto · Montréal · Ottawa',
         tagline_fr: 'Toronto · Montréal · Ottawa',
         body: "UPTW Canada brings together Congolese and broader African diaspora women across Ottawa, Toronto, and Montréal. Our Canadian chapter focuses on immigrant women's leadership and educational equity.",
@@ -3122,7 +3387,7 @@
       india: {
         flag: '🇮🇳', tier: 'ptwo',
         name: 'India', name_fr: 'Inde',
-        badge: 'PTWO Chapter', badge_fr: 'Chapitre PTWO',
+        badge: 'UPTW Chapter', badge_fr: 'Chapitre UPTW',
         tagline: 'South Asia exchange · New Delhi',
         tagline_fr: 'Échange en Asie du Sud · New Delhi',
         body: "UPTW India connects women's-empowerment leaders across South Asia with the Palm Tree Women network. New Delhi hosts cross-cultural exchange programs between African and Indian women's communities.",
@@ -3133,7 +3398,7 @@
       australia: {
         flag: '🇦🇺', tier: 'ptwo',
         name: 'Australia', name_fr: 'Australie',
-        badge: 'PTWO Chapter', badge_fr: 'Chapitre PTWO',
+        badge: 'UPTW Chapter', badge_fr: 'Chapitre UPTW',
         tagline: 'Asia-Pacific anchor · Sydney',
         tagline_fr: 'Ancrage Asie-Pacifique · Sydney',
         body: "UPTW Australia is the Pacific region's anchor for Palm Tree Women Organization. Sydney hosts diaspora networking and women's-leadership training programs for the broader Asia-Pacific community.",
@@ -3144,18 +3409,18 @@
       senegal: {
         flag: '🇸🇳', tier: 'ptwo',
         name: 'Senegal', name_fr: 'Sénégal',
-        badge: 'PTWO Chapter', badge_fr: 'Chapitre PTWO',
+        badge: 'UPTW Chapter', badge_fr: 'Chapitre UPTW',
         tagline: 'Francophone West Africa hub · Dakar',
         tagline_fr: 'Pôle Afrique de l\'Ouest francophone · Dakar',
-        body: "UPTW Senegal connects PTWO's network with Francophone West Africa. Dakar serves as our West African operational hub for cross-chapter collaboration and women's economic-development programs.",
-        body_fr: "UPTW Sénégal relie le réseau PTWO à l'Afrique de l'Ouest francophone. Dakar sert de pôle opérationnel ouest-africain pour la collaboration entre chapitres et les programmes de développement économique des femmes.",
+        body: "UPTW Senegal connects UPTW's network with Francophone West Africa. Dakar serves as our West African operational hub for cross-chapter collaboration and women's economic-development programs.",
+        body_fr: "UPTW Sénégal relie le réseau UPTW à l'Afrique de l'Ouest francophone. Dakar sert de pôle opérationnel ouest-africain pour la collaboration entre chapitres et les programmes de développement économique des femmes.",
         wiki: 'Dakar',
         cta: 'Join the Senegal chapter →', cta_fr: 'Rejoindre le chapitre Sénégal →',
       },
       cameroon: {
         flag: '🇨🇲', tier: 'ptwo',
         name: 'Cameroon', name_fr: 'Cameroun',
-        badge: 'PTWO Chapter', badge_fr: 'Chapitre PTWO',
+        badge: 'UPTW Chapter', badge_fr: 'Chapitre UPTW',
         tagline: 'Bilingual Central Africa hub · Yaoundé',
         tagline_fr: 'Pôle bilingue Afrique centrale · Yaoundé',
         body: "UPTW Cameroon bridges the Francophone and Anglophone women's-empowerment communities across Central Africa. Yaoundé hosts our bilingual programming and regional capacity-building work.",
@@ -3166,7 +3431,7 @@
       zambia: {
         flag: '🇿🇲', tier: 'ptwo',
         name: 'Zambia', name_fr: 'Zambie',
-        badge: 'PTWO Chapter', badge_fr: 'Chapitre PTWO',
+        badge: 'UPTW Chapter', badge_fr: 'Chapitre UPTW',
         tagline: 'Southern Africa anchor · Lusaka',
         tagline_fr: 'Ancrage en Afrique australe · Lusaka',
         body: "UPTW Zambia anchors Palm Tree Women Organization in Southern Africa, focusing on rural women's economic empowerment and cross-border cooperation with Congolese sister communities.",
@@ -3177,7 +3442,7 @@
       zimbabwe: {
         flag: '🇿🇼', tier: 'ptwo',
         name: 'Zimbabwe', name_fr: 'Zimbabwe',
-        badge: 'PTWO Chapter', badge_fr: 'Chapitre PTWO',
+        badge: 'UPTW Chapter', badge_fr: 'Chapitre UPTW',
         tagline: 'Young, fast-growing chapter · Harare',
         tagline_fr: 'Chapitre jeune en pleine croissance · Harare',
         body: "UPTW Zimbabwe is a young, fast-growing chapter focused on women's entrepreneurship and educational mentorship across Harare and rural communities.",
@@ -3188,7 +3453,7 @@
       botswana: {
         flag: '🇧🇼', tier: 'ptwo',
         name: 'Botswana', name_fr: 'Botswana',
-        badge: 'PTWO Chapter', badge_fr: 'Chapitre PTWO',
+        badge: 'UPTW Chapter', badge_fr: 'Chapitre UPTW',
         tagline: 'Rule-of-law mentorship hub · Gaborone',
         tagline_fr: 'Pôle de mentorat selon l\'État de droit · Gaborone',
         body: "UPTW Botswana works with women leaders in Gaborone and beyond, channeling Botswana's stability and rule-of-law tradition into mentorship for women across the broader region.",
@@ -3300,6 +3565,52 @@
         openCountryPanel(id);
       });
     });
+    // Same click → country panel for the flag markers themselves.
+    // Flags sit ON the country zones but with pointer-events:auto,
+    // so they intercept clicks before the underlying zone sees them.
+    document.querySelectorAll('.flat-flag').forEach((flag) => {
+      flag.addEventListener('click', (e) => {
+        e.stopPropagation();
+        openCountryPanel(flag.dataset.country);
+      });
+    });
+    // "Our Global Network" strip — every chapter flag opens the same
+    // country panel as the on-map markers do.
+    // Network strip — click opens the country panel, hover shows the
+    // floating tooltip. Tooltip lives outside the overflow-x:auto pill so
+    // it can render above the flag without being clipped.
+    (function wireNetworkStrip() {
+      const tip = document.getElementById('flat-network-tooltip');
+      const pillWrap = document.querySelector('.flat-network-pill-wrap');
+      const scroller = document.querySelector('.flat-network-flags');
+      function showTip(flag) {
+        if (!tip || !pillWrap) return;
+        const label = flag.querySelector('.net-name')?.textContent?.trim();
+        if (!label) return;
+        tip.textContent = label;
+        const wrapRect = pillWrap.getBoundingClientRect();
+        const flagRect = flag.getBoundingClientRect();
+        const centerX = (flagRect.left + flagRect.width / 2) - wrapRect.left;
+        tip.style.left = centerX + 'px';
+        tip.classList.add('visible');
+      }
+      function hideTip() { tip?.classList.remove('visible'); }
+      document.querySelectorAll('.flat-network-flag').forEach((flag) => {
+        flag.addEventListener('click', (e) => {
+          e.stopPropagation();
+          openCountryPanel(flag.dataset.country);
+        });
+        flag.addEventListener('mouseenter', () => showTip(flag));
+        flag.addEventListener('focus', () => showTip(flag));
+        flag.addEventListener('mouseleave', hideTip);
+        flag.addEventListener('blur', hideTip);
+      });
+      // Keep tip aligned if user scrolls the pill horizontally while hovering.
+      scroller?.addEventListener('scroll', () => {
+        const active = scroller.querySelector('.flat-network-flag:hover, .flat-network-flag:focus');
+        if (active) showTip(active);
+      }, { passive: true });
+    })();
 
     // ── DRC Detail View — content & hotspot population ───────────────
     // Each landmark/badge is a data entry with its position on the
@@ -5207,25 +5518,25 @@
       { lat: -29, lon: 25,  label: 'South Africa',  label_fr: 'Afrique du Sud', sub: 'Coming Soon', sub_fr: 'Bientôt', timezone: 'Africa/Johannesburg',  clockLabel: 'Johannesburg, ZA',       clockLabel_fr: 'Johannesburg, AdS',      color: 0x40916C, sprite: null, active: false },
 
       // ── Palm Tree Women Organization locations (sister org) ────
-      // The 3 PTWO locations that overlap with PLP markets (DRC, Nigeria,
+      // The 3 UPTW locations that overlap with PLP markets (DRC, Nigeria,
       // South Africa) are not duplicated here — they're already on the map.
       // Coordinates: country geographic centers (matches Manus's convention
       // for the PLP pins above), except where the user named a specific
       // city ("London UK") in which case we use the city's coordinates.
-      { lat:  51.5074, lon:  -0.1278, label: 'London',    label_fr: 'Londres',   sub: 'PTWO', sub_fr: 'PTWO', timezone: 'Europe/London',       clockLabel: 'London, UK',         clockLabel_fr: 'Londres, Royaume-Uni',  color: 0xB76E79, sprite: null, active: false, ptwo: true },
-      { lat:  14.4974, lon: -14.4524, label: 'Senegal',   label_fr: 'Sénégal',   sub: 'PTWO', sub_fr: 'PTWO', timezone: 'Africa/Dakar',        clockLabel: 'Dakar, Senegal',     clockLabel_fr: 'Dakar, Sénégal',        color: 0xB76E79, sprite: null, active: false, ptwo: true },
-      { lat: -13.1339, lon:  27.8493, label: 'Zambia',    label_fr: 'Zambie',    sub: 'PTWO', sub_fr: 'PTWO', timezone: 'Africa/Lusaka',       clockLabel: 'Lusaka, Zambia',     clockLabel_fr: 'Lusaka, Zambie',        color: 0xB76E79, sprite: null, active: false, ptwo: true },
-      { lat: -22.3285, lon:  24.6849, label: 'Botswana',  label_fr: 'Botswana',  sub: 'PTWO', sub_fr: 'PTWO', timezone: 'Africa/Gaborone',     clockLabel: 'Gaborone, Botswana', clockLabel_fr: 'Gaborone, Botswana',    color: 0xB76E79, sprite: null, active: false, ptwo: true },
-      { lat:  56.1304, lon: -106.3468,label: 'Canada',    label_fr: 'Canada',    sub: 'PTWO', sub_fr: 'PTWO', timezone: 'America/Toronto',     clockLabel: 'Ottawa, Canada',     clockLabel_fr: 'Ottawa, Canada',        color: 0xB76E79, sprite: null, active: false, ptwo: true },
-      { lat:  20.5937, lon:  78.9629, label: 'India',     label_fr: 'Inde',      sub: 'PTWO', sub_fr: 'PTWO', timezone: 'Asia/Kolkata',        clockLabel: 'New Delhi, India',   clockLabel_fr: 'New Delhi, Inde',       color: 0xB76E79, sprite: null, active: false, ptwo: true },
-      { lat: -19.0154, lon:  29.1549, label: 'Zimbabwe',  label_fr: 'Zimbabwe',  sub: 'PTWO', sub_fr: 'PTWO', timezone: 'Africa/Harare',       clockLabel: 'Harare, Zimbabwe',   clockLabel_fr: 'Harare, Zimbabwe',      color: 0xB76E79, sprite: null, active: false, ptwo: true },
-      { lat: -25.2744, lon: 133.7751, label: 'Australia', label_fr: 'Australie', sub: 'PTWO', sub_fr: 'PTWO', timezone: 'Australia/Sydney',    clockLabel: 'Sydney, Australia',  clockLabel_fr: 'Sydney, Australie',     color: 0xB76E79, sprite: null, active: false, ptwo: true },
-      { lat:   7.3697, lon:  12.3547, label: 'Cameroon',  label_fr: 'Cameroun',  sub: 'PTWO', sub_fr: 'PTWO', timezone: 'Africa/Douala',       clockLabel: 'Yaoundé, Cameroon',  clockLabel_fr: 'Yaoundé, Cameroun',     color: 0xB76E79, sprite: null, active: false, ptwo: true },
+      { lat:  51.5074, lon:  -0.1278, label: 'London',    label_fr: 'Londres',   sub: 'UPTW', sub_fr: 'UPTW', timezone: 'Europe/London',       clockLabel: 'London, UK',         clockLabel_fr: 'Londres, Royaume-Uni',  color: 0xB76E79, sprite: null, active: false, ptwo: true },
+      { lat:  14.4974, lon: -14.4524, label: 'Senegal',   label_fr: 'Sénégal',   sub: 'UPTW', sub_fr: 'UPTW', timezone: 'Africa/Dakar',        clockLabel: 'Dakar, Senegal',     clockLabel_fr: 'Dakar, Sénégal',        color: 0xB76E79, sprite: null, active: false, ptwo: true },
+      { lat: -13.1339, lon:  27.8493, label: 'Zambia',    label_fr: 'Zambie',    sub: 'UPTW', sub_fr: 'UPTW', timezone: 'Africa/Lusaka',       clockLabel: 'Lusaka, Zambia',     clockLabel_fr: 'Lusaka, Zambie',        color: 0xB76E79, sprite: null, active: false, ptwo: true },
+      { lat: -22.3285, lon:  24.6849, label: 'Botswana',  label_fr: 'Botswana',  sub: 'UPTW', sub_fr: 'UPTW', timezone: 'Africa/Gaborone',     clockLabel: 'Gaborone, Botswana', clockLabel_fr: 'Gaborone, Botswana',    color: 0xB76E79, sprite: null, active: false, ptwo: true },
+      { lat:  56.1304, lon: -106.3468,label: 'Canada',    label_fr: 'Canada',    sub: 'UPTW', sub_fr: 'UPTW', timezone: 'America/Toronto',     clockLabel: 'Ottawa, Canada',     clockLabel_fr: 'Ottawa, Canada',        color: 0xB76E79, sprite: null, active: false, ptwo: true },
+      { lat:  20.5937, lon:  78.9629, label: 'India',     label_fr: 'Inde',      sub: 'UPTW', sub_fr: 'UPTW', timezone: 'Asia/Kolkata',        clockLabel: 'New Delhi, India',   clockLabel_fr: 'New Delhi, Inde',       color: 0xB76E79, sprite: null, active: false, ptwo: true },
+      { lat: -19.0154, lon:  29.1549, label: 'Zimbabwe',  label_fr: 'Zimbabwe',  sub: 'UPTW', sub_fr: 'UPTW', timezone: 'Africa/Harare',       clockLabel: 'Harare, Zimbabwe',   clockLabel_fr: 'Harare, Zimbabwe',      color: 0xB76E79, sprite: null, active: false, ptwo: true },
+      { lat: -25.2744, lon: 133.7751, label: 'Australia', label_fr: 'Australie', sub: 'UPTW', sub_fr: 'UPTW', timezone: 'Australia/Sydney',    clockLabel: 'Sydney, Australia',  clockLabel_fr: 'Sydney, Australie',     color: 0xB76E79, sprite: null, active: false, ptwo: true },
+      { lat:   7.3697, lon:  12.3547, label: 'Cameroon',  label_fr: 'Cameroun',  sub: 'UPTW', sub_fr: 'UPTW', timezone: 'Africa/Douala',       clockLabel: 'Yaoundé, Cameroon',  clockLabel_fr: 'Yaoundé, Cameroun',     color: 0xB76E79, sprite: null, active: false, ptwo: true },
       // USA — pinned on the Virginia / West Virginia border at user request.
-      // Label notes the "Global Mother" designation for PTWO's USA chapter.
-      { lat:  38.5,    lon: -79.5,    label: 'USA (Global Mother)', label_fr: 'États-Unis (Mère du Monde)', shortLabel: 'USA', sub: 'PTWO · Global Mother', sub_fr: 'PTWO · Mère du Monde', mascotName: 'Loredana', tooltipTitle: 'Loredana · Global Mother', tooltipTitle_fr: 'Loredana · Mère du Monde', tagline: 'Universal Palm Tree Women USA', tagline_fr: 'Organisation Universelle des Femmes Palm Tree USA', timezone: 'America/New_York', clockLabel: 'Eastern Time, USA', clockLabel_fr: 'Heure de l\'Est, États-Unis', color: 0xB76E79, sprite: '../assets/images/loredana-usa-sprite.png', active: false, ptwo: true },
-      { lat:  50.5039, lon:   4.4699, label: 'Belgium',   label_fr: 'Belgique',  sub: 'PTWO', sub_fr: 'PTWO', timezone: 'Europe/Brussels',     clockLabel: 'Brussels, Belgium',  clockLabel_fr: 'Bruxelles, Belgique',   color: 0xB76E79, sprite: null, active: false, ptwo: true },
-      { lat:  46.2276, lon:   2.2137, label: 'France',    label_fr: 'France',    sub: 'PTWO', sub_fr: 'PTWO', timezone: 'Europe/Paris',        clockLabel: 'Paris, France',      clockLabel_fr: 'Paris, France',         color: 0xB76E79, sprite: null, active: false, ptwo: true },
+      // Label notes the "Global Mother" designation for UPTW's USA chapter.
+      { lat:  38.5,    lon: -79.5,    label: 'USA (Global Mother)', label_fr: 'États-Unis (Mère du Monde)', shortLabel: 'USA', sub: 'UPTW · Global Mother', sub_fr: 'UPTW · Mère du Monde', mascotName: 'Loredana', tooltipTitle: 'Loredana · Global Mother', tooltipTitle_fr: 'Loredana · Mère du Monde', tagline: 'Universal Palm Tree Women USA', tagline_fr: 'Organisation Universelle des Femmes Palm Tree USA', timezone: 'America/New_York', clockLabel: 'Eastern Time, USA', clockLabel_fr: 'Heure de l\'Est, États-Unis', color: 0xB76E79, sprite: '../assets/images/loredana-usa-sprite.png', active: false, ptwo: true },
+      { lat:  50.5039, lon:   4.4699, label: 'Belgium',   label_fr: 'Belgique',  sub: 'UPTW', sub_fr: 'UPTW', timezone: 'Europe/Brussels',     clockLabel: 'Brussels, Belgium',  clockLabel_fr: 'Bruxelles, Belgique',   color: 0xB76E79, sprite: null, active: false, ptwo: true },
+      { lat:  46.2276, lon:   2.2137, label: 'France',    label_fr: 'France',    sub: 'UPTW', sub_fr: 'UPTW', timezone: 'Europe/Paris',        clockLabel: 'Paris, France',      clockLabel_fr: 'Paris, France',         color: 0xB76E79, sprite: null, active: false, ptwo: true },
     ];
 
     // Helper: convert pin's THREE.Color hex (0xRRGGBB) to a CSS hex string
@@ -5235,7 +5546,7 @@
     PINS.forEach(pin => {
       pin.localDir = geoToLocal(pin.lat, pin.lon, 1.0).normalize();
 
-      // Pin size: active is biggest, PTWO is smallest (sister-org subtler),
+      // Pin size: active is biggest, UPTW is smallest (sister-org subtler),
       // PLP Coming Soon is middle.
       const pinRadius = pin.active ? 0.075 : pin.ptwo ? 0.018 : 0.025;
       const glowMesh = new THREE.Mesh(
@@ -5317,7 +5628,7 @@
         const labelMat = new THREE.SpriteMaterial({ map: labelTex, transparent: true, depthTest: true, depthWrite: false, opacity: 0 });
         const labelSprite = new THREE.Sprite(labelMat);
         // Aspect 384:80 = 4.8:1. Width ~ 0.5 in scene units gives readable
-        // text without making PTWO pins shout; active is slightly larger.
+        // text without making UPTW pins shout; active is slightly larger.
         const lblScale = pin.active ? 0.52 : pin.ptwo ? 0.40 : 0.46;
         labelSprite.scale.set(lblScale, lblScale * (80 / 384), 1);
         scene.add(labelSprite);
@@ -5418,7 +5729,7 @@
       if (drcDetailView?.classList.contains('visible')) return;
       if (document.getElementById('province-detail-view')?.classList.contains('visible')) return;
       // Only the active PLP pin (DRC) opens the project panel. Other mascots
-      // currently just show their tooltip on hover; we'll add a PTWO panel
+      // currently just show their tooltip on hover; we'll add a UPTW panel
       // for the Global Mother / chapter mascots in a later pass.
       if (hoveredPin && hoveredPin === drcPin) {
         document.getElementById('project-panel').classList.add('open');
