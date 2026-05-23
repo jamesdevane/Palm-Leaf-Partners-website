@@ -2299,6 +2299,30 @@
         border-radius: 0;
         box-shadow: none;
       }
+      /* East-west wrap-around buffer tiles — pixel-identical copies of
+         the canonical .flat-map, positioned one tile-width to each
+         side. Same sizing + object-fit so they pixel-align. pointer-
+         events:none so they never intercept the zoom controller's
+         drag. The controller's wrap mode (wrapX option) modulos tx
+         so the user never "lives" on a buffer for more than a frame:
+         wrap-snap is invisible because buffers are identical to the
+         canonical. Date Line west flows into Date Line east the way
+         the real planet does. */
+      .flat-map-buffer { display: none; }
+      body.flat-immersive .flat-map-buffer {
+        display: block;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        pointer-events: none;
+        border-radius: 0;
+        box-shadow: none;
+      }
+      body.flat-immersive .flat-map-buffer[data-side="left"]  { left: -100%; }
+      body.flat-immersive .flat-map-buffer[data-side="right"] { left:  100%; }
 
       /* === Left-edge vertical flag rail (transparent) ===
          Sits under the stacked lang-toggle (top-left) + mobile-corner-chip
@@ -2523,6 +2547,15 @@
     <div class="flat-view-inner">
       <div class="flat-pannable" id="flat-pannable">
         <img class="flat-map" src="../assets/images/world-map-flat.jpg?v=clean" alt="World map" />
+        <!-- East-west wrap-around buffers — pixel-identical copies of the
+             canonical map, positioned one tile-width to each side. Only
+             visible on mobile (CSS-gated). The JS zoom controller's wrap
+             mode modulos tx so the user never actually "lives" on a buffer
+             for more than a frame — wrap-snap is invisible because the
+             buffers are the same image as the canonical. Date Line west
+             flows into Date Line east as the world really does. -->
+        <img class="flat-map-buffer" src="../assets/images/world-map-flat.jpg?v=clean" alt="" aria-hidden="true" data-side="left" />
+        <img class="flat-map-buffer" src="../assets/images/world-map-flat.jpg?v=clean" alt="" aria-hidden="true" data-side="right" />
 
         <!-- Country hover zones — positioned over each painted country
              area so the user can hover/tap a continent and see it glow,
@@ -3453,11 +3486,19 @@
     // pans on drag, ignores clicks on interactive hotspots so badges /
     // landmarks / provinces stay clickable. Mobile uses two-finger pinch;
     // desktop uses scroll wheel (Ctrl/Cmd not required).
-    function makeZoomController({ innerEl, rootEl, btnIn, btnOut, btnReset, elasticEdges = false }) {
-      // elasticEdges may be a boolean OR a function returning a boolean
+    function makeZoomController({ innerEl, rootEl, btnIn, btnOut, btnReset, elasticEdges = false, wrapX = false }) {
+      // elasticEdges + wrapX may be booleans OR functions returning booleans
       // (so the flat-view controller can dynamically opt in/out based on
       // viewport size at gesture time, not just at construction time).
       const isElastic = () => (typeof elasticEdges === 'function' ? elasticEdges() : elasticEdges);
+      // East-west wrap-around mode. When active AND scale ≈ 1 (zoomed-out
+      // world view), the controller treats x-pan as periodic: tx wraps via
+      // modulo into [-tileWidth/2, +tileWidth/2] inside apply(). Combined
+      // with the .flat-map-buffer IMGs on each side, this gives true
+      // infinite east-west scroll. Scoped to scale≈1 because at higher
+      // zoom levels the country zones / mascots no longer wrap cleanly. */
+      const isWrap = () => (typeof wrapX === 'function' ? wrapX() : wrapX);
+      const wrapActive = () => isWrap() && scale <= 1.01;
       let scale = 1, tx = 0, ty = 0;
       const MIN = 1, MAX = 4;
       const pointers = new Map();
@@ -3523,11 +3564,20 @@
 
       function apply(animate) {
         innerEl.classList.toggle('zooming', !animate);
+        // Wrap-around: keep tx normalized to [-tileW/2, +tileW/2] so the
+        // user can pan infinitely east or west. The wrap point is the
+        // pannable's full width, where the buffer-left / buffer-right
+        // IMGs (pixel-identical to canonical) cover the visible viewport
+        // — making the modulo snap invisible.
+        if (wrapActive()) {
+          const tileW = innerEl.clientWidth;   // single-tile width
+          if (tileW > 0) {
+            if (tx >  tileW / 2) tx -= tileW;
+            if (tx < -tileW / 2) tx += tileW;
+          }
+        }
         innerEl.style.transform = `translate(${tx}px, ${ty}px) scale(${scale})`;
         innerEl.classList.toggle('zoomed', scale > 1.01);
-        // Drive --map-scale so anything inside that opts into inverse-scaling
-        // (e.g. the world-map's .flat-label country names) stays visually
-        // constant as the map zooms — preventing labels from bunching up.
         innerEl.style.setProperty('--map-scale', scale);
       }
       // Bounds: how far tx / ty are allowed before they're clamped (or
@@ -3545,7 +3595,11 @@
       }
       function clampPan() {
         const { maxX, maxY } = getBounds();
-        tx = Math.max(-maxX, Math.min(maxX, tx));
+        // In wrap mode, x is unbounded (apply() does the modulo); only
+        // clamp y. Otherwise clamp both axes.
+        if (!wrapActive()) {
+          tx = Math.max(-maxX, Math.min(maxX, tx));
+        }
         ty = Math.max(-maxY, Math.min(maxY, ty));
       }
       // Apply elastic resistance to a raw translation: any portion outside
@@ -3565,7 +3619,11 @@
       function applyElastic() {
         if (!isElastic()) { clampPan(); return; }
         const { maxX, maxY } = getBounds();
-        tx = elastic(tx, maxX);
+        // In wrap mode the x-axis has no edges, so no rubber-band on x.
+        // Y still gets elastic resistance at its bounds.
+        if (!wrapActive()) {
+          tx = elastic(tx, maxX);
+        }
         ty = elastic(ty, maxY);
       }
       // Snap-back animation: ease tx/ty back into the hard bounds after
@@ -3785,6 +3843,7 @@
       btnOut: document.getElementById('flat-zoom-out'),
       btnReset: document.getElementById('flat-zoom-reset'),
       elasticEdges: isTouchViewport,    // function → checked dynamically on each gesture
+      wrapX: isTouchViewport,            // east-west wrap-around — mobile only
     });
     // Orientation change or window resize can shrink the pannable below
     // the user's current pan offset (e.g. they were viewing Asia in
