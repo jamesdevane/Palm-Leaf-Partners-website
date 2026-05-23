@@ -2123,10 +2123,38 @@
       display: block;
     }
 
+    /* Mobile refresh button — circular, floats above zoom controls. */
+    .mobile-refresh-btn {
+      display: none;
+      position: fixed;
+      bottom: 5rem; right: 0.9rem;
+      z-index: 270;
+      width: 44px; height: 44px;
+      align-items: center; justify-content: center;
+      background: rgba(20,30,25,0.85);
+      border: 1px solid rgba(184,134,11,0.55);
+      border-radius: 50%;
+      color: #F5F0E8;
+      cursor: pointer;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0 4px 14px rgba(0,0,0,0.6);
+      transition: background 200ms, border-color 200ms, transform 600ms ease;
+    }
+    .mobile-refresh-btn:hover,
+    .mobile-refresh-btn:active {
+      background: rgba(184,134,11,0.9);
+      color: #1B4332;
+      border-color: #B8860B;
+      transform: rotate(-360deg);
+    }
+
     @media (max-width: 640px) {
       /* Reveal the corner chip + hide the desktop chrome on immersive views. */
       body.flat-immersive .mobile-corner-chip,
       body.drc-immersive  .mobile-corner-chip { display: inline-flex; }
+      body.flat-immersive .mobile-refresh-btn,
+      body.drc-immersive  .mobile-refresh-btn { display: inline-flex; }
       body.flat-immersive .top-bar,
       body.drc-immersive  .top-bar { display: none; }
       body.flat-immersive .kinshasa-clock,
@@ -2156,14 +2184,13 @@
       body.drc-immersive .mobile-corner-chip { display: none; }
 
       /* === Flat-view: full-bleed pannable world map === */
-      /* Wider-than-viewport .flat-view-inner clipped by .flat-view's
-         overflow:hidden. The existing zoom controller drives x-pan via
-         transform translate; we extended clampPan() to allow x-pan
-         whenever content extends beyond its container, even at scale=1
-         (the mobile use case here). Touch-action:pan-y on .flat-pannable
-         lets the browser keep PTR + vertical document scroll, while the
-         JS controller handles horizontal drag (touch-action passes
-         non-pan-y gestures to the page). */
+      /* .flat-view-inner stays at viewport size (so children positioned
+         at left:0 — e.g. the flag rail — anchor to the visible left
+         edge). The .flat-pannable inside is forced wider (200vw, twice
+         the viewport) and shifted left -50vw so its center aligns to
+         the viewport center. .flat-view's overflow:hidden clips the
+         overflow on both sides. clampPan() allows tx pan up to ±50vw
+         at scale=1 because rendered (200vw) > container (100vw). */
       body.flat-immersive .flat-view {
         padding: 0;
         align-items: center;
@@ -2171,16 +2198,29 @@
         overflow: hidden;
       }
       body.flat-immersive .flat-view-inner {
-        width: 200vw !important;
-        max-width: none !important;
+        width: 100vw !important;
+        max-width: 100vw !important;
         height: 100vh !important;
         max-height: 100vh !important;
         aspect-ratio: auto !important;
         flex-shrink: 0;
         margin: 0;
         padding: 0;
+        position: relative;
       }
-      /* IMG fills the wider .flat-view-inner — 2:1 source ratio fits
+      body.flat-immersive .flat-pannable {
+        position: absolute !important;
+        inset: auto !important;
+        top: 0;
+        left: -50vw;
+        width: 200vw !important;
+        height: 100vh !important;
+        touch-action: pan-y;
+      }
+      body.flat-immersive .flat-pannable.zoomed {
+        touch-action: none;
+      }
+      /* IMG fills the wider .flat-pannable — 2:1 source ratio fits
          200vw × 100vh exactly without letterboxing. */
       body.flat-immersive .flat-view-inner img.flat-map {
         width: 100%;
@@ -2189,14 +2229,6 @@
         object-position: center;
         border-radius: 0;
         box-shadow: none;
-      }
-      /* touch-action:pan-y here is what gives us PTR. Pinch is multi-
-         touch so the JS controller still gets it for zoom. */
-      body.flat-immersive .flat-pannable {
-        touch-action: pan-y;
-      }
-      body.flat-immersive .flat-pannable.zoomed {
-        touch-action: none;
       }
 
       /* === Left-edge vertical flag rail (transparent) === */
@@ -2333,6 +2365,17 @@
       <img src="../assets/images/plp-logo-nav.png" alt="" />
       <span data-i18n="globe.back.site">← Back</span>
     </a>
+
+    <!-- Mobile refresh button — visible fallback while we sort out why
+         Samsung Internet's native pull-to-refresh isn't firing inside
+         the immersive flat / DRC views. Circle + arrow icon, bottom-
+         right above the zoom controls. Hidden on desktop. -->
+    <button type="button" class="mobile-refresh-btn" id="mobile-refresh-btn" aria-label="Refresh page" title="Refresh">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <polyline points="23 4 23 10 17 10"></polyline>
+        <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+      </svg>
+    </button>
 
     <!-- View toggle: switch between the 3D globe and the flat world map.
          The flat map uses the same active-DRC pin / coming-soon green pins,
@@ -2865,6 +2908,11 @@
       b.addEventListener('click', () => setView(b.dataset.view));
     });
 
+    // Mobile refresh button — guaranteed fallback for PTR.
+    document.getElementById('mobile-refresh-btn')?.addEventListener('click', () => {
+      location.reload();
+    });
+
     // Default the page to the 2D world map. The 2D view holds all the
     // explorable content (mascots, DRC entry, country pins, post offices),
     // so it's where users should land. The 3D globe is a "wow" extra one
@@ -3354,14 +3402,25 @@
           const [a, b] = Array.from(pointers.values());
           pinchDist = Math.hypot(b.x - a.x, b.y - a.y);
           try { innerEl.setPointerCapture(e.pointerId); } catch {}
-        } else if (pointers.size === 1 && scale > 1.01 && !onInteractive) {
-          // Single-finger drag (only when zoomed in). Skip if the
-          // finger is on an interactive element — that touch should
-          // still be able to fire a click.
-          isDragging = true;
-          innerEl.classList.add('dragging');
-          lastSingle = { x: e.clientX, y: e.clientY };
-          try { innerEl.setPointerCapture(e.pointerId); } catch {}
+        } else if (pointers.size === 1 && !onInteractive) {
+          // Single-finger drag: start panning if either (a) we're
+          // zoomed in OR (b) the inner content is bigger than its
+          // container even at scale=1. The mobile wide world map
+          // (.flat-pannable 200vw inside a 100vw .flat-view) is the
+          // second case — without this branch the user couldn't drag
+          // horizontally to reveal Americas / Asia at default zoom.
+          const renderedW = innerEl.clientWidth * scale;
+          const renderedH = innerEl.clientHeight * scale;
+          const containerW = rootEl?.clientWidth || renderedW;
+          const containerH = rootEl?.clientHeight || renderedH;
+          const canPanX = renderedW > containerW + 1;
+          const canPanY = renderedH > containerH + 1;
+          if (scale > 1.01 || canPanX || canPanY) {
+            isDragging = true;
+            innerEl.classList.add('dragging');
+            lastSingle = { x: e.clientX, y: e.clientY };
+            try { innerEl.setPointerCapture(e.pointerId); } catch {}
+          }
         }
         // Single-finger plain tap: no capture, no drag — let the click
         // event flow normally to the underlying hotspot button.
