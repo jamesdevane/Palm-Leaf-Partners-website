@@ -2374,15 +2374,27 @@
     // nothing if neither is available. The figure stays hidden so the
     // bubble doesn't show an empty box on entries without a photo.
     const _photoCache = new Map();
+    async function fetchWikiPhotoFrom(lang, article) {
+      const url = `https://${lang}.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(article)}`;
+      const res = await fetch(url, { headers: { 'Accept': 'application/json' } });
+      if (!res.ok) throw new Error('http ' + res.status);
+      const data = await res.json();
+      return data?.thumbnail?.source || data?.originalimage?.source || null;
+    }
     async function fetchWikiPhoto(article) {
       if (_photoCache.has(article)) return _photoCache.get(article);
       const lang = (window.I18N && window.I18N.currentLang) || 'en';
-      const url = `https://${lang === 'fr' ? 'fr' : 'en'}.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(article)}`;
+      // Try the user's language first, fall back to English Wikipedia
+      // since the wiki slugs throughout this file are English article
+      // names (Lake_Kivu, not Lac_Kivu). Without this fallback, every
+      // photo silently disappeared for French-language visitors.
       try {
-        const res = await fetch(url, { headers: { 'Accept': 'application/json' } });
-        if (!res.ok) throw new Error('http ' + res.status);
-        const data = await res.json();
-        const src = data?.thumbnail?.source || data?.originalimage?.source || null;
+        const tryFirst = lang === 'fr' ? 'fr' : 'en';
+        let src = null;
+        try { src = await fetchWikiPhotoFrom(tryFirst, article); } catch {}
+        if (!src && tryFirst !== 'en') {
+          try { src = await fetchWikiPhotoFrom('en', article); } catch {}
+        }
         _photoCache.set(article, src);
         return src;
       } catch {
