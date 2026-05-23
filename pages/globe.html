@@ -2215,10 +2215,12 @@
         left: -50vw;
         width: 200vw !important;
         height: 100vh !important;
-        touch-action: pan-y;
-      }
-      body.flat-immersive .flat-pannable.zoomed {
+        /* JS controller owns the entire touch gesture so pan stays smooth
+           — the browser was previously fighting it for vertical pan via
+           the pan-y hint, causing jitter. PTR is covered by the explicit
+           refresh button instead of the browser gesture. */
         touch-action: none;
+        will-change: transform;
       }
       /* IMG fills the wider .flat-pannable — 2:1 source ratio fits
          200vw × 100vh exactly without letterboxing. */
@@ -2253,25 +2255,37 @@
       }
       body.flat-immersive .flat-network-flags {
         flex-direction: column;
+        align-items: flex-start;     /* don't stretch buttons past the IMG */
         border: none;
         box-shadow: none;
         padding: 0.35rem 0.55rem 0.35rem 0.4rem;
         gap: 0.55rem;
         overflow-y: auto;
         overflow-x: visible;
-        max-width: none !important;   /* override desktop max-width: calc(100% - 2rem) */
+        max-width: none !important;
         max-height: 100%;
         pointer-events: auto;
         scrollbar-width: none;
-        /* Subtle dark gradient veil behind the flags so they read on
-           any map color without the rail looking heavy. Fades from
-           opaque at the left edge to fully transparent on the right. */
         background: linear-gradient(
           to right,
           rgba(20,30,25,0.6) 0%,
           rgba(20,30,25,0.5) 60%,
           rgba(20,30,25,0) 100%
         );
+      }
+      /* Button reset — Samsung Internet adds a default background +
+         padding to <button> which showed up as a grey bar to the right
+         of every non-active flag (the active flag was hidden by its
+         thicker gold border). */
+      body.flat-immersive .flat-network-flag {
+        background: transparent;
+        border: none;
+        padding: 0;
+        margin: 0;
+        -webkit-appearance: none;
+        appearance: none;
+        width: auto;
+        line-height: 0;             /* kill the button's text-line gap */
       }
       body.flat-immersive .flat-network-flags::-webkit-scrollbar { display: none; }
       body.flat-immersive .flat-network-flag img {
