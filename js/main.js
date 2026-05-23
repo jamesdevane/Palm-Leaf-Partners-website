@@ -65,6 +65,11 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   if ((heroBgLayer || zolaParallax) && !isTouchDevice && !prefersReducedMotion && !isMobile) {
+    // Only opt into the will-change GPU layer hint on desktop where
+    // parallax is actually engaged. On touch / mobile / reduced-motion
+    // the parallax never runs, so the layer stays a normal element.
+    if (heroBgLayer) heroBgLayer.classList.add('parallax-active');
+    if (zolaParallax) zolaParallax.classList.add('parallax-active');
     window.addEventListener('scroll', handleParallax, { passive: true });
   }
 

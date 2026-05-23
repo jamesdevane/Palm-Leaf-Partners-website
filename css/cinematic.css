@@ -12,8 +12,15 @@
 .hero-parallax .hero-bg-layer {
   position: absolute; inset: -10%;
   background-size: cover; background-position: center;
-  will-change: transform;
   transition: transform 0.1s linear;
+  /* `will-change: transform` was permanent here — that promoted the
+     huge hero background to its own GPU texture forever, even on
+     touch devices where the parallax is disabled. The JS now toggles
+     the `.parallax-active` class only on desktop when parallax is
+     actively running; the will-change kicks in only then. */
+}
+.hero-parallax .hero-bg-layer.parallax-active {
+  will-change: transform;
 }
 .hero-parallax .hero-overlay-gradient {
   position: absolute; inset: 0;

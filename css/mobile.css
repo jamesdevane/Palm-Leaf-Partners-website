@@ -424,11 +424,16 @@ img, video {
 /* ── 5. TOUCH IMPROVEMENTS (all mobile) ── */
 @media (hover: none) and (pointer: coarse) {
 
-  /* Remove hover effects that don't work on touch */
+  /* Remove hover effects that don't work on touch. Extended to cover
+     the card-zoom-in-image patterns that were sticking active on iPad
+     when the user tapped a card to navigate. */
   .card:hover,
   .project-card:hover,
   .pillar-badge-card:hover,
-  .invest-tier:hover {
+  .invest-tier:hover,
+  .facility-card:hover,
+  .project-card:hover .project-card-img,
+  .beat-image:hover img {
     transform: none;
     box-shadow: var(--shadow-sm);
   }

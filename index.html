@@ -74,9 +74,16 @@
   <link rel="stylesheet" href="css/mobile.css" />
   <style>
     /* Homepage-specific mobile hero image path fix */
+    /* Mobile-vs-desktop hero swap. The desktop URL lives in a CSS rule
+       (not an inline style) so that the @media query for mobile fully
+       OVERRIDES it — otherwise both URLs were getting downloaded on
+       iPad because the inline style was discovered first. */
+    .hero-parallax .hero-bg-layer.hero-home {
+      background-image: url('assets/images/zola-hero-home-wide.jpg');
+    }
     @media (max-width: 768px) {
-      .hero-parallax .hero-bg-layer {
-        background-image: url('assets/images/zola-hero-home-mobile.jpg') !important;
+      .hero-parallax .hero-bg-layer.hero-home {
+        background-image: url('assets/images/zola-hero-home-mobile.jpg');
       }
     }
   </style>
@@ -106,17 +113,20 @@
       border-bottom-color: var(--gold);
       gap: 0.9rem;
     }
-    .globe-btn .globe-icon { font-size: 1.1rem; animation: spin-slow 8s linear infinite; display: inline-block; }
+    /* Globe icon was rotating continuously 24/7 — removed the infinite
+       spin and replaced with a subtle on-hover tilt. Frees a permanent
+       GPU compositing layer on every visit. */
+    .globe-btn .globe-icon { font-size: 1.1rem; display: inline-block; transition: transform 0.5s ease; }
+    .globe-btn:hover .globe-icon { transform: rotate(45deg); }
     .globe-btn .globe-arrow { transition: transform 0.25s ease; }
     .globe-btn:hover .globe-arrow { transform: translateX(4px); }
-    @keyframes spin-slow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
   </style>
 </head>
 <body>
 
   <!-- HERO: Full-bleed Zola with text overlay -->
   <section class="hero-parallax" style="min-height:100vh;">
-    <div class="hero-bg-layer" style="background-image: url('assets/images/zola-hero-home-wide.jpg'); background-size:cover; background-position:25% center;"></div>
+    <div class="hero-bg-layer hero-home" style="background-size:cover; background-position:25% center;"></div>
     <!-- Gradient: transparent on left, dark green on right -->
     <div style="position:absolute;inset:0;background:linear-gradient(to right, rgba(27,67,50,0) 0%, rgba(27,67,50,0) 40%, rgba(27,67,50,0.7) 60%, rgba(27,67,50,0.95) 100%);"></div>
     <!-- Text anchored to right side -->

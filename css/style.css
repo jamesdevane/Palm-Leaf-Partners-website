@@ -85,14 +85,29 @@ p  { margin-bottom: 1rem; }
 /* ── Navigation ── */
 .navbar {
   position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-  background: rgba(27, 67, 50, 0.97);
-  backdrop-filter: blur(12px);
+  /* Bumped to fully opaque so we can drop the iOS-expensive
+     backdrop-filter blur. The slight see-through was unnoticeable
+     because the bg was already 0.97 alpha; removing the blur frees
+     a continuously-rendered GPU layer on every scroll on iPad. */
+  background: rgb(27, 67, 50);
   border-bottom: 1px solid rgba(184,134,11,0.3);
   padding: 0 1.5rem;
   height: 72px;
   display: flex; align-items: center;
   transition: background var(--transition);
 }
+/* Keep the frosted-glass effect on desktop where iOS's per-frame
+   backdrop-filter cost doesn't apply. */
+@media (hover: hover) and (min-width: 1025px) {
+  .navbar {
+    background: rgba(27, 67, 50, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+}
+/* Site-wide tap-highlight color — replaces the default light-blue
+   iOS flash with a subtle gold matching our brand palette. */
+* { -webkit-tap-highlight-color: rgba(184,134,11,0.15); }
 .navbar-inner {
   max-width: var(--max-width); margin: 0 auto; width: 100%;
   display: flex; align-items: center; justify-content: space-between;
