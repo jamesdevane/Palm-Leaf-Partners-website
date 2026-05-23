@@ -2180,6 +2180,38 @@
     body.flat-immersive .top-bar .back-btn,
     body.drc-immersive  .top-bar .back-btn { display: none; }
 
+    /* Hide the Kinshasa clock in immersive views at all widths — it
+       sits at top:5rem right:2rem, which is exactly where the refresh
+       button now lives. The clock is a 3D-globe-view ambient detail;
+       in the map / DRC views it's noise that conflicts with the
+       chrome. */
+    body.flat-immersive .kinshasa-clock,
+    body.drc-immersive  .kinshasa-clock { display: none; }
+
+    /* View-toggle (Globe / 2D) — float as bottom-center pill in
+       immersive views at all widths (not just mobile). Was sitting in
+       the top-bar at the right end, which overlapped with the EN/FR
+       toggle in the top-right corner. Hidden in DRC view (the back
+       button is the primary nav there). */
+    body.flat-immersive .view-toggle {
+      position: fixed !important;
+      bottom: calc(env(safe-area-inset-bottom, 0px) + 0.6rem);
+      left: 50%;
+      right: auto;
+      top: auto;
+      transform: translateX(-50%);
+      z-index: 260;
+      background: rgba(20,30,25,0.78);
+      border: 1px solid rgba(184,134,11,0.45);
+      border-radius: 999px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      padding: 3px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.55);
+      pointer-events: auto;
+    }
+    body.drc-immersive .view-toggle { display: none; }
+
     /* Mobile immersive layout — bumped from 640px to 1024px so shrunk
        desktop windows + small tablets + DevTools mobile previews all
        get the same touch-friendly chrome (vertical flag rail, hand-grab
