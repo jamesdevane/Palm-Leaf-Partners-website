@@ -498,7 +498,14 @@
        Strip blur on touch / smaller screens and rely on the underlying
        background alpha for separation. Drop the dependency on
        expensive filters for the same visual hierarchy. */
-    @media (max-width: 1024px) {
+    /* Strip every backdrop-filter on TOUCH devices regardless of width.
+       The old @media (max-width: 1024px) test missed iPad Pro entirely
+       (it's 1366 px wide in landscape) — which is exactly where users
+       were seeing the WebKit compositor lock. (hover: none) and
+       (pointer: coarse) catches every iPad / iPhone / Android tablet
+       without a breakpoint guess. Also extended the strip list to
+       include landmark + bubble + mining-city, which were missed. */
+    @media (hover: none) and (pointer: coarse) {
       .panel-card,
       .flat-view,
       .country-panel-backdrop,
@@ -506,10 +513,51 @@
       .drc-layer-toggles,
       .drc-back-btn,
       .drc-province,
+      .drc-landmark,
+      .drc-mining-city,
+      .drc-bubble,
       .lang-toggle.globe-lang,
       .map-reset-btn {
         backdrop-filter: none !important;
         -webkit-backdrop-filter: none !important;
+      }
+    }
+
+    /* ── iPad / touch CSS-pipeline pressure relief ─────────────────
+       PRIME SUSPECT for the "tap lockup after DRC view opens" symptom:
+       .drc-detail-view animates filter: blur(8px) → 0 over 600ms on a
+       full-viewport element. On iPad Pro Retina that's ~24M pixels
+       per frame the GPU has to re-blur AND re-composite every child
+       layer into that blurred backing store. WebKit's compositor
+       process can't keep up; it blocks the main thread waiting on
+       the GPU; click events get queued forever.
+
+       On touch devices: kill the filter transition entirely (keep the
+       fade + scale). Drop the .drc-map drop-shadow (a drop-shadow on
+       a 2048px JPEG is a separate GPU layer with off-screen
+       rasterization). Disable the landmark pulse animation. */
+    @media (hover: none) and (pointer: coarse) {
+      .drc-detail-view {
+        filter: none !important;
+        transition:
+          opacity 350ms ease,
+          transform 450ms cubic-bezier(0.18, 0.85, 0.28, 1) !important;
+      }
+      .drc-detail-view.visible {
+        filter: none !important;
+      }
+      .drc-map {
+        filter: none !important;
+      }
+      .drc-landmark {
+        animation: none !important;
+      }
+      .drc-badge img {
+        filter: none !important;
+      }
+      .drc-badge {
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+        border-radius: 50%;
       }
     }
 
@@ -1911,7 +1959,7 @@
        leaving a fading dashed gold trail. -->
   <div class="drc-detail-view" id="drc-detail-view" aria-hidden="true">
     <div class="drc-detail-inner">
-      <img class="drc-map" src="../assets/images/drc-illustrated.jpg" alt="Illustrated map of the Democratic Republic of the Congo" />
+      <img class="drc-map" src="../assets/images/drc-illustrated.jpg" alt="Illustrated map of the Democratic Republic of the Congo" decoding="async" />
 
       <!-- Layer-stack SVGs. Each represents one infrastructure/resource
            overlay (mining today; grid/fiber/geothermal/data center/fishery/
