@@ -2137,11 +2137,11 @@
     .mobile-refresh-btn {
       display: none;
       position: fixed;
-      /* Pinned to safe-area-aware top-right corner so iPhone notch / Samsung
-         status-bar doesn't crop it. env(safe-area-inset-*) falls back to 0 on
-         browsers without the spec. */
-      top: calc(env(safe-area-inset-top, 0px) + 0.7rem);
-      right: calc(env(safe-area-inset-right, 0px) + 0.7rem);
+      /* Stacked BELOW the EN/FR lang-toggle (top:1.5rem) so they don't
+         overlap. env(safe-area-inset-*) compensates for iPhone notch /
+         Samsung status-bar; falls back to 0 elsewhere. */
+      top: calc(env(safe-area-inset-top, 0px) + 5rem);
+      right: calc(env(safe-area-inset-right, 0px) + 1.5rem);
       z-index: 320;        /* above country-panel (290), backdrop (280), corner chip (265), zoom controls (230) */
       width: 48px; height: 48px;
       align-items: center; justify-content: center;
