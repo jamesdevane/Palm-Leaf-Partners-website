@@ -1055,74 +1055,123 @@
       /* left + top set inline matching the mascot — card hovers ABOVE
          the mascot's head using the negative-Y transform. */
       transform: translate(-50%, calc(-100% - 80px));
-      width: 260px;
-      background: linear-gradient(180deg, rgba(20,30,25,0.96) 0%, rgba(20,30,25,0.94) 100%);
-      border: 1.5px solid rgba(184,134,11,0.65);
-      border-radius: 10px;
-      padding: 0.7rem 0.9rem 0.85rem;
+      width: 280px;
+      background:
+        linear-gradient(180deg, rgba(28,38,33,0.97) 0%, rgba(18,26,22,0.97) 100%);
+      border: 1px solid rgba(184,134,11,0.7);
+      border-radius: 6px;
+      padding: 0;
       color: #F5F0E8;
       font-family: 'Georgia', serif;
-      font-size: 0.72rem;
-      line-height: 1.45;
+      font-size: 0.74rem;
+      line-height: 1.5;
       pointer-events: none;
       opacity: 0;
       visibility: hidden;
-      transition: opacity 200ms ease, transform 200ms ease;
+      transition: opacity 220ms ease, transform 220ms cubic-bezier(0.16, 1, 0.3, 1);
       z-index: 50;
       box-shadow:
-        0 10px 28px rgba(0,0,0,0.65),
-        0 0 0 1px rgba(0,0,0,0.4);
+        0 14px 36px rgba(0,0,0,0.7),
+        0 0 0 1px rgba(0,0,0,0.5),
+        inset 0 0 0 1px rgba(245,240,232,0.05);
       text-align: left;
+      overflow: hidden;
+    }
+    /* Pointer arrow / "kite" at the bottom of the card pointing DOWN
+       toward the mascot — visual tie between card and character. */
+    .flat-mascot-card::after {
+      content: '';
+      position: absolute;
+      bottom: -7px;
+      left: 50%;
+      width: 12px;
+      height: 12px;
+      transform: translateX(-50%) rotate(45deg);
+      background: rgba(18,26,22,0.97);
+      border-right: 1px solid rgba(184,134,11,0.7);
+      border-bottom: 1px solid rgba(184,134,11,0.7);
+    }
+    .flat-mascot-card .mc-header {
+      padding: 0.7rem 0.95rem 0.5rem;
+      border-bottom: 1px solid rgba(184,134,11,0.22);
+      background: linear-gradient(180deg, rgba(184,134,11,0.10) 0%, rgba(184,134,11,0) 100%);
     }
     .flat-mascot-card .mc-name {
-      font-size: 1.05rem;
+      font-size: 1.18rem;
       font-weight: 700;
-      letter-spacing: 0.04em;
+      letter-spacing: 0.06em;
       color: #F5F0E8;
       text-transform: uppercase;
+      line-height: 1.15;
+      text-shadow: 0 1px 0 rgba(0,0,0,0.5);
     }
     .flat-mascot-card .mc-title {
-      font-size: 0.72rem;
+      font-size: 0.7rem;
       font-style: italic;
+      letter-spacing: 0.02em;
       color: #D9A93D;
-      margin-bottom: 0.35rem;
+      margin-top: 0.1rem;
     }
     .flat-mascot-card .mc-tagline {
-      font-size: 0.7rem;
-      color: rgba(245,240,232,0.85);
-      margin-bottom: 0.55rem;
+      font-size: 0.74rem;
+      color: rgba(245,240,232,0.9);
+      padding: 0.55rem 0.95rem 0.45rem;
+      border-bottom: 1px solid rgba(184,134,11,0.18);
+      font-style: italic;
     }
-    .flat-mascot-card .mc-tagline em { color: #D9A93D; font-style: italic; }
+    .flat-mascot-card .mc-tagline em {
+      color: #D9A93D;
+      font-style: italic;
+      font-weight: 600;
+    }
     .flat-mascot-card .mc-section {
-      font-size: 0.6rem;
-      letter-spacing: 0.16em;
+      font-size: 0.58rem;
+      letter-spacing: 0.22em;
       text-transform: uppercase;
-      color: rgba(184,134,11,0.85);
+      color: #D9A93D;
       font-weight: 700;
-      margin: 0.25rem 0 0.3rem;
-      border-top: 1px solid rgba(184,134,11,0.25);
-      padding-top: 0.4rem;
+      padding: 0.55rem 0.95rem 0.35rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .flat-mascot-card .mc-section::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(to right, rgba(184,134,11,0.4) 0%, rgba(184,134,11,0) 100%);
     }
     .flat-mascot-card .mc-powers {
       list-style: none;
       margin: 0;
-      padding: 0;
+      padding: 0 0.95rem 0.75rem;
     }
     .flat-mascot-card .mc-powers li {
-      display: flex;
-      align-items: flex-start;
-      gap: 0.4rem;
-      padding: 0.18rem 0;
-      font-size: 0.68rem;
-      color: rgba(245,240,232,0.92);
+      display: grid;
+      grid-template-columns: 22px 1fr;
+      align-items: baseline;
+      gap: 0.5rem;
+      padding: 0.22rem 0;
+      font-size: 0.7rem;
+      color: rgba(245,240,232,0.88);
     }
-    .flat-mascot-card .mc-powers strong { color: #F5F0E8; font-weight: 700; }
+    .flat-mascot-card .mc-powers strong {
+      color: #F5F0E8;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+    }
     .flat-mascot-card .mc-icon {
-      flex: 0 0 auto;
-      width: 18px;
+      font-size: 0.9rem;
+      line-height: 1;
       text-align: center;
-      line-height: 1.1;
+      filter: drop-shadow(0 1px 2px rgba(0,0,0,0.5));
     }
+    /* Per-character accent — subtle left-edge stripe in the mascot's
+       signature color. Helps the three characters feel distinct as a
+       roster. */
+    .flat-mascot-card.flat-zola-card     { border-left: 3px solid #4a9b6e;  }   /* forest green */
+    .flat-mascot-card.flat-loredana-card { border-left: 3px solid #E8D9B8;  }   /* angelic cream */
+    .flat-mascot-card.flat-melissa-card  { border-left: 3px solid #4A5DAA;  }   /* justiciar navy */
     /* Card peeks in slightly when mascot is hovered (desktop only).
        transform shift adds a subtle "rise" feel. */
     .flat-zola:hover ~ .flat-zola-card,
@@ -2803,8 +2852,10 @@
              have been removed. -->
         <img class="flat-zola" id="flat-zola" src="../assets/images/zola-globe-sprite.png" alt="Zola — Palm Leaf Partners mascot" style="left:50%; top:64%;" />
         <div class="flat-mascot-card flat-zola-card" aria-hidden="true" style="left:50%; top:64%;">
-          <div class="mc-name">Zola</div>
-          <div class="mc-title">Princess of the Forest</div>
+          <div class="mc-header">
+            <div class="mc-name">Zola</div>
+            <div class="mc-title">Princess of the Forest</div>
+          </div>
           <div class="mc-tagline">"Zola" means <em>love</em>.</div>
           <div class="mc-section">Powers</div>
           <ul class="mc-powers">
@@ -2833,8 +2884,10 @@
         <img class="flat-loredana" id="flat-loredana" src="../assets/images/loredana-usa-sprite.png?v=angelic-praying" alt="Loredana — Global Mother (Palm Tree Women Organization, USA chapter)" style="left:22%; top:42%;" />
         <img class="flat-melissa" id="flat-melissa" src="../assets/images/melissa-usa-sprite.png?v=v1" alt="Melissa — Justiciar (Universal Palm Tree Women Organization)" style="left:13%; top:50%;" />
         <div class="flat-mascot-card flat-melissa-card" aria-hidden="true" style="left:13%; top:50%;">
-          <div class="mc-name">Melissa</div>
-          <div class="mc-title">The Justiciar</div>
+          <div class="mc-header">
+            <div class="mc-name">Melissa</div>
+            <div class="mc-title">The Justiciar</div>
+          </div>
           <div class="mc-tagline">Speaks for those who cannot speak for themselves.</div>
           <div class="mc-section">Powers</div>
           <ul class="mc-powers">
@@ -2846,8 +2899,10 @@
           </ul>
         </div>
         <div class="flat-mascot-card flat-loredana-card" aria-hidden="true" style="left:22%; top:42%;">
-          <div class="mc-name">Loredana</div>
-          <div class="mc-title">Global Mother of UPTW</div>
+          <div class="mc-header">
+            <div class="mc-name">Loredana</div>
+            <div class="mc-title">Global Mother of UPTW</div>
+          </div>
           <div class="mc-tagline">Founding chapter. Carries a Bible — quotes verse at any moment.</div>
           <div class="mc-section">Powers</div>
           <ul class="mc-powers">
