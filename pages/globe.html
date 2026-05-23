@@ -257,6 +257,7 @@
       background:
         radial-gradient(ellipse at 50% 35%, #0a1a2a 0%, #020408 60%, #000 100%);
       padding: 4rem 1.5rem 2rem;
+      overflow: hidden;   /* clip the east-west wrap buffer IMGs */
     }
     .flat-view.visible { display: flex; }
     .flat-view-inner {
@@ -281,6 +282,10 @@
       box-shadow: 0 20px 80px rgba(0,0,0,0.65);
       user-select: none;
     }
+    /* Wrap buffer tiles were the foundation of the east-west wrap
+       experiment. Eddie reverted to bounded scroll (no wrap), so the
+       buffers are hidden but kept in the markup for quick re-enable. */
+    .flat-map-buffer { display: none; }
     /* Pan + zoom container — wraps the world map + all pins so they
        move together as one piece. We animate `transform` to fly to
        countries; pointer-events on individual pins still work because
@@ -2300,28 +2305,6 @@
         border-radius: 0;
         box-shadow: none;
       }
-      /* East-west wrap-around buffer tiles — pixel-identical copies of
-         the canonical .flat-map, positioned one tile-width to each
-         side. Same sizing + object-fit so they pixel-align. pointer-
-         events:none so they never intercept the zoom controller's
-         drag. The controller's wrap mode (wrapX option) modulos tx
-         so the user never "lives" on a buffer for more than a frame:
-         wrap-snap is invisible because buffers are identical to the
-         canonical. Date Line west flows into Date Line east the way
-         the real planet does. */
-      .flat-map-buffer { display: none; }
-      body.flat-immersive .flat-map-buffer {
-        display: block;
-        position: absolute;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: center;
-        pointer-events: none;
-        border-radius: 0;
-        box-shadow: none;
-      }
       body.flat-immersive .flat-map-buffer[data-side="left"]  { left: -100%; }
       body.flat-immersive .flat-map-buffer[data-side="right"] { left:  100%; }
 
@@ -3864,7 +3847,7 @@
       btnOut: document.getElementById('flat-zoom-out'),
       btnReset: document.getElementById('flat-zoom-reset'),
       elasticEdges: isTouchViewport,    // function → checked dynamically on each gesture
-      wrapX: isTouchViewport,            // east-west wrap-around — mobile only
+      wrapX: false,                      // bounded left-to-right scroll per Eddie's revised spec — no wrap
     });
     // Orientation change or window resize can shrink the pannable below
     // the user's current pan offset (e.g. they were viewing Asia in
