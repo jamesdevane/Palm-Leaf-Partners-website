@@ -79,6 +79,9 @@
     <div class="perf-row" data-metric="net"></div>
     <div class="perf-row" data-metric="batt"></div>
     <div class="perf-row" data-metric="vp"></div>
+    <div class="perf-row" data-metric="touch"></div>
+    <div class="perf-row" data-metric="ptr"></div>
+    <div class="perf-row" data-metric="click"></div>
     <div class="perf-row perf-slow" data-metric="slow"></div>
   `;
   const css = document.createElement('style');
@@ -267,6 +270,23 @@
   }
   sample();
   setInterval(sample, 1000);
+
+  // ── Input event counters (the "is touch even reaching JS" check) ─
+  // Every touchstart / pointerdown / click on the document increments
+  // a counter. If you tap an element and the touch/ptr count goes up
+  // but click doesn't, the event is being captured/stopped somewhere
+  // BEFORE it can become a click. If touch/ptr don't even increment,
+  // something at the OS or page-overlay level is eating the input.
+  let touchCount = 0, ptrCount = 0, clickCount = 0;
+  const renderInput = () => {
+    set('touch', 'touchstart', touchCount);
+    set('ptr', 'pointerdown', ptrCount);
+    set('click', 'click', clickCount);
+  };
+  document.addEventListener('touchstart', () => { touchCount++; renderInput(); }, { capture: true, passive: true });
+  document.addEventListener('pointerdown', () => { ptrCount++; renderInput(); }, { capture: true, passive: true });
+  document.addEventListener('click', () => { clickCount++; renderInput(); }, { capture: true, passive: true });
+  renderInput();
 
   // Battery (async)
   if (navigator.getBattery) {
