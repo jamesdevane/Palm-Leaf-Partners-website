@@ -999,6 +999,100 @@
           drop-shadow(0 6px 18px rgba(0,0,0,0.6));
       }
     }
+    /* ── Mascot character cards — hover-reveal info boxes ───────────
+       Floating card that appears above each mascot on hover (desktop),
+       showing the character's name, title, mythic backstory line, and
+       their game-world abilities. Part of the larger game-vision
+       worldbuilding pass (see memory: palmleaf-game-vision). On touch
+       devices we skip the hover-reveal — country panel slide-up shows
+       the same info on tap. */
+    .flat-mascot-card {
+      position: absolute;
+      /* left + top set inline matching the mascot — card hovers ABOVE
+         the mascot's head using the negative-Y transform. */
+      transform: translate(-50%, calc(-100% - 80px));
+      width: 260px;
+      background: linear-gradient(180deg, rgba(20,30,25,0.96) 0%, rgba(20,30,25,0.94) 100%);
+      border: 1.5px solid rgba(184,134,11,0.65);
+      border-radius: 10px;
+      padding: 0.7rem 0.9rem 0.85rem;
+      color: #F5F0E8;
+      font-family: 'Georgia', serif;
+      font-size: 0.72rem;
+      line-height: 1.45;
+      pointer-events: none;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 200ms ease, transform 200ms ease;
+      z-index: 50;
+      box-shadow:
+        0 10px 28px rgba(0,0,0,0.65),
+        0 0 0 1px rgba(0,0,0,0.4);
+      text-align: left;
+    }
+    .flat-mascot-card .mc-name {
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: #F5F0E8;
+      text-transform: uppercase;
+    }
+    .flat-mascot-card .mc-title {
+      font-size: 0.72rem;
+      font-style: italic;
+      color: #D9A93D;
+      margin-bottom: 0.35rem;
+    }
+    .flat-mascot-card .mc-tagline {
+      font-size: 0.7rem;
+      color: rgba(245,240,232,0.85);
+      margin-bottom: 0.55rem;
+    }
+    .flat-mascot-card .mc-tagline em { color: #D9A93D; font-style: italic; }
+    .flat-mascot-card .mc-section {
+      font-size: 0.6rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(184,134,11,0.85);
+      font-weight: 700;
+      margin: 0.25rem 0 0.3rem;
+      border-top: 1px solid rgba(184,134,11,0.25);
+      padding-top: 0.4rem;
+    }
+    .flat-mascot-card .mc-powers {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .flat-mascot-card .mc-powers li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.4rem;
+      padding: 0.18rem 0;
+      font-size: 0.68rem;
+      color: rgba(245,240,232,0.92);
+    }
+    .flat-mascot-card .mc-powers strong { color: #F5F0E8; font-weight: 700; }
+    .flat-mascot-card .mc-icon {
+      flex: 0 0 auto;
+      width: 18px;
+      text-align: center;
+      line-height: 1.1;
+    }
+    /* Card peeks in slightly when mascot is hovered (desktop only).
+       transform shift adds a subtle "rise" feel. */
+    .flat-zola:hover ~ .flat-zola-card,
+    .flat-loredana:hover ~ .flat-loredana-card {
+      opacity: 1;
+      visibility: visible;
+      transform: translate(-50%, calc(-100% - 92px));
+    }
+    /* Mobile / touch: rely on country panel tap-to-open for the same
+       info — hover is unreliable on touch hardware. */
+    @media (hover: none) and (pointer: coarse) {
+      .flat-mascot-card { display: none; }
+    }
+
     /* Loredana — Global Mother on USA. Same size as Zola so the two
        chapter mascots read as equal pillars of UPTW. Rose-gold halo
        to match UPTW's brand color, paired with Zola's gold so the
@@ -2662,6 +2756,20 @@
              landed over Kenya (the illustrated map isn't equirectangular)
              have been removed. -->
         <img class="flat-zola" id="flat-zola" src="../assets/images/zola-globe-sprite.png" alt="Zola — Palm Leaf Partners mascot" style="left:50%; top:64%;" />
+        <div class="flat-mascot-card flat-zola-card" aria-hidden="true" style="left:50%; top:64%;">
+          <div class="mc-name">Zola</div>
+          <div class="mc-title">Princess of the Forest</div>
+          <div class="mc-tagline">"Zola" means <em>love</em>.</div>
+          <div class="mc-section">Powers</div>
+          <ul class="mc-powers">
+            <li><span class="mc-icon">🌱</span> <strong>Sprout</strong> — instant crop growth</li>
+            <li><span class="mc-icon">🌿</span> <strong>Verdant Heal</strong> — forest-medicine healing</li>
+            <li><span class="mc-icon">🌳</span> <strong>Tree Mother</strong> — wasteland → forest</li>
+            <li><span class="mc-icon">🌧</span> <strong>Rain Calling</strong> — break droughts</li>
+            <li><span class="mc-icon">🛤</span> <strong>Forest Path</strong> — fast travel between forests</li>
+            <li><span class="mc-icon">🦍</span> <strong>Animal Companions</strong> — gorilla guards, okapi messengers</li>
+          </ul>
+        </div>
 
         <!-- Country flag markers — replaced the old colored-dot pins +
              text-label combo with small flag icons that show a tooltip
@@ -2677,6 +2785,21 @@
              pixel-perfect pin placement on a non-equirectangular
              illustrated projection. -->
         <img class="flat-loredana" id="flat-loredana" src="../assets/images/loredana-usa-sprite.png" alt="Loredana — Global Mother (Palm Tree Women Organization, USA chapter)" style="left:22%; top:42%;" />
+        <div class="flat-mascot-card flat-loredana-card" aria-hidden="true" style="left:22%; top:42%;">
+          <div class="mc-name">Loredana</div>
+          <div class="mc-title">Global Mother of UPTW</div>
+          <div class="mc-tagline">Founding chapter. Carries a Bible — quotes verse at any moment.</div>
+          <div class="mc-section">Powers</div>
+          <ul class="mc-powers">
+            <li><span class="mc-icon">📖</span> <strong>Verse of Strength</strong> — Bible-quoted morale boost</li>
+            <li><span class="mc-icon">✨</span> <strong>Sanctify</strong> — bless buildings, 2× output</li>
+            <li><span class="mc-icon">👁</span> <strong>Soul Speaker</strong> — reveals what each village needs</li>
+            <li><span class="mc-icon">🌉</span> <strong>Bridge of Faith</strong> — opens foreign funding channels</li>
+            <li><span class="mc-icon">🙏</span> <strong>Prayer Circle</strong> — spiritual healing across villages</li>
+            <li><span class="mc-icon">🕊</span> <strong>Sanctuary</strong> — refugee protection</li>
+            <li><span class="mc-icon">⛪</span> <strong>Crusader's Resolve</strong> — boost action capacity</li>
+          </ul>
+        </div>
       </div>
 
       <!-- "Our Global Network" — every chapter flag in one ribbon at
