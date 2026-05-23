@@ -2776,24 +2776,31 @@
       }
 
       innerEl.addEventListener('pointerdown', (e) => {
-        if (e.target.closest(INTERACTIVE)) return;
+        // Always track every pointer regardless of where it landed —
+        // pinch zoom (two-finger gesture) must work over ANY part of
+        // the map, including over badges/landmarks/provinces. Previous
+        // version early-returned on interactive elements so pinch
+        // failed in hotspot-dense areas (e.g. lower-left Kongo Central
+        // had so many landmarks that pinch was a dead zone).
+        const onInteractive = !!e.target.closest(INTERACTIVE);
         pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
-        // Only capture the pointer when an actual gesture starts (pinch
-        // with two fingers, or single-finger drag while zoomed in). For
-        // a plain single-finger tap on empty map we leave the pointer
-        // uncaptured so iPad Safari can route the click event normally
-        // — otherwise capture interferes with click delivery on the
-        // *next* tap, which is what was breaking taps inside the DRC view.
         if (pointers.size === 2) {
+          // Two-finger gesture: definitely a pinch, never a tap. Initiate
+          // even if one of the fingers is on a hotspot.
           const [a, b] = Array.from(pointers.values());
           pinchDist = Math.hypot(b.x - a.x, b.y - a.y);
           try { innerEl.setPointerCapture(e.pointerId); } catch {}
-        } else if (pointers.size === 1 && scale > 1.01) {
+        } else if (pointers.size === 1 && scale > 1.01 && !onInteractive) {
+          // Single-finger drag (only when zoomed in). Skip if the
+          // finger is on an interactive element — that touch should
+          // still be able to fire a click.
           isDragging = true;
           innerEl.classList.add('dragging');
           lastSingle = { x: e.clientX, y: e.clientY };
           try { innerEl.setPointerCapture(e.pointerId); } catch {}
         }
+        // Single-finger plain tap: no capture, no drag — let the click
+        // event flow normally to the underlying hotspot button.
       });
       innerEl.addEventListener('pointermove', (e) => {
         if (!pointers.has(e.pointerId)) return;
