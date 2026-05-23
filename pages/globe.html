@@ -897,15 +897,13 @@
       filter: drop-shadow(0 20px 60px rgba(0,0,0,0.55));
       user-select: none;
       pointer-events: none;
-      /* The illustrated map JPEG has a baked-in black canvas around
-         the painted country shape. mix-blend-mode: screen mathematically
-         treats black as the identity — i.e. fully transparent — so the
-         country floats directly on the page's background instead of
-         sitting inside a black rectangle. The painted country's colors
-         stay vibrant because the underlying page background is
-         near-black (#1a1a1a → #000 grayscale vignette), so the screen
-         blend doesn't visibly shift the country's hues. */
-      mix-blend-mode: screen;
+      /* Most illustrated maps now ship as PNGs with their black canvas
+         chroma-keyed to true transparency (no CSS blend-mode trick
+         needed) — the painted country shape floats directly on the
+         page background. A few maps (Ituri, Kinshasa, Kongo Central)
+         still use JPEG with a black backdrop visible because their
+         source images had noisy near-black backgrounds that didn't
+         chroma-key cleanly. */
     }
     .drc-hotspots {
       position: absolute; inset: 0;
@@ -1989,7 +1987,7 @@
        leaving a fading dashed gold trail. -->
   <div class="drc-detail-view" id="drc-detail-view" aria-hidden="true">
     <div class="drc-detail-inner">
-      <img class="drc-map" src="../assets/images/drc-illustrated.jpg" alt="Illustrated map of the Democratic Republic of the Congo" decoding="async" />
+      <img class="drc-map" src="../assets/images/drc-illustrated.png" alt="Illustrated map of the Democratic Republic of the Congo" decoding="async" />
 
       <!-- Layer-stack SVGs. Each represents one infrastructure/resource
            overlay (mining today; grid/fiber/geothermal/data center/fishery/
@@ -2269,7 +2267,6 @@
   </div>
 
   <script src="../js/i18n.js"></script>
-  <script src="../js/perf-overlay.js" defer></script>
   <script src="../js/vendor/three.min.js"></script>
   <script src="../js/vendor/OrbitControls.js"></script>
 
@@ -3787,7 +3784,7 @@
       equateur: {
         name: 'Equateur',
         name_fr: 'Équateur',
-        mapSrc: '../assets/images/province-equateur-illustrated.jpg',
+        mapSrc: '../assets/images/province-equateur-illustrated.png',
         zolaStart: { x: 35, y: 60 },
         hotspots: [
           { id: 'mbandaka', icon: '🏘️', name: 'Mbandaka', name_fr: 'Mbandaka', sub: 'Capital · on the equator', sub_fr: 'Chef-lieu provincial · sur l\'équateur', x: 35, y: 58,
@@ -3826,7 +3823,7 @@
       tshopo: {
         name: 'Tshopo',
         name_fr: 'Tshopo',
-        mapSrc: '../assets/images/province-tshopo-illustrated.jpg',
+        mapSrc: '../assets/images/province-tshopo-illustrated.png',
         zolaStart: { x: 50, y: 50 },
         hotspots: [
           { id: 'kisangani', icon: '🏘️', name: 'Kisangani', name_fr: 'Kisangani', sub: 'On the equator · head of navigable Congo', sub_fr: 'Sur l\'équateur · tête du Congo navigable', x: 50, y: 45,
@@ -3904,7 +3901,7 @@
       'north-kivu': {
         name: 'North Kivu',
         name_fr: 'Nord-Kivu',
-        mapSrc: '../assets/images/province-north-kivu-illustrated.jpg',
+        mapSrc: '../assets/images/province-north-kivu-illustrated.png',
         zolaStart: { x: 45, y: 50 },
         hotspots: [
           { id: 'goma', icon: '🏘️', name: 'Goma', name_fr: 'Goma', sub: 'Provincial capital · on volcanic Lake Kivu', sub_fr: 'Chef-lieu provincial · au bord du lac Kivu volcanique', x: 45, y: 65,
@@ -3943,7 +3940,7 @@
       'south-kivu': {
         name: 'South Kivu',
         name_fr: 'Sud-Kivu',
-        mapSrc: '../assets/images/province-south-kivu-illustrated.jpg',
+        mapSrc: '../assets/images/province-south-kivu-illustrated.png',
         zolaStart: { x: 42, y: 35 },
         hotspots: [
           { id: 'bukavu', icon: '🏘️', name: 'Bukavu', name_fr: 'Bukavu', sub: 'Provincial capital · on south Lake Kivu', sub_fr: 'Chef-lieu provincial · sud du lac Kivu', x: 40, y: 38,
@@ -3982,7 +3979,7 @@
       maniema: {
         name: 'Maniema',
         name_fr: 'Maniema',
-        mapSrc: '../assets/images/province-maniema-illustrated.jpg',
+        mapSrc: '../assets/images/province-maniema-illustrated.png',
         zolaStart: { x: 45, y: 45 },
         hotspots: [
           { id: 'kindu', icon: '🏘️', name: 'Kindu', name_fr: 'Kindu', sub: 'Provincial capital · on the Lualaba', sub_fr: 'Chef-lieu provincial · sur le Lualaba', x: 45, y: 42,
@@ -4016,7 +4013,7 @@
       'kasai-central': {
         name: 'Kasai Central',
         name_fr: 'Kasaï central',
-        mapSrc: '../assets/images/province-kasai-central-illustrated.jpg',
+        mapSrc: '../assets/images/province-kasai-central-illustrated.png',
         zolaStart: { x: 45, y: 55 },
         hotspots: [
           { id: 'kananga', icon: '🏘️', name: 'Kananga', name_fr: 'Kananga', sub: 'Provincial capital · Kasai heartland', sub_fr: 'Chef-lieu provincial · cœur du Kasaï', x: 45, y: 60,
@@ -4050,7 +4047,7 @@
       'haut-katanga': {
         name: 'Haut-Katanga',
         name_fr: 'Haut-Katanga',
-        mapSrc: '../assets/images/province-haut-katanga-illustrated.jpg',
+        mapSrc: '../assets/images/province-haut-katanga-illustrated.png',
         zolaStart: { x: 25, y: 60 },
         hotspots: [
           { id: 'lubumbashi-prov', icon: '🏘️', name: 'Lubumbashi', name_fr: 'Lubumbashi', sub: 'DRC\'s second-largest city · mining capital', sub_fr: 'Deuxième ville de la RDC · capitale minière', x: 22, y: 72,
