@@ -2137,11 +2137,12 @@
     .mobile-refresh-btn {
       display: none;
       position: fixed;
-      /* Stacked BELOW the EN/FR lang-toggle (top:1.5rem) so they don't
-         overlap. env(safe-area-inset-*) compensates for iPhone notch /
-         Samsung status-bar; falls back to 0 elsewhere. */
-      top: calc(env(safe-area-inset-top, 0px) + 5rem);
-      right: calc(env(safe-area-inset-right, 0px) + 1.5rem);
+      /* Same top line as the EN/FR lang-toggle (top:1.5rem), positioned
+         to the LEFT of it. Lang-toggle is ~5rem wide + 1.5rem from
+         right; refresh sits at right:7rem (leaves a 0.5rem visual gap
+         between the two pills). */
+      top: calc(env(safe-area-inset-top, 0px) + 1.5rem);
+      right: calc(env(safe-area-inset-right, 0px) + 7rem);
       z-index: 320;        /* above country-panel (290), backdrop (280), corner chip (265), zoom controls (230) */
       width: 48px; height: 48px;
       align-items: center; justify-content: center;
@@ -2180,13 +2181,8 @@
     body.flat-immersive .top-bar .back-btn,
     body.drc-immersive  .top-bar .back-btn { display: none; }
 
-    /* Hide the Kinshasa clock in immersive views at all widths — it
-       sits at top:5rem right:2rem, which is exactly where the refresh
-       button now lives. The clock is a 3D-globe-view ambient detail;
-       in the map / DRC views it's noise that conflicts with the
-       chrome. */
-    body.flat-immersive .kinshasa-clock,
-    body.drc-immersive  .kinshasa-clock { display: none; }
+    /* Clock stays visible in immersive views — Eddie likes it. The
+       refresh button is now positioned BELOW the clock instead. */
 
     /* View-toggle (Globe / 2D) — float as bottom-center pill in
        immersive views at all widths (not just mobile). Was sitting in
@@ -2241,8 +2237,8 @@
       body.drc-immersive  .top-bar .logo,
       body.flat-immersive .top-bar .back-btn,
       body.drc-immersive  .top-bar .back-btn { display: none; }
-      body.flat-immersive .kinshasa-clock,
-      body.drc-immersive  .kinshasa-clock { display: none; }
+      /* Clock stays visible in immersive views — Eddie likes the
+         hover-other-countries-shows-their-time interaction. */
 
       /* View-toggle on mobile becomes a small floating pill at the
          bottom-center. The refresh button claims top-right now (gold,
