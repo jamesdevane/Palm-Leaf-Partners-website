@@ -1616,7 +1616,17 @@
     .drc-layer-geothermal,
     .drc-layer-datacenter,
     .drc-layer-fishery,
-    .drc-layer-postoffices { z-index: 5; }
+    .drc-layer-postoffices {
+      z-index: 5;
+      /* These DIV containers are full-canvas (inset:0) and would
+         otherwise eat every click across the entire DRC map when made
+         .visible — blocking the province labels underneath. The pin
+         buttons inside (.drc-fishery-pin etc.) have their own
+         pointer-events:auto, so they still catch clicks on the pin
+         itself; empty container areas fall through to whatever's below
+         (provinces, landmarks, polygons). */
+      pointer-events: none !important;
+    }
     /* Mining region polygons (SVG) — clickable hatched belts. */
     .drc-mining-region {
       cursor: pointer;
