@@ -1172,6 +1172,17 @@
     .flat-mascot-card.flat-zola-card     { border-left: 3px solid #4a9b6e;  }   /* forest green */
     .flat-mascot-card.flat-loredana-card { border-left: 3px solid #E8D9B8;  }   /* angelic cream */
     .flat-mascot-card.flat-melissa-card  { border-left: 3px solid #4A5DAA;  }   /* justiciar navy */
+    /* When the JS viewport-aware positioning flips the card BELOW the
+       mascot (because there isn't room above), flip the pointer-arrow
+       (kite) to point UP toward the mascot. */
+    .flat-mascot-card.mc-flipped::after {
+      bottom: auto;
+      top: -7px;
+      border-right: none;
+      border-bottom: none;
+      border-left: 1px solid rgba(184,134,11,0.7);
+      border-top: 1px solid rgba(184,134,11,0.7);
+    }
     /* Card peeks in slightly when mascot is hovered (desktop only).
        transform shift adds a subtle "rise" feel. */
     .flat-zola:hover ~ .flat-zola-card,
@@ -4274,14 +4285,60 @@
       e.stopPropagation();
       openCountryPanel('usa');
     });
-    // Melissa (Justiciar) → USA panel for now. She lives on the same
-    // country card as Loredana; later, when her own deep-dive ships
-    // (per palmleaf-game-vision Council of Mascots roadmap), this
-    // handler can swap to a Justiciar-specific view.
+    // Melissa (Justiciar) → her OWN slide-in panel (key 'melissa' in the
+    // COUNTRIES map). Same right-slide animation as the country panels;
+    // content is Melissa-specific: her Justiciar story, her tagline, and
+    // the Meet Melissa CTA.
     document.getElementById('flat-melissa')?.addEventListener('click', (e) => {
       e.stopPropagation();
-      openCountryPanel('usa');
+      openCountryPanel('melissa');
     });
+
+    // Mascot hover-card viewport-edge-aware positioning. When a card
+    // would render off-screen (top edge below 0, right edge past viewport
+    // width, or left edge past 0), shift / flip its transform so it
+    // stays fully visible. CSS provides the default above-the-mascot
+    // position; this JS layer adjusts on hover.
+    (function setupMascotHoverPositioning() {
+      const PAD = 12;
+      const setups = [
+        { mascotId: 'flat-zola',     cardSel: '.flat-zola-card' },
+        { mascotId: 'flat-loredana', cardSel: '.flat-loredana-card' },
+        { mascotId: 'flat-melissa',  cardSel: '.flat-melissa-card' },
+      ];
+      for (const { mascotId, cardSel } of setups) {
+        const mascot = document.getElementById(mascotId);
+        const card = document.querySelector(cardSel);
+        if (!mascot || !card) continue;
+
+        mascot.addEventListener('mouseenter', () => {
+          card.style.transform = '';
+          card.classList.remove('mc-flipped');
+          // measure on next frame so the CSS hover-shown transform applies first
+          requestAnimationFrame(() => {
+            const rect = card.getBoundingClientRect();
+            const vw = window.innerWidth;
+            let dx = 0;
+            if (rect.right > vw - PAD) dx = -(rect.right - (vw - PAD));
+            else if (rect.left < PAD) dx = (PAD - rect.left);
+            // If card goes off the top, flip it BELOW the mascot.
+            const flip = rect.top < PAD;
+            let dy = 0;
+            if (flip) {
+              dy = mascot.getBoundingClientRect().height + rect.height + 90;
+              card.classList.add('mc-flipped');
+            }
+            if (dx !== 0 || flip) {
+              card.style.transform = `translate(calc(-50% + ${dx}px), calc(-100% - 92px + ${dy}px))`;
+            }
+          });
+        });
+        mascot.addEventListener('mouseleave', () => {
+          card.style.transform = '';
+          card.classList.remove('mc-flipped');
+        });
+      }
+    })();
 
     // ── 2D country-zone hover updates the Kinshasa clock ─────────────
     // On desktop the clock has always switched timezones when the user
@@ -4395,6 +4452,20 @@
         body_fr: "L'Organisation Universelle des Femmes Palm Tree USA est le chapitre fondateur — et Loredana, la Mère Universelle, est la figure qui a donné son nom à tout le mouvement. Le chapitre USA ancre le réseau international UPTW et les programmes d'autonomisation des femmes qui en découlent.",
         wiki: 'United_States',
         cta: 'Meet Loredana →', cta_fr: 'Rencontrez Loredana →',
+      },
+      // Melissa = the Justiciar character. Lives on the same painted
+      // USA region as Loredana (west coast pin) but opens her OWN panel
+      // — different content focused on legal advocacy / justice work.
+      melissa: {
+        flag: '🇺🇸', tier: 'ptwo',
+        name: 'Melissa · The Justiciar', name_fr: 'Melissa · La Justiciaire',
+        badge: 'UPTW USA · The Justiciar', badge_fr: 'UPTW USA · La Justiciaire',
+        tagline: 'Defender of the law. Speaks for those who cannot speak for themselves.',
+        tagline_fr: 'Défenseure du droit. Voix de ceux qui ne peuvent parler.',
+        mascotName: 'Melissa · The Justiciar', mascotImage: '../assets/images/melissa-usa-sprite.png?v=v1',
+        body: "Melissa is the Justiciar of the UPTW universe — the keeper of the rule of law and the voice of the voiceless. Where Loredana speaks the spirit of the movement, Melissa speaks its law: drafting protections, untangling injustice, brokering treaties between communities. Her work spans courtrooms, charters, and the quiet conversations where rights are won. She stands beside Loredana on the Founding Chapter, scales of justice held aloft.",
+        body_fr: "Melissa est la Justiciaire de l'univers UPTW — gardienne de l'État de droit et voix de ceux qui n'en ont pas. Là où Loredana porte l'esprit du mouvement, Melissa en porte la loi : rédiger les protections, démêler l'injustice, négocier des traités entre communautés. Son œuvre traverse les salles d'audience, les chartes, et les conversations discrètes où se gagnent les droits. Elle se tient aux côtés de Loredana, balance de la justice élevée.",
+        cta: 'Meet Melissa →', cta_fr: 'Rencontrez Melissa →',
       },
       uk: {
         flag: '🇬🇧', tier: 'ptwo',
