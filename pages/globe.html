@@ -2276,16 +2276,21 @@
       /* Button reset — Samsung Internet adds a default background +
          padding to <button> which showed up as a grey bar to the right
          of every non-active flag (the active flag was hidden by its
-         thicker gold border). */
+         thicker gold border). Also expand the tap target with padding
+         so each flag is at least 44px (Apple's HIG minimum). */
       body.flat-immersive .flat-network-flag {
         background: transparent;
         border: none;
-        padding: 0;
         margin: 0;
         -webkit-appearance: none;
         appearance: none;
-        width: auto;
-        line-height: 0;             /* kill the button's text-line gap */
+        line-height: 0;
+        padding: 6px 8px 6px 4px;     /* extra clickable area around the flag */
+        display: inline-flex;
+        align-items: center;
+        justify-content: flex-start;
+        min-height: 36px;
+        pointer-events: auto;
       }
       body.flat-immersive .flat-network-flags::-webkit-scrollbar { display: none; }
       body.flat-immersive .flat-network-flag img {
@@ -3352,6 +3357,37 @@
       let pinchDist = 0;
       let lastSingle = null;
       let isDragging = false;
+      // Inertia / momentum state. After a drag releases, the controller
+      // keeps applying the last-known velocity with exponential
+      // deceleration so the map glides to a stop instead of stopping
+      // abruptly. Gives the AoE-Mobile "world feel" Eddie asked for.
+      let panVel = { x: 0, y: 0 };
+      let lastMoveTs = 0;
+      let inertiaRaf = 0;
+      function cancelInertia() {
+        if (inertiaRaf) cancelAnimationFrame(inertiaRaf);
+        inertiaRaf = 0;
+      }
+      function startInertia() {
+        cancelInertia();
+        const tick = () => {
+          // Stop when the glide is barely moving.
+          if (Math.abs(panVel.x) < 0.4 && Math.abs(panVel.y) < 0.4) {
+            inertiaRaf = 0;
+            return;
+          }
+          tx += panVel.x;
+          ty += panVel.y;
+          // 0.94 deceleration → ~30 frames (~0.5s) until rest at typical
+          // flick speeds. Tune higher for longer glide, lower for snappier.
+          panVel.x *= 0.94;
+          panVel.y *= 0.94;
+          clampPan();
+          apply(false);
+          inertiaRaf = requestAnimationFrame(tick);
+        };
+        inertiaRaf = requestAnimationFrame(tick);
+      }
 
       const INTERACTIVE = '.drc-badge, .drc-landmark, .drc-province, .drc-mining-city, .drc-mining-region, .drc-grid-plant, .drc-grid-line, .drc-fiber-city, .drc-fiber-line, .drc-geothermal-pin, .drc-datacenter-pin, .drc-fishery-pin, .drc-agri-region, .drc-zola, .drc-bubble, .drc-back-btn, .drc-layer-toggles, .drc-zoom-controls, .flat-pin, .flat-flag, .flat-zola, .flat-loredana, .flat-label, .flat-country-zone, .lang-toggle, .view-toggle, .map-reset-btn, .flat-zoom-controls, button, a';
 
@@ -3402,6 +3438,9 @@
       }
 
       innerEl.addEventListener('pointerdown', (e) => {
+        // Any new touch cancels in-flight inertia — the user is taking
+        // control again.
+        cancelInertia();
         // Always track every pointer regardless of where it landed —
         // pinch zoom (two-finger gesture) must work over ANY part of
         // the map, including over badges/landmarks/provinces. Previous
@@ -3453,20 +3492,39 @@
           }
           pinchDist = newDist;
         } else if (isDragging && lastSingle) {
-          tx += e.clientX - lastSingle.x;
-          ty += e.clientY - lastSingle.y;
+          const dx = e.clientX - lastSingle.x;
+          const dy = e.clientY - lastSingle.y;
+          tx += dx;
+          ty += dy;
+          // Track velocity for inertia. Last move's delta IS the
+          // instantaneous velocity in px/frame; combined with the 0.94
+          // deceleration in startInertia(), gives natural glide.
+          panVel.x = dx;
+          panVel.y = dy;
+          lastMoveTs = performance.now();
           clampPan();
           apply(false);
           lastSingle = { x: e.clientX, y: e.clientY };
         }
       });
       const endPointer = (e) => {
+        const wasDragging = isDragging;
         pointers.delete(e.pointerId);
         if (pointers.size < 2) pinchDist = 0;
         if (pointers.size === 0) {
           isDragging = false;
           lastSingle = null;
           innerEl.classList.remove('dragging');
+          // Kick off inertia if the drag ended within a recent gesture
+          // (last move < 80ms ago) — otherwise the finger paused before
+          // lifting, meaning the user wanted to stop on this spot.
+          if (wasDragging && performance.now() - lastMoveTs < 80 &&
+              (Math.abs(panVel.x) > 0.6 || Math.abs(panVel.y) > 0.6)) {
+            startInertia();
+          } else {
+            panVel.x = 0;
+            panVel.y = 0;
+          }
         }
         try { innerEl.releasePointerCapture(e.pointerId); } catch {}
       };
