@@ -972,6 +972,22 @@
        view came back; setting animation: none + restoring on .visible
        cleanly drops the GPU work without that bug. */
     .drc-detail-view:not(.visible) .drc-badge img { animation: none; }
+    /* iPad lag root cause: 24 badges each running rotateY + drop-shadow
+       + will-change creates 24 separate GPU compositing layers. iOS
+       Safari handles one big WebGL canvas (the 3D globe) fine, but
+       chokes on many small animated layers. On touch devices kill the
+       spin AND the will-change/drop-shadow hints so the badges become
+       static medallions — same visual identity, no compositing cost. */
+    @media (hover: none) and (pointer: coarse) {
+      .drc-badge img {
+        animation: none !important;
+        will-change: auto !important;
+        filter: drop-shadow(0 2px 5px rgba(0,0,0,0.5));
+      }
+      .drc-badge:hover img {
+        animation: none !important;
+      }
+    }
     /* Respect user reduced-motion preference — disables every spin /
        glow keyframe across the page for accessibility AND power saving. */
     @media (prefers-reduced-motion: reduce) {
