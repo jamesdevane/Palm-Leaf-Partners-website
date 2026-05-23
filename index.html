@@ -84,6 +84,14 @@
     @media (max-width: 768px) {
       .hero-parallax .hero-bg-layer.hero-home {
         background-image: url('assets/images/zola-hero-home-mobile.jpg');
+        /* `contain` instead of `cover` on mobile so the WHOLE Zola
+           figure (palm headdress at top, palm-tree-root base at the
+           floor) stays visible. Empty space on the sides blends into
+           the dark-green hero overlay so it doesn't look letterboxed. */
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center top;
+        background-color: #1B4332;
       }
     }
   </style>
