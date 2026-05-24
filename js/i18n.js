@@ -17,6 +17,8 @@ const translations = {
   'nav.partnership':    { en: 'Partnership',             fr: 'Partenariat' },
   'nav.contact':        { en: 'Contact',                 fr: 'Contact' },
   'nav.projects':       { en: 'Projects',                fr: 'Projets' },
+  'nav.mboka':          { en: '🎮 Mboka · The Game',     fr: '🎮 Mboka · Le Jeu' },
+  'mboka.preprod':      { en: 'Pre-Production · 3+ Years From Release', fr: 'Pré-Production · 3+ Ans Avant Sortie' },
   'nav.brand.name':     { en: 'PALM LEAF',               fr: 'PALM LEAF' },
   'nav.brand.sub':      { en: '— PARTNERS —',            fr: '— PARTENAIRES —' },
 

@@ -66,37 +66,21 @@
         );
     }
 
+    /* Sits below the fixed shared nav (~70px tall). The shared nav provides
+       Home + Projects dropdown + EN/FR toggle; this badge just calls out
+       pre-production status. */
     .mboka-hero-stage-label {
-      position: absolute; top: 1.5rem; right: 1.5rem;
+      position: absolute; top: 5.5rem; right: 1.5rem;
       font-size: 0.62rem; font-weight: 700;
-      color: rgba(245,240,232,0.7);
+      color: rgba(245,240,232,0.85);
       letter-spacing: 0.22em; text-transform: uppercase;
-      background: rgba(10,13,16,0.55);
-      border: 1px solid rgba(184,134,11,0.4);
+      background: rgba(10,13,16,0.65);
+      border: 1px solid rgba(184,134,11,0.5);
       padding: 0.4rem 0.9rem;
       border-radius: 999px;
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
       z-index: 2;
-    }
-    .mboka-hero-back {
-      position: absolute; top: 1.5rem; left: 1.5rem;
-      color: rgba(245,240,232,0.85);
-      font-size: 0.78rem; font-weight: 500;
-      text-decoration: none;
-      background: rgba(10,13,16,0.55);
-      border: 1px solid rgba(184,134,11,0.4);
-      padding: 0.45rem 1rem;
-      border-radius: 999px;
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      transition: all 0.25s ease;
-      z-index: 2;
-    }
-    .mboka-hero-back:hover {
-      color: #1B4332;
-      background: #D4A017;
-      border-color: #D4A017;
     }
 
     .mboka-hero-content {
@@ -115,10 +99,6 @@
       line-height: 0.95;
       letter-spacing: 0.04em;
       color: #FFFFFF;
-      /* Heavy dark drop-shadow + soft gold halo. Reads against ANY backdrop
-         — bright sky, dark vignette, mountains. The previous gold-M gradient
-         disappeared against the golden hero sky. Solid cream + strong shadow
-         is the Pixar/Disney movie-title approach (Moana, Encanto, etc). */
       text-shadow:
         0 2px 0 rgba(20,15,10,0.55),
         0 4px 18px rgba(0,0,0,0.85),
@@ -126,6 +106,21 @@
         0 0 28px rgba(240,208,128,0.35);
       margin: 0;
       animation: mboka-fade-up 1.4s ease 0.2s both;
+    }
+    /* Forest-canopy green outline on the M — distinctive against the gold
+       sky, evocative of the rainforest the story lives in. Light cream
+       fill keeps it readable; the green is the ACCENT not the BODY. */
+    .mboka-wordmark .m-accent {
+      color: #EAF4ED;
+      -webkit-text-stroke: 3px #2D6A4F;
+      text-stroke: 3px #2D6A4F;
+      paint-order: stroke fill;
+      text-shadow:
+        0 2px 0 rgba(20,15,10,0.55),
+        0 4px 18px rgba(0,0,0,0.85),
+        0 8px 40px rgba(0,0,0,0.55),
+        0 0 32px rgba(64,145,108,0.45),
+        0 0 18px rgba(240,208,128,0.25);
     }
     .mboka-subtitle {
       font-size: clamp(0.72rem, 1.3vw, 0.9rem);
@@ -846,11 +841,10 @@
   <section class="mboka-hero">
     <div class="mboka-hero-bg"></div>
 
-    <a href="../index.html" class="mboka-hero-back">← Palm Leaf Partners</a>
-    <span class="mboka-hero-stage-label">Pre-Production · 3+ Years From Release</span>
+    <span class="mboka-hero-stage-label" data-i18n="mboka.preprod">Pre-Production · 3+ Years From Release</span>
 
     <div class="mboka-hero-content">
-      <h1 class="mboka-wordmark">MBOKA</h1>
+      <h1 class="mboka-wordmark"><span class="m-accent">M</span>BOKA</h1>
       <div class="mboka-subtitle"><span class="sub-accent">M-Bo-Ka</span> · A Living Regional Sim of the DRC</div>
       <p class="mboka-tagline">
         This is the story of how a country survived something almost unsurvivable.
@@ -1312,6 +1306,12 @@
       </div>
     </div>
   </section>
+
+
+  <!-- Shared site nav + footer (Projects dropdown, EN/FR toggle, sister-brand, etc.) -->
+  <script src="../js/i18n.js"></script>
+  <script src="../js/components.js"></script>
+  <script>renderNav(); renderFooter();</script>
 
 
   <!-- ─── CULTURAL AUTHORSHIP STATEMENT ─── -->
