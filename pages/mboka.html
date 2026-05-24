@@ -1,0 +1,1330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mboka — A Living Regional Sim of the DRC · Palm Leaf Partners</title>
+  <meta name="description" content="MBOKA — a humanitarian regional sim about the Democratic Republic of the Congo, in pre-production. Grounded in real Palm Leaf Partners infrastructure work, the UPTW women's movement, and 30 years of war and peace. 3+ years from release." />
+  <meta name="theme-color" content="#0a0d10" />
+  <link rel="canonical" href="https://palmleafpartners.com/pages/mboka.html" />
+  <link rel="icon" type="image/png" sizes="512x512" href="../assets/images/plp-logo-favicon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/images/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon-32x32.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="../assets/images/apple-touch-icon.png" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="Palm Leaf Partners" />
+  <meta property="og:title" content="Mboka — A Living Regional Sim of the DRC" />
+  <meta property="og:description" content="The story of how a country survived something almost unsurvivable — and how we're helping rebuild it, in real life, and in a game." />
+  <meta property="og:url" content="https://palmleafpartners.com/pages/mboka.html" />
+  <meta property="og:image" content="https://palmleafpartners.com/assets/images/mboka-title-backdrop.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="MBOKA — golden-hour establishing shot of the Congo Basin at dawn" />
+  <meta property="og:locale" content="en_US" />
+
+  <!-- Twitter / X Cards -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Mboka — A Living Regional Sim of the DRC" />
+  <meta name="twitter:description" content="Pre-production. Built honestly, with real Congolese voices in the loop." />
+  <meta name="twitter:image" content="https://palmleafpartners.com/assets/images/mboka-title-backdrop.jpg" />
+
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/cinematic.css" />
+  <link rel="stylesheet" href="../css/mobile.css" />
+
+  <style>
+    /* ─── Mboka page overrides — dark elegance + Pixar warmth ─── */
+    body { background: #0a0d10; }
+
+    /* ── Hero — Pixar movie title card ── */
+    .mboka-hero {
+      position: relative;
+      min-height: 100vh;
+      width: 100%;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: flex-end;
+      overflow: hidden;
+      isolation: isolate;
+    }
+    .mboka-hero-bg {
+      position: absolute; inset: 0;
+      background: url('../assets/images/mboka-title-backdrop.jpg') center/cover no-repeat;
+      z-index: -2;
+    }
+    .mboka-hero-bg::after {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(to bottom,
+          rgba(10,13,16,0.45) 0%,
+          rgba(10,13,16,0) 30%,
+          rgba(10,13,16,0) 55%,
+          rgba(10,13,16,0.65) 85%,
+          rgba(10,13,16,0.95) 100%
+        );
+    }
+
+    .mboka-hero-stage-label {
+      position: absolute; top: 1.5rem; right: 1.5rem;
+      font-size: 0.62rem; font-weight: 700;
+      color: rgba(245,240,232,0.7);
+      letter-spacing: 0.22em; text-transform: uppercase;
+      background: rgba(10,13,16,0.55);
+      border: 1px solid rgba(184,134,11,0.4);
+      padding: 0.4rem 0.9rem;
+      border-radius: 999px;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 2;
+    }
+    .mboka-hero-back {
+      position: absolute; top: 1.5rem; left: 1.5rem;
+      color: rgba(245,240,232,0.85);
+      font-size: 0.78rem; font-weight: 500;
+      text-decoration: none;
+      background: rgba(10,13,16,0.55);
+      border: 1px solid rgba(184,134,11,0.4);
+      padding: 0.45rem 1rem;
+      border-radius: 999px;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      transition: all 0.25s ease;
+      z-index: 2;
+    }
+    .mboka-hero-back:hover {
+      color: #1B4332;
+      background: #D4A017;
+      border-color: #D4A017;
+    }
+
+    .mboka-hero-content {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 1100px;
+      padding: 8rem 1.5rem 3rem;
+      text-align: center;
+    }
+
+    .mboka-wordmark {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-weight: 900;
+      font-size: clamp(4.5rem, 16vw, 11rem);
+      line-height: 0.95;
+      letter-spacing: 0.04em;
+      color: #F5F0E8;
+      text-shadow:
+        0 4px 30px rgba(0,0,0,0.55),
+        0 2px 8px rgba(184,134,11,0.25);
+      margin: 0;
+      animation: mboka-fade-up 1.4s ease 0.2s both;
+    }
+    .mboka-wordmark .m-accent {
+      background: linear-gradient(180deg, #F0D080 0%, #D4A017 60%, #B8860B 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 2px 12px rgba(184,134,11,0.45));
+    }
+    .mboka-subtitle {
+      font-size: clamp(0.68rem, 1.2vw, 0.85rem);
+      letter-spacing: 0.42em;
+      text-transform: uppercase;
+      color: #D4A017;
+      margin-top: 1.25rem;
+      font-weight: 600;
+      animation: mboka-fade-up 1.4s ease 0.6s both;
+    }
+    .mboka-tagline {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-style: italic;
+      font-size: clamp(1.05rem, 2.1vw, 1.6rem);
+      line-height: 1.55;
+      color: rgba(245,240,232,0.95);
+      max-width: 780px;
+      margin: 2rem auto 0;
+      text-shadow: 0 2px 16px rgba(0,0,0,0.7);
+      animation: mboka-fade-up 1.4s ease 1.0s both;
+    }
+    .mboka-tagline em {
+      color: #F0D080; font-style: italic;
+    }
+
+    @keyframes mboka-fade-up {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── Council sprite row ── */
+    .council-row {
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      gap: clamp(0.6rem, 2vw, 1.8rem);
+      margin-top: 3.5rem;
+      flex-wrap: wrap;
+      animation: mboka-fade-up 1.4s ease 1.4s both;
+    }
+    .council-figure {
+      display: flex; flex-direction: column;
+      align-items: center;
+      gap: 0.6rem;
+      max-width: 120px;
+    }
+    .council-figure .sprite-wrap {
+      width: clamp(80px, 11vw, 130px);
+      height: clamp(110px, 15vw, 180px);
+      display: flex; align-items: flex-end; justify-content: center;
+      filter: drop-shadow(0 8px 18px rgba(0,0,0,0.6));
+    }
+    .council-figure .sprite-wrap img {
+      max-width: 100%; max-height: 100%;
+      object-fit: contain; object-position: bottom center;
+    }
+    .council-figure .pending-card {
+      width: clamp(70px, 9vw, 110px);
+      height: clamp(95px, 13vw, 150px);
+      border-radius: var(--radius-md);
+      border: 2px dashed rgba(212,160,23,0.5);
+      background: rgba(245,240,232,0.06);
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column;
+      padding: 0.5rem;
+      text-align: center;
+    }
+    .council-figure .pending-card .pending-icon {
+      font-size: 1.6rem; line-height: 1;
+      margin-bottom: 0.4rem;
+      opacity: 0.7;
+    }
+    .council-figure .pending-card .pending-label {
+      font-size: 0.55rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(245,240,232,0.6);
+      font-weight: 600;
+    }
+    .council-figure .name-tag {
+      font-family: var(--font-heading);
+      font-size: 0.78rem; font-weight: 700;
+      color: #F5F0E8;
+      text-align: center;
+      line-height: 1.15;
+    }
+    .council-figure .domain-tag {
+      font-size: 0.58rem; letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #D4A017;
+      font-weight: 600;
+    }
+
+    /* ── Section base ── */
+    .mboka-section {
+      padding: 5rem 0;
+    }
+    .mboka-section.dark {
+      background: #0a0d10;
+      color: var(--cream);
+    }
+    .mboka-section.cream {
+      background: var(--cream);
+      color: var(--text-body);
+    }
+    .mboka-section.white {
+      background: var(--white);
+      color: var(--text-body);
+    }
+    .mboka-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+    .mboka-section-head {
+      text-align: center;
+      max-width: 780px;
+      margin: 0 auto 3.5rem;
+    }
+    .mboka-section-head .eyebrow {
+      font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.75rem;
+      display: block;
+    }
+    .mboka-section.dark .mboka-section-head .eyebrow { color: #F0D080; }
+    .mboka-section-head h2 {
+      font-family: var(--font-heading);
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.15;
+      font-weight: 700;
+      margin: 0 0 1rem;
+    }
+    .mboka-section.dark .mboka-section-head h2 { color: #F5F0E8; }
+    .mboka-section.dark .mboka-section-head h2 em {
+      color: #F0D080; font-style: italic;
+    }
+    .mboka-section-head .lead {
+      font-size: 1.1rem; line-height: 1.65;
+      color: var(--text-muted);
+    }
+    .mboka-section.dark .mboka-section-head .lead {
+      color: rgba(245,240,232,0.75);
+    }
+
+    /* ── The Real Work — stats + 8 projects ── */
+    .work-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+      margin-bottom: 4rem;
+    }
+    .work-stat {
+      text-align: center;
+      padding: 1.5rem 1rem;
+      background: rgba(27,67,50,0.04);
+      border-radius: var(--radius-lg);
+      border-top: 3px solid var(--gold);
+    }
+    .work-stat .num {
+      font-family: var(--font-heading);
+      font-size: clamp(2rem, 4vw, 2.6rem);
+      font-weight: 800;
+      color: var(--green);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+    .work-stat .num small { font-size: 0.6em; color: var(--gold); }
+    .work-stat .label {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.25rem;
+    }
+    .project-tile {
+      background: var(--white);
+      border-radius: var(--radius-md);
+      padding: 1.5rem 1.25rem;
+      border-left: 3px solid var(--gold);
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .project-tile:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+    }
+    .project-tile .icon {
+      font-size: 1.5rem;
+      margin-bottom: 0.6rem;
+    }
+    .project-tile h4 {
+      color: var(--green);
+      font-size: 0.95rem;
+      margin: 0 0 0.4rem;
+      font-family: var(--font-heading);
+      font-weight: 700;
+    }
+    .project-tile p {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    /* ── Council Powers cards ── */
+    .council-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .council-card {
+      background: rgba(245,240,232,0.04);
+      border: 1px solid rgba(212,160,23,0.2);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+    .council-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(212,160,23,0.5);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.45);
+    }
+    .council-card-portrait {
+      height: 220px;
+      background: linear-gradient(135deg, #1a2329 0%, #0f1419 100%);
+      display: flex; align-items: flex-end; justify-content: center;
+      position: relative; overflow: hidden;
+    }
+    .council-card-portrait::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at center bottom, rgba(212,160,23,0.18) 0%, transparent 65%);
+    }
+    .council-card-portrait img {
+      max-height: 92%;
+      max-width: 75%;
+      object-fit: contain;
+      object-position: bottom center;
+      position: relative; z-index: 1;
+      filter: drop-shadow(0 8px 20px rgba(0,0,0,0.55));
+    }
+    .council-card-portrait.pending {
+      align-items: center;
+      justify-content: center;
+      color: rgba(245,240,232,0.5);
+      text-align: center;
+      padding: 1rem;
+    }
+    .council-card-portrait.pending .pending-text {
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-top: 0.6rem;
+    }
+    .council-card-portrait.pending .pending-icon-big {
+      font-size: 2.4rem;
+      opacity: 0.5;
+    }
+    .council-card-body {
+      padding: 1.5rem 1.5rem 1.75rem;
+    }
+    .council-card-body .domain {
+      font-size: 0.65rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #D4A017;
+      font-weight: 700;
+      margin-bottom: 0.35rem;
+    }
+    .council-card-body h3 {
+      font-family: var(--font-heading);
+      font-size: 1.5rem;
+      color: #F5F0E8;
+      margin: 0 0 0.25rem;
+      font-weight: 700;
+    }
+    .council-card-body .archetype {
+      font-size: 0.82rem;
+      font-style: italic;
+      color: rgba(245,240,232,0.65);
+      margin-bottom: 1rem;
+    }
+    .powers-list {
+      list-style: none;
+      padding: 0; margin: 0;
+      border-top: 1px solid rgba(212,160,23,0.15);
+      padding-top: 1rem;
+    }
+    .powers-list li {
+      display: grid;
+      grid-template-columns: 1.7rem 1fr;
+      gap: 0.6rem;
+      align-items: start;
+      padding: 0.45rem 0;
+      font-size: 0.78rem;
+      line-height: 1.45;
+      color: rgba(245,240,232,0.85);
+    }
+    .powers-list .power-icon {
+      font-size: 0.95rem;
+      line-height: 1.4;
+    }
+    .powers-list .power-name {
+      font-weight: 700;
+      color: #F5F0E8;
+      display: block;
+    }
+    .powers-list .power-desc {
+      color: rgba(245,240,232,0.6);
+      font-size: 0.72rem;
+    }
+
+    /* ── World landscapes ── */
+    .landscape-strip {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    .landscape-tile {
+      position: relative;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+      isolation: isolate;
+    }
+    .landscape-tile img {
+      width: 100%;
+      height: auto;
+      max-height: 540px;
+      object-fit: cover;
+      display: block;
+    }
+    .landscape-tile .caption {
+      position: absolute;
+      left: 0; right: 0; bottom: 0;
+      padding: 2rem 2rem 1.75rem;
+      background: linear-gradient(to top, rgba(10,13,16,0.92) 0%, rgba(10,13,16,0.55) 60%, transparent 100%);
+      color: #F5F0E8;
+    }
+    .landscape-tile .caption .eyebrow {
+      font-size: 0.62rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #F0D080;
+      font-weight: 700;
+      display: block;
+      margin-bottom: 0.45rem;
+    }
+    .landscape-tile .caption h4 {
+      font-family: var(--font-heading);
+      font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+      margin: 0 0 0.5rem;
+      color: #F5F0E8;
+      font-weight: 700;
+    }
+    .landscape-tile .caption p {
+      font-size: 0.92rem;
+      line-height: 1.55;
+      color: rgba(245,240,232,0.85);
+      margin: 0;
+      max-width: 720px;
+    }
+    .concept-banner {
+      text-align: center;
+      font-size: 0.78rem;
+      color: rgba(245,240,232,0.55);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-top: 1.5rem;
+      padding: 0.75rem;
+      border-top: 1px dashed rgba(212,160,23,0.25);
+      border-bottom: 1px dashed rgba(212,160,23,0.25);
+    }
+
+    /* ── Game systems + Hollowed teaser + Wild companions ── */
+    .systems-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin-bottom: 4rem;
+    }
+    .system-tile {
+      background: rgba(245,240,232,0.04);
+      border: 1px solid rgba(212,160,23,0.2);
+      border-radius: var(--radius-md);
+      padding: 1.25rem 1rem;
+      text-align: center;
+      transition: border-color 0.2s ease, background 0.2s ease;
+    }
+    .system-tile:hover {
+      border-color: rgba(212,160,23,0.5);
+      background: rgba(245,240,232,0.07);
+    }
+    .system-tile .sys-icon {
+      font-size: 1.6rem;
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+    .system-tile h5 {
+      color: #F5F0E8;
+      font-size: 0.82rem;
+      margin: 0 0 0.3rem;
+      font-family: var(--font-heading);
+      font-weight: 600;
+    }
+    .system-tile p {
+      font-size: 0.7rem;
+      color: rgba(245,240,232,0.6);
+      line-height: 1.4;
+      margin: 0;
+    }
+
+    .hollowed-teaser {
+      background: linear-gradient(180deg, #1a0d0a 0%, #0a0606 100%);
+      border: 1px solid rgba(140,40,30,0.4);
+      border-radius: var(--radius-lg);
+      padding: 3.5rem 2rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+      margin-bottom: 3.5rem;
+    }
+    .hollowed-teaser::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 50% 40%, rgba(200,60,40,0.25) 0%, transparent 55%),
+        radial-gradient(circle at 35% 50%, rgba(255,80,60,0.7) 0%, transparent 0.4%),
+        radial-gradient(circle at 65% 50%, rgba(255,80,60,0.7) 0%, transparent 0.4%);
+      z-index: -1;
+    }
+    .hollowed-teaser .silhouette {
+      width: 130px;
+      height: 130px;
+      margin: 0 auto 1.5rem;
+      background: radial-gradient(ellipse at 50% 35%, #000 35%, transparent 60%);
+      position: relative;
+    }
+    .hollowed-teaser .silhouette::before,
+    .hollowed-teaser .silhouette::after {
+      content: '';
+      position: absolute;
+      top: 38%;
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: #ff5040;
+      box-shadow: 0 0 14px #ff5040, 0 0 28px rgba(255,80,60,0.5);
+    }
+    .hollowed-teaser .silhouette::before { left: 38%; }
+    .hollowed-teaser .silhouette::after  { right: 38%; }
+    .hollowed-teaser .h-eyebrow {
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: #c84a3e;
+      font-weight: 700;
+      margin-bottom: 0.6rem;
+    }
+    .hollowed-teaser h3 {
+      font-family: var(--font-heading);
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      color: #f5e8d8;
+      margin: 0 0 1rem;
+      font-weight: 700;
+    }
+    .hollowed-teaser p {
+      max-width: 580px;
+      margin: 0 auto;
+      color: rgba(245,232,216,0.8);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+    .hollowed-teaser .reveal-later {
+      margin-top: 1.5rem;
+      font-size: 0.7rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(245,232,216,0.45);
+      font-weight: 600;
+    }
+
+    .wild-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      align-items: center;
+    }
+    .wild-card {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      background: rgba(245,240,232,0.04);
+      border: 1px solid rgba(64,145,108,0.3);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+    }
+    .wild-card .wild-img {
+      width: 90px; height: 90px;
+      flex-shrink: 0;
+      border-radius: 50%;
+      background: rgba(40,80,60,0.4);
+      padding: 0.5rem;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .wild-card .wild-img img {
+      width: 100%; height: 100%;
+      object-fit: contain;
+    }
+    .wild-card h5 {
+      font-family: var(--font-heading);
+      color: #F5F0E8;
+      font-size: 1.1rem;
+      margin: 0 0 0.3rem;
+    }
+    .wild-card p {
+      font-size: 0.8rem;
+      color: rgba(245,240,232,0.7);
+      margin: 0;
+      line-height: 1.5;
+    }
+    .wild-card .wild-tag {
+      font-size: 0.6rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #40916C;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+      display: block;
+    }
+
+    /* ── How we're building it ── */
+    .how-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+    }
+    .how-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      border-top: 3px solid var(--green);
+      box-shadow: var(--shadow-sm);
+    }
+    .how-card .how-num {
+      font-family: var(--font-heading);
+      font-size: 2.6rem; font-weight: 800;
+      color: rgba(27,67,50,0.1);
+      line-height: 1; margin-bottom: -0.3rem;
+    }
+    .how-card h3 {
+      color: var(--green);
+      font-size: 1.2rem;
+      margin: 0 0 0.6rem;
+    }
+    .how-card p {
+      font-size: 0.95rem;
+      color: var(--text-body);
+      line-height: 1.6;
+      margin: 0;
+    }
+    .how-card p + p { margin-top: 0.75rem; }
+    .modernization-banner {
+      margin-top: 3.5rem;
+      text-align: center;
+      padding: 2.5rem 1.5rem;
+      background: linear-gradient(135deg, #1B4332 0%, #2D6A4F 100%);
+      border-top: 4px solid var(--gold);
+      border-bottom: 4px solid var(--gold);
+      border-radius: var(--radius-lg);
+    }
+    .modernization-banner h3 {
+      font-family: var(--font-heading);
+      font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+      color: var(--gold-pale);
+      margin: 0 0 0.6rem;
+      font-style: italic;
+    }
+    .modernization-banner p {
+      color: rgba(245,240,232,0.88);
+      font-size: 1rem;
+      max-width: 620px;
+      margin: 0 auto;
+    }
+
+    /* ── Join section ── */
+    .join-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      margin-top: 2rem;
+    }
+    .wishlist-btn {
+      background: rgba(212,160,23,0.25);
+      color: #F0D080;
+      border: 1px solid rgba(212,160,23,0.6);
+      padding: 1rem 2rem;
+      border-radius: 999px;
+      font-size: 0.92rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      cursor: not-allowed;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.7rem;
+      transition: opacity 0.2s ease;
+      position: relative;
+    }
+    .wishlist-btn:hover { opacity: 0.85; }
+    .wishlist-btn .tag {
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      background: rgba(10,13,16,0.5);
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      margin-left: 0.4rem;
+      color: rgba(245,240,232,0.7);
+    }
+    .support-btn {
+      background: #D4A017;
+      color: #1B4332;
+      border: 1px solid #D4A017;
+      padding: 1rem 2rem;
+      border-radius: 999px;
+      font-size: 0.92rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      transition: all 0.2s ease;
+    }
+    .support-btn:hover {
+      background: #F0D080;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(212,160,23,0.4);
+    }
+
+    /* ── Cultural Authorship Statement (footer) ── */
+    .authorship-statement {
+      background: #06080a;
+      color: rgba(245,240,232,0.65);
+      padding: 4rem 1.5rem 2rem;
+      text-align: center;
+      border-top: 1px solid rgba(212,160,23,0.2);
+    }
+    .authorship-statement .a-eyebrow {
+      font-size: 0.62rem; letter-spacing: 0.3em;
+      text-transform: uppercase; color: var(--gold);
+      font-weight: 700; margin-bottom: 1rem;
+    }
+    .authorship-statement blockquote {
+      max-width: 720px;
+      margin: 0 auto 1.5rem;
+      font-family: var(--font-heading);
+      font-style: italic;
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: rgba(245,240,232,0.85);
+      border: none;
+      padding: 0;
+    }
+    .authorship-statement .a-credits {
+      font-size: 0.75rem;
+      color: rgba(245,240,232,0.5);
+      margin-top: 1.5rem;
+    }
+    .authorship-statement a {
+      color: var(--gold);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(212,160,23,0.4);
+    }
+    .authorship-statement a:hover { color: var(--gold-pale); }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .work-stats, .projects-grid, .council-grid,
+      .systems-grid, .how-grid, .wild-row {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .council-row { gap: 0.4rem; }
+      .council-figure { max-width: 95px; }
+    }
+    @media (max-width: 560px) {
+      .work-stats, .projects-grid, .council-grid,
+      .systems-grid, .how-grid, .wild-row {
+        grid-template-columns: 1fr;
+      }
+      .council-row { gap: 0.3rem; }
+      .council-figure { max-width: 70px; }
+      .council-figure .name-tag { font-size: 0.62rem; }
+      .council-figure .domain-tag { display: none; }
+      .mboka-hero-content { padding-top: 6rem; }
+      .mboka-wordmark { letter-spacing: 0.02em; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─── HERO ─── -->
+  <section class="mboka-hero">
+    <div class="mboka-hero-bg"></div>
+
+    <a href="../index.html" class="mboka-hero-back">← Palm Leaf Partners</a>
+    <span class="mboka-hero-stage-label">Pre-Production · 3+ Years From Release</span>
+
+    <div class="mboka-hero-content">
+      <h1 class="mboka-wordmark"><span class="m-accent">M</span>BOKA</h1>
+      <div class="mboka-subtitle">M-Bo-Ka · A Living Regional Sim of the DRC</div>
+      <p class="mboka-tagline">
+        This is the story of how a country survived something almost unsurvivable.
+        And how we're helping rebuild it — <em>in real life, and in a game.</em>
+      </p>
+
+      <div class="council-row">
+        <div class="council-figure">
+          <div class="sprite-wrap"><img src="../assets/images/zola-globe-sprite.png" alt="Zola" /></div>
+          <div class="name-tag">Zola</div>
+          <div class="domain-tag">Land</div>
+        </div>
+        <div class="council-figure">
+          <div class="sprite-wrap"><img src="../assets/images/loredana-usa-sprite.png?v=angelic-praying" alt="Loredana" /></div>
+          <div class="name-tag">Loredana</div>
+          <div class="domain-tag">Spirit</div>
+        </div>
+        <div class="council-figure">
+          <div class="sprite-wrap"><img src="../assets/images/melissa-usa-sprite.png?v=v1" alt="Melissa" /></div>
+          <div class="name-tag">Melissa</div>
+          <div class="domain-tag">Law</div>
+        </div>
+        <div class="council-figure">
+          <div class="sprite-wrap"><img src="../assets/images/eddie-cartographer-sprite.png?v=pointing" alt="Eddie" /></div>
+          <div class="name-tag">Eddie</div>
+          <div class="domain-tag">Infrastructure</div>
+        </div>
+        <div class="council-figure">
+          <div class="pending-card">
+            <div class="pending-icon">🩺</div>
+            <div class="pending-label">Portrait<br>Coming</div>
+          </div>
+          <div class="name-tag">Dr. Elie</div>
+          <div class="domain-tag">Operations</div>
+        </div>
+        <div class="council-figure">
+          <div class="pending-card">
+            <div class="pending-icon">⚡</div>
+            <div class="pending-label">Portrait<br>Coming</div>
+          </div>
+          <div class="name-tag">Nick</div>
+          <div class="domain-tag">Power</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ─── THE REAL WORK ─── -->
+  <section class="mboka-section white">
+    <div class="mboka-container">
+      <div class="mboka-section-head">
+        <span class="eyebrow">The Foundation</span>
+        <h2>This is not just a game.</h2>
+        <p class="lead">
+          MBOKA is the in-fiction shape of work that is already happening. Palm Leaf Partners
+          is a DRC-rooted infrastructure firm. UPTW — Universal Palm Tree Women — is a real
+          movement of 8,000+ women across 14+ chapters. The 30-year war is real history.
+          The 2025 peace is real. The 8 flagship projects are real plans, in motion.
+        </p>
+      </div>
+
+      <div class="work-stats">
+        <div class="work-stat">
+          <div class="num">$257<small>M</small></div>
+          <div class="label">25-year MOU<br>with SCPT, submitted 2026</div>
+        </div>
+        <div class="work-stat">
+          <div class="num">8,000<small>+</small></div>
+          <div class="label">UPTW women<br>across 14+ chapters worldwide</div>
+        </div>
+        <div class="work-stat">
+          <div class="num">30<small>yr</small></div>
+          <div class="label">War in the DRC<br>that ended in 2025</div>
+        </div>
+        <div class="work-stat">
+          <div class="num">8</div>
+          <div class="label">Flagship infrastructure<br>projects in motion</div>
+        </div>
+      </div>
+
+      <div class="projects-grid">
+        <div class="project-tile">
+          <div class="icon">🗺️</div>
+          <h4>National Address Mapping</h4>
+          <p>20M+ addresses surveyed for the first time — the literal foundation of every other system.</p>
+        </div>
+        <div class="project-tile">
+          <div class="icon">🏛️</div>
+          <h4>Sovereign Data Center</h4>
+          <p>DRC-owned, DRC-operated digital infrastructure. Not a foreign outpost.</p>
+        </div>
+        <div class="project-tile">
+          <div class="icon">📞</div>
+          <h4>Regional Call Centers</h4>
+          <p>5–10 regional emergency dispatch + service centers serving every province.</p>
+        </div>
+        <div class="project-tile">
+          <div class="icon">📡</div>
+          <h4>National Fiber Backbone</h4>
+          <p>The connective tissue. Internet sovereignty for a billion-plus connections.</p>
+        </div>
+        <div class="project-tile">
+          <div class="icon">⚡</div>
+          <h4>Power Generation</h4>
+          <p>Hydro, solar, geothermal — domestic supply, locked against foreign extortion.</p>
+        </div>
+        <div class="project-tile">
+          <div class="icon">🌾</div>
+          <h4>Agriculture + Food Security</h4>
+          <p>Cocoa, cassava, palm — value-added, processed in-country, exported as products.</p>
+        </div>
+        <div class="project-tile">
+          <div class="icon">🐟</div>
+          <h4>Fishery + Cold-Chain</h4>
+          <p>Congo River + Lake Kivu yield. Cold-chain that finally makes export viable.</p>
+        </div>
+        <div class="project-tile">
+          <div class="icon">🕊️</div>
+          <h4>Memorial City</h4>
+          <p>A 5 km² living memorial. <a href="memorial-city.html" style="color:var(--gold);">Learn more →</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ─── THE COUNCIL OF SOVEREIGNTY ─── -->
+  <section class="mboka-section dark">
+    <div class="mboka-container">
+      <div class="mboka-section-head">
+        <span class="eyebrow">Real People. Locked In.</span>
+        <h2>The <em>Council of Sovereignty</em></h2>
+        <p class="lead">
+          Five real humans + one mythic guide. Each Founder defends one slice of sovereignty
+          against the Hollow King. None can act alone — every major build requires the others first.
+          That interdependence is the heart of the game.
+        </p>
+      </div>
+
+      <div class="council-grid">
+
+        <!-- ZOLA -->
+        <article class="council-card">
+          <div class="council-card-portrait">
+            <img src="../assets/images/zola-globe-sprite.png" alt="Zola — the mythic guide of the DRC" />
+          </div>
+          <div class="council-card-body">
+            <div class="domain">Land · Mythic Guide</div>
+            <h3>Zola</h3>
+            <div class="archetype">"Walks the forest. Listens to what the land cannot say for itself."</div>
+            <ul class="powers-list">
+              <li><span class="power-icon">🌿</span><span><span class="power-name">Root Network</span><span class="power-desc">Innate Palm Folk long-range awareness</span></span></li>
+              <li><span class="power-icon">🦋</span><span><span class="power-name">Bestiary Bond</span><span class="power-desc">Wild Companions follow her; healed Hollow Brood join</span></span></li>
+              <li><span class="power-icon">🌳</span><span><span class="power-name">Listen to the Land</span><span class="power-desc">Reveals ecological fragility; vetoes harmful builds</span></span></li>
+              <li><span class="power-icon">🌱</span><span><span class="power-name">Rewilding</span><span class="power-desc">Restores corrupted territory to natural state</span></span></li>
+              <li><span class="power-icon">🐾</span><span><span class="power-name">Hidden Paths</span><span class="power-desc">Forest knowledge — reveals routes others can't see</span></span></li>
+              <li><span class="power-icon">🗝️</span><span><span class="power-name">Mother Tree Communion</span><span class="power-desc">A bond saved for endgame. You'll know when.</span></span></li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- LOREDANA -->
+        <article class="council-card">
+          <div class="council-card-portrait">
+            <img src="../assets/images/loredana-usa-sprite.png?v=angelic-praying" alt="Loredana — Global Mother" />
+          </div>
+          <div class="council-card-body">
+            <div class="domain">Spirit · UPTW Global Mother</div>
+            <h3>Loredana</h3>
+            <div class="archetype">"The first to kneel. The last to leave."</div>
+            <ul class="powers-list">
+              <li><span class="power-icon">🙏</span><span><span class="power-name">Sanctify</span><span class="power-desc">Blesses ground — corruption can't travel Sanctified land</span></span></li>
+              <li><span class="power-icon">🕊️</span><span><span class="power-name">Sanctuary</span><span class="power-desc">Refuge for the displaced; safe-zone in any region</span></span></li>
+              <li><span class="power-icon">💫</span><span><span class="power-name">Spiritual Healing</span><span class="power-desc">Restores faith + morale in war-traumatized villages</span></span></li>
+              <li><span class="power-icon">🤝</span><span><span class="power-name">Cross-Chapter Call</span><span class="power-desc">Summons Tier-2 sisters across the Root Network</span></span></li>
+              <li><span class="power-icon">📿</span><span><span class="power-name">Vow Renewal</span><span class="power-desc">Counters False Vow corruption from the Hollow King</span></span></li>
+              <li><span class="power-icon">🌅</span><span><span class="power-name">Founding Light</span><span class="power-desc">USA Founding Chapter's signature — global movement anchor</span></span></li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- MELISSA -->
+        <article class="council-card">
+          <div class="council-card-portrait">
+            <img src="../assets/images/melissa-usa-sprite.png?v=v1" alt="Melissa — The Justiciar" />
+          </div>
+          <div class="council-card-body">
+            <div class="domain">Law · The Justiciar</div>
+            <h3>Melissa</h3>
+            <div class="archetype">"Drafts the charter. Signs it. Defends it."</div>
+            <ul class="powers-list">
+              <li><span class="power-icon">⚖️</span><span><span class="power-name">Treaty</span><span class="power-desc">Binding legal protection — locks sovereignty in writing</span></span></li>
+              <li><span class="power-icon">📜</span><span><span class="power-name">Charter</span><span class="power-desc">Founds new legal entity (chapter, region, project)</span></span></li>
+              <li><span class="power-icon">🛡️</span><span><span class="power-name">Due Process</span><span class="power-desc">Blocks counterfeit treaties from the Hollow King</span></span></li>
+              <li><span class="power-icon">🔍</span><span><span class="power-name">Audit</span><span class="power-desc">Reveals legal corruption + hidden contracts on any node</span></span></li>
+              <li><span class="power-icon">⚔️</span><span><span class="power-name">Strike Down</span><span class="power-desc">Voids extraction contracts in Sanctified territory</span></span></li>
+              <li><span class="power-icon">🌐</span><span><span class="power-name">Cross-Border Compact</span><span class="power-desc">Treaty between regions; required for inter-province builds</span></span></li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- EDDIE -->
+        <article class="council-card">
+          <div class="council-card-portrait">
+            <img src="../assets/images/eddie-cartographer-sprite.png?v=pointing" alt="Eddie — The Cartographer" />
+          </div>
+          <div class="council-card-body">
+            <div class="domain">Infrastructure & Logistics · The Cartographer</div>
+            <h3>Eddie</h3>
+            <div class="archetype">"Surveys the world. Lays the foundation. Connects the country."</div>
+            <ul class="powers-list">
+              <li><span class="power-icon">🗺️</span><span><span class="power-name">Survey</span><span class="power-desc">Reveal hidden region; required before any build</span></span></li>
+              <li><span class="power-icon">🏗️</span><span><span class="power-name">Foundation</span><span class="power-desc">Instant-build infra (only on Sanctified or surveyed land)</span></span></li>
+              <li><span class="power-icon">📡</span><span><span class="power-name">Signal Tower</span><span class="power-desc">Connects remote villages + powers regional call centers</span></span></li>
+              <li><span class="power-icon">🏤</span><span><span class="power-name">Post Office Network</span><span class="power-desc">Builds logistics hubs for cargo, mail, supply routing — also fast-travel for the Council</span></span></li>
+              <li><span class="power-icon">🔮</span><span><span class="power-name">Foresight</span><span class="power-desc">Preview future resource forecast + bottleneck timelines</span></span></li>
+              <li><span class="power-icon">🔐</span><span><span class="power-name">Sovereignty Lock</span><span class="power-desc">Protects from extraction (requires Melissa's prior Treaty)</span></span></li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- DR. ELIE -->
+        <article class="council-card">
+          <div class="council-card-portrait pending">
+            <div>
+              <div class="pending-icon-big">🩺</div>
+              <div class="pending-text">Portrait Coming</div>
+            </div>
+          </div>
+          <div class="council-card-body">
+            <div class="domain">Operations · Operator-Diplomat</div>
+            <h3>Dr. Elie</h3>
+            <div class="archetype">"Makes things actually happen on the ground."</div>
+            <ul class="powers-list">
+              <li><span class="power-icon">💊</span><span><span class="power-name">Triage</span><span class="power-desc">Emergency physical healing — modern medicine</span></span></li>
+              <li><span class="power-icon">🤝</span><span><span class="power-name">Alliance</span><span class="power-desc">Recruit government officials + village chiefs to a project</span></span></li>
+              <li><span class="power-icon">🏥</span><span><span class="power-name">Field Hospital</span><span class="power-desc">Build healthcare infrastructure (requires Power Plant for night-op)</span></span></li>
+              <li><span class="power-icon">🌍</span><span><span class="power-name">SAS Charter</span><span class="power-desc">Establishes operational sovereignty on the ground</span></span></li>
+              <li><span class="power-icon">🔬</span><span><span class="power-name">Diagnose</span><span class="power-desc">Reveals hidden corruption or disease at any node</span></span></li>
+              <li><span class="power-icon">🌿</span><span><span class="power-name">Bush Pharmacy</span><span class="power-desc">Integrates respected traditional DRC medicine into Field Hospitals</span></span></li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- NICK -->
+        <article class="council-card">
+          <div class="council-card-portrait pending">
+            <div>
+              <div class="pending-icon-big">⚡</div>
+              <div class="pending-text">Portrait Coming</div>
+            </div>
+          </div>
+          <div class="council-card-body">
+            <div class="domain">Power · The Grid-Builder</div>
+            <h3>Nick</h3>
+            <div class="archetype">"Brings the actual current. Lights the country."</div>
+            <ul class="powers-list">
+              <li><span class="power-icon">⚡</span><span><span class="power-name">Grid Command</span><span class="power-desc">Reveals all powered nodes + energy flow overlay</span></span></li>
+              <li><span class="power-icon">🌩️</span><span><span class="power-name">Lightning Surge</span><span class="power-desc">Temporary boost to all powered facilities</span></span></li>
+              <li><span class="power-icon">🛡️</span><span><span class="power-name">Brownout Shield</span><span class="power-desc">Protects critical infra from sabotage + outages</span></span></li>
+              <li><span class="power-icon">🏭</span><span><span class="power-name">Power Plant</span><span class="power-desc">Builds region-appropriate generation (hydro/solar/geothermal)</span></span></li>
+              <li><span class="power-icon">🔌</span><span><span class="power-name">Connect Village</span><span class="power-desc">Extends grid (requires Sanctify + Survey + Treaty + Alliance)</span></span></li>
+              <li><span class="power-icon">🌍</span><span><span class="power-name">Sovereign Grid</span><span class="power-desc">Locks region to domestic supply — anti-Crown-of-Coin</span></span></li>
+            </ul>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ─── THE WORLD ─── -->
+  <section class="mboka-section dark">
+    <div class="mboka-container">
+      <div class="mboka-section-head">
+        <span class="eyebrow">The World We're Building</span>
+        <h2>Real terrain. <em>Pixar-grade rendering.</em></h2>
+        <p class="lead">
+          Below are pre-production concept pieces showing the target aesthetic — real DRC biomes,
+          stylized for a 2.5D engine (Godot 4 + Terrain3D for the Steam release; Phaser for the
+          mobile F2P release). Concept art always lands above what an engine ships; expect the
+          final game to live at ~60–70% of these pieces, with skilled lighting + atmospherics.
+        </p>
+      </div>
+
+      <div class="landscape-strip">
+
+        <div class="landscape-tile">
+          <img src="../assets/images/mboka-landscape-rainforest.jpg" alt="Pixar-style concept art of the Congo Basin rainforest at golden hour — river winding through dense palm canopy, misty hills, distant mountains." />
+          <div class="caption">
+            <span class="eyebrow">Equateur · Salonga National Park</span>
+            <h4>The Congo Basin Rainforest</h4>
+            <p>Where Zola walks. Where bonobos live. Where the Mother Tree hides somewhere deep — a sacred place the player won't reach until late in the journey.</p>
+          </div>
+        </div>
+
+        <div class="landscape-tile">
+          <img src="../assets/images/mboka-landscape-kivu.jpg" alt="Pixar-style concept art of the Kivu highlands at dawn — terraced coffee and tea hills cascading toward Lake Kivu, volcanic peaks (Virunga / Nyiragongo) on the horizon." />
+          <div class="caption">
+            <span class="eyebrow">Kivu · Eastern Highlands</span>
+            <h4>The Eastern Highlands</h4>
+            <p>Where the war's scars are deepest. Volcanic peaks rise over coffee and tea terraces. Where peace was hardest-won — and where the game's hardest moral choices live.</p>
+          </div>
+        </div>
+
+        <div class="landscape-tile">
+          <img src="../assets/images/mboka-landscape-river.jpg" alt="Pixar-style concept art of the Congo River at dawn near Boyoma Falls — wide gold river with rocky outcrops, traditional Wagenia fish traps in the channel, misty forested banks." />
+          <div class="caption">
+            <span class="eyebrow">Tshopo · Boyoma Falls</span>
+            <h4>The Mighty Congo River</h4>
+            <p>The second-largest river by discharge on Earth. The wooden lattice structures in the channel are <em>Wagenia fish traps</em> — a 1,000-year-old Congolese fishing tradition, still in use today.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="concept-banner">
+        Concept art · Pre-production target aesthetic · Real DRC biomes, in development
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ─── THE GAME WE'RE BUILDING ─── -->
+  <section class="mboka-section dark" style="background:#070a0c;">
+    <div class="mboka-container">
+      <div class="mboka-section-head">
+        <span class="eyebrow">The Game</span>
+        <h2>Build the country. Heal the land. <em>Refuse the easy lie.</em></h2>
+        <p class="lead">
+          Overhead 2.5D regional sim. A 24-hour day/night cycle. Move the Council across provinces;
+          stack their powers in the correct order; build the infrastructure that lets villages
+          stand on their own. Tier-2 sisters join from every UPTW chapter. Eight provinces unlock
+          on a designed progression. The Hollow King is patient — you have to be too.
+        </p>
+      </div>
+
+      <div class="systems-grid">
+        <div class="system-tile"><span class="sys-icon">🙏</span><h5>Sanctify Land</h5><p>Loredana blesses; corruption can't follow.</p></div>
+        <div class="system-tile"><span class="sys-icon">🗺️</span><h5>Survey + Map</h5><p>Eddie reveals; nothing builds on unmapped ground.</p></div>
+        <div class="system-tile"><span class="sys-icon">⚖️</span><h5>Treaty + Law</h5><p>Melissa locks in writing what was promised.</p></div>
+        <div class="system-tile"><span class="sys-icon">⚡</span><h5>Power the Grid</h5><p>Nick electrifies; refining + cold-chain unlock.</p></div>
+        <div class="system-tile"><span class="sys-icon">🌿</span><h5>Listen to the Land</h5><p>Zola vetoes builds the ecosystem can't carry.</p></div>
+        <div class="system-tile"><span class="sys-icon">🤝</span><h5>Ground Coordination</h5><p>Dr. Elie gets the buy-in that makes it land.</p></div>
+        <div class="system-tile"><span class="sys-icon">⛏️</span><h5>Ethical Mining</h5><p>Defeat the Vein-Born first. Refine in-country.</p></div>
+        <div class="system-tile"><span class="sys-icon">🕊️</span><h5>Memorial City</h5><p>The endgame crown — the proof that peace held.</p></div>
+      </div>
+
+      <div class="hollowed-teaser">
+        <div class="silhouette"></div>
+        <div class="h-eyebrow">The Antagonist</div>
+        <h3>Something is hollowing the country from inside.</h3>
+        <p>
+          Five named antagonists. Each takes a different part of sovereignty by force —
+          land, spirit, law, infrastructure, operations. Some you'll fight. Others you'll
+          try to heal. One of them will offer you a deal you'll be tempted to take.
+        </p>
+        <div class="reveal-later">You'll meet them when the time is right.</div>
+      </div>
+
+      <div class="mboka-section-head" style="margin-bottom:2.5rem;">
+        <span class="eyebrow">Zola's Bestiary</span>
+        <h2>Wild Companions</h2>
+        <p class="lead">
+          The DRC's real wildlife — accurate to species — serves as Zola's allies.
+          Corrupted Hollow Brood, once healed, join her bestiary too. <em>Heal, don't kill.</em>
+        </p>
+      </div>
+
+      <div class="wild-row">
+        <div class="wild-card">
+          <div class="wild-img"><img src="../assets/images/badges/drc/bonobo.png" alt="Bonobo" /></div>
+          <div>
+            <span class="wild-tag">Endemic · Salonga</span>
+            <h5>The Bonobo</h5>
+            <p>Found only in the DRC. The "make love not war" great ape — quietly the most peaceful primate species on Earth.</p>
+          </div>
+        </div>
+        <div class="wild-card">
+          <div class="wild-img"><img src="../assets/images/badges/drc/okapi.png" alt="Okapi" /></div>
+          <div>
+            <span class="wild-tag">Endemic · Ituri</span>
+            <h5>The Okapi</h5>
+            <p>The DRC's national symbol. Half-zebra, half-giraffe, fully unique to the Ituri rainforest.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ─── HOW WE'RE BUILDING IT ─── -->
+  <section class="mboka-section cream">
+    <div class="mboka-container">
+      <div class="mboka-section-head">
+        <span class="eyebrow">How</span>
+        <h2>Built honestly. Built carefully.</h2>
+        <p class="lead">
+          A 3-year-plus pre-production. No racing to ship. No shortcuts on the
+          cultural work. No fake-it-til-you-make-it gameplay screenshots.
+        </p>
+      </div>
+
+      <div class="how-grid">
+        <div class="how-card">
+          <div class="how-num">01</div>
+          <h3>AI-Augmented, Human-Authored</h3>
+          <p>Concept art, world-building, asset generation accelerated with AI tools — but every design decision goes through a cultural validation pass before it lands in canon. AI is a force-multiplier, not a substitute for judgment.</p>
+        </div>
+        <div class="how-card">
+          <div class="how-num">02</div>
+          <h3>Real Congolese Voices in the Loop</h3>
+          <p>UPTW members, Dr. Elie's network, real DRC consultants reviewing characters, dialogue, and cultural representation. "African voices in dev loop — not optional" is a design law, written into our canon repo.</p>
+        </div>
+        <div class="how-card">
+          <div class="how-num">03</div>
+          <h3>Two Products. One World.</h3>
+          <p><strong>Mboka Mobile</strong> — F2P Android, Phaser engine, designed for African mainland reach.<br><strong>Mboka Academy</strong> — Steam premium, Godot 4 + Terrain3D, an educational-grade simulation depth for diaspora and Western audiences. Shared canon. Different art floors. Same story.</p>
+        </div>
+        <div class="how-card">
+          <div class="how-num">04</div>
+          <h3>3+ Year Timeline</h3>
+          <p>Pre-production is locked. Vertical slice (Kinshasa) is the first build target. Tier-A provinces unlock one at a time. We will ship when the work is honest — not when the calendar says to.</p>
+        </div>
+      </div>
+
+      <div class="modernization-banner">
+        <h3>Modernization ≠ Westernization</h3>
+        <p>
+          The DRC's future is built by Congolese hands, on Congolese soil, with Congolese governance.
+          Mboka tells that story in the engine. The real work tells it on the ground.
+        </p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ─── JOIN THE JOURNEY ─── -->
+  <section class="mboka-section dark" style="text-align:center; padding:6rem 1.5rem;">
+    <div class="mboka-container">
+      <div class="mboka-section-head" style="margin-bottom:1.5rem;">
+        <span class="eyebrow">Stay Connected</span>
+        <h2>The journey <em>has just begun.</em></h2>
+        <p class="lead">
+          Mboka is 3+ years from release. The real work — Palm Leaf Partners infrastructure,
+          UPTW programs, Memorial City — is happening now. There's a way to be part of both.
+        </p>
+      </div>
+
+      <div class="join-actions">
+        <button class="wishlist-btn" type="button" disabled>
+          🎮 Wishlist on Steam <span class="tag">Soon</span>
+        </button>
+        <a class="support-btn" href="memorial-city.html">
+          Support the Real Work <span>→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ─── CULTURAL AUTHORSHIP STATEMENT ─── -->
+  <footer class="authorship-statement">
+    <div class="a-eyebrow">Cultural Authorship Statement</div>
+    <blockquote>
+      "MBOKA is being developed in collaboration with real Congolese voices, UPTW members,
+      and the Founders of the Council of Sovereignty. Every cultural element is grounded
+      in real DRC heritage. Every story beat is reviewed for honesty. Modernization is
+      not Westernization. The story belongs to the people whose story it is — we are the
+      stewards of how it gets told in this medium, and we take that seriously."
+    </blockquote>
+    <div class="a-credits">
+      © Palm Leaf Partners ·
+      <a href="../index.html">Home</a> ·
+      <a href="about.html">About</a> ·
+      <a href="globe.html">Explore Our World</a> ·
+      <a href="memorial-city.html">Memorial City</a> ·
+      <a href="contact.html">Contact</a>
+    </div>
+  </footer>
+
+</body>
+</html>
