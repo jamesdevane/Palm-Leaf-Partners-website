@@ -114,28 +114,36 @@
       font-size: clamp(4.5rem, 16vw, 11rem);
       line-height: 0.95;
       letter-spacing: 0.04em;
-      color: #F5F0E8;
+      color: #FFFFFF;
+      /* Heavy dark drop-shadow + soft gold halo. Reads against ANY backdrop
+         — bright sky, dark vignette, mountains. The previous gold-M gradient
+         disappeared against the golden hero sky. Solid cream + strong shadow
+         is the Pixar/Disney movie-title approach (Moana, Encanto, etc). */
       text-shadow:
-        0 4px 30px rgba(0,0,0,0.55),
-        0 2px 8px rgba(184,134,11,0.25);
+        0 2px 0 rgba(20,15,10,0.55),
+        0 4px 18px rgba(0,0,0,0.85),
+        0 8px 40px rgba(0,0,0,0.55),
+        0 0 28px rgba(240,208,128,0.35);
       margin: 0;
       animation: mboka-fade-up 1.4s ease 0.2s both;
     }
-    .mboka-wordmark .m-accent {
-      background: linear-gradient(180deg, #F0D080 0%, #D4A017 60%, #B8860B 100%);
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-      filter: drop-shadow(0 2px 12px rgba(184,134,11,0.45));
-    }
     .mboka-subtitle {
-      font-size: clamp(0.68rem, 1.2vw, 0.85rem);
+      font-size: clamp(0.72rem, 1.3vw, 0.9rem);
       letter-spacing: 0.42em;
       text-transform: uppercase;
-      color: #D4A017;
-      margin-top: 1.25rem;
-      font-weight: 600;
+      color: #F5F0E8;
+      margin-top: 1.5rem;
+      font-weight: 700;
+      text-shadow:
+        0 1px 0 rgba(20,15,10,0.6),
+        0 2px 12px rgba(0,0,0,0.85);
       animation: mboka-fade-up 1.4s ease 0.6s both;
+    }
+    .mboka-subtitle .sub-accent {
+      color: #F0D080;
+      text-shadow:
+        0 1px 0 rgba(20,15,10,0.6),
+        0 2px 12px rgba(0,0,0,0.9);
     }
     .mboka-tagline {
       font-family: 'Playfair Display', Georgia, serif;
@@ -842,8 +850,8 @@
     <span class="mboka-hero-stage-label">Pre-Production · 3+ Years From Release</span>
 
     <div class="mboka-hero-content">
-      <h1 class="mboka-wordmark"><span class="m-accent">M</span>BOKA</h1>
-      <div class="mboka-subtitle">M-Bo-Ka · A Living Regional Sim of the DRC</div>
+      <h1 class="mboka-wordmark">MBOKA</h1>
+      <div class="mboka-subtitle"><span class="sub-accent">M-Bo-Ka</span> · A Living Regional Sim of the DRC</div>
       <p class="mboka-tagline">
         This is the story of how a country survived something almost unsurvivable.
         And how we're helping rebuild it — <em>in real life, and in a game.</em>
