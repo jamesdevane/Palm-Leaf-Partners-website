@@ -2764,15 +2764,16 @@
     /* Clock stays visible in immersive views — Eddie likes it. The
        refresh button is now positioned BELOW the clock instead. */
 
-    /* View-toggle (Globe / 2D) — always floats as a bottom-center pill,
-       on EVERY view (3D globe, 2D flat, DRC consistency). Hidden in
-       the DRC deep-dive since the back button is the primary nav. */
+    /* View-toggle (Globe / 2D) — top-center pill, vertically aligned
+       with the EN/FR toggle in the top-right (both at top: 1.5rem).
+       Hidden in the DRC deep-dive since the back button is the
+       primary nav there. */
     .view-toggle {
       position: fixed !important;
-      bottom: calc(env(safe-area-inset-bottom, 0px) + 0.8rem);
+      top: 1.5rem;
+      bottom: auto;
       left: 50%;
       right: auto;
-      top: auto;
       transform: translateX(-50%);
       z-index: 260;
       background: rgba(20,30,25,0.78);
@@ -2783,6 +2784,9 @@
       padding: 3px;
       box-shadow: 0 4px 14px rgba(0,0,0,0.55);
       pointer-events: auto;
+    }
+    @media (max-width: 640px) {
+      .view-toggle { top: 0.75rem; }
     }
     body.drc-immersive .view-toggle { display: none; }
 
@@ -7541,7 +7545,7 @@
           opacity: 0,
         });
         glowMesh = new THREE.Sprite(crossMat);
-        glowMesh.scale.set(0.10, 0.10, 1);
+        glowMesh.scale.set(0.05, 0.05, 1);
         glowMesh.position.copy(geoToLocal(pin.lat, pin.lon, 1.012));
         // Attach to GLOBE (not scene) so the cross rotates with the planet
         // and stays anchored at Dr. Elie's lat/lon. Same as the standard
