@@ -1195,15 +1195,38 @@
       position: absolute;
       width: 56px;
       height: auto;
-      transform: translate(-50%, -100%);
+      transform: translate(-50%, -100%) scale(1);
       pointer-events: auto;
       cursor: pointer;
+      animation:
+        flatNickBob 3.6s ease-in-out infinite,
+        flatNickGlow 3.4s ease-in-out infinite;
       filter:
         drop-shadow(0 0 1.5px rgba(255,255,255,0.95))
         drop-shadow(0 0 10px rgba(30,55,120,0.85))
         drop-shadow(0 0 22px rgba(96,165,250,0.4))
         drop-shadow(0 6px 18px rgba(0,0,0,0.6));
       user-select: none;
+    }
+    @keyframes flatNickBob {
+      0%, 100% { transform: translate(-50%, -100%) scale(1); }
+      50%      { transform: translate(-50%, -103%) scale(1.04); }
+    }
+    @keyframes flatNickGlow {
+      0%, 100% {
+        filter:
+          drop-shadow(0 0 1.5px rgba(255,255,255,0.95))
+          drop-shadow(0 0 8px rgba(30,55,120,0.75))
+          drop-shadow(0 0 18px rgba(96,165,250,0.3))
+          drop-shadow(0 6px 18px rgba(0,0,0,0.6));
+      }
+      50% {
+        filter:
+          drop-shadow(0 0 2px rgba(255,255,255,1))
+          drop-shadow(0 0 14px rgba(30,55,120,1))
+          drop-shadow(0 0 30px rgba(96,165,250,0.6))
+          drop-shadow(0 6px 18px rgba(0,0,0,0.6));
+      }
     }
     @media (max-width: 768px) {
       .flat-nick { width: 40px; }
@@ -1219,15 +1242,38 @@
       position: absolute;
       width: 48px;
       height: auto;
-      transform: translate(-50%, -100%);
+      transform: translate(-50%, -100%) scale(1);
       pointer-events: auto;
       cursor: pointer;
+      animation:
+        flatElieBob 3.8s ease-in-out infinite,
+        flatElieGlow 3.6s ease-in-out infinite;
       filter:
         drop-shadow(0 0 1.5px rgba(255,255,255,0.95))
         drop-shadow(0 0 10px rgba(120,30,30,0.85))
         drop-shadow(0 0 22px rgba(220,80,60,0.35))
         drop-shadow(0 6px 18px rgba(0,0,0,0.6));
       user-select: none;
+    }
+    @keyframes flatElieBob {
+      0%, 100% { transform: translate(-50%, -100%) scale(1); }
+      50%      { transform: translate(-50%, -103%) scale(1.04); }
+    }
+    @keyframes flatElieGlow {
+      0%, 100% {
+        filter:
+          drop-shadow(0 0 1.5px rgba(255,255,255,0.95))
+          drop-shadow(0 0 8px rgba(120,30,30,0.75))
+          drop-shadow(0 0 18px rgba(220,80,60,0.25))
+          drop-shadow(0 6px 18px rgba(0,0,0,0.6));
+      }
+      50% {
+        filter:
+          drop-shadow(0 0 2px rgba(255,255,255,1))
+          drop-shadow(0 0 14px rgba(120,30,30,1))
+          drop-shadow(0 0 30px rgba(220,80,60,0.55))
+          drop-shadow(0 6px 18px rgba(0,0,0,0.6));
+      }
     }
     @media (max-width: 768px) {
       .flat-elie { width: 34px; }
@@ -7514,6 +7560,116 @@
     finishLoad();
     animate();
 
+  })();
+  </script>
+
+  <!-- ─── EDIT MODE — drag-to-position for mascots ───
+       Activated by ?edit=1 in the URL. Hidden from normal visitors.
+       Lets Eddie iterate mascot positioning visually without code
+       round-trips. Position deltas are computed in % of the parent
+       container so they map directly back to the inline left/top
+       values in the static HTML. The live readout shows the current
+       position values for copy-paste into the CSS lock. -->
+  <script>
+  (function () {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('edit') !== '1') return;
+
+    const mascots = document.querySelectorAll(
+      '.flat-zola, .flat-loredana, .flat-melissa, .flat-eddie, .flat-nick, .flat-elie'
+    );
+    if (!mascots.length) return;
+
+    // Position readout overlay (top-center, doesn't block clicks)
+    const overlay = document.createElement('div');
+    overlay.style.cssText = `
+      position: fixed; top: 1rem; left: 50%; transform: translateX(-50%);
+      background: rgba(10,13,16,0.92); color: #F0D080;
+      padding: 0.6rem 1.2rem; border-radius: 999px;
+      border: 1px solid rgba(212,160,23,0.45);
+      font-family: 'Inter', system-ui, sans-serif; font-size: 0.82rem;
+      letter-spacing: 0.04em;
+      z-index: 9999; pointer-events: none;
+      box-shadow: 0 6px 24px rgba(0,0,0,0.6);
+    `;
+    overlay.innerHTML = '<strong style="color:#fff;">EDIT MODE</strong> — click and drag any mascot. Position copied to clipboard on release.';
+    document.body.appendChild(overlay);
+
+    mascots.forEach((mascot) => {
+      // Pull the canonical class name (e.g. "flat-nick") to find the matching card.
+      const baseClass = Array.from(mascot.classList).find(
+        (c) => c.startsWith('flat-') && c !== 'flat-mascot-card'
+      );
+      const card = baseClass ? document.querySelector('.' + baseClass + '-card') : null;
+
+      mascot.style.touchAction = 'none';  // disable browser pan during drag
+
+      let dragging = false;
+      let startClientX, startClientY, startLeft, startTop, parentRect;
+      let originalAnimation;
+
+      mascot.addEventListener('pointerdown', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        dragging = true;
+        mascot.setPointerCapture(e.pointerId);
+        startClientX = e.clientX;
+        startClientY = e.clientY;
+        startLeft = parseFloat(mascot.style.left) || 0;
+        startTop = parseFloat(mascot.style.top) || 0;
+        parentRect = mascot.offsetParent.getBoundingClientRect();
+        // Pause the bob animation so dragging feels precise.
+        originalAnimation = mascot.style.animation;
+        mascot.style.animation = 'none';
+        mascot.style.cursor = 'grabbing';
+      });
+
+      mascot.addEventListener('pointermove', (e) => {
+        if (!dragging) return;
+        const deltaX = ((e.clientX - startClientX) / parentRect.width) * 100;
+        const deltaY = ((e.clientY - startClientY) / parentRect.height) * 100;
+        const newLeft = startLeft + deltaX;
+        const newTop = startTop + deltaY;
+        mascot.style.left = newLeft + '%';
+        mascot.style.top = newTop + '%';
+        if (card) {
+          card.style.left = newLeft + '%';
+          card.style.top = newTop + '%';
+        }
+        overlay.innerHTML =
+          '<strong style="color:#fff;">' + baseClass + ':</strong> ' +
+          'style="left:' + newLeft.toFixed(1) + '%; top:' + newTop.toFixed(1) + '%;"';
+      });
+
+      mascot.addEventListener('pointerup', async (e) => {
+        if (!dragging) return;
+        dragging = false;
+        mascot.releasePointerCapture(e.pointerId);
+        mascot.style.animation = originalAnimation || '';
+        mascot.style.cursor = 'pointer';
+        const finalLeft = parseFloat(mascot.style.left).toFixed(1);
+        const finalTop = parseFloat(mascot.style.top).toFixed(1);
+        const copyText = 'style="left:' + finalLeft + '%; top:' + finalTop + '%;"';
+        try {
+          await navigator.clipboard.writeText(copyText);
+          overlay.innerHTML =
+            '<strong style="color:#7CFC8A;">✓ COPIED:</strong> ' +
+            '<code>' + baseClass + ' → ' + copyText + '</code>';
+        } catch {
+          overlay.innerHTML =
+            '<strong style="color:#fff;">' + baseClass + ':</strong> ' +
+            '<code>' + copyText + '</code> <em>(clipboard copy failed; copy manually)</em>';
+        }
+      });
+
+      mascot.addEventListener('pointercancel', () => {
+        dragging = false;
+        mascot.style.animation = originalAnimation || '';
+        mascot.style.cursor = 'pointer';
+      });
+    });
+
+    console.log('[Mboka edit mode] Drag any mascot. Position will be copied to clipboard on release.');
   })();
   </script>
 </body>
