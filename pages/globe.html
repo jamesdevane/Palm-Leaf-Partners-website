@@ -44,9 +44,10 @@
     #canvas-container { position: fixed; inset: 0; touch-action: pan-y; }
 
     /* ── 3D globe Council strip — six Founders evenly spaced across
-       the bottom of the 3D globe view. pointer-events: none on the
-       wrapper lets the underlying Three.js drag-to-rotate work; the
-       sprites override with pointer-events: auto for hover + click. */
+       the bottom of the 3D globe view. Each mascot is wrapped in
+       .globe-mascot-wrap so its hover card can position relative to
+       it. pointer-events: none on the outer strip lets the underlying
+       Three.js drag-to-rotate work; the wraps override. */
     .globe-council-strip {
       position: fixed;
       bottom: calc(env(safe-area-inset-bottom, 0px) + 7rem);
@@ -59,14 +60,17 @@
       z-index: 50;
       pointer-events: none;
     }
+    .globe-mascot-wrap {
+      position: relative;
+      display: flex;
+      align-items: flex-end;
+      pointer-events: auto;
+    }
     .globe-council-strip .globe-mascot {
       /* Lock HEIGHT (not width) so all sprites render at the same
-         vertical size regardless of source aspect ratio. Width is
-         auto so each sprite preserves its own proportions —
-         flexbox handles the variable widths via gap. */
+         vertical size regardless of source aspect ratio. */
       height: 100px;
       width: auto;
-      pointer-events: auto;
       cursor: pointer;
       filter:
         drop-shadow(0 0 1.5px rgba(255,255,255,0.92))
@@ -75,13 +79,56 @@
       transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
       user-select: none;
     }
-    .globe-council-strip .globe-mascot:hover {
+    .globe-mascot-wrap:hover .globe-mascot {
       transform: scale(1.25) translateY(-6px);
       filter:
         drop-shadow(0 0 2px rgba(255,255,255,1))
         drop-shadow(0 0 14px rgba(212,160,23,0.85))
         drop-shadow(0 8px 20px rgba(0,0,0,0.85));
     }
+    /* Hover-reveal card — sits above each mascot.
+       Reuses .flat-mascot-card body styling that already exists. */
+    .globe-mascot-card {
+      position: absolute;
+      bottom: calc(100% + 24px);
+      left: 50%;
+      transform: translateX(-50%) translateY(12px);
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 0.22s ease, transform 0.22s ease, visibility 0.22s;
+      z-index: 80;
+      width: 280px;
+      max-width: 90vw;
+      background: rgba(10,13,16,0.94);
+      color: var(--cream);
+      border-radius: var(--radius-md);
+      padding: 1rem 1.1rem 1.1rem;
+      box-shadow: 0 16px 48px rgba(0,0,0,0.7);
+      border: 1px solid rgba(212,160,23,0.3);
+      font-family: var(--font-body);
+    }
+    .globe-mascot-wrap:hover .globe-mascot-card {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(0);
+    }
+    .globe-mascot-card .mc-name { font-family: var(--font-heading); font-size: 1.15rem; color: #F5F0E8; font-weight: 700; }
+    .globe-mascot-card .mc-title { font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: #D4A017; font-weight: 700; margin-bottom: 0.5rem; }
+    .globe-mascot-card .mc-tagline { font-size: 0.78rem; font-style: italic; color: rgba(245,240,232,0.7); margin-bottom: 0.75rem; line-height: 1.4; }
+    .globe-mascot-card .mc-section { font-size: 0.62rem; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(212,160,23,0.85); font-weight: 700; margin-bottom: 0.4rem; padding-top: 0.5rem; border-top: 1px solid rgba(212,160,23,0.18); }
+    .globe-mascot-card ul.mc-powers { list-style: none; padding: 0; margin: 0; }
+    .globe-mascot-card ul.mc-powers li { font-size: 0.72rem; line-height: 1.5; color: rgba(245,240,232,0.85); padding: 0.18rem 0; }
+    .globe-mascot-card .mc-icon { display: inline-block; width: 1.3rem; }
+    .globe-mascot-card strong { color: #F5F0E8; font-weight: 700; }
+    /* Per-character border accents (left side) */
+    .globe-mascot-card.gmc-zola     { border-left: 3px solid #4a9b6e; }
+    .globe-mascot-card.gmc-loredana { border-left: 3px solid #E8D9B8; }
+    .globe-mascot-card.gmc-melissa  { border-left: 3px solid #4A5DAA; }
+    .globe-mascot-card.gmc-eddie    { border-left: 3px solid #8B5A2B; }
+    .globe-mascot-card.gmc-elie     { border-left: 3px solid #DC2626; }
+    .globe-mascot-card.gmc-nick     { border-left: 3px solid #3B82F6; }
+
     body.flat-immersive .globe-council-strip,
     body.drc-immersive .globe-council-strip,
     body.province-immersive .globe-council-strip { display: none; }
@@ -92,6 +139,8 @@
         padding: 0.3rem 0.6rem;
       }
       .globe-council-strip .globe-mascot { height: 70px; width: auto; }
+      .globe-mascot-card { width: 230px; padding: 0.75rem; bottom: calc(100% + 18px); }
+      .globe-mascot-card ul.mc-powers li { font-size: 0.68rem; }
     }
 
     .top-bar {
@@ -3647,15 +3696,117 @@
   <div id="canvas-container"></div>
 
   <!-- ─── 3D globe Council strip — all 6 Founders evenly spaced
-       across the bottom. Hidden on flat/DRC/province immersive views
-       (those have their own positioning of figures). ─── -->
+       across the bottom, each with a hover-reveal card matching the
+       2D-map style. Hidden on flat/DRC/province immersive views. ─── -->
   <div class="globe-council-strip" aria-label="The Council of Sovereignty">
-    <img class="globe-mascot" src="../assets/images/zola-globe-sprite.png" alt="Zola" title="Zola — The Mythic Guide of the DRC" />
-    <img class="globe-mascot" src="../assets/images/loredana-usa-sprite.png?v=angelic-praying" alt="Loredana" title="Loredana — UPTW Global Mother" />
-    <img class="globe-mascot" src="../assets/images/melissa-usa-sprite.png?v=v1" alt="Melissa" title="Melissa — The Justiciar" />
-    <img class="globe-mascot" src="../assets/images/eddie-cartographer-sprite.png?v=pointing" alt="Eddie" title="Eddie — The Cartographer" />
-    <img class="globe-mascot" src="../assets/images/elie-doctor-diplomat-sprite.png?v=portrait-confident" alt="Dr. Elie" title="Dr. Elie — The Operator-Diplomat" />
-    <img class="globe-mascot" src="../assets/images/nick-grid-builder-sprite.png?v=portrait-confident" alt="Nick" title="Nick — The Grid-Builder" />
+
+    <div class="globe-mascot-wrap">
+      <img class="globe-mascot" src="../assets/images/zola-globe-sprite.png" alt="Zola" />
+      <div class="globe-mascot-card gmc-zola">
+        <div class="mc-name">Zola</div>
+        <div class="mc-title">Princess of the Forest · DRC</div>
+        <div class="mc-tagline">"Zola" means love.</div>
+        <div class="mc-section">Powers</div>
+        <ul class="mc-powers">
+          <li><span class="mc-icon">🌱</span> <strong>Sprout</strong> — instant crop growth</li>
+          <li><span class="mc-icon">🌿</span> <strong>Verdant Heal</strong> — herbal healing</li>
+          <li><span class="mc-icon">🌳</span> <strong>Tree Mother</strong> — wasteland → forest</li>
+          <li><span class="mc-icon">🌧</span> <strong>Rain Calling</strong> — break droughts</li>
+          <li><span class="mc-icon">🛤</span> <strong>Forest Path</strong> — fast travel</li>
+          <li><span class="mc-icon">🦍</span> <strong>Animal Companions</strong> — wildlife allies</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="globe-mascot-wrap">
+      <img class="globe-mascot" src="../assets/images/loredana-usa-sprite.png?v=angelic-praying" alt="Loredana" />
+      <div class="globe-mascot-card gmc-loredana">
+        <div class="mc-name">Loredana</div>
+        <div class="mc-title">Global Mother of UPTW</div>
+        <div class="mc-tagline">Founding chapter. Carries a Bible — quotes verse at any moment.</div>
+        <div class="mc-section">Powers</div>
+        <ul class="mc-powers">
+          <li><span class="mc-icon">📖</span> <strong>Verse of Strength</strong> — morale boost</li>
+          <li><span class="mc-icon">✨</span> <strong>Sanctify</strong> — 2× building output</li>
+          <li><span class="mc-icon">👁</span> <strong>Soul Speaker</strong> — reveals village needs</li>
+          <li><span class="mc-icon">🌉</span> <strong>Bridge of Faith</strong> — foreign funding</li>
+          <li><span class="mc-icon">🙏</span> <strong>Prayer Circle</strong> — group healing</li>
+          <li><span class="mc-icon">🕊</span> <strong>Sanctuary</strong> — refugee protection</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="globe-mascot-wrap">
+      <img class="globe-mascot" src="../assets/images/melissa-usa-sprite.png?v=v1" alt="Melissa" />
+      <div class="globe-mascot-card gmc-melissa">
+        <div class="mc-name">Melissa</div>
+        <div class="mc-title">The Justiciar</div>
+        <div class="mc-tagline">Speaks for those who cannot speak for themselves.</div>
+        <div class="mc-section">Powers</div>
+        <ul class="mc-powers">
+          <li><span class="mc-icon">⚖️</span> <strong>Writ of Justice</strong> — protect from corruption</li>
+          <li><span class="mc-icon">🔍</span> <strong>Truth-Seeker</strong> — reveal bad actors</li>
+          <li><span class="mc-icon">📜</span> <strong>Treaty</strong> — broker peace deals</li>
+          <li><span class="mc-icon">🏛</span> <strong>Court Summons</strong> — pull legal resources</li>
+          <li><span class="mc-icon">🔨</span> <strong>Verdict</strong> — settle disputes</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="globe-mascot-wrap">
+      <img class="globe-mascot" src="../assets/images/eddie-cartographer-sprite.png?v=pointing" alt="Eddie" />
+      <div class="globe-mascot-card gmc-eddie">
+        <div class="mc-name">Eddie</div>
+        <div class="mc-title">The Cartographer · Infrastructure & Logistics</div>
+        <div class="mc-tagline">Surveys the world, lays the foundation, traces the future.</div>
+        <div class="mc-section">Powers</div>
+        <ul class="mc-powers">
+          <li><span class="mc-icon">🗺</span> <strong>Survey</strong> — reveal hidden region</li>
+          <li><span class="mc-icon">🏗</span> <strong>Foundation</strong> — instant-build infrastructure</li>
+          <li><span class="mc-icon">📡</span> <strong>Signal Tower</strong> — connect remote villages</li>
+          <li><span class="mc-icon">🏤</span> <strong>Post Office Network</strong> — logistics + fast-travel</li>
+          <li><span class="mc-icon">🔮</span> <strong>Foresight</strong> — preview future timelines</li>
+          <li><span class="mc-icon">🔐</span> <strong>Sovereignty Lock</strong> — protect from extraction</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="globe-mascot-wrap">
+      <img class="globe-mascot" src="../assets/images/elie-doctor-diplomat-sprite.png?v=portrait-confident" alt="Dr. Elie" />
+      <div class="globe-mascot-card gmc-elie">
+        <div class="mc-name">Dr. Elie</div>
+        <div class="mc-title">The Operator-Diplomat · UPTW Founder</div>
+        <div class="mc-tagline">Makes things actually happen on the ground.</div>
+        <div class="mc-section">Powers</div>
+        <ul class="mc-powers">
+          <li><span class="mc-icon">💊</span> <strong>Triage</strong> — emergency healing</li>
+          <li><span class="mc-icon">🤝</span> <strong>Alliance</strong> — recruit officials + chiefs</li>
+          <li><span class="mc-icon">🏥</span> <strong>Field Hospital</strong> — build healthcare</li>
+          <li><span class="mc-icon">🌍</span> <strong>SAS Charter</strong> — operational sovereignty</li>
+          <li><span class="mc-icon">🔬</span> <strong>Diagnose</strong> — reveal corruption / disease</li>
+          <li><span class="mc-icon">🌿</span> <strong>Bush Pharmacy</strong> — traditional medicine</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="globe-mascot-wrap">
+      <img class="globe-mascot" src="../assets/images/nick-grid-builder-sprite.png?v=portrait-confident" alt="Nick" />
+      <div class="globe-mascot-card gmc-nick">
+        <div class="mc-name">Nick</div>
+        <div class="mc-title">The Grid-Builder · Power</div>
+        <div class="mc-tagline">Brings the actual current. Lights the country.</div>
+        <div class="mc-section">Powers</div>
+        <ul class="mc-powers">
+          <li><span class="mc-icon">⚡</span> <strong>Grid Command</strong> — reveals powered nodes</li>
+          <li><span class="mc-icon">🌩️</span> <strong>Lightning Surge</strong> — boost powered facilities</li>
+          <li><span class="mc-icon">🛡️</span> <strong>Brownout Shield</strong> — protect from outages</li>
+          <li><span class="mc-icon">🏭</span> <strong>Power Plant</strong> — region-appropriate generation</li>
+          <li><span class="mc-icon">🔌</span> <strong>Connect Village</strong> — extend the grid</li>
+          <li><span class="mc-icon">🌍</span> <strong>Sovereign Grid</strong> — anti-Crown-of-Coin</li>
+        </ul>
+      </div>
+    </div>
+
   </div>
 
   <div class="info-panel">
