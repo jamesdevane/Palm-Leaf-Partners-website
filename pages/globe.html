@@ -60,8 +60,12 @@
       pointer-events: none;
     }
     .globe-council-strip .globe-mascot {
-      width: 56px;
-      height: auto;
+      /* Lock HEIGHT (not width) so all sprites render at the same
+         vertical size regardless of source aspect ratio. Width is
+         auto so each sprite preserves its own proportions —
+         flexbox handles the variable widths via gap. */
+      height: 100px;
+      width: auto;
       pointer-events: auto;
       cursor: pointer;
       filter:
@@ -87,7 +91,7 @@
         gap: 0.4rem;
         padding: 0.3rem 0.6rem;
       }
-      .globe-council-strip .globe-mascot { width: 38px; }
+      .globe-council-strip .globe-mascot { height: 70px; width: auto; }
     }
 
     .top-bar {
