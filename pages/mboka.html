@@ -867,6 +867,196 @@
       .mboka-hero-content { padding-top: 6rem; }
       .mboka-wordmark { letter-spacing: 0.02em; }
     }
+
+    /* ─── FOUNDER STORY MODAL ───────────────────────────────────────
+       Themed modal opened by clicking a Council card. Public-safe
+       storyline (signature power + "why it's her power" + real-world
+       hook); counterplay + Hollow King counters stay private in the
+       mboka-game-canon repo. */
+    .council-card[data-founder] { cursor: pointer; }
+    .council-card[data-founder]:focus { outline: 2px solid #d4a017; outline-offset: 4px; }
+    .council-card[data-founder]::after {
+      content: attr(data-cta);
+      display: block;
+      font-size: 0.66rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(212, 160, 23, 0.45);
+      text-align: right;
+      padding: 0.4rem 1.1rem 1rem 1.1rem;
+      transition: color 0.2s, transform 0.2s;
+    }
+    .council-card[data-founder]:hover::after,
+    .council-card[data-founder]:focus::after {
+      color: #d4a017;
+      transform: translateX(4px);
+    }
+
+    .founder-modal-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0, 0, 0, 0.92);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      display: none;
+      align-items: center; justify-content: center;
+      z-index: 9999;
+      padding: 2rem;
+      opacity: 0;
+      transition: opacity 0.28s ease-out;
+    }
+    .founder-modal-overlay.open { display: flex; opacity: 1; }
+    .founder-modal {
+      position: relative;
+      max-width: 920px; width: 100%;
+      max-height: 92vh;
+      /* No overflow:hidden here — the prev/next arrows are positioned at
+         left:-52px / right:-52px on desktop (OUTSIDE the modal box), and
+         overflow:hidden would clip them out of view. Scroll lives on the
+         inner .founder-modal-content instead. */
+      background: linear-gradient(160deg, #0a0a14 0%, #14130d 100%);
+      border: 1px solid rgba(212, 160, 23, 0.4);
+      border-radius: 12px;
+      box-shadow: 0 32px 80px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(212, 160, 23, 0.15);
+      transform: translateY(20px);
+      transition: transform 0.32s cubic-bezier(0.25, 0.8, 0.3, 1);
+    }
+    .founder-modal-overlay.open .founder-modal { transform: translateY(0); }
+    .founder-modal::before {
+      content: ""; position: absolute; left: 0; top: 0; bottom: 0;
+      width: 4px;
+      background: var(--fm-accent, #d4a017);
+      border-top-left-radius: 12px; border-bottom-left-radius: 12px;
+    }
+    .founder-modal-close {
+      position: absolute; top: 12px; right: 12px;
+      width: 32px; height: 32px;
+      background: rgba(212, 160, 23, 0.1);
+      border: 1px solid rgba(212, 160, 23, 0.3);
+      border-radius: 50%;
+      color: rgba(245, 240, 232, 0.85);
+      font-size: 1.1rem; cursor: pointer; line-height: 1;
+      z-index: 2;
+      transition: background 0.2s, color 0.2s;
+    }
+    .founder-modal-close:hover { background: rgba(212, 160, 23, 0.25); color: #fff; }
+    .founder-modal-nav {
+      position: absolute; top: 50%;
+      width: 40px; height: 40px;
+      background: rgba(212, 160, 23, 0.1);
+      border: 1px solid rgba(212, 160, 23, 0.3);
+      border-radius: 50%;
+      color: rgba(245, 240, 232, 0.85);
+      font-size: 1.3rem; cursor: pointer; line-height: 1;
+      transform: translateY(-50%);
+      transition: background 0.2s;
+      z-index: 2;
+    }
+    .founder-modal-nav:hover { background: rgba(212, 160, 23, 0.25); }
+    .founder-modal-nav.prev { left: -52px; }
+    .founder-modal-nav.next { right: -52px; }
+    @media (max-width: 1040px) {
+      /* Arrows sit inside the modal on small screens. Pulled in 28px on
+         the right to clear the inner scrollbar gutter. */
+      .founder-modal-nav.prev { left: 12px; }
+      .founder-modal-nav.next { right: 28px; }
+    }
+
+    .founder-modal-content {
+      display: grid;
+      grid-template-columns: 260px minmax(0, 1fr); /* minmax(0,1fr) prevents grid items from forcing horizontal overflow */
+      gap: 1.6rem;
+      /* Tighter padding so content fits without scrolling on most screens
+         (per Eddie 2026-05-25: the scrollbar gutter was crowding the
+         in-modal arrows on smaller viewports). */
+      padding: 2rem 1.75rem 1.75rem 1.75rem;
+      max-height: 92vh;
+      overflow-y: auto;
+      overflow-x: hidden;
+      border-radius: 12px; /* match outer modal radius so the scroll viewport doesn't poke out of the rounded corners */
+      /* Themed thin scrollbar so the gutter blends with the gold accent */
+      scrollbar-width: thin;
+      scrollbar-color: rgba(212,160,23,0.4) transparent;
+    }
+    .founder-modal-content::-webkit-scrollbar { width: 8px; }
+    .founder-modal-content::-webkit-scrollbar-track { background: transparent; }
+    .founder-modal-content::-webkit-scrollbar-thumb { background: rgba(212,160,23,0.35); border-radius: 4px; }
+    .founder-modal-content::-webkit-scrollbar-thumb:hover { background: rgba(212,160,23,0.55); }
+    @media (max-width: 720px) {
+      .founder-modal-content { grid-template-columns: minmax(0, 1fr); padding: 1.5rem; gap: 1rem; }
+    }
+    .fm-sprite-wrap, .fm-body { min-width: 0; } /* prevent grid blowout */
+    .fm-sprite-wrap {
+      position: relative;
+      display: flex; align-items: flex-end; justify-content: center;
+      background: radial-gradient(ellipse at center bottom, var(--fm-accent-soft, rgba(212, 160, 23, 0.10)) 0%, transparent 70%);
+      border-radius: 8px;
+      min-height: 320px;
+    }
+    .fm-sprite-wrap img {
+      max-width: 100%; max-height: 360px;
+      filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.55));
+    }
+    .fm-body { color: #f5f0e8; }
+    .fm-eyebrow {
+      font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--fm-accent, #d4a017);
+      margin-bottom: 0.45rem;
+    }
+    .fm-name {
+      font-family: 'Cinzel', 'Cormorant Garamond', serif;
+      font-size: 2.2rem; margin: 0 0 0.45rem 0; color: #f5f0e8;
+      letter-spacing: 0.02em; line-height: 1.1;
+    }
+    @media (max-width: 720px) { .fm-name { font-size: 1.7rem; } }
+    .fm-archetype {
+      font-style: italic; font-size: 0.95rem;
+      color: rgba(245, 240, 232, 0.78);
+      line-height: 1.55;
+      margin-bottom: 1.25rem;
+      padding-left: 0.85rem;
+      border-left: 2px solid rgba(212, 160, 23, 0.35);
+    }
+    .fm-divider {
+      border: none; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(212, 160, 23, 0.4), transparent);
+      margin: 1.5rem 0 1.25rem 0;
+    }
+    .fm-sig-eyebrow {
+      font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase;
+      color: rgba(212, 160, 23, 0.7);
+      margin-bottom: 0.4rem;
+    }
+    .fm-sig-name {
+      font-size: 1.35rem; font-weight: 700; color: #f5f0e8;
+      margin: 0 0 1rem 0;
+      display: flex; align-items: center; gap: 0.55rem;
+    }
+    .fm-sig-name .fm-sig-icon { font-size: 1.55rem; }
+    .fm-section-title {
+      font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: rgba(245, 240, 232, 0.55);
+      margin: 0.95rem 0 0.4rem 0;
+    }
+    .fm-text {
+      font-size: 0.92rem; line-height: 1.65;
+      color: rgba(245, 240, 232, 0.85);
+      margin: 0;
+    }
+    .fm-realworld {
+      margin-top: 1.5rem;
+      padding: 1rem 1.1rem;
+      background: rgba(74, 93, 170, 0.10);
+      border-left: 3px solid var(--fm-accent, #d4a017);
+      border-radius: 4px;
+      font-size: 0.86rem; line-height: 1.6;
+      color: rgba(245, 240, 232, 0.85);
+    }
+    .fm-realworld strong {
+      display: block;
+      font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--fm-accent, #d4a017);
+      margin-bottom: 0.4rem; font-weight: 600;
+    }
   </style>
 </head>
 <body>
@@ -897,7 +1087,7 @@
           <div class="domain-tag" data-i18n="mboka.hero.spirit">Spirit</div>
         </div>
         <div class="council-figure">
-          <div class="sprite-wrap"><img src="../assets/images/melissa-usa-sprite.png?v=v1" alt="Melissa" /></div>
+          <div class="sprite-wrap"><img src="../assets/images/melissa-usa-sprite.png?v=v5c" alt="Melissa" /></div>
           <div class="name-tag">Melissa</div>
           <div class="domain-tag" data-i18n="mboka.hero.law">Law</div>
         </div>
@@ -939,7 +1129,7 @@
         playsinline
         poster="../assets/images/mboka-title-backdrop.jpg"
         style="width: 100%; max-width: 960px; height: auto; border-radius: var(--radius-lg); box-shadow: 0 24px 64px rgba(0,0,0,0.6); border: 1px solid rgba(212,160,23,0.25); display: block; margin: 0 auto;">
-        <source src="../assets/videos/mboka-teaser-trailer.mp4" type="video/mp4" />
+        <source src="../assets/videos/mboka-teaser-trailer-v5b.mp4" type="video/mp4" />
         Your browser does not support inline video playback.
       </video>
       <p style="font-size: 0.72rem; color: rgba(245,240,232,0.5); margin-top: 1.25rem; letter-spacing: 0.18em; text-transform: uppercase;" data-i18n="mboka.teaser.stamp">
@@ -1044,7 +1234,7 @@
       <div class="council-grid">
 
         <!-- ZOLA -->
-        <article class="council-card">
+        <article class="council-card" data-founder="zola" role="button" tabindex="0" aria-haspopup="dialog" data-cta="Read their story →">
           <div class="council-card-portrait">
             <img src="../assets/images/zola-globe-sprite.png" alt="Zola — the mythic guide of the DRC" />
           </div>
@@ -1064,7 +1254,7 @@
         </article>
 
         <!-- LOREDANA -->
-        <article class="council-card">
+        <article class="council-card" data-founder="loredana" role="button" tabindex="0" aria-haspopup="dialog" data-cta="Read their story →">
           <div class="council-card-portrait">
             <img src="../assets/images/loredana-usa-sprite.png?v=angelic-praying" alt="Loredana — Global Mother" />
           </div>
@@ -1084,9 +1274,9 @@
         </article>
 
         <!-- MELISSA -->
-        <article class="council-card">
+        <article class="council-card" data-founder="melissa" role="button" tabindex="0" aria-haspopup="dialog" data-cta="Read their story →">
           <div class="council-card-portrait">
-            <img src="../assets/images/melissa-usa-sprite.png?v=v1" alt="Melissa — The Justiciar" />
+            <img src="../assets/images/melissa-usa-sprite.png?v=v5c" alt="Melissa — The Justiciar" />
           </div>
           <div class="council-card-body">
             <div class="domain" data-i18n="mboka.melissa.domain">Law · The Justiciar</div>
@@ -1104,7 +1294,7 @@
         </article>
 
         <!-- EDDIE -->
-        <article class="council-card">
+        <article class="council-card" data-founder="eddie" role="button" tabindex="0" aria-haspopup="dialog" data-cta="Read their story →">
           <div class="council-card-portrait">
             <img src="../assets/images/eddie-cartographer-sprite.png?v=pointing" alt="Eddie — The Cartographer" />
           </div>
@@ -1124,7 +1314,7 @@
         </article>
 
         <!-- DR. ELIE -->
-        <article class="council-card">
+        <article class="council-card" data-founder="drelie" role="button" tabindex="0" aria-haspopup="dialog" data-cta="Read their story →">
           <div class="council-card-portrait">
             <img src="../assets/images/elie-doctor-diplomat-sprite.png?v=portrait-confident" alt="Dr. Elie Tiabakueno Sangu — The Operator-Diplomat" />
           </div>
@@ -1144,7 +1334,7 @@
         </article>
 
         <!-- NICK -->
-        <article class="council-card">
+        <article class="council-card" data-founder="nick" role="button" tabindex="0" aria-haspopup="dialog" data-cta="Read their story →">
           <div class="council-card-portrait">
             <img src="../assets/images/nick-grid-builder-sprite.png?v=portrait-confident" alt="Nick — The Grid-Builder" />
           </div>
@@ -1358,10 +1548,255 @@
   </section>
 
 
+  <!-- ─── FOUNDER STORY MODAL ─── -->
+  <div class="founder-modal-overlay" id="founderModalOverlay" role="dialog" aria-modal="true" aria-labelledby="fm-name" hidden>
+    <div class="founder-modal">
+      <button class="founder-modal-nav prev" id="fmPrev" aria-label="Previous Founder">&lsaquo;</button>
+      <button class="founder-modal-nav next" id="fmNext" aria-label="Next Founder">&rsaquo;</button>
+      <button class="founder-modal-close" id="fmClose" aria-label="Close">&times;</button>
+      <div class="founder-modal-content" id="fmContent"><!-- populated by JS --></div>
+    </div>
+  </div>
+
   <!-- Shared site nav + footer (Projects dropdown, EN/FR toggle, sister-brand, etc.) -->
   <script src="../js/i18n.js"></script>
   <script src="../js/components.js"></script>
   <script>renderNav(); renderFooter();</script>
+
+  <!-- Founder story modal — populated client-side, EN/FR-aware via document.documentElement.lang -->
+  <script>
+  (function() {
+    const FOUNDERS = [
+      {
+        key: 'zola', accent: '#4A8C3A',
+        sprite: '../assets/images/zola-globe-sprite.png',
+        cta: { en: 'Read their story →', fr: 'Lire son histoire →' },
+        en: {
+          domain: 'Land · Mythic Guide',
+          name: 'Zola',
+          archetype: '"Walks the forest. Listens to what the land cannot say for itself."',
+          sigIcon: '🦋', sigName: 'Bestiary Bond',
+          whatItDoes: 'Zola befriends wild creatures of the forest — predators, birds, river crocs, primate troops — by approaching them with open hands and the Root Network\'s animal-tongue. Bonded creatures become Wild Companions that follow her, scout the map, and fight beside her. Healed Hollow Brood — corrupted animals freed from the Hollow King — can join too.',
+          whyHers: 'Zola is the only non-human Founder. She belongs to the land in a way the others only visit. She doesn\'t use the wild — she\'s welcomed by it. When she calls Wake the Wild, every bonded creature in the country converges to defend the land that named her.'
+        },
+        fr: {
+          domain: 'Terre · Guide Mythique',
+          name: 'Zola',
+          archetype: '« Elle marche la forêt. Elle écoute ce que la terre ne peut dire elle-même. »',
+          sigIcon: '🦋', sigName: 'Lien du Bestiaire',
+          whatItDoes: 'Zola se lie d\'amitié avec les créatures sauvages de la forêt — prédateurs, oiseaux, crocodiles, groupes de primates — en s\'approchant les mains ouvertes et en parlant la langue animale du Root Network. Les créatures liées deviennent des Compagnons Sauvages qui la suivent, explorent la carte et combattent à ses côtés. Même la Couvée Creuse soignée peut rejoindre ses rangs.',
+          whyHers: 'Zola est la seule Fondatrice non humaine. Elle appartient à la terre d\'une façon que les autres ne font que visiter. Elle n\'utilise pas le sauvage — elle y est accueillie. Quand elle appelle Wake the Wild, toutes les créatures liées du pays convergent pour défendre la terre qui l\'a nommée.'
+        }
+      },
+      {
+        key: 'loredana', accent: '#E8C97A',
+        sprite: '../assets/images/loredana-usa-sprite.png?v=angelic-praying',
+        en: {
+          domain: 'Spirit · UPTW Global Mother',
+          name: 'Loredana',
+          archetype: '"The first to kneel. The last to leave."',
+          sigIcon: '🙏', sigName: 'Sanctify',
+          whatItDoes: 'Loredana kneels, presses her palm into the soil, and a slow golden halo blooms outward in a ring. The blessed land becomes corruption-proof — the Hollow King and his Hollowed cannot enter, cross, or extract through it. The blessing is permanent. Pair it with Sanctuary, and displaced villagers ambient-walk toward it from across the map.',
+          whyHers: 'Her tagline says it: "The first to kneel. The last to leave." Sanctify is literally that — she kneels to give, and the gift outlives her presence. The Mother of UPTW doesn\'t conquer ground; she makes ground that conquest cannot touch.'
+        },
+        fr: {
+          domain: 'Esprit · Mère Globale UPTW',
+          name: 'Loredana',
+          archetype: '« La première à s\'agenouiller. La dernière à partir. »',
+          sigIcon: '🙏', sigName: 'Sanctifier',
+          whatItDoes: 'Loredana s\'agenouille, presse sa paume dans le sol, et un lent halo doré s\'épanouit en cercle. La terre bénie devient résistante à la corruption — le Roi Creux et ses Hollowed ne peuvent y entrer, la traverser ou en extraire. La bénédiction est permanente. Combinée avec Sanctuaire, les villageois déplacés convergent depuis toute la carte vers elle.',
+          whyHers: 'Sa devise le dit : « La première à s\'agenouiller. La dernière à partir. » Sanctifier, c\'est exactement cela — elle s\'agenouille pour donner, et le don survit à sa présence. La Mère de l\'UPTW ne conquiert pas la terre ; elle la rend imprenable à la conquête.'
+        },
+        realWorld: {
+          en: 'Loredana founded the Universal Palm Tree Women Organization in real life — the chapter the entire UPTW network in the game is named after.',
+          fr: 'Loredana a fondé l\'Universal Palm Tree Women Organization dans la vraie vie — le chapitre dont tout le réseau UPTW du jeu porte le nom.'
+        }
+      },
+      {
+        key: 'melissa', accent: '#C9B870',
+        sprite: '../assets/images/melissa-usa-sprite.png?v=v5c',
+        en: {
+          domain: 'Law · The Justiciar (Paladin)',
+          name: 'Melissa',
+          archetype: '"Drafts the charter. Signs it. Defends it."',
+          sigIcon: '🌪️', sigName: 'Wingstroke',
+          whatItDoes: 'Melissa sweeps her angelic wings forward with explosive force. Everything in a wide radius around her — enemies, projectiles, debris — is violently pushed away. The wingstroke comes from her rooted grounding; she pushes the world away because she will not be moved from her ground.',
+          whyHers: 'Melissa is rooted — her body is a tree from the waist down. The wings cannot lift her, so the wing-energy redirects outward. Her hindrance becomes her strength. She defends. She doesn\'t chase, doesn\'t escape, doesn\'t dominate — she protects a circle around herself and refuses to leave it. Pure Justiciar.'
+        },
+        fr: {
+          domain: 'Loi · La Justicière (Paladine)',
+          name: 'Melissa',
+          archetype: '« Elle rédige la charte. Elle la signe. Elle la défend. »',
+          sigIcon: '🌪️', sigName: 'Coup d\'Aile',
+          whatItDoes: 'Melissa fait basculer ses ailes angéliques vers l\'avant avec une force explosive. Tout dans un large rayon autour d\'elle — ennemis, projectiles, débris — est violemment repoussé. Le coup d\'aile vient de son ancrage enraciné ; elle repousse le monde parce qu\'elle ne sera pas déplacée de sa terre.',
+          whyHers: 'Melissa est enracinée — son corps est un arbre à partir de la taille. Les ailes ne peuvent la soulever, donc leur énergie est redirigée vers l\'extérieur. Son handicap devient sa force. Elle défend. Elle ne poursuit pas, ne s\'enfuit pas, ne domine pas — elle protège un cercle autour d\'elle et refuse de le quitter. Pure Justicière.'
+        }
+      },
+      {
+        key: 'eddie', accent: '#B8722C',
+        sprite: '../assets/images/eddie-cartographer-sprite.png?v=pointing',
+        en: {
+          domain: 'Infrastructure · The Cartographer',
+          name: 'Eddie',
+          archetype: '"Surveys the world. Lays the foundation. Connects the country."',
+          sigIcon: '🏤', sigName: 'Post Office Network',
+          whatItDoes: 'Eddie places a Post Office in any surveyed village. Each Post becomes a logistics hub — auto-routing cargo, mail, and supplies between any two Posts in the country. Council members fast-travel between connected Posts. Three Posts in a region form a Postal District, and the country starts feeling like a single connected place.',
+          whyHers: 'Where Loredana sanctifies and Melissa enforces, Eddie makes places exist. He turns wilderness into country. Without Eddie, nothing in the game has an address.'
+        },
+        fr: {
+          domain: 'Infrastructure · Le Cartographe',
+          name: 'Eddie',
+          archetype: '« Il cartographie le monde. Pose les fondations. Connecte le pays. »',
+          sigIcon: '🏤', sigName: 'Réseau Postal',
+          whatItDoes: 'Eddie installe un bureau de poste dans n\'importe quel village reconnu. Chaque bureau devient un centre logistique — acheminant automatiquement cargaisons, courrier et fournitures entre deux bureaux du pays. Les membres du Conseil voyagent rapidement entre bureaux connectés. Trois bureaux dans une région forment un District Postal, et le pays commence à ressembler à un seul lieu connecté.',
+          whyHers: 'Là où Loredana sanctifie et Melissa fait respecter la loi, Eddie fait exister les lieux. Il transforme la nature en pays. Sans Eddie, rien dans le jeu n\'a d\'adresse.'
+        },
+        realWorld: {
+          en: 'This is the project Eddie is actually building in real life. Palm Leaf Partners is connecting 100+ DRC post offices via Starlink right now. The game\'s signature mechanic and the real-world infrastructure are the same work.',
+          fr: 'C\'est le projet qu\'Eddie construit réellement dans la vraie vie. Palm Leaf Partners connecte actuellement plus de 100 bureaux de poste de la RDC via Starlink. La mécanique signature du jeu et l\'infrastructure réelle sont le même travail.'
+        }
+      },
+      {
+        key: 'nick', accent: '#5A8AD8',
+        sprite: '../assets/images/nick-grid-builder-sprite.png?v=portrait-confident',
+        en: {
+          domain: 'Power · The Grid-Builder',
+          name: 'Nick',
+          archetype: '"Brings the actual current. Lights the country."',
+          sigIcon: '🏭', sigName: 'Power Plant',
+          whatItDoes: 'Nick plants region-appropriate generation — hydro for river-valleys, solar for high plateaus, geothermal for the rift, biomass for the dense north. Each Power Plant supplies a configurable radius of nodes with grid electricity. Field Hospitals run night-ops; Post Offices route refrigerated cargo; whole villages stop shutting down at sunset.',
+          whyHers: 'Every other Founder\'s late-game move depends on Nick\'s grid: Dr. Elie\'s night-op Field Hospital, Eddie\'s modern Post District, Loredana\'s climate-controlled Sanctuaries. Nick quietly underlies everyone else\'s late game. He brings the actual current.'
+        },
+        fr: {
+          domain: 'Puissance · Le Constructeur de Réseau',
+          name: 'Nick',
+          archetype: '« Il apporte le courant. Il éclaire le pays. »',
+          sigIcon: '🏭', sigName: 'Centrale Énergétique',
+          whatItDoes: 'Nick installe une génération adaptée à la région — hydro pour les vallées, solaire pour les plateaux, géothermique pour le rift, biomasse pour le nord dense. Chaque centrale alimente un rayon configurable de nœuds en électricité. Les hôpitaux opèrent de nuit ; les bureaux de poste acheminent du fret réfrigéré ; des villages entiers cessent de s\'éteindre au coucher du soleil.',
+          whyHers: 'La pleine puissance de chaque autre Fondateur dépend du réseau de Nick : l\'hôpital nocturne de Dr. Elie, le district postal moderne d\'Eddie, les Sanctuaires climatisés de Loredana. Nick soutient discrètement la fin de partie de tous les autres. Il apporte le courant.'
+        },
+        realWorld: {
+          en: 'This is also Nick\'s real-life work. He builds power infrastructure in the DRC. In the game and in the world, he\'s the one who lights the country.',
+          fr: 'C\'est aussi le métier réel de Nick. Il construit l\'infrastructure énergétique en RDC. Dans le jeu comme dans le monde, c\'est lui qui éclaire le pays.'
+        }
+      },
+      {
+        key: 'drelie', accent: '#3FA89E',
+        sprite: '../assets/images/elie-doctor-diplomat-sprite.png',
+        en: {
+          domain: 'Operations · The Operator-Diplomat',
+          name: 'Dr. Elie',
+          archetype: '"Makes things actually happen on the ground."',
+          sigIcon: '🤝', sigName: 'Alliance',
+          whatItDoes: 'Dr. Elie walks into a government office, a chief\'s compound, or a customs hall — and the authority figure there signs on to the Steward project. They don\'t switch sides. They stay themselves, in their faction, with their authority — they just align around this work, this season. Borrowed legitimacy, used well.',
+          whyHers: 'He\'s the only Founder who operates inside existing systems instead of building new ones. Loredana sanctifies new ground; Eddie surveys new ground; Nick electrifies new ground. Dr. Elie walks into an office that\'s already there and gets the minister to just sign the form. In real-world humanitarian work, this is the rarest skill.'
+        },
+        fr: {
+          domain: 'Opérations · L\'Opérateur-Diplomate',
+          name: 'Dr. Elie',
+          archetype: '« Il fait que les choses arrivent réellement sur le terrain. »',
+          sigIcon: '🤝', sigName: 'Alliance',
+          whatItDoes: 'Dr. Elie entre dans un bureau du gouvernement, une concession de chef, ou une douane — et l\'autorité présente s\'engage dans le projet Steward. Ils ne changent pas de camp. Ils restent eux-mêmes, dans leur faction, avec leur autorité — ils s\'alignent simplement sur ce travail, cette saison. Légitimité empruntée, bien utilisée.',
+          whyHers: 'Il est le seul Fondateur qui opère à l\'intérieur des systèmes existants au lieu d\'en construire de nouveaux. Loredana sanctifie une terre nouvelle ; Eddie cartographie une terre nouvelle ; Nick électrifie une terre nouvelle. Dr. Elie entre dans un bureau déjà là et obtient que le ministre signe simplement le formulaire. Dans le travail humanitaire réel, c\'est la compétence la plus rare.'
+        },
+        realWorld: {
+          en: 'Dr. Elie founded UPTW SAS Congo — the legal entity that anchors UPTW\'s work in the DRC. In real life, he\'s the one who gets the meeting, recruits the chief, signs the charter. The game\'s Alliance is his actual job.',
+          fr: 'Dr. Elie a fondé UPTW SAS Congo — l\'entité légale qui ancre le travail de l\'UPTW en RDC. Dans la vraie vie, c\'est lui qui obtient les rendez-vous, recrute les chefs, signe les chartes. L\'Alliance du jeu est son véritable métier.'
+        }
+      }
+    ];
+
+    function getLang() {
+      return document.documentElement.lang === 'fr' ? 'fr' : 'en';
+    }
+
+    const overlay = document.getElementById('founderModalOverlay');
+    const modalEl = overlay.querySelector('.founder-modal');
+    const content = document.getElementById('fmContent');
+    const closeBtn = document.getElementById('fmClose');
+    const prevBtn = document.getElementById('fmPrev');
+    const nextBtn = document.getElementById('fmNext');
+    let currentIndex = 0;
+    let lastFocused = null;
+
+    function render(i) {
+      currentIndex = ((i % FOUNDERS.length) + FOUNDERS.length) % FOUNDERS.length;
+      const f = FOUNDERS[currentIndex];
+      const lang = getLang();
+      const d = f[lang];
+      const rw = f.realWorld ? f.realWorld[lang] : null;
+      const rwLabel = lang === 'fr' ? '✦ Lien Réel' : '✦ Real-World Hook';
+      const sigEyebrow = lang === 'fr' ? 'Pouvoir Signature' : 'Signature Power';
+      const whatTitle = lang === 'fr' ? 'Ce qu\'elle fait' : 'What it does';
+      const whyTitle = lang === 'fr' ? 'Pourquoi c\'est son pouvoir' : 'Why it\'s their power';
+      modalEl.style.setProperty('--fm-accent', f.accent);
+      content.innerHTML =
+        '<div class="fm-sprite-wrap"><img src="' + f.sprite + '" alt="' + d.name + '" /></div>' +
+        '<div class="fm-body">' +
+          '<div class="fm-eyebrow">' + d.domain + '</div>' +
+          '<h2 class="fm-name" id="fm-name">' + d.name + '</h2>' +
+          '<div class="fm-archetype">' + d.archetype + '</div>' +
+          '<hr class="fm-divider" />' +
+          '<div class="fm-sig-eyebrow">' + sigEyebrow + '</div>' +
+          '<div class="fm-sig-name"><span class="fm-sig-icon">' + d.sigIcon + '</span>' + d.sigName + '</div>' +
+          '<div class="fm-section-title">' + whatTitle + '</div>' +
+          '<p class="fm-text">' + d.whatItDoes + '</p>' +
+          '<div class="fm-section-title">' + whyTitle + '</div>' +
+          '<p class="fm-text">' + d.whyHers + '</p>' +
+          (rw ? '<div class="fm-realworld"><strong>' + rwLabel + '</strong>' + rw + '</div>' : '') +
+        '</div>';
+    }
+
+    function open(key) {
+      const idx = FOUNDERS.findIndex(f => f.key === key);
+      if (idx < 0) return;
+      lastFocused = document.activeElement;
+      render(idx);
+      overlay.hidden = false;
+      requestAnimationFrame(() => overlay.classList.add('open'));
+      document.body.style.overflow = 'hidden';
+      setTimeout(() => closeBtn.focus(), 50);
+    }
+
+    function close() {
+      overlay.classList.remove('open');
+      setTimeout(() => { overlay.hidden = true; }, 280);
+      document.body.style.overflow = '';
+      if (lastFocused && lastFocused.focus) lastFocused.focus();
+    }
+
+    document.querySelectorAll('.council-card[data-founder]').forEach(card => {
+      card.addEventListener('click', () => open(card.dataset.founder));
+      card.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(card.dataset.founder); }
+      });
+    });
+    closeBtn.addEventListener('click', close);
+    prevBtn.addEventListener('click', () => render(currentIndex - 1));
+    nextBtn.addEventListener('click', () => render(currentIndex + 1));
+    overlay.addEventListener('click', e => { if (e.target === overlay) close(); });
+    document.addEventListener('keydown', e => {
+      if (overlay.hidden) return;
+      if (e.key === 'Escape') close();
+      else if (e.key === 'ArrowLeft') render(currentIndex - 1);
+      else if (e.key === 'ArrowRight') render(currentIndex + 1);
+    });
+
+    // Re-render on EN/FR toggle so modal text updates if it's open
+    const langObserver = new MutationObserver(() => {
+      if (!overlay.hidden) render(currentIndex);
+      document.querySelectorAll('.council-card[data-founder]').forEach(card => {
+        card.setAttribute('data-cta', FOUNDERS[0].cta[getLang()] || 'Read their story →');
+      });
+    });
+    langObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
+    // Apply initial localized CTA
+    const initCta = (getLang() === 'fr' ? 'Lire son histoire →' : 'Read their story →');
+    document.querySelectorAll('.council-card[data-founder]').forEach(card => {
+      card.setAttribute('data-cta', initCta);
+    });
+  })();
+  </script>
 
 
   <!-- ─── CULTURAL AUTHORSHIP STATEMENT ─── -->

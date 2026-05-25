@@ -1255,7 +1255,12 @@
        Loredana's angelic white and Zola's forest green. */
     .flat-melissa {
       position: absolute;
-      width: 60px;
+      /* Paladin redesign 2026-05-25 changed her aspect ratio to 0.773
+         (wider bounding box from trunk+root base + folded wings).
+         Bumped 60→76 so her display height (~98px) aligns with the
+         other women (Zola ~102, Loredana ~90) per the 5-foot-something
+         canon — see memory: palmleaf-founder-heights. */
+      width: 76px;
       height: auto;
       transform: translate(-50%, -100%) scale(1);
       pointer-events: auto;
@@ -1290,7 +1295,7 @@
       }
     }
     @media (max-width: 640px) {
-      .flat-melissa { width: 42px; }
+      .flat-melissa { width: 52px; }
     }
 
     /* Eddie — The Cartographer. PLP-side human, not Palm Folk. Subtle
@@ -3318,7 +3323,7 @@
              at top:46% so feet align. Order from west-to-east on the
              painted USA: Nick, Melissa, Loredana, Eddie. -->
         <img class="flat-nick" id="flat-nick" src="../assets/images/nick-grid-builder-sprite.png?v=portrait-confident" alt="Nick Lampson — The Grid-Builder (Palm Leaf Partners, Power)" style="left:11%; top:46%;" draggable="false" />
-        <img class="flat-melissa" id="flat-melissa" src="../assets/images/melissa-usa-sprite.png?v=v1" alt="Melissa — Justiciar (Universal Palm Tree Women Organization)" style="left:17%; top:46%;" draggable="false" />
+        <img class="flat-melissa" id="flat-melissa" src="../assets/images/melissa-usa-sprite.png?v=v5c" alt="Melissa — Justiciar (Universal Palm Tree Women Organization)" style="left:17%; top:46%;" draggable="false" />
         <img class="flat-loredana" id="flat-loredana" src="../assets/images/loredana-usa-sprite.png?v=angelic-praying" alt="Loredana — Global Mother (Palm Tree Women Organization, USA chapter)" style="left:23%; top:46%;" draggable="false" />
         <img class="flat-eddie" id="flat-eddie" src="../assets/images/eddie-cartographer-sprite.png?v=pointing" alt="Eddie — The Cartographer (Palm Leaf Partners)" style="left:29%; top:46%;" draggable="false" />
         <div class="flat-mascot-card flat-eddie-card" aria-hidden="true" style="left:29%; top:46%;">
@@ -3798,7 +3803,7 @@
     </div>
 
     <div class="globe-mascot-wrap">
-      <img class="globe-mascot" src="../assets/images/melissa-usa-sprite.png?v=v1" alt="Melissa" />
+      <img class="globe-mascot" src="../assets/images/melissa-usa-sprite.png?v=v5c" alt="Melissa" />
       <div class="globe-mascot-card gmc-melissa">
         <div class="mc-name">Melissa</div>
         <div class="mc-title">The Justiciar</div>
@@ -5240,7 +5245,7 @@
         badge: 'UPTW USA · The Justiciar', badge_fr: 'UPTW USA · La Justiciaire',
         tagline: 'Defender of the law. Speaks for those who cannot speak for themselves.',
         tagline_fr: 'Défenseure du droit. Voix de ceux qui ne peuvent parler.',
-        mascotName: 'Melissa · The Justiciar', mascotImage: '../assets/images/melissa-usa-sprite.png?v=v1',
+        mascotName: 'Melissa · The Justiciar', mascotImage: '../assets/images/melissa-usa-sprite.png?v=v5c',
         body: "Melissa is the Justiciar of the UPTW universe — the keeper of the rule of law and the voice of the voiceless. Where Loredana speaks the spirit of the movement, Melissa speaks its law: drafting protections, untangling injustice, brokering treaties between communities. Her work spans courtrooms, charters, and the quiet conversations where rights are won. She stands beside Loredana on the Founding Chapter, scales of justice held aloft.",
         body_fr: "Melissa est la Justiciaire de l'univers UPTW — gardienne de l'État de droit et voix de ceux qui n'en ont pas. Là où Loredana porte l'esprit du mouvement, Melissa en porte la loi : rédiger les protections, démêler l'injustice, négocier des traités entre communautés. Son œuvre traverse les salles d'audience, les chartes, et les conversations discrètes où se gagnent les droits. Elle se tient aux côtés de Loredana, balance de la justice élevée.",
         powers: [
@@ -7545,7 +7550,7 @@
       // globe — Eddie's "align feet/base" requirement. Longitudes
       // spread evenly west-to-east across CONUS so they don't overlap.
       { lat:  38.0,    lon: -108.0,   label: 'USA (Grid-Builder)',   label_fr: 'États-Unis (Bâtisseur du Réseau)', shortLabel: 'USA', sub: 'PLP · The Grid-Builder',  sub_fr: 'PLP · Le Bâtisseur du Réseau',  mascotName: 'Nick',     tooltipTitle: 'Nick · The Grid-Builder',  tooltipTitle_fr: 'Nick · Le Bâtisseur du Réseau', tagline: 'Lights the country',         tagline_fr: 'Éclaire le pays',            timezone: 'America/New_York', clockLabel: 'Eastern Time, USA', clockLabel_fr: 'Heure de l\'Est, États-Unis', color: 0x3B82F6, sprite: '../assets/images/nick-grid-builder-sprite.png?v=portrait-confident', active: false, ptwo: true },
-      { lat:  38.0,    lon: -94.0,    label: 'USA (Justiciar)',      label_fr: 'États-Unis (Justiciaire)',     shortLabel: 'USA', sub: 'UPTW · The Justiciar',     sub_fr: 'UPTW · La Justiciaire',     mascotName: 'Melissa',  tooltipTitle: 'Melissa · The Justiciar',  tooltipTitle_fr: 'Melissa · La Justiciaire', tagline: 'Defender of the law',        tagline_fr: 'Défenseure du droit',       timezone: 'America/New_York', clockLabel: 'Eastern Time, USA', clockLabel_fr: 'Heure de l\'Est, États-Unis', color: 0x4A5DAA, sprite: '../assets/images/melissa-usa-sprite.png?v=v1',          active: false, ptwo: true },
+      { lat:  38.0,    lon: -94.0,    label: 'USA (Justiciar)',      label_fr: 'États-Unis (Justiciaire)',     shortLabel: 'USA', sub: 'UPTW · The Justiciar',     sub_fr: 'UPTW · La Justiciaire',     mascotName: 'Melissa',  tooltipTitle: 'Melissa · The Justiciar',  tooltipTitle_fr: 'Melissa · La Justiciaire', tagline: 'Defender of the law',        tagline_fr: 'Défenseure du droit',       timezone: 'America/New_York', clockLabel: 'Eastern Time, USA', clockLabel_fr: 'Heure de l\'Est, États-Unis', color: 0x4A5DAA, sprite: '../assets/images/melissa-usa-sprite.png?v=v5c',          active: false, ptwo: true },
       { lat:  38.0,    lon: -82.0,    label: 'USA (Global Mother)',  label_fr: 'États-Unis (Mère du Monde)',   shortLabel: 'USA', sub: 'UPTW · Global Mother',     sub_fr: 'UPTW · Mère du Monde',      mascotName: 'Loredana', tooltipTitle: 'Loredana · Global Mother', tooltipTitle_fr: 'Loredana · Mère du Monde', tagline: 'Universal Palm Tree Women USA', tagline_fr: 'Organisation Universelle des Femmes Palm Tree USA', timezone: 'America/New_York', clockLabel: 'Eastern Time, USA', clockLabel_fr: 'Heure de l\'Est, États-Unis', color: 0xB76E79, sprite: '../assets/images/loredana-usa-sprite.png?v=angelic-praying', active: false, ptwo: true },
       { lat:  38.0,    lon: -69.0,    label: 'USA (Cartographer)',   label_fr: 'États-Unis (Cartographe)',     shortLabel: 'USA', sub: 'PLP · The Cartographer',   sub_fr: 'PLP · Le Cartographe',      mascotName: 'Eddie',    tooltipTitle: 'Eddie · The Cartographer', tooltipTitle_fr: 'Eddie · Le Cartographe',   tagline: 'Surveys the world',           tagline_fr: 'Arpente le monde',           timezone: 'America/New_York', clockLabel: 'Eastern Time, USA', clockLabel_fr: 'Heure de l\'Est, États-Unis', color: 0x8B5A2B, sprite: '../assets/images/eddie-cartographer-sprite.png?v=pointing', active: false, ptwo: true },
       { lat:  50.5039, lon:   4.4699, label: 'Belgium',   label_fr: 'Belgique',  sub: 'UPTW', sub_fr: 'UPTW', timezone: 'Europe/Brussels',     clockLabel: 'Brussels, Belgium',  clockLabel_fr: 'Bruxelles, Belgique',   color: 0xB76E79, sprite: null, active: false, ptwo: true },
