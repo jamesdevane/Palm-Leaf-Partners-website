@@ -7295,7 +7295,7 @@
     const PINS = [
       // ── PLP active ─────────────────────────────────────────────
       { lat: -4,  lon: 22,  label: 'Democratic Republic of Congo', label_fr: 'République Démocratique du Congo', shortLabel: 'DRC', sub: 'Palm Leaf Partners · Active', sub_fr: 'Palm Leaf Partners · Actif', mascotName: 'Zola', tagline: 'Building Systems. Growing Futures.', tagline_fr: 'Construire des Systèmes. Cultiver l\'Avenir.', timezone: 'Africa/Kinshasa', clockLabel: 'Kinshasa, DRC', clockLabel_fr: 'Kinshasa, RDC', color: 0xB8860B, sprite: '../assets/images/zola-globe-sprite.png', active: true },
-      { lat: -4,  lon: 28,  label: 'DRC (Operator-Diplomat)', label_fr: 'RDC (Opérateur-Diplomate)', shortLabel: 'DRC', sub: 'UPTW · The Operator-Diplomat', sub_fr: 'UPTW · L\'Opérateur-Diplomate', mascotName: 'Dr. Elie', tooltipTitle: 'Dr. Elie · The Operator-Diplomat', tooltipTitle_fr: 'Dr. Elie · L\'Opérateur-Diplomate', tagline: 'Makes things happen on the ground', tagline_fr: 'Fait avancer les choses sur le terrain', timezone: 'Africa/Kinshasa', clockLabel: 'Kinshasa, DRC', clockLabel_fr: 'Kinshasa, RDC', color: 0xDC2626, sprite: '../assets/images/elie-doctor-diplomat-sprite.png?v=portrait-confident', active: true },
+      { lat: -4,  lon: 28,  label: 'DRC (Operator-Diplomat)', label_fr: 'RDC (Opérateur-Diplomate)', shortLabel: 'DRC', sub: 'UPTW · The Operator-Diplomat', sub_fr: 'UPTW · L\'Opérateur-Diplomate', mascotName: 'Dr. Elie', tooltipTitle: 'Dr. Elie · The Operator-Diplomat', tooltipTitle_fr: 'Dr. Elie · L\'Opérateur-Diplomate', tagline: 'Makes things happen on the ground', tagline_fr: 'Fait avancer les choses sur le terrain', timezone: 'Africa/Kinshasa', clockLabel: 'Kinshasa, DRC', clockLabel_fr: 'Kinshasa, RDC', color: 0xDC2626, sprite: '../assets/images/elie-doctor-diplomat-sprite.png?v=portrait-confident', active: true, redCross: true },
 
       // ── PLP Coming Soon markets ────────────────────────────────
       { lat:  9,  lon:  8,  label: 'Nigeria',       label_fr: 'Nigéria',       sub: 'Coming Soon', sub_fr: 'Bientôt', timezone: 'Africa/Lagos',         clockLabel: 'Lagos, Nigeria',         clockLabel_fr: 'Lagos, Nigéria',         color: 0x40916C, sprite: null, active: false },
@@ -7340,19 +7340,65 @@
     // so we can use the same color in canvas-textured label sprites.
     const pinHexCss = (n) => '#' + n.toString(16).padStart(6, '0').toUpperCase();
 
+    // Build a tiny canvas-texture medical cross — white outline + red fill.
+    // Used for pins marked redCross:true (Dr. Elie) instead of the
+    // default colored-bubble glow. Matches the trailer's Scene 6 emblem
+    // and reads as a clear medical-healing signifier from any rotation.
+    function createMedicalCrossTexture(size = 128) {
+      const canvas = document.createElement('canvas');
+      canvas.width = canvas.height = size;
+      const ctx = canvas.getContext('2d');
+      // White rounded-rect outline (contrast against the dark globe)
+      ctx.fillStyle = '#FFFFFF';
+      const wO = size * 0.30, h1O = size * 0.92, x1O = (size - wO) / 2, y1O = size * 0.04;
+      const wH = size * 0.92, hH = size * 0.30, xH = size * 0.04, yH = (size - hH) / 2;
+      ctx.fillRect(x1O, y1O, wO, h1O);
+      ctx.fillRect(xH, yH, wH, hH);
+      // Inner red cross (slightly smaller, leaves a white frame)
+      ctx.fillStyle = '#DC2626';
+      const wI = size * 0.22, h1I = size * 0.84, x1I = (size - wI) / 2, y1I = size * 0.08;
+      const wHI = size * 0.84, hHI = size * 0.22, xHI = size * 0.08, yHI = (size - hHI) / 2;
+      ctx.fillRect(x1I, y1I, wI, h1I);
+      ctx.fillRect(xHI, yHI, wHI, hHI);
+      const tex = new THREE.CanvasTexture(canvas);
+      tex.colorSpace = THREE.SRGBColorSpace;
+      return tex;
+    }
+    const medicalCrossTexture = createMedicalCrossTexture();
+
     PINS.forEach(pin => {
       pin.localDir = geoToLocal(pin.lat, pin.lon, 1.0).normalize();
 
       // Pin size: active is biggest, UPTW is smallest (sister-org subtler),
       // PLP Coming Soon is middle.
       const pinRadius = pin.active ? 0.075 : pin.ptwo ? 0.018 : 0.025;
-      const glowMesh = new THREE.Mesh(
-        new THREE.SphereGeometry(pinRadius, 16, 16),
-        new THREE.MeshBasicMaterial({ color: pin.color, transparent: true, opacity: 0 })
-      );
-      glowMesh.position.copy(geoToLocal(pin.lat, pin.lon, 1.005));
-      globe.add(glowMesh);
-      pin.glowMesh = glowMesh; pin.glowMat = glowMesh.material;
+      // For pins flagged redCross:true (Dr. Elie), render a medical cross
+      // sprite INSTEAD of the default color-glow sphere. The cross is a
+      // canvas-textured Sprite billboarded toward the camera so it stays
+      // readable from any globe rotation.
+      let glowMesh;
+      if (pin.redCross) {
+        const crossMat = new THREE.SpriteMaterial({
+          map: medicalCrossTexture,
+          transparent: true,
+          depthTest: true,
+          depthWrite: false,
+          opacity: 0,
+        });
+        glowMesh = new THREE.Sprite(crossMat);
+        glowMesh.scale.set(0.10, 0.10, 1);
+        glowMesh.position.copy(geoToLocal(pin.lat, pin.lon, 1.012));
+        scene.add(glowMesh);
+        pin.glowMesh = glowMesh; pin.glowMat = crossMat;
+      } else {
+        glowMesh = new THREE.Mesh(
+          new THREE.SphereGeometry(pinRadius, 16, 16),
+          new THREE.MeshBasicMaterial({ color: pin.color, transparent: true, opacity: 0 })
+        );
+        glowMesh.position.copy(geoToLocal(pin.lat, pin.lon, 1.005));
+        globe.add(glowMesh);
+        pin.glowMesh = glowMesh; pin.glowMat = glowMesh.material;
+      }
 
       if (pin.active) {
         const ringMesh = new THREE.Mesh(
