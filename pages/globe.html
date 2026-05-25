@@ -1071,9 +1071,8 @@
       transform: translate(-50%, -100%) scale(1);
       pointer-events: auto;
       cursor: pointer;
-      animation:
-        flatZolaBob 3.4s ease-in-out infinite,
-        flatZolaGlow 3.2s ease-in-out infinite;
+      animation: flatZolaGlow 3.2s ease-in-out infinite;
+      transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
       filter:
         drop-shadow(0 0 1.5px rgba(255,255,255,0.95))
         drop-shadow(0 0 10px rgba(18,40,28,0.9))
@@ -1198,9 +1197,8 @@
       transform: translate(-50%, -100%) scale(1);
       pointer-events: auto;
       cursor: pointer;
-      animation:
-        flatNickBob 3.6s ease-in-out infinite,
-        flatNickGlow 3.4s ease-in-out infinite;
+      animation: flatNickGlow 3.4s ease-in-out infinite;
+      transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
       filter:
         drop-shadow(0 0 1.5px rgba(255,255,255,0.95))
         drop-shadow(0 0 10px rgba(30,55,120,0.85))
@@ -1245,9 +1243,8 @@
       transform: translate(-50%, -100%) scale(1);
       pointer-events: auto;
       cursor: pointer;
-      animation:
-        flatElieBob 3.8s ease-in-out infinite,
-        flatElieGlow 3.6s ease-in-out infinite;
+      animation: flatElieGlow 3.6s ease-in-out infinite;
+      transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
       filter:
         drop-shadow(0 0 1.5px rgba(255,255,255,0.95))
         drop-shadow(0 0 10px rgba(120,30,30,0.85))
@@ -1427,6 +1424,18 @@
     }
     /* Card peeks in slightly when mascot is hovered (desktop only).
        transform shift adds a subtle "rise" feel. */
+    /* Hover-scale: mascot grows to 2x in place. Card pops up further
+       above to clear the now-larger image (200px offset vs the prior
+       92px — Eddie's "make sure it does not cover their image" rule). */
+    .flat-zola:hover,
+    .flat-loredana:hover,
+    .flat-melissa:hover,
+    .flat-eddie:hover,
+    .flat-nick:hover,
+    .flat-elie:hover {
+      transform: translate(-50%, -100%) scale(2);
+      z-index: 50;
+    }
     .flat-zola:hover ~ .flat-zola-card,
     .flat-loredana:hover ~ .flat-loredana-card,
     .flat-melissa:hover ~ .flat-melissa-card,
@@ -1435,7 +1444,7 @@
     .flat-elie:hover ~ .flat-elie-card {
       opacity: 1;
       visibility: visible;
-      transform: translate(-50%, calc(-100% - 92px));
+      transform: translate(-50%, calc(-100% - 200px));
     }
     /* Mobile / touch: rely on country panel tap-to-open for the same
        info — hover is unreliable on touch hardware. */
@@ -1458,9 +1467,8 @@
       transform: translate(-50%, -100%) scale(1);
       pointer-events: auto;
       cursor: pointer;
-      animation:
-        flatLoredanaBob 4.2s ease-in-out infinite,
-        flatLoredanaGlow 3.8s ease-in-out infinite;
+      animation: flatLoredanaGlow 3.8s ease-in-out infinite;
+      transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
       filter:
         drop-shadow(0 0 1.5px rgba(255,255,255,0.95))
         drop-shadow(0 0 10px rgba(60,30,40,0.85))
