@@ -357,6 +357,54 @@
     }
 
     /* ── Language toggle (globe page floats above every view) ─────── */
+    /* "🎮 Mboka" pill — top-right of the globe page, left of EN/FR
+       toggle. Visible on every view (3D, 2D, DRC immersive) so users
+       can hop from the world map straight to the game page. */
+    .mboka-globe-link {
+      position: fixed;
+      top: 1.5rem; right: 6.5rem;
+      z-index: 260;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: linear-gradient(135deg, rgba(184,134,11,0.22) 0%, rgba(212,160,23,0.12) 100%);
+      border: 1px solid rgba(212,160,23,0.55);
+      border-radius: 999px;
+      padding: 0.4rem 0.95rem;
+      color: #F0D080;
+      font-family: 'Georgia', serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-decoration: none;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0 4px 14px rgba(0,0,0,0.55);
+      transition: all 0.2s;
+    }
+    .mboka-globe-link:hover {
+      background: linear-gradient(135deg, rgba(212,160,23,0.45) 0%, rgba(240,208,128,0.25) 100%);
+      color: #F5F0E8;
+      border-color: rgba(240,208,128,0.85);
+      transform: translateY(-1px);
+    }
+    .mboka-globe-link .ml-tag {
+      font-size: 0.55rem;
+      letter-spacing: 0.2em;
+      padding: 0.12rem 0.45rem;
+      background: rgba(10,13,16,0.55);
+      border-radius: 999px;
+      color: rgba(245,240,232,0.75);
+    }
+    @media (max-width: 640px) {
+      .mboka-globe-link {
+        top: 0.75rem; right: 5.2rem;
+        padding: 0.3rem 0.7rem;
+        font-size: 0.7rem;
+      }
+      .mboka-globe-link .ml-tag { display: none; }
+    }
+
     /* Reuses the .lang-toggle class so i18n.js updateToggle() syncs
        the active state automatically. Fixed position keeps it visible
        across globe / flat / DRC-detail / province-detail overlays. */
@@ -3696,6 +3744,13 @@
     <div class="clock-time" id="clock-time">--:--:--</div>
     <div class="clock-date" id="clock-date"></div>
   </div>
+
+  <!-- "🎮 Mboka" link — fixed top-right, left of EN/FR toggle.
+       Always-visible jump from the world-map page to the game page. -->
+  <a class="mboka-globe-link" href="mboka.html" title="Mboka — A Living Regional Sim of the DRC" aria-label="Visit the Mboka game page">
+    <span>🎮 Mboka</span>
+    <span class="ml-tag" data-i18n="mboka.preprod">Pre-Production</span>
+  </a>
 
   <div id="canvas-container"></div>
 
