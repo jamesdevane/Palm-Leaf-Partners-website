@@ -76,6 +76,12 @@ const translations = {
   'mboka.land3.p':       { en: 'The second-largest river by discharge on Earth. The wooden lattice structures in the channel are <em>Wagenia fish traps</em> — a 1,000-year-old Congolese fishing tradition, still in use today.', fr: 'Le deuxième fleuve par débit sur Terre. Les structures en treillis de bois dans le chenal sont des <em>pièges à poissons Wagenia</em> — une tradition de pêche congolaise vieille de 1 000 ans, encore utilisée aujourd\'hui.' },
   'mboka.world.concept': { en: 'Concept art · Pre-production target aesthetic · Real DRC biomes, in development', fr: 'Œuvres conceptuelles · Esthétique cible de pré-production · De vrais biomes de la RDC, en développement' },
 
+  /* Section: The Teaser */
+  'mboka.teaser.eyebrow': { en: 'Watch the Teaser', fr: 'Regardez le Teaser' },
+  'mboka.teaser.h2':      { en: 'A first look · <em>50 seconds</em>', fr: 'Un premier aperçu · <em>50 secondes</em>' },
+  'mboka.teaser.lead':    { en: 'The Council of Sovereignty\'s six Founders, the world they protect, and the corruption they refuse. Pre-production teaser — narrated by Sekou with a custom African-orchestral score.', fr: 'Les six Fondateurs du Conseil de la Souveraineté, le monde qu\'ils protègent, et la corruption qu\'ils refusent. Teaser de pré-production — narré par Sekou avec une musique africaine-orchestrale originale.' },
+  'mboka.teaser.stamp':   { en: 'Pre-Production · Concept Teaser · 50 seconds', fr: 'Pré-Production · Teaser Conceptuel · 50 secondes' },
+
   /* Section: The Game We're Building */
   'mboka.game.eyebrow': { en: 'The Game', fr: 'Le Jeu' },
   'mboka.game.h2':      { en: 'Build the country. Heal the land. <em>Refuse the easy lie.</em>', fr: 'Construisez le pays. Guérissez la terre. <em>Refusez le mensonge facile.</em>' },
