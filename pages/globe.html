@@ -1188,6 +1188,49 @@
       .flat-eddie { width: 40px; }
     }
 
+    /* Nick — The Grid-Builder. Power-domain Founder, real person
+       (Nick Lampson). Sits to the left of Loredana on the USA cluster.
+       Electric-blue drop-shadow accent ties to his Grid Command power. */
+    .flat-nick {
+      position: absolute;
+      width: 56px;
+      height: auto;
+      transform: translate(-50%, -100%);
+      pointer-events: auto;
+      cursor: pointer;
+      filter:
+        drop-shadow(0 0 1.5px rgba(255,255,255,0.95))
+        drop-shadow(0 0 10px rgba(30,55,120,0.85))
+        drop-shadow(0 0 22px rgba(96,165,250,0.4))
+        drop-shadow(0 6px 18px rgba(0,0,0,0.6));
+      user-select: none;
+    }
+    @media (max-width: 768px) {
+      .flat-nick { width: 40px; }
+    }
+
+    /* Dr. Elie — The Operator-Diplomat. Operations-domain Founder,
+       UPTW founder (Elie Tiabakueno Sangu). Sits to the right of Zola
+       on the DRC. Warm-red medical drop-shadow accent (Field Hospital
+       + Bush Pharmacy power signature). */
+    .flat-elie {
+      position: absolute;
+      width: 56px;
+      height: auto;
+      transform: translate(-50%, -100%);
+      pointer-events: auto;
+      cursor: pointer;
+      filter:
+        drop-shadow(0 0 1.5px rgba(255,255,255,0.95))
+        drop-shadow(0 0 10px rgba(120,30,30,0.85))
+        drop-shadow(0 0 22px rgba(220,80,60,0.35))
+        drop-shadow(0 6px 18px rgba(0,0,0,0.6));
+      user-select: none;
+    }
+    @media (max-width: 768px) {
+      .flat-elie { width: 40px; }
+    }
+
     /* ── Mascot character cards — hover-reveal info boxes ───────────
        Floating card that appears above each mascot on hover (desktop),
        showing the character's name, title, mythic backstory line, and
@@ -1321,6 +1364,8 @@
     .flat-mascot-card.flat-loredana-card { border-left: 3px solid #E8D9B8;  }   /* angelic cream */
     .flat-mascot-card.flat-melissa-card  { border-left: 3px solid #4A5DAA;  }   /* justiciar navy */
     .flat-mascot-card.flat-eddie-card    { border-left: 3px solid #8B5A2B;  }   /* cartographer cognac */
+    .flat-mascot-card.flat-nick-card     { border-left: 3px solid #3B82F6;  }   /* electric blue */
+    .flat-mascot-card.flat-elie-card     { border-left: 3px solid #DC2626;  }   /* medical red */
     /* When the JS viewport-aware positioning flips the card BELOW the
        mascot (because there isn't room above), flip the pointer-arrow
        (kite) to point UP toward the mascot. */
@@ -1337,7 +1382,9 @@
     .flat-zola:hover ~ .flat-zola-card,
     .flat-loredana:hover ~ .flat-loredana-card,
     .flat-melissa:hover ~ .flat-melissa-card,
-    .flat-eddie:hover ~ .flat-eddie-card {
+    .flat-eddie:hover ~ .flat-eddie-card,
+    .flat-nick:hover ~ .flat-nick-card,
+    .flat-elie:hover ~ .flat-elie-card {
       opacity: 1;
       visibility: visible;
       transform: translate(-50%, calc(-100% - 92px));
@@ -3028,6 +3075,7 @@
              landed over Kenya (the illustrated map isn't equirectangular)
              have been removed. -->
         <img class="flat-zola" id="flat-zola" src="../assets/images/zola-globe-sprite.png" alt="Zola — Palm Leaf Partners mascot" style="left:50%; top:64%;" draggable="false" />
+        <img class="flat-elie" id="flat-elie" src="../assets/images/elie-doctor-diplomat-sprite.png?v=portrait-confident" alt="Dr. Elie Tiabakueno Sangu — The Operator-Diplomat (UPTW Founder)" style="left:54%; top:64%;" draggable="false" />
         <div class="flat-mascot-card flat-zola-card" aria-hidden="true" style="left:50%; top:64%;">
           <div class="mc-header">
             <div class="mc-name">Zola</div>
@@ -3058,6 +3106,7 @@
              at the bottom of the view so we don't have to chase
              pixel-perfect pin placement on a non-equirectangular
              illustrated projection. -->
+        <img class="flat-nick" id="flat-nick" src="../assets/images/nick-grid-builder-sprite.png?v=portrait-confident" alt="Nick Lampson — The Grid-Builder (Palm Leaf Partners, Power)" style="left:22%; top:50%;" draggable="false" />
         <img class="flat-loredana" id="flat-loredana" src="../assets/images/loredana-usa-sprite.png?v=angelic-praying" alt="Loredana — Global Mother (Palm Tree Women Organization, USA chapter)" style="left:22%; top:42%;" draggable="false" />
         <img class="flat-melissa" id="flat-melissa" src="../assets/images/melissa-usa-sprite.png?v=v1" alt="Melissa — Justiciar (Universal Palm Tree Women Organization)" style="left:19%; top:46%;" draggable="false" />
         <img class="flat-eddie" id="flat-eddie" src="../assets/images/eddie-cartographer-sprite.png?v=pointing" alt="Eddie — The Cartographer (Palm Leaf Partners)" style="left:25%; top:46%;" draggable="false" />
@@ -3107,6 +3156,38 @@
             <li><span class="mc-icon">🙏</span> <strong>Prayer Circle</strong> — group healing</li>
             <li><span class="mc-icon">🕊</span> <strong>Sanctuary</strong> — refugee protection</li>
             <li><span class="mc-icon">⛪</span> <strong>Crusader's Resolve</strong> — +action capacity</li>
+          </ul>
+        </div>
+        <div class="flat-mascot-card flat-nick-card" aria-hidden="true" style="left:22%; top:50%;">
+          <div class="mc-header">
+            <div class="mc-name">Nick</div>
+            <div class="mc-title">The Grid-Builder · Power</div>
+          </div>
+          <div class="mc-tagline">Brings the actual current. Lights the country.</div>
+          <div class="mc-section">Powers</div>
+          <ul class="mc-powers">
+            <li><span class="mc-icon">⚡</span> <strong>Grid Command</strong> — reveals all powered nodes</li>
+            <li><span class="mc-icon">🌩️</span> <strong>Lightning Surge</strong> — boost powered facilities</li>
+            <li><span class="mc-icon">🛡️</span> <strong>Brownout Shield</strong> — protect from outages</li>
+            <li><span class="mc-icon">🏭</span> <strong>Power Plant</strong> — region-appropriate generation</li>
+            <li><span class="mc-icon">🔌</span> <strong>Connect Village</strong> — extend the grid</li>
+            <li><span class="mc-icon">🌍</span> <strong>Sovereign Grid</strong> — anti-Crown-of-Coin</li>
+          </ul>
+        </div>
+        <div class="flat-mascot-card flat-elie-card" aria-hidden="true" style="left:54%; top:64%;">
+          <div class="mc-header">
+            <div class="mc-name">Dr. Elie</div>
+            <div class="mc-title">The Operator-Diplomat · UPTW Founder</div>
+          </div>
+          <div class="mc-tagline">Makes things actually happen on the ground.</div>
+          <div class="mc-section">Powers</div>
+          <ul class="mc-powers">
+            <li><span class="mc-icon">💊</span> <strong>Triage</strong> — emergency healing</li>
+            <li><span class="mc-icon">🤝</span> <strong>Alliance</strong> — recruit officials + chiefs</li>
+            <li><span class="mc-icon">🏥</span> <strong>Field Hospital</strong> — build healthcare</li>
+            <li><span class="mc-icon">🌍</span> <strong>SAS Charter</strong> — operational sovereignty</li>
+            <li><span class="mc-icon">🔬</span> <strong>Diagnose</strong> — reveal corruption / disease</li>
+            <li><span class="mc-icon">🌿</span> <strong>Bush Pharmacy</strong> — traditional medicine integration</li>
           </ul>
         </div>
       </div>
