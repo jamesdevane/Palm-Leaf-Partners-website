@@ -1110,9 +1110,8 @@
       transform: translate(-50%, -100%) scale(1);
       pointer-events: auto;
       cursor: pointer;
-      animation:
-        flatMelissaBob 4.6s ease-in-out infinite,
-        flatMelissaGlow 4.0s ease-in-out infinite;
+      animation: flatMelissaGlow 4.0s ease-in-out infinite;
+      transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
       filter:
         drop-shadow(0 0 1.5px rgba(255,255,255,0.95))
         drop-shadow(0 0 10px rgba(40,30,90,0.85))
@@ -1153,9 +1152,8 @@
       transform: translate(-50%, -100%) scale(1);
       pointer-events: auto;
       cursor: pointer;
-      animation:
-        flatEddieBob 5.0s ease-in-out infinite,
-        flatEddieGlow 4.4s ease-in-out infinite;
+      animation: flatEddieGlow 4.4s ease-in-out infinite;
+      transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
       filter:
         drop-shadow(0 0 1.5px rgba(255,255,255,0.95))
         drop-shadow(0 0 10px rgba(100,55,20,0.85))
@@ -3162,7 +3160,7 @@
              at the bottom of the view so we don't have to chase
              pixel-perfect pin placement on a non-equirectangular
              illustrated projection. -->
-        <img class="flat-nick" id="flat-nick" src="../assets/images/nick-grid-builder-sprite.png?v=portrait-confident" alt="Nick Lampson — The Grid-Builder (Palm Leaf Partners, Power)" style="left:15%; top:46%;" draggable="false" />
+        <img class="flat-nick" id="flat-nick" src="../assets/images/nick-grid-builder-sprite.png?v=portrait-confident" alt="Nick Lampson — The Grid-Builder (Palm Leaf Partners, Power)" style="left:13%; top:46%;" draggable="false" />
         <img class="flat-loredana" id="flat-loredana" src="../assets/images/loredana-usa-sprite.png?v=angelic-praying" alt="Loredana — Global Mother (Palm Tree Women Organization, USA chapter)" style="left:22%; top:42%;" draggable="false" />
         <img class="flat-melissa" id="flat-melissa" src="../assets/images/melissa-usa-sprite.png?v=v1" alt="Melissa — Justiciar (Universal Palm Tree Women Organization)" style="left:19%; top:46%;" draggable="false" />
         <img class="flat-eddie" id="flat-eddie" src="../assets/images/eddie-cartographer-sprite.png?v=pointing" alt="Eddie — The Cartographer (Palm Leaf Partners)" style="left:25%; top:46%;" draggable="false" />
@@ -3214,7 +3212,7 @@
             <li><span class="mc-icon">⛪</span> <strong>Crusader's Resolve</strong> — +action capacity</li>
           </ul>
         </div>
-        <div class="flat-mascot-card flat-nick-card" aria-hidden="true" style="left:15%; top:46%;">
+        <div class="flat-mascot-card flat-nick-card" aria-hidden="true" style="left:13%; top:46%;">
           <div class="mc-header">
             <div class="mc-name">Nick</div>
             <div class="mc-title">The Grid-Builder · Power</div>
