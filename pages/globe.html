@@ -357,12 +357,14 @@
     }
 
     /* ── Language toggle (globe page floats above every view) ─────── */
-    /* "🎮 Mboka" pill — top-right of the globe page, left of EN/FR
-       toggle. Visible on every view (3D, 2D, DRC immersive) so users
-       can hop from the world map straight to the game page. */
+    /* "🎮 Mboka" pill — top-CENTER, sits directly BELOW the
+       Globe/Flat view-toggle (which lives at top: 1.5rem). Visible
+       on every view so users can always hop to the game page. */
     .mboka-globe-link {
       position: fixed;
-      top: 1.5rem; right: 6.5rem;
+      top: 4.4rem;
+      left: 50%;
+      transform: translateX(-50%);
       z-index: 260;
       display: inline-flex;
       align-items: center;
@@ -386,7 +388,7 @@
       background: linear-gradient(135deg, rgba(212,160,23,0.45) 0%, rgba(240,208,128,0.25) 100%);
       color: #F5F0E8;
       border-color: rgba(240,208,128,0.85);
-      transform: translateY(-1px);
+      transform: translateX(-50%) translateY(-1px);
     }
     .mboka-globe-link .ml-tag {
       font-size: 0.55rem;
@@ -398,7 +400,7 @@
     }
     @media (max-width: 640px) {
       .mboka-globe-link {
-        top: 0.75rem; right: 5.2rem;
+        top: 3.4rem;
         padding: 0.3rem 0.7rem;
         font-size: 0.7rem;
       }
