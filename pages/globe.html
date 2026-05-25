@@ -7543,7 +7543,10 @@
         glowMesh = new THREE.Sprite(crossMat);
         glowMesh.scale.set(0.10, 0.10, 1);
         glowMesh.position.copy(geoToLocal(pin.lat, pin.lon, 1.012));
-        scene.add(glowMesh);
+        // Attach to GLOBE (not scene) so the cross rotates with the planet
+        // and stays anchored at Dr. Elie's lat/lon. Same as the standard
+        // glow sphere below.
+        globe.add(glowMesh);
         pin.glowMesh = glowMesh; pin.glowMat = crossMat;
       } else {
         glowMesh = new THREE.Mesh(
