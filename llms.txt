@@ -14,6 +14,9 @@ Tagline: Building Systems. Growing Futures.
 - [Regional Call Centers](https://palmleafpartners.com/pages/call-centers.html): Five to ten planned regional emergency-dispatch + multi-service centers in six languages (French, Lingala, Swahili, Kikongo, Tshiluba, English) — subject to Definitive Agreement and DRC regulatory approvals
 - [National Fiber Backbone](https://palmleafpartners.com/pages/fiber-backbone.html): Planned fiber connecting Kinshasa, Lubumbashi, Goma, Kisangani, Mbuji-Mayi, Bukavu, with Starlink + microwave reach to 100+ remote sites (routes indicative, subject to Definitive Agreement)
 - [Memorial City](https://palmleafpartners.com/pages/memorial-city.html): A planned memorial and cultural city honoring the Congolese people
+- [SCPT Mobile](https://palmleafpartners.com/pages/cellular.html): Planned national mobile carrier in partnership with SCPT
+- [Our World — Interactive Globe](https://palmleafpartners.com/pages/globe.html): 3D globe + 2D map exploration of DRC project locations and Universal Palm Tree Women chapter network
+- [Mboka — The Game](https://palmleafpartners.com/pages/mboka.html): Pre-production humanitarian regional sim of the DRC, grounded in the real Palm Leaf Partners infrastructure work and the UPTW women's movement. Two-product fork: Mboka Mobile (Android F2P, Phaser engine) + Mboka Academy (Steam premium, Godot 4 + Terrain3D). Council of Sovereignty: six Founders — Zola (mythic guide), Loredana, Melissa, Eddie, Dr. Elie, Nick. 3+ years from release; concept art clearly labeled as pre-production.
 - [About](https://palmleafpartners.com/pages/about.html): Mission, values, the Zola mascot, brand family including Universal Palm Tree Women Organization
 - [Partnership & Governance](https://palmleafpartners.com/pages/partnership.html): Legal framework, MOUs, governance structure
 - [Contact](https://palmleafpartners.com/pages/contact.html): Inquiry form for investors, governments, partners, and press
