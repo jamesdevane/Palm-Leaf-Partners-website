@@ -178,7 +178,10 @@
        top-bar back button there so they don't stack. */
     body.drc-immersive .top-bar .back-btn { display: none; }
 
-    /* Kinshasa time clock */
+    /* Kinshasa time clock — top-right, slotted between the EN/FR pill
+       above and the Refresh button below. Mobile override below keeps
+       right-edge aligned with EN/FR (right: 0.6rem) and tightens the
+       top offset since EN/FR is closer to the top on small screens. */
     .kinshasa-clock {
       position: fixed; top: 5rem; right: 2rem; z-index: 100;
       text-align: right; pointer-events: none;
@@ -193,6 +196,12 @@
         rgba(20,30,25,0.7) 100%
       );
       border-radius: 6px 0 0 6px;
+    }
+    @media (max-width: 640px) {
+      .kinshasa-clock {
+        top: calc(env(safe-area-inset-top, 0px) + 3rem);
+        right: calc(env(safe-area-inset-right, 0px) + 0.6rem);
+      }
     }
     .kinshasa-clock .clock-label {
       font-size: 0.65rem; color: #D9A93D;
@@ -2776,12 +2785,13 @@
     .mobile-refresh-btn {
       display: none;
       position: fixed;
-      /* Same top line as the EN/FR lang-toggle (top:1.5rem), positioned
-         to the LEFT of it. Lang-toggle is ~5rem wide + 1.5rem from
-         right; refresh sits at right:7rem (leaves a 0.5rem visual gap
-         between the two pills). */
-      top: calc(env(safe-area-inset-top, 0px) + 1.5rem);
-      right: calc(env(safe-area-inset-right, 0px) + 7rem + 9px);
+      /* Mobile chrome stack — top-right vertical: EN/FR (~0.6rem top) →
+         Clock (~3.5rem top) → Refresh (~7rem top). All right-aligned
+         so users don't hunt across the screen for related controls.
+         Refresh moved from "left of EN/FR" to "below Clock" 2026-05-26
+         per Eddie's consistency call. */
+      top: calc(env(safe-area-inset-top, 0px) + 7rem);
+      right: calc(env(safe-area-inset-right, 0px) + 0.6rem);
       z-index: 320;        /* above country-panel (290), backdrop (280), corner chip (265), zoom controls (230) */
       width: 48px; height: 48px;
       align-items: center; justify-content: center;
@@ -2877,20 +2887,18 @@
       /* Clock stays visible in immersive views — Eddie likes the
          hover-other-countries-shows-their-time interaction. */
 
-      /* View-toggle on mobile becomes a small floating pill at the
-         bottom-center. The refresh button claims top-right now (gold,
-         prominent — primary action). Bottom-center is the thumb-friendly
-         spot for secondary nav and won't collide with the bottom-right
-         zoom pill or the left-edge flag rail. pointer-events:auto re-
-         enables clicks since the parent .top-bar gets pointer-events:none
-         on immersive views (so the now-zero-height bar doesn't swallow
+      /* View-toggle stays TOP-CENTER on flat-immersive too — matches the
+         3D globe view for a single consistent location. Was bottom-center
+         before 2026-05-26 (Eddie flagged the inconsistency). pointer-events:
+         auto re-enables clicks since the parent .top-bar gets pointer-events:
+         none on immersive views (so the now-zero-height bar doesn't swallow
          taps over the map). */
       body.flat-immersive .view-toggle {
         position: fixed !important;
-        bottom: calc(env(safe-area-inset-bottom, 0px) + 0.6rem);
+        top: calc(env(safe-area-inset-top, 0px) + 0.75rem);
         left: 50%;
         right: auto;
-        top: auto;
+        bottom: auto;
         transform: translateX(-50%);
         z-index: 260;
         background: rgba(20,30,25,0.78);
@@ -3146,16 +3154,14 @@
         top: calc(env(safe-area-inset-top, 0px) + 0.6rem);
         right: calc(env(safe-area-inset-right, 0px) + 0.6rem);
       }
-      body.flat-immersive .lang-toggle.globe-lang,
-      body.drc-immersive  .lang-toggle.globe-lang {
-        top: calc(env(safe-area-inset-top, 0px) + 0.6rem);
-        left: calc(env(safe-area-inset-left, 0px) + 0.6rem);
-        right: auto;
-      }
+      /* EN/FR stays top-right on ALL views (3D globe + 2D flat + DRC detail)
+         so users don't hunt for the language selector — matches main-site
+         pattern. The earlier flat/DRC override that moved it to the left
+         was removed 2026-05-26 per Eddie's consistency call. */
       body.flat-immersive .mobile-corner-chip,
       body.drc-immersive  .mobile-corner-chip {
-        /* Stack under the language toggle (which is at ~0.6rem + ~28px tall) */
-        top: calc(env(safe-area-inset-top, 0px) + 3rem);
+        /* Top-left now, since EN/FR no longer occupies that column. */
+        top: calc(env(safe-area-inset-top, 0px) + 0.6rem);
         left: calc(env(safe-area-inset-left, 0px) + 0.6rem);
       }
 
@@ -5887,7 +5893,7 @@
         'south-kivu':    'South_Kivu',
         'maniema':       'Maniema',
         'kasai-central': 'Kasaï-Central',
-        'haut-katanga':  'Haut-Katanga',
+        'haut-katanga':  'Lubumbashi',     // 'Haut-Katanga' summary returns a 404 thumbnail URL; Lubumbashi (the capital) has a working Cathedral image and matches the body text emphasis
       };
       for (const p of DRC_PROVINCES) if (wikiByProvinceId[p.id]) p.wiki = wikiByProvinceId[p.id];
     }
