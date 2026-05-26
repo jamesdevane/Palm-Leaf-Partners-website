@@ -3178,31 +3178,32 @@
         top: calc(env(safe-area-inset-top, 0px) + 3.5rem);
         left: calc(env(safe-area-inset-left, 0px) + 0.6rem);
         right: auto;
-        bottom: 4.5rem;
+        bottom: auto;
         transform: none;
         flex-direction: column;
-        align-items: flex-start;
-        gap: 0.25rem;
+        align-items: center;
+        gap: 0.3rem;
         max-width: none;
         max-height: calc(100vh - 8rem);
         overflow-y: auto;
         overflow-x: visible;
-        background: linear-gradient(
-          to right,
-          rgba(20,40,30,0.7) 0%,
-          rgba(20,40,30,0.5) 60%,
-          rgba(20,40,30,0) 100%
-        );
-        border: none;
-        border-radius: 0;
-        padding: 0.4rem 0.6rem 0.4rem 0.3rem;
-        box-shadow: none;
+        /* Solid vertical pill (rounded ends) instead of the earlier
+           blur+gradient combo that read awkwardly. Slight transparency
+           so the map texture still shows through; clear border and
+           drop shadow keep it crisp against any background. */
+        background: rgba(20,40,30,0.92);
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        border: 1px solid rgba(184,134,11,0.45);
+        border-radius: 999px;
+        padding: 0.45rem 0.35rem;
+        box-shadow: 0 4px 14px rgba(0,0,0,0.5);
         scrollbar-width: none;
       }
       body.drc-immersive .drc-layer-toggles::-webkit-scrollbar { display: none; }
       body.drc-immersive .drc-layer-btn {
-        background: rgba(20,40,30,0.85);
-        border: 1px solid rgba(184,134,11,0.35);
+        background: transparent;
+        border: none;
         border-radius: 999px;
         padding: 0.4rem 0.45rem;
         min-width: 32px;
@@ -3211,7 +3212,7 @@
       }
       body.drc-immersive .drc-layer-btn[aria-pressed="true"] {
         background: #B8860B;
-        border-color: #F5F0E8;
+        color: #1B4332;
       }
       /* Icon-only visually on the rail. Labels are kept in the
          accessibility tree via the sr-only pattern (not display:none)
