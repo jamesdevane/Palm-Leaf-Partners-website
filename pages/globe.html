@@ -3165,10 +3165,67 @@
         left: calc(env(safe-area-inset-left, 0px) + 0.6rem);
       }
 
-      /* DRC detail view also goes full-bleed on mobile (already does,
-         but ensure the layer-toggle bar doesn't overlap the corner
-         chip — push it down a hair on mobile). */
-      body.drc-immersive .drc-layer-toggles { top: 0.6rem; }
+      /* DRC layer-toggles become a VERTICAL LEFT RAIL on mobile — same
+         pattern as the country flag rail on the 2D map view. Was a
+         horizontal top-center bar, but the right edge kept getting
+         covered by the EN/FR pill (top-right) on narrow phones and
+         labels never had room to render. Vertical left edge gives every
+         filter chip a stable visible home, icon-only, large tap target.
+         Top clearance: under mobile-corner-chip (← Back) at 0.6rem.
+         Bottom clearance: above drc-back-btn (Back to World) at 1.5rem.
+         Fix landed 2026-05-26 per Eddie's "match the flag rail" call. */
+      body.drc-immersive .drc-layer-toggles {
+        top: calc(env(safe-area-inset-top, 0px) + 3.5rem);
+        left: calc(env(safe-area-inset-left, 0px) + 0.6rem);
+        right: auto;
+        bottom: 4.5rem;
+        transform: none;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.25rem;
+        max-width: none;
+        max-height: calc(100vh - 8rem);
+        overflow-y: auto;
+        overflow-x: visible;
+        background: linear-gradient(
+          to right,
+          rgba(20,40,30,0.7) 0%,
+          rgba(20,40,30,0.5) 60%,
+          rgba(20,40,30,0) 100%
+        );
+        border: none;
+        border-radius: 0;
+        padding: 0.4rem 0.6rem 0.4rem 0.3rem;
+        box-shadow: none;
+        scrollbar-width: none;
+      }
+      body.drc-immersive .drc-layer-toggles::-webkit-scrollbar { display: none; }
+      body.drc-immersive .drc-layer-btn {
+        background: rgba(20,40,30,0.85);
+        border: 1px solid rgba(184,134,11,0.35);
+        border-radius: 999px;
+        padding: 0.4rem 0.45rem;
+        min-width: 32px;
+        min-height: 32px;
+        justify-content: center;
+      }
+      body.drc-immersive .drc-layer-btn[aria-pressed="true"] {
+        background: #B8860B;
+        border-color: #F5F0E8;
+      }
+      /* Icon-only visually on the rail. Labels are kept in the
+         accessibility tree via the sr-only pattern (not display:none)
+         so screen readers still announce "Wildlife", "Mining", etc. */
+      body.drc-immersive .drc-layer-btn .lt-label {
+        position: absolute;
+        width: 1px; height: 1px;
+        padding: 0; margin: -1px;
+        overflow: hidden;
+        clip: rect(0,0,0,0);
+        white-space: nowrap;
+        border: 0;
+      }
+      body.drc-immersive .drc-layer-btn .lt-icon { font-size: 1.1rem; }
 
       /* Hide the +/-/reset zoom pill on mobile flat-immersive — pinch to
          zoom is the native gesture, the buttons just collide with the new
@@ -4112,8 +4169,11 @@
     function primeSpeechOnce() {
       if (!('speechSynthesis' in window)) return;
       try {
-        const utt = new SpeechSynthesisUtterance('');
-        utt.volume = 0;
+        // volume:0.01 (not 0) — some browsers don't count a fully-silent
+        // utterance as real speech for user-activation purposes, so the
+        // priming has no effect. 0.01 is inaudible but counts as real.
+        const utt = new SpeechSynthesisUtterance(' ');
+        utt.volume = 0.01;
         speechSynthesis.speak(utt);
       } catch {}
     }
@@ -4132,6 +4192,13 @@
           // from silently swapping to a default English engine when they
           // detect English words in the text. We WANT the French engine.
           utt.lang = voice.lang;
+        } else {
+          // No matched voice yet (getVoices() returns [] on first page-load
+          // on mobile until onvoiceschanged fires). Without an explicit lang,
+          // some Android Chrome versions refuse to speak the utterance. Set
+          // it from the page language so the browser default voice picks
+          // the right engine.
+          utt.lang = ((window.I18N && window.I18N.currentLang) === 'fr') ? 'fr-FR' : 'en-US';
         }
         utt.rate = 0.97;
         utt.pitch = 1.02;
@@ -5993,19 +6060,22 @@
         // Re-position again after Zola's walk animation finishes (1500ms)
         // so the bubble travels with her without overshooting.
         setTimeout(positionBubble, 1550);
-        // Voice narration arrives right after the chime (matches Zola
-        // "speaking" the entry as she points at the location).
-        setTimeout(() => {
-          const name = localized(item, 'name');
-          const sub = localized(item, 'sub');
-          const body = localized(item, 'body');
-          const fact = localized(item, 'fact');
-          const parts = [name];
-          if (sub) parts.push('. ' + sub);
-          if (body) parts.push('. ' + body);
-          if (fact) parts.push(didYouKnowPrefix() + fact);
-          speakZola(parts.join(''));
-        }, 1500);
+        // Voice narration MUST fire synchronously inside the user gesture
+        // or iOS Safari (17+) silently drops the speak() call. The
+        // setTimeout(1500ms) approach worked on older iOS but breaks
+        // under the tightened speech-synthesis activation policy in
+        // newer Safari/Chrome mobile. Pattern: build the text now, speak
+        // now — design timing (the chime, Zola's walk) still plays in
+        // parallel. Fix landed 2026-05-26.
+        const name = localized(item, 'name');
+        const sub = localized(item, 'sub');
+        const body = localized(item, 'body');
+        const fact = localized(item, 'fact');
+        const parts = [name];
+        if (sub) parts.push('. ' + sub);
+        if (body) parts.push('. ' + body);
+        if (fact) parts.push(didYouKnowPrefix() + fact);
+        speakZola(parts.join(''));
       }
 
       // Make openInfo accessible to the province deep-dive code below so
@@ -6519,17 +6589,18 @@
         provinceBubble.setAttribute('aria-hidden', 'false');
         requestAnimationFrame(positionProvinceBubble);
         setTimeout(positionProvinceBubble, 1550);
-        setTimeout(() => {
-          const name = localized(item, 'name');
-          const sub = localized(item, 'sub');
-          const body = localized(item, 'body');
-          const fact = localized(item, 'fact');
-          const parts = [name];
-          if (sub) parts.push('. ' + sub);
-          if (body) parts.push('. ' + body);
-          if (fact) parts.push(didYouKnowPrefix() + fact);
-          speakZola(parts.join(''));
-        }, 1500);
+        // Synchronous speak() inside the user gesture — iOS Safari 17+
+        // drops speak() called from setTimeout. Same fix as openInfo()
+        // above. Fix landed 2026-05-26.
+        const name = localized(item, 'name');
+        const sub = localized(item, 'sub');
+        const body = localized(item, 'body');
+        const fact = localized(item, 'fact');
+        const parts = [name];
+        if (sub) parts.push('. ' + sub);
+        if (body) parts.push('. ' + body);
+        if (fact) parts.push(didYouKnowPrefix() + fact);
+        speakZola(parts.join(''));
       }
 
       for (const h of provinceData.hotspots) {
