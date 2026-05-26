@@ -4181,30 +4181,67 @@
     document.addEventListener('pointerdown', primeSpeechOnce, { once: true, capture: true });
     document.addEventListener('touchstart', primeSpeechOnce, { once: true, capture: true });
     document.addEventListener('click', primeSpeechOnce, { once: true, capture: true });
+    // Split long text into chunks small enough to survive Chrome Android's
+    // ~200-character per-utterance limit (longer utterances are silently
+    // queued but never spoken). Splits at sentence boundaries first; falls
+    // back to hard-splitting at word boundaries for single sentences over
+    // the limit. iPad/desktop don't need this but pay no cost — the
+    // browser still queues sequentially.
+    function _splitForTts(text, maxLen) {
+      const sentences = text.split(/(?<=[.!?])\s+/);
+      const out = [];
+      let cur = '';
+      for (const s of sentences) {
+        const next = cur ? cur + ' ' + s : s;
+        if (next.length <= maxLen) {
+          cur = next;
+          continue;
+        }
+        if (cur) out.push(cur);
+        if (s.length <= maxLen) { cur = s; continue; }
+        // Sentence itself too long — hard-split at word boundaries.
+        let rest = s;
+        while (rest.length > maxLen) {
+          let cut = rest.lastIndexOf(' ', maxLen);
+          if (cut < maxLen / 2) cut = maxLen;
+          out.push(rest.slice(0, cut).trim());
+          rest = rest.slice(cut).trim();
+        }
+        cur = rest;
+      }
+      if (cur) out.push(cur);
+      return out;
+    }
+
     function speakZola(text) {
       if (window.__plpMuted || !('speechSynthesis' in window) || !text) return;
       try {
-        speechSynthesis.cancel(); // stop any previous utterance
-        const utt = new SpeechSynthesisUtterance(text);
-        const voice = pickTtsVoice();
-        if (voice) {
-          utt.voice = voice;
-          // Setting utt.lang to the voice's own locale keeps some browsers
-          // from silently swapping to a default English engine when they
-          // detect English words in the text. We WANT the French engine.
-          utt.lang = voice.lang;
-        } else {
-          // No matched voice yet (getVoices() returns [] on first page-load
-          // on mobile until onvoiceschanged fires). Without an explicit lang,
-          // some Android Chrome versions refuse to speak the utterance. Set
-          // it from the page language so the browser default voice picks
-          // the right engine.
-          utt.lang = ((window.I18N && window.I18N.currentLang) === 'fr') ? 'fr-FR' : 'en-US';
+        // Some mobile browsers (notably Chrome Android, some iOS versions)
+        // can land in a paused state — speak() queues the utterance but
+        // it never plays until resume() is called.
+        if (speechSynthesis.paused) speechSynthesis.resume();
+
+        // Only cancel if there's something to cancel — unconditional
+        // cancel() races with subsequent speak() on Android Chrome.
+        if (speechSynthesis.speaking || speechSynthesis.pending) {
+          speechSynthesis.cancel();
         }
-        utt.rate = 0.97;
-        utt.pitch = 1.02;
-        utt.volume = 0.85;
-        speechSynthesis.speak(utt);
+
+        const voice = pickTtsVoice();
+        const lang = voice ? voice.lang :
+          ((window.I18N && window.I18N.currentLang) === 'fr' ? 'fr-FR' : 'en-US');
+
+        // Chunk + queue. Chrome Android drops anything over ~200 chars.
+        const chunks = _splitForTts(text, 180);
+        for (const chunk of chunks) {
+          const utt = new SpeechSynthesisUtterance(chunk);
+          if (voice) utt.voice = voice;
+          utt.lang = lang;
+          utt.rate = 0.97;
+          utt.pitch = 1.02;
+          utt.volume = 1;
+          speechSynthesis.speak(utt);
+        }
       } catch {}
     }
 
