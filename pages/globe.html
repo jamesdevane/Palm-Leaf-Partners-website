@@ -1225,7 +1225,7 @@
        scale-pulse so the eye is drawn to her. */
     .flat-zola {
       position: absolute;
-      width: 110px;
+      width: 165px;
       height: auto;
       transform: translate(-50%, -100%) scale(1);
       pointer-events: auto;
@@ -1269,7 +1269,7 @@
          Bumped 60→76 so her display height (~98px) aligns with the
          other women (Mama Mabele ~102, Loredana ~90) per the 5-foot-something
          canon — see memory: palmleaf-founder-heights. */
-      width: 56px;
+      width: 100px;
       height: auto;
       transform: translate(-50%, -100%) scale(1);
       pointer-events: auto;
@@ -1304,14 +1304,14 @@
       }
     }
     @media (max-width: 640px) {
-      .flat-melissa { width: 38px; }
+      .flat-melissa { width: 64px; }
     }
 
     /* Eddie — The Cartographer. PLP-side human, not Palm Folk. Subtle
        sapling roots at feet, earth-tone halo distinct from the women's. */
     .flat-eddie {
       position: absolute;
-      width: 95px;
+      width: 80px;
       height: auto;
       transform: translate(-50%, -100%) scale(1);
       pointer-events: auto;
@@ -1346,7 +1346,7 @@
       }
     }
     @media (max-width: 640px) {
-      .flat-eddie { width: 64px; }
+      .flat-eddie { width: 52px; }
     }
 
     /* Nick — The Grid-Builder. Power-domain Founder, real person
@@ -1354,7 +1354,7 @@
        Electric-blue drop-shadow accent ties to his Grid Command power. */
     .flat-nick {
       position: absolute;
-      width: 75px;
+      width: 70px;
       height: auto;
       transform: translate(-50%, -100%) scale(1);
       pointer-events: auto;
@@ -1389,7 +1389,7 @@
       }
     }
     @media (max-width: 768px) {
-      .flat-nick { width: 50px; }
+      .flat-nick { width: 45px; }
     }
 
     /* Dr. Elie — The Operator-Diplomat. Operations-domain Founder,
@@ -1448,8 +1448,10 @@
     .flat-mascot-card {
       position: absolute;
       /* left + top set inline matching the mascot — card hovers ABOVE
-         the mascot's head using the negative-Y transform. */
-      transform: translate(-50%, calc(-100% - 80px));
+         the mascot's head using the negative-Y transform. Per-mascot
+         offsets in the .flat-*-card rules below since sprite heights
+         vary (flat-zola is tallest at ~207px). */
+      transform: translate(-50%, calc(-100% - 200px));
       width: 320px;
       background:
         linear-gradient(180deg, rgba(28,38,33,0.97) 0%, rgba(18,26,22,0.97) 100%);
@@ -1624,7 +1626,7 @@
        in the outer ring to keep her UPTW brand color. */
     .flat-loredana {
       position: absolute;
-      width: 58px;
+      width: 70px;
       height: auto;
       transform: translate(-50%, -100%) scale(1);
       pointer-events: auto;
@@ -1659,7 +1661,7 @@
       }
     }
     @media (max-width: 640px) {
-      .flat-zola { width: 75px; } .flat-loredana { width: 40px; }
+      .flat-zola { width: 110px; } .flat-loredana { width: 45px; }
       /* Mobile sizes bumped to match the desktop label readability
          pass — the smaller phone screen still needs comfortable
          label sizes since most visitors are on cell. */
@@ -3351,9 +3353,9 @@
              — the redundant pulsing pin + DRC label that would have
              landed over Kenya (the illustrated map isn't equirectangular)
              have been removed. -->
-        <img class="flat-zola" id="flat-zola" src="../assets/images/mama-mabele-and-zola-combined-canonical-2026-05-27.png?v=globe-update-639154992015973271" alt="Mama Mabele — Palm Leaf Partners mascot" style="left:48%; top:64%;" draggable="false" />
-        <img class="flat-elie" id="flat-elie" src="../assets/images/elie-doctor-diplomat-sprite-canonical-2026-05-27.png?v=globe-update-639154992015973271" alt="Dr. Elie Tiabakueno Sangu — The Operator-Diplomat (UPTW Founder)" style="left:54%; top:64%;" draggable="false" />
-        <div class="flat-mascot-card flat-zola-card" aria-hidden="true" style="left:48%; top:64%;">
+        <img class="flat-zola" id="flat-zola" src="../assets/images/mama-mabele-and-zola-combined-canonical-2026-05-27.png?v=globe-update-639154992015973271" alt="Mama Mabele — Palm Leaf Partners mascot" style="left:46%; top:64%;" draggable="false" />
+        <img class="flat-elie" id="flat-elie" src="../assets/images/elie-doctor-diplomat-sprite-canonical-2026-05-27.png?v=globe-update-639154992015973271" alt="Dr. Elie Tiabakueno Sangu — The Operator-Diplomat (UPTW Founder)" style="left:55%; top:64%;" draggable="false" />
+        <div class="flat-mascot-card flat-zola-card" aria-hidden="true" style="left:46%; top:64%;">
           <div class="mc-header">
             <div class="mc-name">Mama Mabele</div>
             <div class="mc-title">Princess of the Forest</div>
@@ -3454,7 +3456,7 @@
             <li><span class="mc-icon">🌍</span> <strong>Sovereign Grid</strong> — anti-Crown-of-Coin</li>
           </ul>
         </div>
-        <div class="flat-mascot-card flat-elie-card" aria-hidden="true" style="left:54%; top:64%;">
+        <div class="flat-mascot-card flat-elie-card" aria-hidden="true" style="left:55%; top:64%;">
           <div class="mc-header">
             <div class="mc-name">Dr. Elie</div>
             <div class="mc-title">The Operator-Diplomat · UPTW Founder</div>
@@ -7630,8 +7632,8 @@
     // DRC also gets a "DRC" label below the pin so it reads like the others.
     const PINS = [
       // ── PLP active ─────────────────────────────────────────────
-      { lat: -4,  lon: 22,  label: 'Democratic Republic of Congo', label_fr: 'République Démocratique du Congo', shortLabel: 'DRC', sub: 'Palm Leaf Partners · Active', sub_fr: 'Palm Leaf Partners · Actif', mascotName: 'Mama Mabele', tagline: 'Building Systems. Growing Futures.', tagline_fr: 'Construire des Systèmes. Cultiver l\'Avenir.', timezone: 'Africa/Kinshasa', clockLabel: 'Kinshasa, DRC', clockLabel_fr: 'Kinshasa, RDC', color: 0xB8860B, sprite: '../assets/images/zola-sprite-canonical-2026-05-27.png?v=globe-update-pin-639154992422911798', active: true },
-      { lat: -4,  lon: 28,  label: 'DRC (Operator-Diplomat)', label_fr: 'RDC (Opérateur-Diplomate)', shortLabel: 'DRC', sub: 'UPTW · The Operator-Diplomat', sub_fr: 'UPTW · L\'Opérateur-Diplomate', mascotName: 'Dr. Elie', tooltipTitle: 'Dr. Elie · The Operator-Diplomat', tooltipTitle_fr: 'Dr. Elie · L\'Opérateur-Diplomate', tagline: 'Makes things happen on the ground', tagline_fr: 'Fait avancer les choses sur le terrain', timezone: 'Africa/Kinshasa', clockLabel: 'Kinshasa, DRC', clockLabel_fr: 'Kinshasa, RDC', color: 0xDC2626, sprite: '../assets/images/elie-doctor-diplomat-sprite-canonical-2026-05-27.png?v=globe-update-639154992015973271', active: true },
+      { lat: -4,  lon: 18,  label: 'Democratic Republic of Congo', label_fr: 'République Démocratique du Congo', shortLabel: 'DRC', sub: 'Palm Leaf Partners · Active', sub_fr: 'Palm Leaf Partners · Actif', mascotName: 'Mama Mabele', tagline: 'Building Systems. Growing Futures.', tagline_fr: 'Construire des Systèmes. Cultiver l\'Avenir.', timezone: 'Africa/Kinshasa', clockLabel: 'Kinshasa, DRC', clockLabel_fr: 'Kinshasa, RDC', color: 0xB8860B, sprite: '../assets/images/zola-sprite-canonical-2026-05-27.png?v=globe-update-pin-639154992422911798', active: true },
+      { lat: -4,  lon: 32,  label: 'DRC (Operator-Diplomat)', label_fr: 'RDC (Opérateur-Diplomate)', shortLabel: 'DRC', sub: 'UPTW · The Operator-Diplomat', sub_fr: 'UPTW · L\'Opérateur-Diplomate', mascotName: 'Dr. Elie', tooltipTitle: 'Dr. Elie · The Operator-Diplomat', tooltipTitle_fr: 'Dr. Elie · L\'Opérateur-Diplomate', tagline: 'Makes things happen on the ground', tagline_fr: 'Fait avancer les choses sur le terrain', timezone: 'Africa/Kinshasa', clockLabel: 'Kinshasa, DRC', clockLabel_fr: 'Kinshasa, RDC', color: 0xDC2626, sprite: '../assets/images/elie-doctor-diplomat-sprite-canonical-2026-05-27.png?v=globe-update-639154992015973271', active: true },
 
       // ── PLP Coming Soon markets ────────────────────────────────
       { lat:  9,  lon:  8,  label: 'Nigeria',       label_fr: 'Nigéria',       sub: 'Coming Soon', sub_fr: 'Bientôt', timezone: 'Africa/Lagos',         clockLabel: 'Lagos, Nigeria',         clockLabel_fr: 'Lagos, Nigéria',         color: 0x40916C, sprite: null, active: false },
