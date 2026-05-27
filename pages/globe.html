@@ -1446,13 +1446,19 @@
        devices we skip the hover-reveal — country panel slide-up shows
        the same info on tap. */
     .flat-mascot-card {
-      position: absolute;
-      /* left + top set inline matching the mascot — card hovers ABOVE
-         the mascot's head using the negative-Y transform. Per-mascot
-         offsets in the .flat-*-card rules below since sprite heights
-         vary (flat-zola is tallest at ~207px). */
-      transform: translate(-50%, calc(-100% - 200px));
-      width: 320px;
+      /* Was absolute — switched to fixed so the card escapes the
+         flat-pannable parent's stacking context (its transform creates
+         a new context that traps z-index). JS positions the card via
+         viewport coords on hover. */
+      position: fixed;
+      /* [2026-05-27] Initial transform removed — JS manages positioning
+         via inline left/top + `transform: none`. Cards live as direct
+         children of <body> so position:fixed anchors to the viewport
+         (not the transformed .flat-pannable ancestor). */
+      transform: none;
+      /* Compact 220px width + tighter typography so the card stays inside
+         the 2D map's bounding box on desktop. Was 320px / 0.74rem. */
+      width: 220px;
       background:
         linear-gradient(180deg, rgba(28,38,33,0.97) 0%, rgba(18,26,22,0.97) 100%);
       border: 1px solid rgba(184,134,11,0.7);
@@ -1460,13 +1466,16 @@
       padding: 0;
       color: #F5F0E8;
       font-family: 'Georgia', serif;
-      font-size: 0.74rem;
-      line-height: 1.5;
+      font-size: 0.66rem;
+      line-height: 1.4;
       pointer-events: none;
       opacity: 0;
       visibility: hidden;
       transition: opacity 220ms ease, transform 220ms cubic-bezier(0.16, 1, 0.3, 1);
-      z-index: 50;
+      /* z-index: 9999 — hover cards must appear ABOVE all other page
+         elements (top nav buttons z-index 100-220, bottom flag strip,
+         modals z-index up to 500). Everything else is below the card. */
+      z-index: 9999;
       box-shadow:
         0 14px 36px rgba(0,0,0,0.7),
         0 0 0 1px rgba(0,0,0,0.5),
@@ -1600,15 +1609,17 @@
       transform: translate(-50%, -100%) scale(2);
       z-index: 50;
     }
-    .flat-zola:hover ~ .flat-zola-card,
-    .flat-loredana:hover ~ .flat-loredana-card,
-    .flat-melissa:hover ~ .flat-melissa-card,
-    .flat-eddie:hover ~ .flat-eddie-card,
-    .flat-nick:hover ~ .flat-nick-card,
-    .flat-elie:hover ~ .flat-elie-card {
+    /* [2026-05-27] Removed the `~` sibling-selector hover rule that
+       toggled card opacity + applied a translate. JS now lifts the cards
+       out of .flat-pannable (which has a transform — and therefore
+       traps `position: fixed` to its own box, NOT the viewport) and
+       moves them to <body>, then drives show/hide + viewport-pinned
+       positioning directly. See fixedRightSideHoverCards() at the
+       bottom of this file. Cards are shown via the `.mc-active` class. */
+    .flat-mascot-card.mc-active {
       opacity: 1;
       visibility: visible;
-      transform: translate(-50%, calc(-100% - 200px));
+      transform: none;
     }
     /* Mobile / touch: rely on country panel tap-to-open for the same
        info — hover is unreliable on touch hardware. */
@@ -3354,7 +3365,7 @@
              landed over Kenya (the illustrated map isn't equirectangular)
              have been removed. -->
         <img class="flat-zola" id="flat-zola" src="../assets/images/mama-mabele-and-zola-combined-canonical-2026-05-27.png?v=globe-update-639154992015973271" alt="Mama Mabele &amp; Zola — Palm Leaf Partners mascots, mother and daughter" style="left:46%; top:64%;" draggable="false" />
-        <img class="flat-elie" id="flat-elie" src="../assets/images/elie-doctor-diplomat-sprite-canonical-2026-05-27.png?v=globe-update-639154992015973271" alt="Dr. Elie Tiabakueno Sangu — The Operator-Diplomat (UPTW Founder)" style="left:55%; top:64%;" draggable="false" />
+        <img class="flat-elie" id="flat-elie" src="../assets/images/elie-doctor-diplomat-sprite-canonical-2026-05-27.png?v=globe-update-639154992015973271" alt="Dr. Elie Tiabakueno Sangu — The Operator-Diplomat (UPTW Founder)" style="left:60%; top:64%;" draggable="false" />
         <div class="flat-mascot-card flat-zola-card" aria-hidden="true" style="left:46%; top:64%;">
           <div class="mc-header">
             <div class="mc-name">Mama Mabele &amp; Zola</div>
@@ -3456,7 +3467,7 @@
             <li><span class="mc-icon">🌍</span> <strong>Sovereign Grid</strong> — anti-Crown-of-Coin</li>
           </ul>
         </div>
-        <div class="flat-mascot-card flat-elie-card" aria-hidden="true" style="left:55%; top:64%;">
+        <div class="flat-mascot-card flat-elie-card" aria-hidden="true" style="left:60%; top:64%;">
           <div class="mc-header">
             <div class="mc-name">Dr. Elie</div>
             <div class="mc-title">The Operator-Diplomat · UPTW Founder</div>
@@ -5109,52 +5120,11 @@
       openCountryPanel('eddie');
     });
 
-    // Mascot hover-card viewport-edge-aware positioning. When a card
-    // would render off-screen (top edge below 0, right edge past viewport
-    // width, or left edge past 0), shift / flip its transform so it
-    // stays fully visible. CSS provides the default above-the-mascot
-    // position; this JS layer adjusts on hover.
-    (function setupMascotHoverPositioning() {
-      const PAD = 12;
-      const setups = [
-        { mascotId: 'flat-zola',     cardSel: '.flat-zola-card' },
-        { mascotId: 'flat-loredana', cardSel: '.flat-loredana-card' },
-        { mascotId: 'flat-melissa',  cardSel: '.flat-melissa-card' },
-        { mascotId: 'flat-eddie',    cardSel: '.flat-eddie-card' },
-      ];
-      for (const { mascotId, cardSel } of setups) {
-        const mascot = document.getElementById(mascotId);
-        const card = document.querySelector(cardSel);
-        if (!mascot || !card) continue;
-
-        mascot.addEventListener('mouseenter', () => {
-          card.style.transform = '';
-          card.classList.remove('mc-flipped');
-          // measure on next frame so the CSS hover-shown transform applies first
-          requestAnimationFrame(() => {
-            const rect = card.getBoundingClientRect();
-            const vw = window.innerWidth;
-            let dx = 0;
-            if (rect.right > vw - PAD) dx = -(rect.right - (vw - PAD));
-            else if (rect.left < PAD) dx = (PAD - rect.left);
-            // If card goes off the top, flip it BELOW the mascot.
-            const flip = rect.top < PAD;
-            let dy = 0;
-            if (flip) {
-              dy = mascot.getBoundingClientRect().height + rect.height + 90;
-              card.classList.add('mc-flipped');
-            }
-            if (dx !== 0 || flip) {
-              card.style.transform = `translate(calc(-50% + ${dx}px), calc(-100% - 92px + ${dy}px))`;
-            }
-          });
-        });
-        mascot.addEventListener('mouseleave', () => {
-          card.style.transform = '';
-          card.classList.remove('mc-flipped');
-        });
-      }
-    })();
+    // [2026-05-27] Removed the old viewport-edge-aware translate-based
+    // hover-card positioning. It conflicted with the simpler
+    // `fixedRightSideHoverCards` block at the bottom of this file (both
+    // listened on mouseenter and fought for `card.style.transform`).
+    // All hover-card positioning is now handled by that single function.
 
     // ── 2D country-zone hover updates the Kinshasa clock ─────────────
     // On desktop the clock has always switched timezones when the user
@@ -8082,6 +8052,104 @@
     });
 
     console.log('[Mboka edit mode] Drag any mascot. Position will be copied to clipboard on release.');
+  })();
+
+  /* ── Fixed-position hover-cards (2026-05-27, rewritten) ───────────
+     All 6 mascot hover-cards appear in the SAME spot — a dedicated info
+     panel pinned to the right side of the .flat-map area. Single source
+     of truth for show/hide AND positioning (the older
+     `setupMascotHoverPositioning` block has been removed).
+
+     IMPORTANT FIX: .flat-pannable (an ancestor of every mascot + card)
+     has `transform: matrix(1, 0, 0, 1, 0, 0)`. A `transform` on an
+     ancestor turns it into the containing block for ANY descendant with
+     `position: fixed` — so the card's `left/top` resolved to the
+     pannable's box instead of the viewport, shifting it ~24px right and
+     trapping it in a scrolled context. The fix: move every card to be a
+     direct child of <body> on init, so `position: fixed` truly means
+     fixed-to-viewport. We also drop the CSS `:hover ~ .card` selector
+     (impossible to use once cards are moved away from their mascot
+     sibling) and manage open/close via a `.mc-active` class. */
+  (function fixedRightSideHoverCards() {
+    const MASCOT_KEYS = ['zola', 'loredana', 'melissa', 'eddie', 'nick', 'elie'];
+
+    // Move each card to <body> so position:fixed escapes .flat-pannable's
+    // transform containing-block trap. Cache the (mascot, card) pairs.
+    const pairs = [];
+    MASCOT_KEYS.forEach(key => {
+      const mascot = document.querySelector('.flat-' + key);
+      const card = document.querySelector('.flat-' + key + '-card');
+      if (!mascot || !card) return;
+      // Clear the inline left/top from HTML (those were `46%` / `64%`
+      // tuned for the old absolute-positioned card-as-sibling layout
+      // and would conflict with the JS pixel positioning).
+      card.style.left = '';
+      card.style.top = '';
+      card.style.right = '';
+      card.style.transform = '';
+      document.body.appendChild(card);
+      pairs.push({ mascot, card, key });
+    });
+
+    function positionCard(card) {
+      // Pin card to the right side of the visible .flat-map. Falls back
+      // to viewport if the map isn't available for any reason.
+      const map = document.querySelector('.flat-map');
+      const mapRect = map
+        ? map.getBoundingClientRect()
+        : { left: 0, top: 0, right: window.innerWidth, bottom: window.innerHeight };
+
+      const cardW = card.offsetWidth || 220;
+      const cardH = card.offsetHeight || 400;
+      const gap = 16;
+
+      // Position at ~30% from map's left edge — slid leftward from the
+      // original right-pinned spot but NOT glued to the left edge.
+      let left = mapRect.left + (mapRect.width * 0.30);
+      let top = mapRect.top + gap;
+
+      // Vertical safety: if card would clip below the map, anchor to
+      // bottom-of-map instead of top-of-map.
+      const mapBottom = mapRect.bottom;
+      if (top + cardH > mapBottom - gap) {
+        top = Math.max(gap, mapBottom - cardH - gap);
+      }
+      // Final viewport clamp (should rarely trigger given map is most
+      // of the viewport on desktop).
+      const vw = window.innerWidth;
+      const vh = window.innerHeight;
+      if (left + cardW > vw - gap) left = vw - cardW - gap;
+      if (left < gap) left = gap;
+      if (top + cardH > vh - gap) top = vh - cardH - gap;
+      if (top < gap) top = gap;
+
+      card.style.left = left + 'px';
+      card.style.top = top + 'px';
+      card.style.right = 'auto';
+      card.style.transform = 'none';
+    }
+
+    pairs.forEach(({ mascot, card }) => {
+      mascot.addEventListener('mouseenter', () => {
+        // Show first so offsetWidth/offsetHeight are accurate, then
+        // position. (When visibility:hidden, offset dims still resolve,
+        // but height can be 0 for fresh nodes — show first is safer.)
+        card.classList.add('mc-active');
+        // Defer one frame so layout settles after class flip.
+        requestAnimationFrame(() => positionCard(card));
+      });
+      mascot.addEventListener('mouseleave', () => {
+        card.classList.remove('mc-active');
+      });
+    });
+
+    // Reposition the currently-visible card if the user resizes the
+    // window (the map's right edge shifts with viewport changes).
+    window.addEventListener('resize', () => {
+      pairs.forEach(({ card }) => {
+        if (card.classList.contains('mc-active')) positionCard(card);
+      });
+    });
   })();
   </script>
 </body>
