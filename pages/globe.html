@@ -1217,7 +1217,7 @@
       font-size: 0.85rem;
       letter-spacing: 0.1em;
     }
-    /* Zola visibility treatment — the gold DRC zone she stands on used
+    /* Mama Mabele visibility treatment — the gold DRC zone she stands on used
        to camouflage her gold halo (same color = no contrast). The fix
        is a game-character silhouette stack: a bright white inner edge
        crispens her outline against any background, then a deep forest
@@ -1261,13 +1261,13 @@
     }
     /* Melissa — Justiciar. Sister character to Loredana, paired on
        the USA west coast. Navy + gold colorway distinguishes her from
-       Loredana's angelic white and Zola's forest green. */
+       Loredana's angelic white and Mama Mabele's forest green. */
     .flat-melissa {
       position: absolute;
       /* Paladin redesign 2026-05-25 changed her aspect ratio to 0.773
          (wider bounding box from trunk+root base + folded wings).
          Bumped 60→76 so her display height (~98px) aligns with the
-         other women (Zola ~102, Loredana ~90) per the 5-foot-something
+         other women (Mama Mabele ~102, Loredana ~90) per the 5-foot-something
          canon — see memory: palmleaf-founder-heights. */
       width: 76px;
       height: auto;
@@ -1393,11 +1393,11 @@
     }
 
     /* Dr. Elie — The Operator-Diplomat. Operations-domain Founder,
-       UPTW founder (Elie Tiabakueno Sangu). Sits to the right of Zola
-       on the DRC. Slightly smaller width than Zola so she retains the
+       UPTW founder (Elie Tiabakueno Sangu). Sits to the right of Mama Mabele
+       on the DRC. Slightly smaller width than Mama Mabele so she retains the
        visual primacy as the mythic figure of her own region — even
        though Dr. Elie is real-life slightly taller (~5'7-5'8" vs
-       Zola's ~5'5"), her narrative weight on her own land wins here. */
+       Mama Mabele's ~5'5"), her narrative weight on her own land wins here. */
     .flat-elie {
       position: absolute;
       width: 48px;
@@ -1614,11 +1614,11 @@
       .flat-mascot-card { display: none; }
     }
 
-    /* Loredana — Global Mother on USA. Same size as Zola so the two
+    /* Loredana — Global Mother on USA. Same size as Mama Mabele so the two
        chapter mascots read as equal pillars of UPTW. Rose-gold halo
-       to match UPTW's brand color, paired with Zola's gold so the
+       to match UPTW's brand color, paired with Mama Mabele's gold so the
        two figures read as a coherent set. */
-    /* Loredana — same silhouette treatment as Zola so she reads as her
+    /* Loredana — same silhouette treatment as Mama Mabele so she reads as her
        paired pillar. White edge + dark halo for contrast against the
        light-tan painted USA terrain, with a hint of rose-gold preserved
        in the outer ring to keep her UPTW brand color. */
@@ -1717,7 +1717,7 @@
        DRC view) have pointer-events: auto, which OVERRIDES the parent's
        pointer-events: none when the view is hidden. That meant taps on
        the 2D world map were silently hitting invisible DRC hotspots at
-       the same screen coordinates — triggering Zola walks and speech
+       the same screen coordinates — triggering Mama Mabele walks and speech
        for items the user never saw. Force ALL descendants to none when
        the DRC view doesn't have .visible so taps pass through to the
        layer below as intended. */
@@ -1804,7 +1804,7 @@
       pointer-events: none; /* container is non-blocking; children re-enable */
     }
 
-    /* Zola's journey trail — SVG layer over the map. Lines drawn here
+    /* Mama Mabele's journey trail — SVG layer over the map. Lines drawn here
        fade out gradually so the user sees recent travel without clutter. */
     .drc-trail {
       position: absolute; inset: 0;
@@ -1828,7 +1828,7 @@
       100% { opacity: 0; stroke-dashoffset: -6; }
     }
 
-    /* Zola walking guide — small sprite that animates between hotspots. */
+    /* Mama Mabele walking guide — small sprite that animates between hotspots. */
     .drc-zola {
       position: absolute;
       width: 64px;
@@ -2008,8 +2008,8 @@
     }
 
     /* ── Speech bubble (replaces the right-side info panel) ─────────
-       Floats next to Zola on the illustrated map. Position is set in
-       JS based on Zola's location — bubble always flips to the side
+       Floats next to Mama Mabele on the illustrated map. Position is set in
+       JS based on Mama Mabele's location — bubble always flips to the side
        with more room. Carries the full educational content; internal
        scroll handles long bodies. */
     .drc-bubble {
@@ -2041,7 +2041,7 @@
       pointer-events: auto;
       transform: scale(1);
     }
-    /* Tail — small triangular flourish pointing at Zola. The .side-left
+    /* Tail — small triangular flourish pointing at Mama Mabele. The .side-left
        / .side-right modifier classes set which edge it sticks out from. */
     .drc-bubble::after {
       content: '';
@@ -2053,7 +2053,7 @@
       box-sizing: border-box;
     }
     .drc-bubble.side-right::after {
-      /* Bubble is to the right of Zola — tail points LEFT */
+      /* Bubble is to the right of Mama Mabele — tail points LEFT */
       left: -10px;
       top: 50%;
       margin-top: -9px;
@@ -2061,7 +2061,7 @@
       border-top: none;
     }
     .drc-bubble.side-left::after {
-      /* Bubble is to the left of Zola — tail points RIGHT */
+      /* Bubble is to the left of Mama Mabele — tail points RIGHT */
       right: -10px;
       top: 50%;
       margin-top: -9px;
@@ -2069,7 +2069,7 @@
       border-bottom: none;
     }
     .drc-bubble.side-below::after {
-      /* Bubble is below Zola — tail points UP */
+      /* Bubble is below Mama Mabele — tail points UP */
       left: 50%;
       margin-left: -9px;
       top: -10px;
@@ -2246,7 +2246,7 @@
 
     /* ── Layer overlays (Mining first) ─────────────────────────────
        Each layer is its own SVG/div sitting between the base map and
-       Zola/badges. Hidden by default; .visible class lights it up. */
+       Mama Mabele/badges. Hidden by default; .visible class lights it up. */
     .drc-layer {
       position: absolute; inset: 0;
       width: 100%; height: 100%;
@@ -2562,7 +2562,7 @@
          the EN/FR language toggle. The "Back to World" button used to
          live in the top-left and pushed this bar to a 2nd row; we moved
          the back button to bottom-left so the top is free. Result: more
-         vertical breathing room above Zola, who was being covered on
+         vertical breathing room above Mama Mabele, who was being covered on
          laptop screens. */
       top: 1.5rem;
       left: 50%;
@@ -2618,7 +2618,7 @@
 
     /* "Back to World" pill — bottom-left of detail view. Was top-left,
        moved here so the layer-toggle bar can take the top row level with
-       EN/FR and free up the area above Zola on laptop screens. Bottom-
+       EN/FR and free up the area above Mama Mabele on laptop screens. Bottom-
        right is occupied by the zoom controls, so left side is clear. */
     .drc-back-btn {
       position: absolute;
@@ -3002,7 +3002,7 @@
          by tapping shapes on the map. Country zones / labels / pins /
          flags are disabled — they cover most of the viewport at default
          zoom and were blocking drag initiation. Mascots STAY clickable
-         (Eddie wants tappable Zola + Loredana); drag from over them
+         (Eddie wants tappable Mama Mabele + Loredana); drag from over them
          simply starts a click instead — user has plenty of map area
          around them to start a drag from. */
       body.flat-immersive .flat-country-zone,
@@ -3290,7 +3290,7 @@
 
     <!-- View toggle: switch between the 3D globe and the flat world map.
          The flat map uses the same active-DRC pin / coming-soon green pins,
-         and Zola stands on the DRC there too. -->
+         and Mama Mabele stands on the DRC there too. -->
     <div class="view-toggle" id="view-toggle" role="group" aria-label="View mode">
       <button type="button" data-view="globe" aria-pressed="false">
         <span class="vt-icon" aria-hidden="true">🌍</span><span class="vt-label">Globe</span>
@@ -3347,18 +3347,18 @@
         <div class="flat-country-zone tier-active" data-country="drc"        style="left:51%; top:65%;  width:8%;  height:13%;" title="DRC · Active"></div>
 
 
-        <!-- DRC is shown visually by Zola standing on the gold DRC zone
+        <!-- DRC is shown visually by Mama Mabele standing on the gold DRC zone
              — the redundant pulsing pin + DRC label that would have
              landed over Kenya (the illustrated map isn't equirectangular)
              have been removed. -->
-        <img class="flat-zola" id="flat-zola" src="../assets/images/zola-globe-sprite.png" alt="Zola — Palm Leaf Partners mascot" style="left:48%; top:64%;" draggable="false" />
+        <img class="flat-zola" id="flat-zola" src="../assets/images/zola-globe-sprite.png" alt="Mama Mabele — Palm Leaf Partners mascot" style="left:48%; top:64%;" draggable="false" />
         <img class="flat-elie" id="flat-elie" src="../assets/images/elie-doctor-diplomat-sprite.png?v=portrait-confident" alt="Dr. Elie Tiabakueno Sangu — The Operator-Diplomat (UPTW Founder)" style="left:54%; top:64%;" draggable="false" />
         <div class="flat-mascot-card flat-zola-card" aria-hidden="true" style="left:48%; top:64%;">
           <div class="mc-header">
-            <div class="mc-name">Zola</div>
+            <div class="mc-name">Mama Mabele</div>
             <div class="mc-title">Princess of the Forest</div>
           </div>
-          <div class="mc-tagline">"Zola" means <em>love</em>.</div>
+          <div class="mc-tagline">"Mama Mabele" means <em>love</em>.</div>
           <div class="mc-section">Powers</div>
           <ul class="mc-powers">
             <li><span class="mc-icon">🌱</span> <strong>Sprout</strong> — instant crop growth</li>
@@ -3378,7 +3378,7 @@
 
         <!-- Loredana stays on the painted USA — she's the visual
              anchor for the UPTW Global Mother chapter, paired
-             conceptually with Zola standing on the DRC. All other
+             conceptually with Mama Mabele standing on the DRC. All other
              chapter flags moved to the "Our Global Network" strip
              at the bottom of the view so we don't have to chase
              pixel-perfect pin placement on a non-equirectangular
@@ -3578,7 +3578,7 @@
       <div class="country-panel-mascot" id="country-panel-mascot"></div>
       <p class="country-panel-body" id="country-panel-body"></p>
       <!-- Palm-Folk species trait — Rooted Council + Sympathic Bond.
-           Shared by ALL UPTW women (Loredana, Melissa, Zola, Tier-2
+           Shared by ALL UPTW women (Loredana, Melissa, Mama Mabele, Tier-2
            sisters). Renders ABOVE the per-character powers so the
            reader sees what's true of the species before what's
            unique to the individual. Eddie's panel (human) hides this. -->
@@ -3602,10 +3602,10 @@
     </div>
   </aside>
 
-  <!-- DRC Detail View — fades in when the user clicks the DRC pin or Zola
+  <!-- DRC Detail View — fades in when the user clicks the DRC pin or Mama Mabele
        on the flat-view world map. The illustrated DRC base map fills the
        screen; badges + landmarks + provinces are rendered by JS at their
-       habitat / geographic positions. Zola walks between clicked hotspots
+       habitat / geographic positions. Mama Mabele walks between clicked hotspots
        leaving a fading dashed gold trail. -->
   <div class="drc-detail-view" id="drc-detail-view" aria-hidden="true">
     <div class="drc-detail-inner">
@@ -3694,12 +3694,12 @@
         </defs>
       </svg>
 
-      <!-- SVG layer for Zola's journey trail. ViewBox 0..100 lets us draw
+      <!-- SVG layer for Mama Mabele's journey trail. ViewBox 0..100 lets us draw
            in percentage coordinates that match every hotspot's positioning. -->
       <svg class="drc-trail" id="drc-trail" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"></svg>
       <div class="drc-hotspots" id="drc-hotspots"><!-- populated by JS --></div>
-      <!-- Zola — starts at Kinshasa (~12% / 58%), walks to each clicked hotspot. -->
-      <img class="drc-zola" id="drc-zola" src="../assets/images/zola-globe-sprite.png" alt="Zola — your guide" style="left:20%; top:56%;" />
+      <!-- Mama Mabele — starts at Kinshasa (~12% / 58%), walks to each clicked hotspot. -->
+      <img class="drc-zola" id="drc-zola" src="../assets/images/zola-globe-sprite.png" alt="Mama Mabele — your guide" style="left:20%; top:56%;" />
     </div>
 
     <!-- Layer toggle bar — Mining is wired, the others show a "coming
@@ -3734,8 +3734,8 @@
       </button>
     </div>
 
-    <!-- Speech bubble — appears next to Zola when she arrives at a hotspot.
-         Flips to the left/right of Zola based on where she is so the bubble
+    <!-- Speech bubble — appears next to Mama Mabele when she arrives at a hotspot.
+         Flips to the left/right of Mama Mabele based on where she is so the bubble
          never goes off-screen and never crowds the badge cluster. Carries
          the full educational content with internal scroll when needed. -->
     <div class="drc-bubble" id="drc-bubble" aria-hidden="true" role="dialog" aria-labelledby="drc-bubble-title">
@@ -3769,7 +3769,7 @@
   </div>
 
   <!-- Province Detail View — second-level zoom into a specific DRC province.
-       Single reusable element whose content (map image, hotspots, Zola
+       Single reusable element whose content (map image, hotspots, Mama Mabele
        start position) is loaded dynamically per province from
        PROVINCE_DETAILS. Same swish-zoom + sound + bubble + trail system
        as the DRC view, just at the city/province level. -->
@@ -3778,7 +3778,7 @@
       <img class="drc-map" id="province-map" alt="Illustrated map of a DRC province" />
       <svg class="drc-trail" id="province-trail" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"></svg>
       <div class="drc-hotspots" id="province-hotspots"></div>
-      <img class="drc-zola" id="province-zola" src="../assets/images/zola-globe-sprite.png" alt="Zola — your guide" />
+      <img class="drc-zola" id="province-zola" src="../assets/images/zola-globe-sprite.png" alt="Mama Mabele — your guide" />
     </div>
 
     <div class="drc-bubble" id="province-bubble" aria-hidden="true" role="dialog" aria-labelledby="province-bubble-title">
@@ -3831,11 +3831,11 @@
   <div class="globe-council-strip" aria-label="The Council of Sovereignty">
 
     <div class="globe-mascot-wrap">
-      <img class="globe-mascot" src="../assets/images/zola-globe-sprite.png" alt="Zola" />
+      <img class="globe-mascot" src="../assets/images/zola-globe-sprite.png" alt="Mama Mabele" />
       <div class="globe-mascot-card gmc-zola">
-        <div class="mc-name">Zola</div>
+        <div class="mc-name">Mama Mabele</div>
         <div class="mc-title">Princess of the Forest · DRC</div>
-        <div class="mc-tagline">"Zola" means love.</div>
+        <div class="mc-tagline">"Mama Mabele" means love.</div>
         <div class="mc-section">Powers</div>
         <ul class="mc-powers">
           <li><span class="mc-icon">🌱</span> <strong>Sprout</strong> — instant crop growth</li>
@@ -3955,11 +3955,11 @@
   </div>
 
   <div class="zola-tooltip" id="zola-tooltip">
-    <strong>Zola · DRC</strong>
+    <strong>Mama Mabele · DRC</strong>
     Building Systems. Growing Futures.
   </div>
 
-  <!-- Project Panel (slides in when Zola is clicked) -->
+  <!-- Project Panel (slides in when Mama Mabele is clicked) -->
   <div class="project-panel" id="project-panel">
     <button class="panel-close" onclick="document.getElementById('project-panel').classList.remove('open');">&times;</button>
     <div class="panel-header">
@@ -4031,7 +4031,7 @@
     // The Three.js scene keeps running in the background when flat view
     // is active — we simply hide the canvas container with display:none.
     // Cheap, and switching back is instant. Open project panel from the
-    // flat-view Zola/DRC pin reuses the same panel as the 3D Zola click.
+    // flat-view Mama Mabele/DRC pin reuses the same panel as the 3D Mama Mabele click.
     const flatView = document.getElementById('flat-view');
     const canvasContainer = document.getElementById('canvas-container');
     const dragHint = document.querySelector('.drag-hint');
@@ -4121,7 +4121,7 @@
     });
 
     // ── Voice narration (browser SpeechSynthesis) ───────────────────
-    // Zola's voice follows the site language: English visitors hear a
+    // Mama Mabele's voice follows the site language: English visitors hear a
     // natural English voice (Samantha / Aria / Microsoft female English),
     // French visitors hear a native French voice (Amelie / Marie /
     // Microsoft Hortense). The voice cache is keyed on the current
@@ -4161,7 +4161,7 @@
     }
 
     // iOS Safari blocks speechSynthesis.speak() unless it's first called
-    // synchronously from inside a user gesture. Because Zola's narration
+    // synchronously from inside a user gesture. Because Mama Mabele's narration
     // fires from a setTimeout (1500ms after the click chime), iOS sees
     // those calls as autoplay and silently drops them. Workaround: on
     // the very first user interaction with the page, fire one silent
@@ -4412,7 +4412,7 @@
       }
     }
 
-    // ── Zola movement audio (whoosh + arrival chime) ─────────────────
+    // ── Mama Mabele movement audio (whoosh + arrival chime) ─────────────────
     // Soft Web Audio cues that punctuate her walk. Whoosh on start (~80ms
     // peak, ends at 300ms) signals movement; two-note chime (C5 → E5, a
     // gentle major-third) lands on arrival. Both ~30% the volume of the
@@ -4469,8 +4469,8 @@
       } catch {}
     }
 
-    // ── Zola journey trail ──────────────────────────────────────────
-    // When a hotspot is clicked, Zola walks from her current position to
+    // ── Mama Mabele journey trail ──────────────────────────────────────────
+    // When a hotspot is clicked, Mama Mabele walks from her current position to
     // the new one. A dashed gold trail line is drawn between the two
     // positions on the SVG layer and fades out over 5 seconds. Audio
     // cues fire at start (whoosh) and arrival (chime), with cancellation
@@ -4522,9 +4522,9 @@
       drcDetailView.classList.add('visible');
       drcDetailView.setAttribute('aria-hidden', 'false');
       document.body.classList.add('drc-immersive');
-      // Reset Zola to Kinshasa each time the detail view opens, so the
+      // Reset Mama Mabele to Kinshasa each time the detail view opens, so the
       // journey starts from a consistent home position. (20,56) matches
-      // the inline HTML position — was (12,58), which hung Zola off the
+      // the inline HTML position — was (12,58), which hung Mama Mabele off the
       // panhandle into the palm-frame void.
       zolaPos = { x: 20, y: 56 };
       drcZola.style.left = '20%';
@@ -5022,12 +5022,12 @@
       if (window.speechSynthesis) speechSynthesis.cancel();
     });
 
-    // Position the speech bubble relative to Zola. Bubble flips to whichever
+    // Position the speech bubble relative to Mama Mabele. Bubble flips to whichever
     // side has more room, vertically anchored near her shoulder. Numbers
     // here are percent of the detail-inner box so the bubble travels with
-    // Zola when she walks — the CSS `transition: left/top` does the smooth.
+    // Mama Mabele when she walks — the CSS `transition: left/top` does the smooth.
     function positionBubble() {
-      // Use Zola's actual rendered bounding rect (which respects any
+      // Use Mama Mabele's actual rendered bounding rect (which respects any
       // pan/zoom transform on the inner container) so the bubble stays
       // glued to her on-screen position no matter the zoom level.
       const bubbleEl = drcBubble;
@@ -5070,14 +5070,14 @@
       bubbleEl.style.top = topPx + 'px';
     }
 
-    // The redundant DRC pin/label was removed — Zola is the only DRC
+    // The redundant DRC pin/label was removed — Mama Mabele is the only DRC
     // entry point now. Use optional chaining so we don't crash if it
     // (or any other id) is ever missing.
     document.getElementById('flat-pin-drc')?.addEventListener('click', (e) => {
       e.stopPropagation();
       showDrcDetail();
     });
-    // Zola → her OWN character panel (NOT the DRC zoom). Clicking on the
+    // Mama Mabele → her OWN character panel (NOT the DRC zoom). Clicking on the
     // SURROUNDING painted DRC area still zooms into the DRC detail view
     // (handled by the .flat-country-zone[data-country="drc"] listener
     // which calls openCountryPanel('drc') → action:'drc' → showDrcDetail),
@@ -5085,7 +5085,7 @@
     // — same pattern as Loredana, Melissa, Eddie.
     document.getElementById('flat-zola')?.addEventListener('click', (e) => {
       e.stopPropagation();
-      openCountryPanel('zola');
+      openCountryPanel('Mama Mabele');
     });
     // Loredana → USA / UPTW Global Mother country panel.
     document.getElementById('flat-loredana')?.addEventListener('click', (e) => {
@@ -5196,7 +5196,7 @@
     // ── Country detail panel — Tier 1 for every PLP/UPTW chapter ─────
     // Click a country zone (or click Loredana for USA) → slide-in panel
     // Species trait shared by EVERY Palm Folk woman in the universe
-    // (Loredana, Melissa, Zola, and all future Tier-2 sisters). Rendered
+    // (Loredana, Melissa, Mama Mabele, and all future Tier-2 sisters). Rendered
     // ABOVE the per-character Powers block so the reader sees what's
     // true of the species before what's unique to the individual.
     // Eddie (human) does NOT get this — and that is the point. His
@@ -5213,7 +5213,7 @@
     const PALM_FOLK_SPECIES_LABEL_FR = 'Trait d\'espèce · Peuple du Palmier';
 
     // with chapter info + mascot + Wikipedia photo + CTA. DRC and its
-    // Zola pin still bypass into the full DRC detail view (above).
+    // Mama Mabele pin still bypass into the full DRC detail view (above).
     const COUNTRIES = {
       drc: {
         flag: '🇨🇩', tier: 'active',
@@ -5221,7 +5221,7 @@
         badge: 'Active Program', badge_fr: 'Programme actif',
         tagline: 'Palm Leaf Partners · Building Systems. Growing Futures.',
         tagline_fr: 'Palm Leaf Partners · Construire des Systèmes. Cultiver l\'Avenir.',
-        mascotName: 'Zola', mascotImage: '../assets/images/zola-globe-sprite.png',
+        mascotName: 'Mama Mabele', mascotImage: '../assets/images/zola-globe-sprite.png',
         body: "Palm Leaf Partners' foundational program. Building the DRC's national address registry, sovereign data centers, regional call centers, and the fiber backbone that connects every region. A 50-year partnership with the Congolese state, governed under DRC law.",
         body_fr: "Le programme fondateur de Palm Leaf Partners. Construire le registre national des adresses, les centres de données souverains, les centres d'appel régionaux et le réseau fibre qui relie chaque région de la RDC. Un partenariat de 50 ans avec l'État congolais, régi par le droit congolais.",
         wiki: 'Democratic_Republic_of_the_Congo',
@@ -5297,20 +5297,20 @@
         powersLabel: 'Powers & Traits', powersLabel_fr: 'Pouvoirs & Traits',
         cta: 'Meet Loredana →', cta_fr: 'Rencontrez Loredana →',
       },
-      // Zola = the founding mascot of the Palm Leaf Partners universe.
+      // Mama Mabele = the founding mascot of the Palm Leaf Partners universe.
       // The DRC's painted area zooms into the full DRC detail view; THIS
-      // entry is for tapping Zola HERSELF — opens her character panel
+      // entry is for tapping Mama Mabele HERSELF — opens her character panel
       // with bio + powers, mirroring Loredana / Melissa / Eddie.
       zola: {
         flag: '🇨🇩', tier: 'active',
         palmFolk: true,
-        name: 'Zola · Heart of the Forest', name_fr: 'Zola · Cœur de la Forêt',
+        name: 'Mama Mabele · Heart of the Forest', name_fr: 'Mama Mabele · Cœur de la Forêt',
         badge: 'Palm Leaf Partners · DRC', badge_fr: 'Palm Leaf Partners · RDC',
         tagline: 'Walks the rainforest. Listens to villages first, builds second.',
         tagline_fr: "Arpente la forêt tropicale. Écoute les villages d'abord, bâtit ensuite.",
-        mascotName: 'Zola · Heart of the Forest', mascotImage: '../assets/images/zola-globe-sprite.png',
-        body: "Zola is the founding mascot of Palm Leaf Partners — born of the Congolese rainforest and of the communities that live within it. Where Loredana speaks the spirit of UPTW and Melissa speaks its law, Zola speaks the LAND: she carries the wisdom of the village elders, the names of the rivers, the geometry of the canopy. She is the bridge between traditional sovereignty and modern infrastructure. Every project the Council touches in the DRC must first be heard, seen, and blessed by Zola.",
-        body_fr: "Zola est la mascotte fondatrice de Palm Leaf Partners — née de la forêt tropicale congolaise et des communautés qui y vivent. Là où Loredana porte l'esprit de l'UPTW et Melissa en porte la loi, Zola porte la TERRE : elle porte la sagesse des anciens du village, le nom des rivières, la géométrie de la canopée. Elle est le pont entre la souveraineté traditionnelle et l'infrastructure moderne. Tout projet que le Conseil touche en RDC doit d'abord être entendu, vu et béni par Zola.",
+        mascotName: 'Mama Mabele · Heart of the Forest', mascotImage: '../assets/images/zola-globe-sprite.png',
+        body: "Mama Mabele is the founding mascot of Palm Leaf Partners — born of the Congolese rainforest and of the communities that live within it. Where Loredana speaks the spirit of UPTW and Melissa speaks its law, Mama Mabele speaks the LAND: she carries the wisdom of the village elders, the names of the rivers, the geometry of the canopy. She is the bridge between traditional sovereignty and modern infrastructure. Every project the Council touches in the DRC must first be heard, seen, and blessed by Mama Mabele.",
+        body_fr: "Mama Mabele est la mascotte fondatrice de Palm Leaf Partners — née de la forêt tropicale congolaise et des communautés qui y vivent. Là où Loredana porte l'esprit de l'UPTW et Melissa en porte la loi, Mama Mabele porte la TERRE : elle porte la sagesse des anciens du village, le nom des rivières, la géométrie de la canopée. Elle est le pont entre la souveraineté traditionnelle et l'infrastructure moderne. Tout projet que le Conseil touche en RDC doit d'abord être entendu, vu et béni par Mama Mabele.",
         powers: [
           { icon: '🌳', name: 'Canopy Sight',   desc: 'reveal forest paths' },
           { icon: '🗣',  name: 'Elder Voice',    desc: 'unlock village trust' },
@@ -5320,7 +5320,7 @@
           { icon: '🌾', name: "Harvest's Gift", desc: 'boost local yield' },
         ],
         powersLabel: 'Powers & Traits', powersLabel_fr: 'Pouvoirs & Traits',
-        cta: 'Meet Zola →', cta_fr: 'Rencontrez Zola →',
+        cta: 'Meet Mama Mabele →', cta_fr: 'Rencontrez Mama Mabele →',
       },
       // Eddie = The Cartographer (PLP, Human). The world-builder of
       // the universe. Lives on the USA painted area east of Loredana.
@@ -5333,8 +5333,8 @@
         tagline: 'Surveys the world, lays the foundation, traces the future.',
         tagline_fr: "Arpente le monde, pose les fondations, trace l'avenir.",
         mascotName: 'Eddie · The Cartographer', mascotImage: '../assets/images/eddie-cartographer-sprite.png?v=pointing',
-        body: "Eddie is The Cartographer — the world-builder of the Palm Leaf Partners universe. Where the women of UPTW carry the spirit, voice, and wildness, Eddie carries the mind: surveying hidden territory, laying the foundation of new infrastructure, tracing the patterns that connect remote villages into a sovereign network. He wields no innate magic — his powers come from mastered instruments, learned knowledge, and the long discipline of mapping the unknown. He cannot build on land Loredana has not blessed; he cannot lock sovereignty without Melissa's prior treaty. Together with Zola in the forest, the four form the Council that holds humanitarian civilization upright.",
-        body_fr: "Eddie est Le Cartographe — le bâtisseur du monde de l'univers Palm Leaf Partners. Là où les femmes d'UPTW portent l'esprit, la voix et la nature sauvage, Eddie porte l'esprit cartographe : arpenter les territoires cachés, poser les fondations de nouvelles infrastructures, tracer les voies qui relient les villages reculés en un réseau souverain. Il ne possède pas de magie innée — ses pouvoirs viennent d'instruments maîtrisés, d'un savoir appris et de la longue discipline de cartographier l'inconnu. Il ne peut bâtir sur une terre que Loredana n'a pas bénie ; il ne peut garantir la souveraineté sans le traité préalable de Melissa. Avec Zola dans la forêt, les quatre forment le Conseil qui soutient la civilisation humanitaire.",
+        body: "Eddie is The Cartographer — the world-builder of the Palm Leaf Partners universe. Where the women of UPTW carry the spirit, voice, and wildness, Eddie carries the mind: surveying hidden territory, laying the foundation of new infrastructure, tracing the patterns that connect remote villages into a sovereign network. He wields no innate magic — his powers come from mastered instruments, learned knowledge, and the long discipline of mapping the unknown. He cannot build on land Loredana has not blessed; he cannot lock sovereignty without Melissa's prior treaty. Together with Mama Mabele in the forest, the four form the Council that holds humanitarian civilization upright.",
+        body_fr: "Eddie est Le Cartographe — le bâtisseur du monde de l'univers Palm Leaf Partners. Là où les femmes d'UPTW portent l'esprit, la voix et la nature sauvage, Eddie porte l'esprit cartographe : arpenter les territoires cachés, poser les fondations de nouvelles infrastructures, tracer les voies qui relient les villages reculés en un réseau souverain. Il ne possède pas de magie innée — ses pouvoirs viennent d'instruments maîtrisés, d'un savoir appris et de la longue discipline de cartographier l'inconnu. Il ne peut bâtir sur une terre que Loredana n'a pas bénie ; il ne peut garantir la souveraineté sans le traité préalable de Melissa. Avec Mama Mabele dans la forêt, les quatre forment le Conseil qui soutient la civilisation humanitaire.",
         powers: [
           { icon: '🗺', name: 'Survey',       desc: 'reveal hidden region' },
           { icon: '🏗', name: 'Foundation',   desc: 'instant-build infrastructure' },
@@ -5600,7 +5600,7 @@
       }
 
       // Palm Folk species trait — shown for any country entry flagged
-      // `palmFolk: true` (Loredana / Melissa / Zola today, all Tier-2
+      // `palmFolk: true` (Loredana / Melissa / Mama Mabele today, all Tier-2
       // sisters later). Eddie's panel hides it: he is human and uses
       // Signal Tower for the same range that roots provide them.
       const cpSpecies = document.getElementById('country-panel-species');
@@ -6031,7 +6031,7 @@
     // Build the hotspot DOM once, on first DRC view open. Three layers:
     // provinces (italic place names), landmarks (gold pulse pills), and
     // animal/plant badges (spinning medallions). Click handlers also walk
-    // Zola to that hotspot's position with a fading trail.
+    // Mama Mabele to that hotspot's position with a fading trail.
     let drcHotspotsBuilt = false;
     function buildDrcHotspots() {
       if (drcHotspotsBuilt) return;
@@ -6064,7 +6064,7 @@
       });
 
       function openInfo(item, kind) {
-        // Walk Zola to the hotspot location. This is the "narrative" part
+        // Walk Mama Mabele to the hotspot location. This is the "narrative" part
         // of the experience — every click is a journey to that place.
         walkZolaTo(item.x, item.y);
 
@@ -6092,10 +6092,10 @@
         }
         drcBubble.classList.add('open');
         drcBubble.setAttribute('aria-hidden', 'false');
-        // Position the bubble next to Zola. Wait one frame so the bubble
+        // Position the bubble next to Mama Mabele. Wait one frame so the bubble
         // has its real measured size (offsetWidth/Height) for the math.
         requestAnimationFrame(positionBubble);
-        // Re-position again after Zola's walk animation finishes (1500ms)
+        // Re-position again after Mama Mabele's walk animation finishes (1500ms)
         // so the bubble travels with her without overshooting.
         setTimeout(positionBubble, 1550);
         // Voice narration MUST fire synchronously inside the user gesture
@@ -6103,7 +6103,7 @@
         // setTimeout(1500ms) approach worked on older iOS but breaks
         // under the tightened speech-synthesis activation policy in
         // newer Safari/Chrome mobile. Pattern: build the text now, speak
-        // now — design timing (the chime, Zola's walk) still plays in
+        // now — design timing (the chime, Mama Mabele's walk) still plays in
         // parallel. Fix landed 2026-05-26.
         const name = localized(item, 'name');
         const sub = localized(item, 'sub');
@@ -6117,7 +6117,7 @@
       }
 
       // Make openInfo accessible to the province deep-dive code below so
-      // it can reuse the same bubble + Zola walk pipeline.
+      // it can reuse the same bubble + Mama Mabele walk pipeline.
       window.__plpOpenInfo = openInfo;
 
       // ─── Province Deep-Dive (Phase 2) ───────────────────────────
@@ -6720,7 +6720,7 @@
         sub: 'Lubumbashi · Kolwezi · Likasi',
         fill: 'url(#hatch-copper)',
         points: '48,72 75,75 80,80 75,90 55,92 47,84',
-        x: 60, y: 82,  // walk-to point for Zola
+        x: 60, y: 82,  // walk-to point for Mama Mabele
         body: "The southeastern tail of DRC holds some of the world's richest copper and cobalt deposits. The Katanga Copperbelt stretches from Likasi through Kolwezi to the Zambian border — over 100 industrial and artisanal mining operations along a single mineral-rich seam. The DRC produces ~70% of global cobalt and ~5% of global copper. Cobalt is the essential cathode metal in lithium-ion batteries.",
         fact: "If you've ever charged an EV, smartphone, or laptop, the cobalt in that battery very likely came from this 350 km stretch of the Katanga belt.",
       },
@@ -6804,7 +6804,7 @@
         poly.setAttribute('opacity', '0.7');
         poly.style.pointerEvents = 'auto';
         poly.addEventListener('click', () => {
-          // Reuse the DRC bubble + Zola walk system.
+          // Reuse the DRC bubble + Mama Mabele walk system.
           if (window.__plpOpenInfo) {
             window.__plpOpenInfo(r, 'mining-region');
           }
@@ -7082,7 +7082,7 @@
       name_fr: 'Programme National des Bureaux de Poste SCPT',
       sub: '100 modernized offices · address registry hubs',
       sub_fr: '100 bureaux modernisés · pôles du registre d\'adresses',
-      x: 50, y: 50, // ignored — Zola doesn't walk to post offices (too many)
+      x: 50, y: 50, // ignored — Mama Mabele doesn't walk to post offices (too many)
       body: "Palm Leaf Partners is partnering with the Société Congolaise des Postes et Télécommunications (SCPT) to modernize 100 post offices across the DRC. Each becomes a community hub — Starlink internet access, secure address registration, banking and identity services, and government document processing. For most communities, these will be the first reliable points of contact with national systems in over a generation.",
       body_fr: "Palm Leaf Partners s'associe à la Société Congolaise des Postes et Télécommunications (SCPT) pour moderniser 100 bureaux de poste à travers la RDC. Chaque bureau devient un pôle communautaire — accès internet Starlink, enregistrement sécurisé des adresses, services bancaires et d'identité, et traitement des documents gouvernementaux. Pour la plupart des communautés, ce seront les premiers points de contact fiables avec les systèmes nationaux depuis plus d'une génération.",
       fact: "The 100 modernized offices anchor the entire national address mapping program — every Congolese citizen will, for the first time, get a verified street address tied to their local post office.",
@@ -7101,8 +7101,8 @@
         btn.style.top = y + '%';
         btn.title = 'SCPT post office';
         btn.addEventListener('click', () => {
-          // Reuse the SCPT info each click — don't walk Zola to each
-          // individual dot (50+ dots makes Zola's trail too busy).
+          // Reuse the SCPT info each click — don't walk Mama Mabele to each
+          // individual dot (50+ dots makes Mama Mabele's trail too busy).
           window.__plpOpenInfo?.({ ...POST_OFFICE_INFO, x, y }, 'postoffice');
         });
         el.appendChild(btn);
@@ -7375,7 +7375,7 @@
     // can temporarily stop rotation without forgetting the user's pace.
     // The window scope makes it accessible from the OrbitControls setup
     // below (declared later in this same IIFE) and from the hover/click
-    // handlers that need to restore rotation when un-hovering Zola.
+    // handlers that need to restore rotation when un-hovering Mama Mabele.
     window.__plpUserSpeed = 1.2;
     const speedSlider = document.getElementById('speed-slider');
     const speedValueEl = document.getElementById('speed-value');
@@ -7624,13 +7624,13 @@
 
     // ── Pin system ──
     // Three pin types share the globe:
-    //   active  — DRC, gold, large, pulsing, with Zola standing on top
+    //   active  — DRC, gold, large, pulsing, with Mama Mabele standing on top
     //   soon    — PLP "Coming Soon" infrastructure markets, green, medium
     //   ptwo    — Palm Tree Women Organization presence, rose-gold, small
     // DRC also gets a "DRC" label below the pin so it reads like the others.
     const PINS = [
       // ── PLP active ─────────────────────────────────────────────
-      { lat: -4,  lon: 22,  label: 'Democratic Republic of Congo', label_fr: 'République Démocratique du Congo', shortLabel: 'DRC', sub: 'Palm Leaf Partners · Active', sub_fr: 'Palm Leaf Partners · Actif', mascotName: 'Zola', tagline: 'Building Systems. Growing Futures.', tagline_fr: 'Construire des Systèmes. Cultiver l\'Avenir.', timezone: 'Africa/Kinshasa', clockLabel: 'Kinshasa, DRC', clockLabel_fr: 'Kinshasa, RDC', color: 0xB8860B, sprite: '../assets/images/zola-globe-sprite.png', active: true },
+      { lat: -4,  lon: 22,  label: 'Democratic Republic of Congo', label_fr: 'République Démocratique du Congo', shortLabel: 'DRC', sub: 'Palm Leaf Partners · Active', sub_fr: 'Palm Leaf Partners · Actif', mascotName: 'Mama Mabele', tagline: 'Building Systems. Growing Futures.', tagline_fr: 'Construire des Systèmes. Cultiver l\'Avenir.', timezone: 'Africa/Kinshasa', clockLabel: 'Kinshasa, DRC', clockLabel_fr: 'Kinshasa, RDC', color: 0xB8860B, sprite: '../assets/images/zola-globe-sprite.png', active: true },
       { lat: -4,  lon: 28,  label: 'DRC (Operator-Diplomat)', label_fr: 'RDC (Opérateur-Diplomate)', shortLabel: 'DRC', sub: 'UPTW · The Operator-Diplomat', sub_fr: 'UPTW · L\'Opérateur-Diplomate', mascotName: 'Dr. Elie', tooltipTitle: 'Dr. Elie · The Operator-Diplomat', tooltipTitle_fr: 'Dr. Elie · L\'Opérateur-Diplomate', tagline: 'Makes things happen on the ground', tagline_fr: 'Fait avancer les choses sur le terrain', timezone: 'Africa/Kinshasa', clockLabel: 'Kinshasa, DRC', clockLabel_fr: 'Kinshasa, RDC', color: 0xDC2626, sprite: '../assets/images/elie-doctor-diplomat-sprite.png?v=portrait-confident', active: true },
 
       // ── PLP Coming Soon markets ────────────────────────────────
