@@ -3,21 +3,23 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mboka — A Living Regional Sim of the DRC · Palm Leaf Partners</title>
+  <title>Mboka — In-Engine Showcase (Private Preview) · Palm Leaf Partners</title>
   <meta name="description" content="MBOKA — a humanitarian regional sim about the Democratic Republic of the Congo, in pre-production. Grounded in real Palm Leaf Partners infrastructure work, the UPTW women's movement, and 30 years of war and peace. 3+ years from release." />
   <meta name="theme-color" content="#0a0d10" />
-  <link rel="canonical" href="https://palmleafpartners.com/pages/mboka.html" />
-  <link rel="icon" type="image/png" sizes="512x512" href="../assets/images/plp-logo-favicon.png" />
-  <link rel="icon" type="image/png" sizes="32x32" href="../assets/images/favicon-32x32.png" />
-  <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon-32x32.png" />
-  <link rel="apple-touch-icon" sizes="180x180" href="../assets/images/apple-touch-icon.png" />
+  <!-- Private, password-gated preview — keep out of search indexes. -->
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="canonical" href="https://palmleafpartners.com/pages/mboka/" />
+  <link rel="icon" type="image/png" sizes="512x512" href="../../assets/images/plp-logo-favicon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="../../assets/images/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="../../assets/images/favicon-32x32.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="../../assets/images/apple-touch-icon.png" />
 
   <!-- Open Graph -->
   <meta property="og:type" content="article" />
   <meta property="og:site_name" content="Palm Leaf Partners" />
   <meta property="og:title" content="Mboka — A Living Regional Sim of the DRC" />
   <meta property="og:description" content="The story of how a country survived something almost unsurvivable — and how we're helping rebuild it, in real life, and in a game." />
-  <meta property="og:url" content="https://palmleafpartners.com/pages/mboka.html" />
+  <meta property="og:url" content="https://palmleafpartners.com/pages/mboka/" />
   <meta property="og:image" content="https://palmleafpartners.com/assets/images/mboka-title-backdrop.jpg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
@@ -37,7 +39,7 @@
     "name": "Mboka",
     "alternateName": ["Mboka Mobile", "Mboka Academy"],
     "description": "A humanitarian regional simulation of the Democratic Republic of the Congo, in pre-production. Grounded in the real Palm Leaf Partners infrastructure work and the Universal Palm Tree Women movement. Two-product fork — Mboka Mobile (Android F2P, Phaser) + Mboka Academy (Steam premium, Godot 4 + Terrain3D). 3+ years from release.",
-    "url": "https://palmleafpartners.com/pages/mboka.html",
+    "url": "https://palmleafpartners.com/pages/mboka/",
     "image": "https://palmleafpartners.com/assets/images/mboka-title-backdrop.jpg",
     "gamePlatform": ["Android", "Windows", "Steam"],
     "genre": ["Simulation", "Strategy", "Educational"],
@@ -64,9 +66,9 @@
   }
   </script>
 
-  <link rel="stylesheet" href="../css/style.css" />
-  <link rel="stylesheet" href="../css/cinematic.css" />
-  <link rel="stylesheet" href="../css/mobile.css" />
+  <link rel="stylesheet" href="../../css/style.css" />
+  <link rel="stylesheet" href="../../css/cinematic.css" />
+  <link rel="stylesheet" href="../../css/mobile.css" />
 
   <style>
     /* ─── Mboka page overrides — dark elegance + Pixar warmth ─── */
@@ -84,7 +86,7 @@
     }
     .mboka-hero-bg {
       position: absolute; inset: 0;
-      background: url('../assets/images/mboka-title-backdrop.jpg') center/cover no-repeat;
+      background: url('../../assets/images/mboka-title-backdrop.jpg') center/cover no-repeat;
       z-index: -2;
     }
     .mboka-hero-bg::after {
@@ -1057,6 +1059,225 @@
       color: var(--fm-accent, #d4a017);
       margin-bottom: 0.4rem; font-weight: 600;
     }
+
+    /* ════════════════════════════════════════════════════════════
+       STEAM-STYLE SHOWCASE ADDITIONS (2026-06 upgrade)
+       Reuses the existing earth-tone palette + heading fonts. No new
+       design system — the gallery, feature rows, and cast-video tiles
+       all inherit --gold / --green / cream + the same radii & shadows.
+       ════════════════════════════════════════════════════════════ */
+
+    /* ── Hero pitch line (Steam one-liner under the wordmark stack) ── */
+    .mboka-pitch-line {
+      font-size: clamp(0.78rem, 1.5vw, 1rem);
+      letter-spacing: 0.05em;
+      color: rgba(245,240,232,0.92);
+      max-width: 720px;
+      margin: 1.4rem auto 0;
+      line-height: 1.6;
+      text-shadow: 0 2px 12px rgba(0,0,0,0.7);
+      animation: mboka-fade-up 1.4s ease 1.2s both;
+    }
+    .mboka-pitch-line strong { color: #F0D080; font-weight: 700; }
+
+    /* ── Screenshot gallery (Steam media strip) ── */
+    .shots-stage {
+      position: relative;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      background: #05080a;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.6);
+      border: 1px solid rgba(212,160,23,0.25);
+      aspect-ratio: 16 / 9;
+    }
+    .shots-stage img {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      cursor: zoom-in;
+    }
+    .shots-stage img.active { opacity: 1; }
+    .shots-stage .shot-caption {
+      position: absolute; left: 0; right: 0; bottom: 0;
+      padding: 1.5rem 1.5rem 1.25rem;
+      background: linear-gradient(to top, rgba(5,8,10,0.9) 0%, rgba(5,8,10,0.4) 60%, transparent 100%);
+      color: #F5F0E8;
+      font-size: 0.85rem;
+      letter-spacing: 0.02em;
+      pointer-events: none;
+      z-index: 2;
+    }
+    .shots-stage .shot-caption .shot-eyebrow {
+      display: block;
+      font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase;
+      color: #F0D080; font-weight: 700; margin-bottom: 0.3rem;
+    }
+    .shots-arrow {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      width: 44px; height: 44px;
+      background: rgba(10,13,16,0.6);
+      border: 1px solid rgba(212,160,23,0.4);
+      border-radius: 50%;
+      color: #F5F0E8; font-size: 1.4rem; line-height: 1;
+      cursor: pointer; z-index: 3;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s ease;
+      backdrop-filter: blur(6px);
+    }
+    .shots-arrow:hover { background: rgba(212,160,23,0.3); }
+    .shots-arrow.prev { left: 1rem; }
+    .shots-arrow.next { right: 1rem; }
+    .shots-thumbs {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 0.6rem;
+      margin-top: 0.9rem;
+    }
+    .shots-thumb {
+      position: relative;
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      aspect-ratio: 16 / 9;
+      cursor: pointer;
+      border: 2px solid transparent;
+      opacity: 0.55;
+      transition: opacity 0.2s ease, border-color 0.2s ease;
+      background: #05080a;
+      padding: 0;
+    }
+    .shots-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .shots-thumb:hover { opacity: 0.85; }
+    .shots-thumb.active { opacity: 1; border-color: var(--gold-light); }
+
+    /* ── Lightbox (dependency-free) ── */
+    .shot-lightbox {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.94);
+      display: none;
+      align-items: center; justify-content: center;
+      z-index: 9998;
+      padding: 2rem;
+    }
+    .shot-lightbox.open { display: flex; }
+    .shot-lightbox img {
+      max-width: 96vw; max-height: 92vh;
+      border-radius: var(--radius-md);
+      box-shadow: 0 24px 80px rgba(0,0,0,0.8);
+    }
+    .shot-lightbox-close {
+      position: absolute; top: 1.25rem; right: 1.5rem;
+      width: 40px; height: 40px;
+      background: rgba(212,160,23,0.15);
+      border: 1px solid rgba(212,160,23,0.4);
+      border-radius: 50%;
+      color: #F5F0E8; font-size: 1.4rem; cursor: pointer; line-height: 1;
+    }
+    .shot-lightbox-close:hover { background: rgba(212,160,23,0.3); }
+
+    /* ── Feature blocks (Steam "feature + shot" alternating rows) ── */
+    .feature-rows { display: flex; flex-direction: column; gap: 3.5rem; }
+    .feature-row {
+      display: grid;
+      grid-template-columns: 1fr 1.15fr;
+      gap: 2.75rem;
+      align-items: center;
+    }
+    .feature-row.flip .feature-media { order: -1; }
+    .feature-copy .feat-eyebrow {
+      font-size: 0.66rem; letter-spacing: 0.24em; text-transform: uppercase;
+      color: #F0D080; font-weight: 700; display: block; margin-bottom: 0.7rem;
+    }
+    .feature-copy h3 {
+      font-family: var(--font-heading);
+      font-size: clamp(1.4rem, 2.6vw, 2rem);
+      color: #F5F0E8; margin: 0 0 0.85rem; font-weight: 700; line-height: 1.2;
+    }
+    .feature-copy p {
+      font-size: 0.98rem; line-height: 1.7;
+      color: rgba(245,240,232,0.82); margin: 0;
+    }
+    .feature-copy p + p { margin-top: 0.85rem; }
+    .feature-media {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: 0 18px 48px rgba(0,0,0,0.5);
+      border: 1px solid rgba(212,160,23,0.2);
+    }
+    .feature-media img {
+      width: 100%; height: 100%;
+      aspect-ratio: 16 / 9; object-fit: cover; display: block;
+      cursor: zoom-in;
+      transition: transform 0.4s ease;
+    }
+    .feature-media:hover img { transform: scale(1.03); }
+
+    /* Compact mechanic chips under a feature when there's no paired shot */
+    .feature-row.full { grid-template-columns: 1fr; text-align: center; }
+    .feature-row.full .feature-copy { max-width: 760px; margin: 0 auto; }
+
+    /* ── Founders LIVE — autoplay video tiles ── */
+    .cast-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+    .cast-tile {
+      background: rgba(245,240,232,0.04);
+      border: 1px solid rgba(212,160,23,0.2);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+    .cast-tile:hover {
+      transform: translateY(-4px);
+      border-color: rgba(212,160,23,0.5);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.45);
+    }
+    .cast-tile-media {
+      position: relative;
+      aspect-ratio: 1 / 1;
+      background: linear-gradient(135deg, #1a2329 0%, #0f1419 100%);
+      overflow: hidden;
+    }
+    .cast-tile-media video {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+    }
+    .cast-tile-media::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at center bottom, rgba(212,160,23,0.16) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .cast-tile-body { padding: 1.1rem 1.25rem 1.35rem; }
+    .cast-tile-body .domain {
+      font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: #D4A017; font-weight: 700; margin-bottom: 0.3rem;
+    }
+    .cast-tile-body h4 {
+      font-family: var(--font-heading);
+      font-size: 1.25rem; color: #F5F0E8; margin: 0 0 0.3rem; font-weight: 700;
+    }
+    .cast-tile-body p {
+      font-size: 0.78rem; line-height: 1.5;
+      color: rgba(245,240,232,0.68); margin: 0;
+    }
+
+    /* ── Responsive (showcase) ── */
+    @media (max-width: 900px) {
+      .feature-row, .feature-row.flip { grid-template-columns: 1fr; gap: 1.5rem; }
+      .feature-row.flip .feature-media { order: 0; }
+      .cast-grid { grid-template-columns: repeat(2, 1fr); }
+      .shots-thumbs { grid-template-columns: repeat(7, 1fr); gap: 0.4rem; }
+    }
+    @media (max-width: 560px) {
+      .cast-grid { grid-template-columns: 1fr; }
+      .shots-arrow { width: 36px; height: 36px; font-size: 1.1rem; }
+      .shots-stage .shot-caption { font-size: 0.75rem; padding: 1rem; }
+    }
   </style>
 </head>
 <body>
@@ -1075,34 +1296,40 @@
         And how we're helping rebuild it — <em>in real life, and in a game.</em>
       </p>
 
+      <p class="mboka-pitch-line" data-i18n="mboka.pitch">
+        Survey the land. Sanctify it. Light the grid. Build the value chain.
+        <strong>A living regional sim of the Democratic Republic of the Congo</strong> — where every
+        building you raise is real infrastructure, and every Founder's power is a real person's job.
+      </p>
+
       <div class="council-row">
         <div class="council-figure">
-          <div class="sprite-wrap"><img src="../assets/images/mama-mabele-and-zola-combined-canonical-2026-05-27.png?v=combined-639154990339380542" alt="Mama Mabele with her daughter Zola — mythic Bantu Founder of the Council of Sovereignty, standing with the young next-generation" /></div>
+          <div class="sprite-wrap"><img src="../../assets/images/mama-mabele-and-zola-combined-canonical-2026-05-27.png?v=combined-639154990339380542" alt="Mama Mabele with her daughter Zola — mythic Bantu Founder of the Council of Sovereignty, standing with the young next-generation" /></div>
           <div class="name-tag">Mama Mabele &amp; Zola</div>
           <div class="domain-tag" data-i18n="mboka.hero.land">Land</div>
         </div>
         <div class="council-figure">
-          <div class="sprite-wrap"><img src="../assets/images/loredana-usa-sprite-canonical-2026-05-27.png?v=final-magenta-639154933832715713" alt="Loredana" /></div>
+          <div class="sprite-wrap"><img src="../../assets/images/loredana-usa-sprite-canonical-2026-05-27.png?v=final-magenta-639154933832715713" alt="Loredana" /></div>
           <div class="name-tag">Loredana</div>
           <div class="domain-tag" data-i18n="mboka.hero.spirit">Spirit</div>
         </div>
         <div class="council-figure">
-          <div class="sprite-wrap"><img src="../assets/images/melissa-usa-sprite-canonical-2026-05-27.png?v=final-magenta-639154933832715713" alt="Melissa" /></div>
+          <div class="sprite-wrap"><img src="../../assets/images/melissa-usa-sprite-canonical-2026-05-27.png?v=final-magenta-639154933832715713" alt="Melissa" /></div>
           <div class="name-tag">Melissa</div>
           <div class="domain-tag" data-i18n="mboka.hero.law">Law</div>
         </div>
         <div class="council-figure">
-          <div class="sprite-wrap"><img src="../assets/images/eddie-cartographer-sprite-canonical-2026-05-27.png?v=final-magenta-639154933832715713" alt="Eddie" /></div>
+          <div class="sprite-wrap"><img src="../../assets/images/eddie-cartographer-sprite-canonical-2026-05-27.png?v=final-magenta-639154933832715713" alt="Eddie" /></div>
           <div class="name-tag">Eddie</div>
           <div class="domain-tag" data-i18n="mboka.hero.infrastructure">Infrastructure</div>
         </div>
         <div class="council-figure">
-          <div class="sprite-wrap"><img src="../assets/images/elie-doctor-diplomat-sprite-canonical-2026-05-27.png?v=final-magenta-639154933832715713" alt="Dr. Elie Tiabakueno Sangu — The Operator-Diplomat (UPTW Founder)" /></div>
+          <div class="sprite-wrap"><img src="../../assets/images/elie-doctor-diplomat-sprite-canonical-2026-05-27.png?v=final-magenta-639154933832715713" alt="Dr. Elie Tiabakueno Sangu — The Operator-Diplomat (UPTW Founder)" /></div>
           <div class="name-tag">Dr. Elie</div>
           <div class="domain-tag" data-i18n="mboka.hero.operations">Operations</div>
         </div>
         <div class="council-figure">
-          <div class="sprite-wrap"><img src="../assets/images/nick-grid-builder-sprite-canonical-2026-05-27.png?v=final-magenta-639154933832715713" alt="Nick — The Grid-Builder (Palm Leaf Partners)" /></div>
+          <div class="sprite-wrap"><img src="../../assets/images/nick-grid-builder-sprite-canonical-2026-05-27.png?v=final-magenta-639154933832715713" alt="Nick — The Grid-Builder (Palm Leaf Partners)" /></div>
           <div class="name-tag">Nick</div>
           <div class="domain-tag" data-i18n="mboka.hero.power">Power</div>
         </div>
@@ -1127,9 +1354,9 @@
         controls
         preload="metadata"
         playsinline
-        poster="../assets/images/mboka-title-backdrop.jpg"
+        poster="../../assets/images/mboka-title-backdrop.jpg"
         style="width: 100%; max-width: 960px; height: auto; border-radius: var(--radius-lg); box-shadow: 0 24px 64px rgba(0,0,0,0.6); border: 1px solid rgba(212,160,23,0.25); display: block; margin: 0 auto;">
-        <source src="../assets/videos/mboka-teaser-trailer-v6.mp4" type="video/mp4" />
+        <source src="../../assets/videos/mboka-teaser-trailer-v6.mp4" type="video/mp4" />
         Your browser does not support inline video playback.
       </video>
       <p style="font-size: 0.72rem; color: rgba(245,240,232,0.5); margin-top: 1.25rem; letter-spacing: 0.18em; text-transform: uppercase;" data-i18n="mboka.teaser.stamp">
@@ -1137,6 +1364,66 @@
       </p>
     </div>
   </section>
+
+
+  <!-- ─── IN-ENGINE FOOTAGE (gameplay montage) ─── -->
+  <section class="mboka-section dark" style="padding: 4rem 0;">
+    <div class="mboka-container" style="text-align: center;">
+      <div class="mboka-section-head" style="margin-bottom: 2.5rem;">
+        <span class="eyebrow">In-Engine · Live Footage</span>
+        <h2>See it in <em>motion</em></h2>
+        <p class="lead">
+          Real-time captures from the game — the Rwenzori massif and its glacial tarn, the living
+          village on red-laterite roads, the value-chain at work, the volcano, and the Atlantic
+          coast. No pre-rendered cutscenes: this is the world you build.
+        </p>
+      </div>
+      <video
+        autoplay muted loop playsinline controls
+        preload="metadata"
+        style="width: 100%; max-width: 960px; height: auto; border-radius: var(--radius-lg); box-shadow: 0 24px 64px rgba(0,0,0,0.6); border: 1px solid rgba(212,160,23,0.25); display: block; margin: 0 auto;">
+        <source src="../../assets/videos/mboka-showcase-montage.mp4" type="video/mp4" />
+        Your browser does not support inline video playback.
+      </video>
+    </div>
+  </section>
+
+
+  <!-- ─── SCREENSHOT GALLERY (Steam media strip) ─── -->
+  <section class="mboka-section dark" style="padding-top: 1rem;">
+    <div class="mboka-container">
+      <div class="mboka-section-head">
+        <span class="eyebrow" data-i18n="mboka.shots.eyebrow">Screenshots</span>
+        <h2 data-i18n="mboka.shots.h2">A first look at <em>the world in motion.</em></h2>
+        <p class="lead" data-i18n="mboka.shots.lead">
+          Pre-production in-engine stills — the Congo Basin, the Rwenzori snow line, the volcanic
+          east, the Lobito coast, and the living villages you raise province by province.
+          Click any frame to enlarge.
+        </p>
+      </div>
+
+      <div class="shots-stage" id="shotsStage">
+        <button class="shots-arrow prev" id="shotsPrev" aria-label="Previous screenshot">&lsaquo;</button>
+        <button class="shots-arrow next" id="shotsNext" aria-label="Next screenshot">&rsaquo;</button>
+        <img class="active" src="../../assets/images/mboka-screenshot-village-vista.jpg" data-caption-eyebrow="The Living World" data-caption="A village vista at golden hour — homes, farms, and footpaths you raise from surveyed ground." alt="In-engine still: a Congolese village vista at golden hour with terraced farms and forested hills." />
+        <img src="../../assets/images/mboka-screenshot-build-systems.jpg" data-caption-eyebrow="Build Systems" data-caption="Stack the Council's powers in order — survey, sanctify, treaty, power, build." alt="In-engine still: the build-systems view showing infrastructure placement across the terrain." />
+        <img src="../../assets/images/mboka-screenshot-living-village.jpg" data-caption-eyebrow="A Place That Lives" data-caption="Villagers, livestock, and daily rhythms under a 24-hour day/night cycle." alt="In-engine still: a living village bustling with villagers and daily activity." />
+        <img src="../../assets/images/mboka-screenshot-rwenzori.jpg" data-caption-eyebrow="Real Terrain · Rwenzori" data-caption="The Mountains of the Moon — the DRC has equatorial glaciers, and so does Mboka." alt="In-engine still: the snow-capped Rwenzori mountains rising over highland terrain." />
+        <img src="../../assets/images/mboka-screenshot-volcano.jpg" data-caption-eyebrow="The Volcanic East" data-caption="Nyiragongo's lava lake glows over the Kivu highlands — beauty and disaster in one biome." alt="In-engine still: a dramatic volcano with glowing lava over the eastern highlands at night." />
+        <img src="../../assets/images/mboka-screenshot-coastal-port.jpg" data-caption-eyebrow="The Lobito Corridor" data-caption="The Atlantic coast and the rail-and-port spine that carries the value chain to market." alt="In-engine still: a coastal port with cranes, ships, and a rail corridor along the Atlantic." />
+        <img src="../../assets/images/mboka-screenshot-okapi.jpg" data-caption-eyebrow="The Bestiary" data-caption="The okapi — the DRC's national symbol — one of Mama Mabele's real-species Wild Companions." alt="In-engine still: an okapi in the Ituri rainforest, a Wild Companion in the bestiary." />
+        <div class="shot-caption" id="shotCaption"><span class="shot-eyebrow"></span><span class="shot-text"></span></div>
+      </div>
+
+      <div class="shots-thumbs" id="shotsThumbs"><!-- populated by JS --></div>
+    </div>
+  </section>
+
+  <!-- Lightbox -->
+  <div class="shot-lightbox" id="shotLightbox" role="dialog" aria-modal="true" aria-label="Enlarged screenshot">
+    <button class="shot-lightbox-close" id="shotLightboxClose" aria-label="Close">&times;</button>
+    <img src="" alt="Enlarged Mboka screenshot" />
+  </div>
 
 
   <!-- ─── THE REAL WORK ─── -->
@@ -1211,7 +1498,7 @@
         <div class="project-tile">
           <div class="icon">🕊️</div>
           <h4 data-i18n="mboka.proj.memorial">Memorial City</h4>
-          <p data-i18n="mboka.proj.memorial.p">A 5 km² living memorial. <a href="memorial-city.html" style="color:var(--gold);">Learn more →</a></p>
+          <p data-i18n="mboka.proj.memorial.p">A 5 km² living memorial. <a href="../memorial-city.html" style="color:var(--gold);">Learn more →</a></p>
         </div>
       </div>
     </div>
@@ -1231,12 +1518,80 @@
         </p>
       </div>
 
+      <!-- Founders LIVE — Action-Window cast clips (autoplay, muted, loop) -->
+      <div class="cast-grid">
+        <div class="cast-tile">
+          <div class="cast-tile-media">
+            <video src="../../assets/videos/mboka-founder-mama.mp4" autoplay muted loop playsinline preload="metadata" aria-label="Mama Mabele nurturing the roots"></video>
+          </div>
+          <div class="cast-tile-body">
+            <div class="domain" data-i18n="mboka.cast.mama.domain">Land · Mythic Guide</div>
+            <h4>Mama Mabele</h4>
+            <p data-i18n="mboka.cast.mama.p">Nurtures the roots; listens to what the land cannot say for itself.</p>
+          </div>
+        </div>
+        <div class="cast-tile">
+          <div class="cast-tile-media">
+            <video src="../../assets/videos/mboka-founder-loredana.mp4" autoplay muted loop playsinline preload="metadata" aria-label="Loredana blessing the ground"></video>
+          </div>
+          <div class="cast-tile-body">
+            <div class="domain" data-i18n="mboka.cast.lor.domain">Spirit · Global Mother</div>
+            <h4>Loredana</h4>
+            <p data-i18n="mboka.cast.lor.p">Kneels, blesses the ground, and a golden halo blooms — corruption can't follow.</p>
+          </div>
+        </div>
+        <div class="cast-tile">
+          <div class="cast-tile-media">
+            <video src="../../assets/videos/mboka-founder-melissa.mp4" autoplay muted loop playsinline preload="metadata" aria-label="Melissa, the Justiciar, in battle stance"></video>
+          </div>
+          <div class="cast-tile-body">
+            <div class="domain" data-i18n="mboka.cast.mel.domain">Law · The Justiciar</div>
+            <h4>Melissa</h4>
+            <p data-i18n="mboka.cast.mel.p">Rooted and unmoved — the wingstroke that pushes the world away from her ground.</p>
+          </div>
+        </div>
+        <div class="cast-tile">
+          <div class="cast-tile-media">
+            <video src="../../assets/videos/mboka-founder-eddie.mp4" autoplay muted loop playsinline preload="metadata" aria-label="Eddie the Cartographer celebrating"></video>
+          </div>
+          <div class="cast-tile-body">
+            <div class="domain" data-i18n="mboka.cast.edd.domain">Infrastructure · The Cartographer</div>
+            <h4>Eddie</h4>
+            <p data-i18n="mboka.cast.edd.p">Surveys the world, lays the foundation, connects the country — and enjoys it.</p>
+          </div>
+        </div>
+        <div class="cast-tile">
+          <div class="cast-tile-media">
+            <video src="../../assets/videos/mboka-founder-elie.mp4" autoplay muted loop playsinline preload="metadata" aria-label="Dr. Elie tending to a patient"></video>
+          </div>
+          <div class="cast-tile-body">
+            <div class="domain" data-i18n="mboka.cast.eli.domain">Operations · Operator-Diplomat</div>
+            <h4>Dr. Elie</h4>
+            <p data-i18n="mboka.cast.eli.p">Triage in the field — makes things actually happen on the ground.</p>
+          </div>
+        </div>
+        <div class="cast-tile">
+          <div class="cast-tile-media">
+            <video src="../../assets/videos/mboka-founder-nick.mp4" autoplay muted loop playsinline preload="metadata" aria-label="Nick the Grid-Builder lighting the grid"></video>
+          </div>
+          <div class="cast-tile-body">
+            <div class="domain" data-i18n="mboka.cast.nck.domain">Power · The Grid-Builder</div>
+            <h4>Nick</h4>
+            <p data-i18n="mboka.cast.nck.p">Brings the actual current — the grid goes live and the country lights up.</p>
+          </div>
+        </div>
+      </div>
+
+      <p style="text-align:center; font-size:0.72rem; color:rgba(245,240,232,0.45); letter-spacing:0.16em; text-transform:uppercase; margin:1.75rem 0 3rem;" data-i18n="mboka.cast.stamp">
+        Pre-production Action-Window cast tests · Click a card below for each Founder's full story
+      </p>
+
       <div class="council-grid">
 
         <!-- MAMA MABELE (renamed from Zola 2026-05-27) -->
         <article class="council-card" data-founder="mama-mabele" role="button" tabindex="0" aria-haspopup="dialog" data-cta="Read their story →">
           <div class="council-card-portrait">
-            <img src="../assets/images/mama-mabele-and-zola-combined-canonical-2026-05-27.png?v=combined-639154990339380542" alt="Mama Mabele with daughter Zola — mythic Bantu guide of the DRC; daughter of the Mother Tree, holding the hand of her own daughter" />
+            <img src="../../assets/images/mama-mabele-and-zola-combined-canonical-2026-05-27.png?v=combined-639154990339380542" alt="Mama Mabele with daughter Zola — mythic Bantu guide of the DRC; daughter of the Mother Tree, holding the hand of her own daughter" />
           </div>
           <div class="council-card-body">
             <div class="domain" data-i18n="mboka.mama-mabele.domain">Land · Mythic Guide</div>
@@ -1256,7 +1611,7 @@
         <!-- LOREDANA -->
         <article class="council-card" data-founder="loredana" role="button" tabindex="0" aria-haspopup="dialog" data-cta="Read their story →">
           <div class="council-card-portrait">
-            <img src="../assets/images/loredana-usa-sprite-canonical-2026-05-27.png?v=final-magenta-639154933832715713" alt="Loredana — Global Mother" />
+            <img src="../../assets/images/loredana-usa-sprite-canonical-2026-05-27.png?v=final-magenta-639154933832715713" alt="Loredana — Global Mother" />
           </div>
           <div class="council-card-body">
             <div class="domain" data-i18n="mboka.loredana.domain">Spirit · UPTW Global Mother</div>
@@ -1276,7 +1631,7 @@
         <!-- MELISSA -->
         <article class="council-card" data-founder="melissa" role="button" tabindex="0" aria-haspopup="dialog" data-cta="Read their story →">
           <div class="council-card-portrait">
-            <img src="../assets/images/melissa-usa-sprite-canonical-2026-05-27.png?v=final-magenta-639154933832715713" alt="Melissa — The Justiciar" />
+            <img src="../../assets/images/melissa-usa-sprite-canonical-2026-05-27.png?v=final-magenta-639154933832715713" alt="Melissa — The Justiciar" />
           </div>
           <div class="council-card-body">
             <div class="domain" data-i18n="mboka.melissa.domain">Defender of Truth · The Justiciar</div>
@@ -1296,7 +1651,7 @@
         <!-- EDDIE -->
         <article class="council-card" data-founder="eddie" role="button" tabindex="0" aria-haspopup="dialog" data-cta="Read their story →">
           <div class="council-card-portrait">
-            <img src="../assets/images/eddie-cartographer-sprite-canonical-2026-05-27.png?v=final-magenta-639154933832715713" alt="Eddie — The Cartographer" />
+            <img src="../../assets/images/eddie-cartographer-sprite-canonical-2026-05-27.png?v=final-magenta-639154933832715713" alt="Eddie — The Cartographer" />
           </div>
           <div class="council-card-body">
             <div class="domain" data-i18n="mboka.eddie.domain">Infrastructure & Logistics · The Cartographer</div>
@@ -1316,7 +1671,7 @@
         <!-- DR. ELIE -->
         <article class="council-card" data-founder="drelie" role="button" tabindex="0" aria-haspopup="dialog" data-cta="Read their story →">
           <div class="council-card-portrait">
-            <img src="../assets/images/elie-doctor-diplomat-sprite-canonical-2026-05-27.png?v=final-magenta-639154933832715713" alt="Dr. Elie Tiabakueno Sangu — The Operator-Diplomat" />
+            <img src="../../assets/images/elie-doctor-diplomat-sprite-canonical-2026-05-27.png?v=final-magenta-639154933832715713" alt="Dr. Elie Tiabakueno Sangu — The Operator-Diplomat" />
           </div>
           <div class="council-card-body">
             <div class="domain" data-i18n="mboka.elie.domain">Operations · Operator-Diplomat</div>
@@ -1336,7 +1691,7 @@
         <!-- NICK -->
         <article class="council-card" data-founder="nick" role="button" tabindex="0" aria-haspopup="dialog" data-cta="Read their story →">
           <div class="council-card-portrait">
-            <img src="../assets/images/nick-grid-builder-sprite-canonical-2026-05-27.png?v=final-magenta-639154933832715713" alt="Nick — The Grid-Builder" />
+            <img src="../../assets/images/nick-grid-builder-sprite-canonical-2026-05-27.png?v=final-magenta-639154933832715713" alt="Nick — The Grid-Builder" />
           </div>
           <div class="council-card-body">
             <div class="domain" data-i18n="mboka.nick.domain">Power · The Grid-Builder</div>
@@ -1375,7 +1730,7 @@
       <div class="landscape-strip">
 
         <div class="landscape-tile">
-          <img src="../assets/images/mboka-landscape-rainforest-canonical-2026-05-27.jpg" alt="Pixar-style concept art of the Congo Basin rainforest at golden hour — river winding through dense palm canopy, misty hills, distant mountains." />
+          <img src="../../assets/images/mboka-landscape-rainforest-canonical-2026-05-27.jpg" alt="Pixar-style concept art of the Congo Basin rainforest at golden hour — river winding through dense palm canopy, misty hills, distant mountains." />
           <div class="caption">
             <span class="eyebrow" data-i18n="mboka.land1.eyebrow">Equateur · Salonga National Park</span>
             <h4 data-i18n="mboka.land1.h4">The Congo Basin Rainforest</h4>
@@ -1384,7 +1739,7 @@
         </div>
 
         <div class="landscape-tile">
-          <img src="../assets/images/mboka-landscape-kivu-canonical-2026-05-27.jpg" alt="Pixar-style concept art of the Kivu highlands at dawn — terraced coffee and tea hills cascading toward Lake Kivu, volcanic peaks (Virunga / Nyiragongo) on the horizon." />
+          <img src="../../assets/images/mboka-landscape-kivu-canonical-2026-05-27.jpg" alt="Pixar-style concept art of the Kivu highlands at dawn — terraced coffee and tea hills cascading toward Lake Kivu, volcanic peaks (Virunga / Nyiragongo) on the horizon." />
           <div class="caption">
             <span class="eyebrow" data-i18n="mboka.land2.eyebrow">Kivu · Eastern Highlands</span>
             <h4 data-i18n="mboka.land2.h4">The Eastern Highlands</h4>
@@ -1393,7 +1748,7 @@
         </div>
 
         <div class="landscape-tile">
-          <img src="../assets/images/mboka-landscape-river-canonical-2026-05-27-v3.jpg" alt="Pixar-style concept art of the Congo River at dawn near Boyoma Falls — wide gold river with rocky outcrops, traditional Wagenia fish traps in the channel, misty forested banks." />
+          <img src="../../assets/images/mboka-landscape-river-canonical-2026-05-27-v3.jpg" alt="Pixar-style concept art of the Congo River at dawn near Boyoma Falls — wide gold river with rocky outcrops, traditional Wagenia fish traps in the channel, misty forested banks." />
           <div class="caption">
             <span class="eyebrow" data-i18n="mboka.land3.eyebrow">Tshopo · Boyoma Falls</span>
             <h4 data-i18n="mboka.land3.h4">The Mighty Congo River</h4>
@@ -1405,6 +1760,110 @@
 
       <div class="concept-banner" data-i18n="mboka.world.concept">
         Concept art · Pre-production target aesthetic · Real DRC biomes, in development
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ─── FEATURES (Steam mechanic-forward blocks) ─── -->
+  <section class="mboka-section dark" style="background:#070a0c;">
+    <div class="mboka-container">
+      <div class="mboka-section-head">
+        <span class="eyebrow" data-i18n="mboka.feat.eyebrow">What You Actually Do</span>
+        <h2 data-i18n="mboka.feat.h2">Eight systems. <em>One country to rebuild.</em></h2>
+        <p class="lead" data-i18n="mboka.feat.lead">
+          Mboka isn't a clicker. Every system below is a real Palm Leaf Partners workflow turned
+          into a mechanic — and they interlock, so nothing meaningful is ever a single button press.
+        </p>
+      </div>
+
+      <div class="feature-rows">
+
+        <div class="feature-row">
+          <div class="feature-copy">
+            <span class="feat-eyebrow" data-i18n="mboka.feat1.eyebrow">The Living World</span>
+            <h3 data-i18n="mboka.feat1.h3">A country that lives whether you're watching or not.</h3>
+            <p data-i18n="mboka.feat1.p">Villages wake, farm, trade, and sleep on a 24-hour day/night cycle. Power a region and it stops shutting down at dusk; heal a village and the people return to it. The world reacts to every build you make — and remembers the ones you don't.</p>
+          </div>
+          <div class="feature-media">
+            <img src="../../assets/images/mboka-screenshot-living-village.jpg" data-zoom alt="In-engine still: a living village with villagers going about daily life." />
+          </div>
+        </div>
+
+        <div class="feature-row flip">
+          <div class="feature-copy">
+            <span class="feat-eyebrow" data-i18n="mboka.feat2.eyebrow">The DRC Value Chain</span>
+            <h3 data-i18n="mboka.feat2.h3">Don't export raw. Refine in-country.</h3>
+            <p data-i18n="mboka.feat2.p">Cocoa, cassava, palm, fish, and minerals move through a real five-line value chain. Build the cold-chain and refining that lets the DRC sell finished products instead of raw extraction — the literal economic thesis of the real-world mission, playable as a logistics loop.</p>
+          </div>
+          <div class="feature-media">
+            <img src="../../assets/images/mboka-screenshot-coastal-port.jpg" data-zoom alt="In-engine still: a coastal port and rail corridor moving goods to market." />
+          </div>
+        </div>
+
+        <div class="feature-row">
+          <div class="feature-copy">
+            <span class="feat-eyebrow" data-i18n="mboka.feat3.eyebrow">Terraform + Water · The Differentiator</span>
+            <h3 data-i18n="mboka.feat3.h3">Shape the land — but the land gets a vote.</h3>
+            <p data-i18n="mboka.feat3.p">Reroute rivers, terrace highlands, drain or flood — built on Godot 4 + Terrain3D. But Mama Mabele can veto any build the ecosystem can't carry. Terraforming with an ecological conscience is the system no other regional sim ships.</p>
+          </div>
+          <div class="feature-media">
+            <img src="../../assets/images/mboka-screenshot-build-systems.jpg" data-zoom alt="In-engine still: terraforming and build-systems across highland terrain." />
+          </div>
+        </div>
+
+        <div class="feature-row flip">
+          <div class="feature-copy">
+            <span class="feat-eyebrow" data-i18n="mboka.feat4.eyebrow">Disasters + Emergency Response</span>
+            <h3 data-i18n="mboka.feat4.h3">Nyiragongo doesn't ask permission.</h3>
+            <p data-i18n="mboka.feat4.p">Volcanic eruptions, floods, and spoilage events hit in real biomes. Dr. Elie's Field Hospitals, Eddie's logistics hubs, and Nick's grid are your emergency-response stack — pre-positioning matters, because the disaster arrives whether you're ready or not.</p>
+          </div>
+          <div class="feature-media">
+            <img src="../../assets/images/mboka-screenshot-volcano.jpg" data-zoom alt="In-engine still: a volcanic eruption threatening the eastern highlands." />
+          </div>
+        </div>
+
+        <div class="feature-row">
+          <div class="feature-copy">
+            <span class="feat-eyebrow" data-i18n="mboka.feat5.eyebrow">Real Terrain · Eight Provinces</span>
+            <h3 data-i18n="mboka.feat5.h3">From equatorial glaciers to the Atlantic coast.</h3>
+            <p data-i18n="mboka.feat5.p">The Rwenzori snow line, the Congo Basin rainforest, the volcanic Kivu east, the Lobito corridor — eight provinces, each a distinct biome with its own resources, hazards, and the right kind of power plant. Provinces unlock on a designed progression, not a sandbox dump.</p>
+          </div>
+          <div class="feature-media">
+            <img src="../../assets/images/mboka-screenshot-rwenzori.jpg" data-zoom alt="In-engine still: the snow-capped Rwenzori mountains, equatorial glaciers." />
+          </div>
+        </div>
+
+        <div class="feature-row flip">
+          <div class="feature-copy">
+            <span class="feat-eyebrow" data-i18n="mboka.feat6.eyebrow">The Founders' Powers</span>
+            <h3 data-i18n="mboka.feat6.h3">Six Founders. None can act alone.</h3>
+            <p data-i18n="mboka.feat6.p">Sanctify, Survey, Treaty, Power, Listen, Coordinate — every major build requires the right Founders in the right order. That interdependence is the heart of the game: you don't command an army, you align a council.</p>
+          </div>
+          <div class="feature-media">
+            <img src="../../assets/images/mboka-screenshot-village-vista.jpg" data-zoom alt="In-engine still: a village vista raised through coordinated Founder powers." />
+          </div>
+        </div>
+
+        <div class="feature-row">
+          <div class="feature-copy">
+            <span class="feat-eyebrow" data-i18n="mboka.feat7.eyebrow">The Bestiary · Heal, Don't Kill</span>
+            <h3 data-i18n="mboka.feat7.h3">Real species. Corrupted creatures you redeem.</h3>
+            <p data-i18n="mboka.feat7.p">Bonobos, okapi, forest elephants — accurate to species — become Mama Mabele's Wild Companions. The Hollow King's corrupted Brood aren't enemies to slaughter; they're animals to heal back into the bestiary. The peaceful path is the designed path.</p>
+          </div>
+          <div class="feature-media">
+            <img src="../../assets/images/mboka-screenshot-okapi.jpg" data-zoom alt="In-engine still: an okapi, a real-species Wild Companion in the bestiary." />
+          </div>
+        </div>
+
+        <div class="feature-row full">
+          <div class="feature-copy">
+            <span class="feat-eyebrow" data-i18n="mboka.feat8.eyebrow">The Mission · Modernization ≠ Westernization</span>
+            <h3 data-i18n="mboka.feat8.h3">A game you finish knowing more about a real country.</h3>
+            <p data-i18n="mboka.feat8.p">Every mechanic teaches something true — Wagenia fish traps, the cold-chain spoilage problem, the Lobito rail, the cost of raw extraction. Mboka Academy is built to be educational-grade: the DRC's future, built by Congolese hands, told honestly in an engine.</p>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
@@ -1458,7 +1917,7 @@
 
       <div class="wild-row">
         <div class="wild-card">
-          <div class="wild-img"><img src="../assets/images/badges/drc/bonobo.png" alt="Bonobo" /></div>
+          <div class="wild-img"><img src="../../assets/images/badges/drc/bonobo.png" alt="Bonobo" /></div>
           <div>
             <span class="wild-tag" data-i18n="mboka.wild.bonobo.tag">Endemic · Salonga</span>
             <h5 data-i18n="mboka.wild.bonobo.h5">The Bonobo</h5>
@@ -1466,7 +1925,7 @@
           </div>
         </div>
         <div class="wild-card">
-          <div class="wild-img"><img src="../assets/images/badges/drc/okapi.png" alt="Okapi" /></div>
+          <div class="wild-img"><img src="../../assets/images/badges/drc/okapi.png" alt="Okapi" /></div>
           <div>
             <span class="wild-tag" data-i18n="mboka.wild.okapi.tag">Endemic · Ituri</span>
             <h5 data-i18n="mboka.wild.okapi.h5">The Okapi</h5>
@@ -1540,20 +1999,9 @@
         <button class="wishlist-btn" type="button" disabled>
           <span data-i18n="mboka.join.wishlist">🎮 Wishlist on Steam</span> <span class="tag" data-i18n="mboka.join.wishlist.tag">Soon</span>
         </button>
-        <a class="support-btn" href="memorial-city.html">
+        <a class="support-btn" href="../memorial-city.html">
           <span data-i18n="mboka.join.support">Support the Real Work</span> <span>→</span>
         </a>
-      </div>
-
-      <!-- ─── Private Preview link → password-gated in-engine showcase ─── -->
-      <div style="margin-top:3rem;">
-        <span class="eyebrow" data-i18n="mboka.preview.eyebrow" style="display:block; margin-bottom:0.75rem;">🔒 Private Preview</span>
-        <a class="wishlist-btn" href="/pages/mboka/showcase" style="cursor:pointer; text-decoration:none;">
-          <span data-i18n="mboka.preview.cta">See the in-engine showcase</span> <span>→</span>
-        </a>
-        <p class="lead" data-i18n="mboka.preview.note" style="margin-top:0.9rem; font-size:0.8rem; color:rgba(245,240,232,0.5);">
-          Screenshots, the Founders' Action-Window clips, and the full feature breakdown — password required.
-        </p>
       </div>
     </div>
   </section>
@@ -1570,10 +2018,127 @@
   </div>
 
   <!-- Shared site nav + footer (Projects dropdown, EN/FR toggle, sister-brand, etc.) -->
-  <script src="../js/i18n.js"></script>
-  <script src="../js/components.js"></script>
-  <script src="../js/main.js"></script>
-  <script>renderNav(); renderFooter();</script>
+  <script src="../../js/i18n.js"></script>
+  <script src="../../js/components.js"></script>
+  <script src="../../js/main.js"></script>
+  <script>
+    renderNav(); renderFooter();
+    // This page lives one level deeper (/pages/mboka/) than the other /pages/*
+    // pages that renderNav()/renderFooter() are written for. Those shared
+    // components emit paths relative to /pages/ (e.g. "../index.html",
+    // "../assets/...", bare "about.html"). Re-base every relative link/asset
+    // they injected by one more level so they resolve from /pages/mboka/.
+    (function rebaseSharedChrome() {
+      const scopes = [document.querySelector('nav.navbar'),
+                      document.querySelector('section.sister-brand'),
+                      document.querySelector('footer')];
+      const fix = (val) => {
+        if (!val) return val;
+        // Leave absolute URLs, anchors, protocol-relative, data:, and root-absolute paths alone.
+        if (/^(https?:|mailto:|tel:|data:|#|\/\/|\/)/i.test(val)) return val;
+        if (val.startsWith('../')) return '../' + val;   // ../index.html -> ../../index.html, ../assets -> ../../assets
+        return '../' + val;                              // about.html -> ../about.html
+      };
+      scopes.forEach(scope => {
+        if (!scope) return;
+        scope.querySelectorAll('[href]').forEach(el => {
+          const h = el.getAttribute('href');
+          if (h && h !== '#') el.setAttribute('href', fix(h));
+        });
+        scope.querySelectorAll('[src]').forEach(el => {
+          el.setAttribute('src', fix(el.getAttribute('src')));
+        });
+      });
+    })();
+  </script>
+
+  <!-- ─── SCREENSHOT GALLERY — slideshow + thumbs + lightbox (dependency-free) ─── -->
+  <script>
+  (function() {
+    const stage   = document.getElementById('shotsStage');
+    if (!stage) return;
+    const slides  = Array.from(stage.querySelectorAll('img'));
+    const thumbsEl = document.getElementById('shotsThumbs');
+    const capEyebrow = document.querySelector('#shotCaption .shot-eyebrow');
+    const capText    = document.querySelector('#shotCaption .shot-text');
+    const prevBtn = document.getElementById('shotsPrev');
+    const nextBtn = document.getElementById('shotsNext');
+    const lightbox = document.getElementById('shotLightbox');
+    const lightboxImg = lightbox.querySelector('img');
+    const lightboxClose = document.getElementById('shotLightboxClose');
+    let idx = 0;
+
+    // Build thumbnails
+    slides.forEach((img, i) => {
+      const b = document.createElement('button');
+      b.className = 'shots-thumb' + (i === 0 ? ' active' : '');
+      b.type = 'button';
+      b.setAttribute('aria-label', 'Show screenshot ' + (i + 1));
+      const t = document.createElement('img');
+      t.src = img.getAttribute('src');
+      t.alt = '';
+      t.loading = 'lazy';
+      b.appendChild(t);
+      b.addEventListener('click', () => show(i));
+      thumbsEl.appendChild(b);
+    });
+    const thumbs = Array.from(thumbsEl.children);
+
+    function show(i) {
+      idx = ((i % slides.length) + slides.length) % slides.length;
+      slides.forEach((s, n) => s.classList.toggle('active', n === idx));
+      thumbs.forEach((t, n) => t.classList.toggle('active', n === idx));
+      const cur = slides[idx];
+      capEyebrow.textContent = cur.dataset.captionEyebrow || '';
+      capText.textContent = cur.dataset.caption || '';
+    }
+    function initCaption() {
+      const cur = slides[0];
+      capEyebrow.textContent = cur.dataset.captionEyebrow || '';
+      capText.textContent = cur.dataset.caption || '';
+    }
+    initCaption();
+
+    prevBtn.addEventListener('click', () => show(idx - 1));
+    nextBtn.addEventListener('click', () => show(idx + 1));
+
+    // Lightbox — opens from the active stage slide OR any [data-zoom] feature image
+    function openLightbox(src, alt) {
+      lightboxImg.src = src;
+      lightboxImg.alt = alt || 'Enlarged Mboka screenshot';
+      lightbox.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox() {
+      lightbox.classList.remove('open');
+      lightboxImg.src = '';
+      document.body.style.overflow = '';
+    }
+    slides.forEach(s => s.addEventListener('click', () => openLightbox(s.getAttribute('src'), s.alt)));
+    document.querySelectorAll('.feature-media img[data-zoom]').forEach(img => {
+      img.addEventListener('click', () => openLightbox(img.getAttribute('src'), img.alt));
+    });
+    lightboxClose.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+    document.addEventListener('keydown', e => {
+      if (lightbox.classList.contains('open')) {
+        if (e.key === 'Escape') closeLightbox();
+        return;
+      }
+      // Arrow-key gallery nav only when the stage is roughly in view
+      const r = stage.getBoundingClientRect();
+      const inView = r.top < window.innerHeight && r.bottom > 0;
+      if (!inView) return;
+      if (e.key === 'ArrowLeft') show(idx - 1);
+      else if (e.key === 'ArrowRight') show(idx + 1);
+    });
+
+    // Gentle auto-advance; pauses on hover
+    let timer = setInterval(() => show(idx + 1), 6000);
+    stage.addEventListener('mouseenter', () => clearInterval(timer));
+    stage.addEventListener('mouseleave', () => { timer = setInterval(() => show(idx + 1), 6000); });
+  })();
+  </script>
 
   <!-- Founder story modal — populated client-side, EN/FR-aware via document.documentElement.lang -->
   <script>
@@ -1581,7 +2146,7 @@
     const FOUNDERS = [
       {
         key: 'mama-mabele', accent: '#4A8C3A',
-        sprite: '../assets/images/mama-mabele-and-zola-combined-canonical-2026-05-27.png?v=combined-639154990339380542',
+        sprite: '../../assets/images/mama-mabele-and-zola-combined-canonical-2026-05-27.png?v=combined-639154990339380542',
         cta: { en: 'Read their story →', fr: 'Lire son histoire →' },
         en: {
           domain: 'Land · Mythic Guide',
@@ -1602,7 +2167,7 @@
       },
       {
         key: 'loredana', accent: '#E8C97A',
-        sprite: '../assets/images/loredana-usa-sprite-canonical-2026-05-27.png?v=final-magenta-639154933832715713',
+        sprite: '../../assets/images/loredana-usa-sprite-canonical-2026-05-27.png?v=final-magenta-639154933832715713',
         en: {
           domain: 'Spirit · UPTW Global Mother',
           name: 'Loredana',
@@ -1626,7 +2191,7 @@
       },
       {
         key: 'melissa', accent: '#C9B870',
-        sprite: '../assets/images/melissa-usa-sprite-canonical-2026-05-27.png?v=final-magenta-639154933832715713',
+        sprite: '../../assets/images/melissa-usa-sprite-canonical-2026-05-27.png?v=final-magenta-639154933832715713',
         en: {
           domain: 'Law · The Justiciar (Paladin)',
           name: 'Melissa',
@@ -1646,7 +2211,7 @@
       },
       {
         key: 'eddie', accent: '#B8722C',
-        sprite: '../assets/images/eddie-cartographer-sprite-canonical-2026-05-27.png?v=final-magenta-639154933832715713',
+        sprite: '../../assets/images/eddie-cartographer-sprite-canonical-2026-05-27.png?v=final-magenta-639154933832715713',
         en: {
           domain: 'Infrastructure · The Cartographer',
           name: 'Eddie',
@@ -1670,7 +2235,7 @@
       },
       {
         key: 'nick', accent: '#5A8AD8',
-        sprite: '../assets/images/nick-grid-builder-sprite-canonical-2026-05-27.png?v=final-magenta-639154933832715713',
+        sprite: '../../assets/images/nick-grid-builder-sprite-canonical-2026-05-27.png?v=final-magenta-639154933832715713',
         en: {
           domain: 'Power · The Grid-Builder',
           name: 'Nick',
@@ -1694,7 +2259,7 @@
       },
       {
         key: 'drelie', accent: '#3FA89E',
-        sprite: '../assets/images/elie-doctor-diplomat-sprite-canonical-2026-05-27.png?v=final-magenta-639154933832715713',
+        sprite: '../../assets/images/elie-doctor-diplomat-sprite-canonical-2026-05-27.png?v=final-magenta-639154933832715713',
         en: {
           domain: 'Operations · The Operator-Diplomat',
           name: 'Dr. Elie',
@@ -1823,11 +2388,11 @@
     </blockquote>
     <div class="a-credits">
       © Palm Leaf Partners ·
-      <a href="../index.html">Home</a> ·
-      <a href="about.html">About</a> ·
-      <a href="globe.html">Explore Our World</a> ·
-      <a href="memorial-city.html">Memorial City</a> ·
-      <a href="contact.html">Contact</a>
+      <a href="../../index.html">Home</a> ·
+      <a href="../about.html">About</a> ·
+      <a href="../globe.html">Explore Our World</a> ·
+      <a href="../memorial-city.html">Memorial City</a> ·
+      <a href="../contact.html">Contact</a>
     </div>
   </footer>
 
