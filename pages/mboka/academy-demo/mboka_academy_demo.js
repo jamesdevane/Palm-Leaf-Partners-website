@@ -8,10 +8,10 @@
  * ============================================================ */
 "use strict";
 
-const DECK_BASE = "./demo";
+const DECK_BASE = "/pages/mboka/academy-demo/demo";
 // Per-slide animation clips (Manim / vetted CC0) live here. A deck slide's
 // `anim` field is a path under this base, e.g. "solar/pv_effect.mp4".
-const ANIM_BASE = "./anim";
+const ANIM_BASE = "/pages/mboka/academy-demo/anim";
 
 const SUBJECTS = [
   { key: "solar",     label: "Solar Power",      glyph: "sun",
