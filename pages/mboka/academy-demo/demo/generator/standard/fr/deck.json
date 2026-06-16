@@ -1,0 +1,47 @@
+{
+  "title": "DIESEL GENERATOR",
+  "topic": "generator",
+  "tier": "standard",
+  "tierLabel": "Standard · 6–8",
+  "lang": "fr",
+  "langName": "French",
+  "slides": [
+    {
+      "img": "slide_1.jpg",
+      "audio": "slide_1.ogg",
+      "narr": "Bon retour ! La machine d'aujourd'hui est une centrale que tu peux transporter : le générateur diesel. La grande idée est merveilleusement simple — brûler du carburant fait tourner une machine, et cette rotation produit ton électricité. De l'énergie à la demande, le carburant le fait fonctionner ! Tu te souviens de la leçon sur le solaire ? C'est le jumeau opposé du solaire — pas besoin de soleil, mais il boit du carburant. Ouvrons-le."
+    },
+    {
+      "img": "slide_2.jpg",
+      "audio": "slide_2.ogg",
+      "narr": "Un générateur a vraiment deux parties principales qui font équipe. D'abord, un MOTEUR DIESEL qui brûle du carburant et tourne — c'est le muscle qui fait le gros du travail. Ensuite, un ALTERNATEUR qui transforme toute cette rotation en électricité — c'est le fabricant d'électricité. Imagine-le ainsi : le moteur, c'est le muscle ; l'alternateur, c'est le fabricant d'électricité. Le moteur transpire, et l'alternateur fait la magie."
+    },
+    {
+      "img": "slide_3.jpg",
+      "audio": "slide_3.ogg",
+      "narr": "Voici un détail qui renvoie directement au solaire ! À l'intérieur de l'alternateur, un aimant tourne devant des bobines de fil. Cette rotation pousse le courant dans un sens puis dans l'autre, encore et encore — et un courant qui va dans un sens puis dans l'autre s'appelle CA, courant alternatif. Et devine quoi ? Le CA est exactement ce que ta maison utilise déjà ! Un générateur n'a donc besoin d'AUCUN onduleur — contrairement au solaire, qui produit du CC et doit le convertir. Le générateur saute toute cette étape."
+    },
+    {
+      "img": "slide_4.jpg",
+      "audio": "slide_4.ogg",
+      "narr": "Comptons maintenant la puissance ! Les générateurs sont évalués en watts, W, ou kilowatts, kW. Un petit groupe domestique peut produire environ trois mille watts — c'est trois kilowatts. Mais voici la partie qui s'additionne : chaque kilowattheure d'électricité brûle environ zéro virgule trois litre de diesel. Donc plus tu le fais tourner, plus tu paies de carburant. Le soleil est gratuit ; le diesel ne l'est pas — et cette facture grandit à chaque heure."
+    },
+    {
+      "img": "slide_5.jpg",
+      "audio": "slide_5.ogg",
+      "narr": "Ramenons cela chez nous. Quand le réseau de la SNEL tombe — et partout en RDC, cela arrive souvent — les générateurs font tourner les commerces et les cliniques. Cette fiabilité est réelle et précieuse ! Mais il y a une histoire de coût : le carburant doit être acheté et transporté par camion, parfois sur des routes difficiles, et l'échappement salit l'air des villes animées. Un générateur est donc fiable, oui — mais il dépend d'une chaîne d'approvisionnement en carburant et il pollue le voisinage. Des compromis honnêtes."
+    },
+    {
+      "img": "slide_6.jpg",
+      "audio": "slide_6.ogg",
+      "narr": "Verrouillons cela ! Le moteur brûle du diesel et l'alternateur produit du CA directement. Comme c'est déjà du CA, aucun onduleur n'est nécessaire — c'est prêt à l'emploi. Et environ zéro virgule trois litre de diesel par kilowattheure signifie que le carburant est le coût continu qui ne s'arrête jamais. Moteur, alternateur, CA, facture de carburant — tu as compris ! Prêt ? Passe le quiz et obtiens ton certificat !"
+    },
+    {
+      "img": "slide_7.jpg",
+      "quiz": true,
+      "audio": "slide_7.ogg",
+      "narr": "C'est parti — le moment de vérité ! Réponds à toutes les questions pour obtenir ton certificat de réussite. Repense au moteur et à l'alternateur, à la raison pour laquelle il n'y a pas d'onduleur, et à ce coût de carburant. Tu vas y arriver. Lance-toi !"
+    }
+  ],
+  "quizCount": 2
+}

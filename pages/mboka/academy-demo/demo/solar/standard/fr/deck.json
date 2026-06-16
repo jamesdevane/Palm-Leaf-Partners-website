@@ -1,0 +1,59 @@
+{
+  "title": "SOLAR POWER",
+  "topic": "solar",
+  "tier": "standard",
+  "tierLabel": "Standard · 6–8",
+  "lang": "fr",
+  "langName": "French",
+  "slides": [
+    {
+      "img": "slide_1.jpg",
+      "audio": "slide_1.ogg",
+      "anim": "solar/solar_03_photovoltaic_effect.mp4",
+      "narr": "Bon retour, scientifiques ! Vous savez déjà que les panneaux solaires produisent de l'électricité à partir de la lumière du soleil. Mais COMMENT ? Aujourd'hui, nous entrons dans le panneau, nous rencontrons la minuscule pièce qui fait le travail, nous apprenons la différence entre deux sortes d'électricité, et nous comptons même les watts. Reste avec moi — à la fin, tu comprendras une vraie installation solaire de toit, du soleil jusqu'à la prise murale."
+    },
+    {
+      "img": "slide_2.jpg",
+      "audio": "slide_2.ogg",
+      "anim": "solar/solar_03_photovoltaic_effect.mp4",
+      "narr": "Regarde de près un panneau et tu verras qu'il est fait d'une grille de carrés — ce sont des CELLULES solaires, et chacune est faite de silicium, la même matière que dans le sable et les puces d'ordinateur. Voici le moment magique : quand une particule de lumière du soleil, appelée photon, percute le silicium, elle arrache un électron. Et qu'est-ce qu'un flux d'électrons en mouvement ? Un courant électrique ! Donc la lumière du soleil met littéralement les électrons en mouvement. C'est tout le tour de magie — pas de pièces mobiles, pas de bruit, juste la lumière qui pousse les électrons."
+    },
+    {
+      "img": "slide_3.jpg",
+      "audio": "slide_3.ogg",
+      "anim": "solar/solar_01_dc_vs_ac.mp4",
+      "narr": "Et voici un rebondissement ! Le panneau produit du CC — courant continu — où l'électricité circule dans un seul sens régulier, comme une rivière. Mais ta télé, ton frigo et tes lampes fonctionnent en CA — courant alternatif — qui change de sens cinquante fois par seconde. Ils ne correspondent pas ! On ajoute donc une boîte astucieuse appelée ONDULEUR qui transforme le CC en CA. Vois-le comme un traducteur entre la langue du panneau et la langue de ta maison. La chaîne complète est : le panneau produit du CC, l'onduleur le transforme en CA, ta maison l'utilise."
+    },
+    {
+      "img": "slide_4.jpg",
+      "audio": "slide_4.ogg",
+      "narr": "Comptons la puissance ! On la mesure en watts. Un panneau de toit moderne produit environ quatre cents watts en plein soleil — assez pour alimenter quelques lampes vives. Aligne dix de ces panneaux et tu obtiens quatre mille watts, ce qu'on appelle quatre kilowatts. C'est largement assez pour des lampes, des ventilateurs, un réfrigérateur et les chargeurs de tout le monde. Plus tu ajoutes de panneaux, plus tu produis de watts — c'est comme ajouter des seaux pour récolter plus de pluie."
+    },
+    {
+      "img": "slide_5.jpg",
+      "audio": "slide_5.ogg",
+      "narr": "Mais attends — les panneaux ne fonctionnent que lorsque le soleil est présent. Alors, et la nuit, ou un après-midi nuageux ? C'est là qu'intervient la BATTERIE. En pleine journée, tes panneaux produisent souvent PLUS d'énergie que la maison n'en consomme, et la batterie stocke le surplus. Quand le soleil se couche, la maison bascule discrètement sur la batterie. Mets tout ensemble — des panneaux, plus une batterie, plus un onduleur — et tu as de l'électricité jour ET nuit."
+    },
+    {
+      "img": "slide_6.jpg",
+      "audio": "slide_6.ogg",
+      "narr": "Maintenant, soyons honnêtes — toute technologie a un inconvénient, et un bon scientifique apprend les défauts, pas seulement les avantages. Les avantages du solaire sont énormes : lumière du soleil gratuite, pas de facture de carburant, pas de fumée, presque silencieux. Mais voici le hic qu'on ne met pas sur l'affiche. Un panneau dure environ vingt-cinq à trente ans, et puis c'est fini. Et un panneau mort est fait de verre, d'aluminium et de métaux — il ne se décompose PAS comme des restes de nourriture. Si on jette simplement les panneaux en décharge, ils s'accumulent comme déchets électroniques, ou e-déchets, pendant des décennies. Imagine une montagne grandissante de panneaux bleus morts. La bonne nouvelle ? On peut les RECYCLER — broyer et séparer le verre et les métaux pour fabriquer de nouvelles choses. Une énergie propre n'est vraiment propre que si on prévoit aussi la fin de vie du panneau."
+    },
+    {
+      "img": "slide_7.jpg",
+      "audio": "slide_7.ogg",
+      "narr": "Alors, pourquoi cela compte-t-il pour nous ? Une grande partie du Kongo Central n'est pas une jungle épaisse — c'est une savane ouverte et ensoleillée, au soleil fort, parfaite pour le solaire. Imagine une clinique rurale sans ligne électrique sur des kilomètres. Une installation solaire sur le toit peut garder ses lumières allumées et, surtout, garder un frigo à vaccins au froid — sans carburant à acheter et sans réseau à attendre. C'est le solaire qui fait un vrai travail pour de vraies personnes, ici même chez nous."
+    },
+    {
+      "img": "slide_8.jpg",
+      "audio": "slide_8.ogg"
+    },
+    {
+      "img": "slide_9.jpg",
+      "quiz": true,
+      "audio": "slide_9.ogg",
+      "narr": "Très bien — le moment de vérité ! Réponds pour obtenir ton certificat. Prends ton temps, réfléchis bien et souviens-toi de tout ce que nous venons d'explorer. Je crois en toi. C'est parti !"
+    }
+  ],
+  "quizCount": 2
+}

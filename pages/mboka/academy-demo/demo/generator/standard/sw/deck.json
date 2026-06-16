@@ -1,0 +1,47 @@
+{
+  "title": "JENERETA YA DIZELI",
+  "topic": "generator",
+  "tier": "standard",
+  "tierLabel": "Wastani · 6–8",
+  "lang": "sw",
+  "langName": "Swahili",
+  "slides": [
+    {
+      "img": "slide_1.jpg",
+      "audio": "slide_1.ogg",
+      "narr": "Karibu tena! Mashine ya leo ni kituo cha nguvu unachoweza kubeba: jenereta ya dizeli. Wazo kubwa ni rahisi kwa uzuri — kuchoma mafuta huzungusha mashine, na mzunguko huo huzalisha umeme wako. Nishati papo hapo, mafuta huifanya ifanye kazi! Unakumbuka somo la jua? Huyu ni pacha kinyume wa jua — hakuna jua linalohitajika, lakini hunywa mafuta. Tuifungue."
+    },
+    {
+      "img": "slide_2.jpg",
+      "audio": "slide_2.ogg",
+      "narr": "Jenereta kwa kweli ina sehemu kuu mbili zinazofanya kazi kama timu. Kwanza, INJINI YA DIZELI inayochoma mafuta na kuzunguka — hiyo ndiyo nguvu inayofanya kazi ngumu. Pili, ALTERNATA inayogeuza mzunguko huo wote kuwa umeme — hiyo ndiyo kifaa cha kuzalisha nishati. Kwa hiyo ifikirie hivi: injini ni sawa na nguvu, alternata ni sawa na kifaa cha kuzalisha nishati. Injini hutoa jasho, na alternata hufanya uchawi."
+    },
+    {
+      "img": "slide_3.jpg",
+      "audio": "slide_3.ogg",
+      "narr": "Hapa kuna kipengele kinachorudi moja kwa moja kwenye jua! Ndani ya alternata, sumaku huzunguka kupita pindi za waya. Kuzunguka huko husukuma mkondo mbele na nyuma, mbele na nyuma — na mkondo unaoenda mbele na nyuma huitwa AC, mkondo geuzi. Na fikiria? AC ndio hasa nyumba yako inavyotumia tayari! Kwa hiyo jenereta HAIHITAJI kigeuzi — tofauti na jua, ambalo huzalisha DC na lazima kuibadilisha. Jenereta huruka hatua hiyo yote."
+    },
+    {
+      "img": "slide_4.jpg",
+      "audio": "slide_4.ogg",
+      "narr": "Sasa tuhesabu nishati! Jenereta hupimwa kwa wati, W, au kilowati, kW. Kifaa kidogo cha nyumbani huweza kutoa takriban wati elfu tatu — hizo ni kilowati tatu. Lakini hapa kuna sehemu inayoongezeka: kila kilowati-saa ya umeme huchoma takriban lita sifuri nukta tatu za dizeli. Kwa hiyo kadiri unavyoiendesha, ndivyo unavyolipia mafuta zaidi. Jua ni bure; dizeli si bure — na bili hiyo hukua kila saa."
+    },
+    {
+      "img": "slide_5.jpg",
+      "audio": "slide_5.ogg",
+      "narr": "Tulete nyumbani. Gridi ya SNEL inapozimika — na kote DRC mara nyingi huzimika — jenereta huendeleza maduka na zahanati. Kutegemewa huko ni halisi na cha thamani! Lakini kuna hadithi ya gharama: mafuta lazima yanunuliwe na kuletwa kwa lori, wakati mwingine kupitia barabara mbaya, na moshi huchafua hewa ya miji yenye shughuli. Kwa hiyo jenereta inategemewa, ndiyo — lakini hutegemea mnyororo wa usambazaji wa mafuta nayo huchafua mtaa. Mizania ya kweli."
+    },
+    {
+      "img": "slide_6.jpg",
+      "audio": "slide_6.ogg",
+      "narr": "Tuifunge! Injini huchoma dizeli na alternata huzalisha AC moja kwa moja. Kwa kuwa tayari ni AC, hakuna kigeuzi kinachohitajika — iko tayari kutumika. Na takriban lita sifuri nukta tatu za dizeli kwa kilowati-saa humaanisha mafuta ndiyo gharama ya kuendelea isiyokoma. Injini, alternata, AC, bili ya mafuta — umeielewa! Uko tayari? Fanya jaribio na upate cheti chako!"
+    },
+    {
+      "img": "slide_7.jpg",
+      "audio": "slide_7.ogg",
+      "quiz": true,
+      "narr": "Twende — wakati wa ukweli! Jibu maswali yote ili upate Cheti chako cha Kukamilisha. Fikiria nyuma kuhusu injini na alternata, kwa nini hakuna kigeuzi, na gharama hiyo ya mafuta. Unaweza. Jaribu!"
+    }
+  ],
+  "quizCount": 2
+}

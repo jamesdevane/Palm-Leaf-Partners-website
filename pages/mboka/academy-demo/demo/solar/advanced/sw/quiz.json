@@ -1,0 +1,53 @@
+{
+  "topic": "solar",
+  "tier": "advanced",
+  "lang": "sw",
+  "langName": "Swahili",
+  "certCode": "SOLA",
+  "certTitle": "NISHATI YA JUA — Juu",
+  "certUnit": "Nishati na Miundombinu · Jua · Chuo",
+  "questions": [
+    {
+      "q": "Kidhibiti cha MPPT hufanya nini?",
+      "choices": [
+        "hubadilisha DC kuwa AC kwa gridi",
+        "hufuatilia kilele cha nguvu cha safu hali zinapobadilika",
+        "huhifadhi nishati kwa kemikali"
+      ],
+      "correct": 1,
+      "why": [
+        "Hapana — hiyo ni kazi ya kigeuzi, si ya MPPT.",
+        "Sahihi! MPPT hushikilia safu kwenye kilele cha nguvu mwangaza/halijoto vinapobadilika.",
+        "Hapana — hiyo huelezea betri, si MPPT."
+      ]
+    },
+    {
+      "q": "Paneli ya 1 m² yenye ufanisi wa ~20% chini ya jua la ~1 kW/m² hutoa takriban:",
+      "choices": [
+        "takriban 20 W",
+        "takriban 200 W",
+        "takriban 2,000 W"
+      ],
+      "correct": 1,
+      "why": [
+        "Hapana — huo ni ufanisi wa ~2% tu; hesabu tena 20% ya 1 kW.",
+        "Sahihi! 20% ya ~1 kW/m² ≈ 200 W kutoka paneli ya 1 m².",
+        "Hapana — hizo zingezidi ~1 kW/m² ya mwanga wa jua unaoingia."
+      ]
+    },
+    {
+      "q": "Kipimo gani hulinganisha vyema gharama ya maisha yote ya chaguo za nishati?",
+      "choices": [
+        "wati za kilele",
+        "LCOE (gharama iliyosawazishwa ya nishati)",
+        "rangi ya paneli"
+      ],
+      "correct": 1,
+      "why": [
+        "Hapana — wati za kilele hupuuza mafuta, maisha na mavuno ya nishati.",
+        "Sahihi! LCOE = gharama ya maisha ÷ kWh za maisha — ulinganisho wa haki.",
+        "Hapana — rangi haina uhusiano na gharama ya nishati."
+      ]
+    }
+  ]
+}

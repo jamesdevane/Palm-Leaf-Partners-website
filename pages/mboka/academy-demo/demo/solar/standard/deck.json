@@ -1,0 +1,57 @@
+{
+  "title": "SOLAR POWER",
+  "topic": "solar",
+  "tier": "standard",
+  "tierLabel": "Standard · 6–8",
+  "slides": [
+    {
+      "img": "slide_1.jpg",
+      "audio": "slide_1.ogg",
+      "anim": "solar/solar_03_photovoltaic_effect.mp4",
+      "narr": "Welcome back, scientists! You already know solar panels make electricity from sunlight. But HOW? Today we go inside the panel, meet the tiny part that does the work, learn the difference between two kinds of electricity, and even count the watts. Stick with me — by the end you'll understand a real rooftop solar system from the sun all the way to the wall socket."
+    },
+    {
+      "img": "slide_2.jpg",
+      "audio": "slide_2.ogg",
+      "anim": "solar/solar_03_photovoltaic_effect.mp4",
+      "narr": "Look closely at a panel and you'll see it's a grid of squares — those are solar CELLS, and each one is made of silicon, the same stuff in sand and computer chips. Here's the magic moment: when a particle of sunlight, called a photon, smacks into the silicon, it knocks an electron loose. And what is a stream of moving electrons? An electric current! So sunlight literally bumps electrons into motion. That's the whole trick — no moving parts, no noise, just light pushing electrons."
+    },
+    {
+      "img": "slide_3.jpg",
+      "audio": "slide_3.ogg",
+      "anim": "solar/solar_01_dc_vs_ac.mp4",
+      "narr": "Now a twist! The panel makes direct current — where electricity flows in one steady direction, like a river. But your TV, fridge, and lights run on alternating current — which flips back and forth fifty times a second. They don't match! So we add a clever box called an INVERTER that turns direct current into alternating current. Think of it as a translator between the panel's language and your home's language. The full chain is: the panel makes direct current, the inverter changes it to alternating current, and your home uses it."
+    },
+    {
+      "img": "slide_4.jpg",
+      "audio": "slide_4.ogg",
+      "narr": "Let's count power! We measure it in watts. One modern rooftop panel makes about four hundred watts in full sun — enough to run a few bright lights. Line up ten of those panels and you get four thousand watts, which we call four kilowatts. That's plenty for lights, fans, a fridge, and everyone's chargers. The more panels you add, the more watts you make — it's like adding more buckets to catch more rain."
+    },
+    {
+      "img": "slide_5.jpg",
+      "audio": "slide_5.ogg",
+      "narr": "But wait — panels only work when the sun is out. So what about night, or a cloudy afternoon? That's where the BATTERY comes in. During the bright day your panels often make MORE power than the house is using, and the battery stores the extra. When the sun sets, the home quietly switches to running off the battery. Put it all together — panels, plus a battery, plus an inverter — and you've got power day AND night."
+    },
+    {
+      "img": "slide_6.jpg",
+      "audio": "slide_6.ogg",
+      "narr": "Now let's be honest — every technology has a downside, and a good scientist learns the cons, not just the pros. Solar's pros are huge: free sunlight, no fuel bills, no smoke, almost silent. But here's the catch they don't put on the poster. A panel lasts about twenty-five to thirty years, and then it's done. And a dead panel is made of glass, aluminium, and metals — it does NOT rot away like food scraps. If we just dump panels in a landfill, they pile up as electronic waste, or e-waste, for decades. Picture a growing mountain of dead blue panels. The good news? We can RECYCLE them — crush and separate the glass and metals to make new things. Clean energy is only truly clean if we plan for the end of the panel's life too."
+    },
+    {
+      "img": "slide_7.jpg",
+      "audio": "slide_7.ogg",
+      "narr": "So why does this matter for us? Much of Kongo Central isn't thick jungle — it's open, sunny savanna with strong sun, which is perfect for solar. Imagine a rural clinic with no power line for kilometres. A rooftop solar system can keep its lights on and, crucially, keep a vaccine fridge cold — with no fuel to buy and no grid to wait for. That's solar doing real work for real people, right here at home."
+    },
+    {
+      "img": "slide_8.jpg",
+      "audio": "slide_8.ogg"
+    },
+    {
+      "img": "slide_9.jpg",
+      "audio": "slide_9.ogg",
+      "quiz": true,
+      "narr": "Alright — moment of truth! Answer to earn your certificate. Take your time, think it through, and remember everything we just explored. I believe in you. Go!"
+    }
+  ],
+  "quizCount": 2
+}

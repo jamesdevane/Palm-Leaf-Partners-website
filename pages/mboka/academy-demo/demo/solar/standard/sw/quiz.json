@@ -1,0 +1,39 @@
+{
+  "topic": "solar",
+  "tier": "standard",
+  "lang": "sw",
+  "langName": "Swahili",
+  "certCode": "SOLS",
+  "certTitle": "NISHATI YA JUA — Wastani",
+  "certUnit": "Nishati na Miundombinu · Jua · 6–8",
+  "questions": [
+    {
+      "q": "KIGEUZI (inverter) hufanya nini katika mfumo wa jua?",
+      "choices": [
+        "huhifadhi nishati kwa usiku",
+        "hubadilisha DC ya paneli kuwa AC",
+        "husafisha paneli ya jua"
+      ],
+      "correct": 1,
+      "why": [
+        "Hapana — hiyo ni kazi ya betri, si ya kigeuzi.",
+        "Sahihi! Kigeuzi hubadilisha DC ya paneli kuwa AC inayotumiwa na nyumba.",
+        "Hapana — kigeuzi ni cha umeme; hakisafishi kitu."
+      ]
+    },
+    {
+      "q": "Takriban wati ngapi paneli moja ya kisasa huzalisha kwenye jua kali?",
+      "choices": [
+        "takriban 4 W",
+        "takriban 400 W",
+        "takriban 40,000 W"
+      ],
+      "correct": 1,
+      "why": [
+        "Hapana — hizo ni ndogo mno kwa paneli ya paani.",
+        "Sahihi! Paneli ya kawaida ya kisasa huzalisha takriban 400 W kwenye jua kali.",
+        "Hapana — hizo ni nyingi mno kuliko paneli moja inavyozalisha."
+      ]
+    }
+  ]
+}

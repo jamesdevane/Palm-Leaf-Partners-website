@@ -1,0 +1,47 @@
+{
+  "title": "DIESEL GENERATOR",
+  "topic": "generator",
+  "tier": "core",
+  "tierLabel": "Core · K–5",
+  "lang": "fr",
+  "langName": "French",
+  "slides": [
+    {
+      "img": "slide_1.jpg",
+      "audio": "slide_1.ogg",
+      "narr": "Bonjour les amis ! As-tu déjà entendu une machine faire BRRRR et soudain les lumières s'allumer ? C'est un générateur diesel ! C'est une petite machine astucieuse qui brûle du carburant pour produire de l'électricité quand tu veux — pas seulement quand le soleil est là. De l'énergie à la demande ! Découvrons comment fonctionne ce petit assistant bruyant."
+    },
+    {
+      "img": "slide_2.jpg",
+      "audio": "slide_2.ogg",
+      "narr": "Un générateur est un petit moteur relié à un fabricant d'électricité. Voici la recette : tu verses du carburant — c'est le diesel — puis tu le démarres, exactement comme on démarre une petite moto. Et le meilleur ? Il fabrique de l'électricité de jour OU de nuit ! Le panneau solaire que nous avons appris a besoin du soleil, mais ce petit bonhomme se moque qu'il soit midi ou minuit. Il a juste besoin de carburant."
+    },
+    {
+      "img": "slide_3.jpg",
+      "audio": "slide_3.ogg",
+      "narr": "Suivons les quatre étapes ! D'abord, le carburant brûle à l'intérieur du moteur — comme un minuscule feu de camp contrôlé. Ensuite, cette combustion fait tourner le moteur très, très vite, en rond et en rond. Puis toute cette rotation fabrique de l'électricité, presque comme par magie ! Et enfin, un fil transporte l'énergie jusqu'à tes lampes. Carburant, rotation, électricité, lumière — quatre petites étapes et la pièce s'illumine !"
+    },
+    {
+      "img": "slide_4.jpg",
+      "audio": "slide_4.ogg",
+      "narr": "Maintenant, chaque assistant a un côté moins sympathique, et voici celui du générateur : il est BRUYANT — il rugit et gronde tout le temps qu'il fonctionne, brrrr, brrrr ! Et il crache de la fumée à cause du carburant qu'il brûle. Cette fumée n'est pas propre pour l'air que nous respirons. Donc, alors que le panneau solaire est silencieux et propre, le générateur est un ami un peu bruyant et fumant. Bon à retenir !"
+    },
+    {
+      "img": "slide_5.jpg",
+      "audio": "slide_5.ogg",
+      "narr": "Pense à chez nous — le Congo ! Beaucoup de commerces et de maisons gardent un générateur pour quand les grandes lignes électriques se coupent. C'est super pratique — tu l'allumes et POUF, tu as de la lumière à nouveau ! Mais voici le hic : tu dois acheter du carburant chaque jour pour le faire fonctionner, et toute cette fumée et ce bruit ne sont pas bons pour toute une ville. Pratique un petit moment, mais ça coûte et ça coûte."
+    },
+    {
+      "img": "slide_6.jpg",
+      "audio": "slide_6.ogg",
+      "narr": "Tu as réussi ! Rappelons-nous nos grandes idées : le carburant brûle dans le moteur, le moteur produit de l'électricité, et c'est bruyant et fumant. Le soleil nous donne une énergie silencieuse et propre, et le générateur nous donne de l'énergie à tout moment — mais avec du bruit et du carburant à acheter. Tu es maintenant un vrai petit scientifique de l'énergie ! Es-tu prêt ? Passons le quiz !"
+    },
+    {
+      "img": "slide_7.jpg",
+      "quiz": true,
+      "audio": "slide_7.ogg",
+      "narr": "Très bien — c'est parti ! Réponds à la question pour obtenir ton certificat de réussite. Prends ton temps, pense à notre petite machine à carburant qui rugit, et souviens-toi de tout ce que nous avons exploré. Je sais que tu peux y arriver. Vas-y !"
+    }
+  ],
+  "quizCount": 1
+}

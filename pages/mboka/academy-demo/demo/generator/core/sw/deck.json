@@ -1,0 +1,47 @@
+{
+  "title": "JENERETA YA DIZELI",
+  "topic": "generator",
+  "tier": "core",
+  "tierLabel": "Msingi · K–5",
+  "lang": "sw",
+  "langName": "Swahili",
+  "slides": [
+    {
+      "img": "slide_1.jpg",
+      "audio": "slide_1.ogg",
+      "narr": "Habari, marafiki! Umewahi kusikia mashine ikilia BRRRR kisha ghafla taa zikawaka? Hiyo ni jenereta ya dizeli! Ni mashine ndogo werevu inayochoma mafuta kuzalisha umeme wakati wowote unaoutaka — si tu jua linapokuwepo. Nishati papo hapo! Twende tujue jinsi msaidizi huyu mdogo mwenye kelele anavyofanya kazi."
+    },
+    {
+      "img": "slide_2.jpg",
+      "audio": "slide_2.ogg",
+      "narr": "Jenereta ni injini ndogo iliyounganishwa na kifaa cha kuzalisha nishati. Hii ndiyo kanuni: unamimina mafuta — hiyo ni dizeli — kisha unaiwasha, kama kuwasha pikipiki ndogo. Na sehemu bora? Huzalisha umeme mchana AU usiku! Paneli ya jua tuliyojifunza inahitaji jua, lakini huyu mdogo hajali kama ni adhuhuri au usiku wa manane. Anahitaji mafuta tu."
+    },
+    {
+      "img": "slide_3.jpg",
+      "audio": "slide_3.ogg",
+      "narr": "Tufuate hatua nne! Kwanza, mafuta huungua ndani ya injini — kama moto mdogo unaodhibitiwa. Kisha, kuungua huko hufanya injini izunguke kwa kasi sana, mzunguko baada ya mzunguko. Kisha mzunguko huo wote huzalisha umeme, karibu kama uchawi! Na mwishowe, waya huubeba umeme moja kwa moja hadi kwenye taa zako. Mafuta, mzunguko, umeme, taa — hatua nne ndogo nacho chumba huangaza!"
+    },
+    {
+      "img": "slide_4.jpg",
+      "audio": "slide_4.ogg",
+      "narr": "Sasa, kila msaidizi ana upande usio mzuri, na huu ndio wa jenereta: ina KELELE — hunguruma na kuvuma muda wote inapofanya kazi, brrrr, brrrr! Na hutoa moshi kutoka mafuta inayochoma. Moshi huo si safi kwa hewa tunayoivuta. Kwa hiyo wakati paneli ya jua ni kimya na safi, jenereta ni rafiki mwenye kelele na moshi kidogo. Vizuri kukumbuka!"
+    },
+    {
+      "img": "slide_5.jpg",
+      "audio": "slide_5.ogg",
+      "narr": "Fikiria kuhusu nyumbani — Kongo! Maduka na nyumba nyingi huweka jenereta kwa wakati ambapo nyaya kubwa za umeme zinazimika. Ni rahisi sana — unaiwasha na POOF, una mwanga tena! Lakini hapa kuna kikwazo: lazima ununue mafuta kila siku ili iendelee kufanya kazi, na moshi na kelele hiyo yote si nzuri kwa mji mzima. Rahisi kwa muda kidogo, lakini hugharimu na kugharimu."
+    },
+    {
+      "img": "slide_6.jpg",
+      "audio": "slide_6.ogg",
+      "narr": "Umefanikiwa! Tukumbuke mawazo yetu makubwa: mafuta huungua ndani ya injini, injini huzalisha umeme, na ina kelele na moshi. Jua hutupa nishati ya kimya na safi, na jenereta hutupa nishati wakati wowote — lakini kwa kelele na mafuta ya kununua. Sasa wewe ni mwanasayansi mdogo wa kweli wa nishati! Uko tayari? Twende tukafanye jaribio!"
+    },
+    {
+      "img": "slide_7.jpg",
+      "audio": "slide_7.ogg",
+      "quiz": true,
+      "narr": "Sawa — twende! Jibu swali ili upate Cheti chako cha Kukamilisha. Chukua muda wako, fikiria kuhusu mashine yetu ndogo ya mafuta inayonguruma, na kumbuka kila kitu tulichochunguza. Najua unaweza kufanya. Twende!"
+    }
+  ],
+  "quizCount": 1
+}

@@ -1,0 +1,59 @@
+{
+  "title": "NISHATI YA JUA",
+  "topic": "solar",
+  "tier": "deep",
+  "tierLabel": "Kina · 9–12",
+  "lang": "sw",
+  "langName": "Swahili",
+  "slides": [
+    {
+      "img": "slide_1.jpg",
+      "audio": "slide_1.ogg",
+      "anim": "solar/solar_03_photovoltaic_effect.mp4",
+      "narr": "Karibu kwenye uchunguzi wa kina. Umepita 'paneli huzalisha umeme' — sasa tunapata uelewa wa kweli: fizikia ya quantum ya KWA NINI fotoni huachanisha elektroni, hesabu ya kupima ukubwa wa mfumo kwa nyumba, uchumi wa kweli, na tatizo la takataka za kielektroniki ambalo hakuna anayependa kulizungumza. Mwishoni ungeweza kukadiria ukubwa wa mfumo wa jua kwa zahanati ya Kikongo kwa nyuma ya bahasha. Twende."
+    },
+    {
+      "img": "slide_2.jpg",
+      "audio": "slide_2.ogg",
+      "anim": "solar/solar_03_photovoltaic_effect.mp4",
+      "narr": "Hapa kuna kiini chake. Seli ya jua ni semikondakta ya silikoni yenye makutano ya p-n — upande mmoja umedopwa kuwa na elektroni za ziada, upande mwingine kuwa na 'mashimo' ambapo elektroni hazipo. Fotoni yenye nishati ya kutosha inapogonga silikoni, huipiga elektroni itoke kwenye kifungo chake, ikiacha shimo nyuma. Kawaida zingeungana tena — lakini makutano yana uga wa umeme uliojengeka unaofagia elektroni zilizoachwa huru upande mmoja na mashimo upande mwingine. Utengano huo wa chaji NDIO volteji, na unganisha waya nawe upate mkondo wa DC. Mwanga wa jua, umegeuzwa kuwa umeme, bila sehemu zozote zinazotembea. Fizikia nzuri."
+    },
+    {
+      "img": "slide_3.jpg",
+      "audio": "slide_3.ogg",
+      "anim": "solar/solar_01_dc_vs_ac.mp4",
+      "narr": "Ipanue. Seli moja moja huunganishwa mfululizo kuwa moduli — tunayoiita paneli — na paneli huunganishwa pamoja kuwa safu. Safu huzalisha DC, lakini gridi ya DRC na vifaa vyako hutumia AC kwa volti 230, herzi 50 — kiwango cha Ulaya ambacho SNEL hutumia. Kwa hiyo kigeuzi hakigeuzi tu DC kuwa AC; lazima kitengeneze wimbi safi la sine kwa volteji na masafa sahihi kabisa. Ongeza kidhibiti cha chaji na rundo la betri ili kuhifadhi ziada ya mchana, nawe una mfumo kamili unaohudumia mizigo mchana na usiku."
+    },
+    {
+      "img": "slide_4.jpg",
+      "audio": "slide_4.ogg",
+      "narr": "Wakati wa hesabu inayokuwezesha kweli kubuni. Nguvu ni sawa na volteji mara mkondo — P ni sawa na V mara A. Na nishati-jumla ni nguvu mara muda, ikipimwa kwa kilowati-saa. Sasa tatizo halisi la upimaji: tuseme nyumba inahitaji kilowati-saa sita kwa siku, na eneo letu hupata takriban saa tano za 'jua kali' — saa zinazolingana na jua kamili. Kilowati-saa sita gawanya kwa saa tano hutoa kilowati moja nukta mbili za paneli zinazohitajika. Kwa wati 400 kila moja, hizo ni paneli tatu hivi — jumlisha kidogo zaidi kwa hasara za uhalisia. Unaona jinsi mgawanyo mmoja unavyogeuza mwanga wa jua kuwa orodha ya vipuri?"
+    },
+    {
+      "img": "slide_5.jpg",
+      "audio": "slide_5.ogg",
+      "narr": "Tuipime kwa uaminifu. Upande wa faida: mafuta ni bure milele, hakuna hewa chafu inapofanya kazi, paneli hudumu takriban miaka 25, na ni kimya. Upande wa hasara: gharama ya awali ni kubwa, uzalishaji hushuka siku za mawingu, na betri — kiungo dhaifu — ni ghali na hudumu miaka 5 hadi 10 tu kabla ya kuhitaji kubadilishwa. Lakini hapa kuna kiini: tandaza gharama katika maisha yake yote nayo nishati ya jua mara nyingi ndiyo NAFUU zaidi unayoweza kununua. Ghali kusakinisha, nafuu kuendesha."
+    },
+    {
+      "img": "slide_6.jpg",
+      "audio": "slide_6.ogg",
+      "narr": "Sasa hadithi ambayo vipeperushi huiruka. Ruka mbele miaka 25: safu yako nzuri, safi, na kimya imekufa. Na paneli ya jua haiozi — ni glasi, alumini, silikoni, na kiasi kidogo cha fedha, bati, na risasi, zimeunganishwa kwa ukaribu hivi kwamba ni vigumu kweli kuzitenganisha. Nambari ni za kuhuzunisha: tafiti zinakadiria makumi ya mamilioni ya tani za paneli zilizostaafu duniani ifikapo mwaka 2050. Kwa sasa, wengi wao bado huenda dampo, kwa sababu kuzisafisha upya kunawezekana kiufundi lakini sekta ya kufanya hivyo bado haijajengeka. Kwa hiyo hapa kuna wajibu unaokuja na teknolojia: lazima tubuni kwa ajili ya kurudisha na kusafisha upya tangu mwanzo, vinginevyo tunabadilisha tu tatizo la moshi kwa mlima wa polepole wa glasi na metali. Uhandisi wa kweli humiliki mzunguko wote wa maisha — kuzaliwa hadi kutupwa."
+    },
+    {
+      "img": "slide_7.jpg",
+      "audio": "slide_7.ogg",
+      "narr": "Lete nyumbani. Kongo ya Kati huwa na wastani wa takriban saa tano hadi tano na nusu za jua kali kwa siku — rasilimali kubwa ya jua kweli. Na nguvu halisi ya jua hapa si jua tu; ni kwamba hukwepa matatizo mawili magumu kwa wakati mmoja: njia ndefu na ghali za usambazaji wa mafuta ambazo jenereta huhitaji, na gridi isiyotegemewa. Weka mfumo kwenye zahanati, shule, au pampu ya maji, nao hufanya kazi tu — kimyakimya, bila lori la mafuta kuhitajika. Ndiyo maana jua ni nguzo ya mpango wa nishati ambao DRC inaweza kuumiliki yenyewe."
+    },
+    {
+      "img": "slide_8.jpg",
+      "audio": "slide_8.ogg"
+    },
+    {
+      "img": "slide_9.jpg",
+      "audio": "slide_9.ogg",
+      "quiz": true,
+      "narr": "Sawa — wakati wa ukweli! Jibu ili upate cheti chako. Chukua muda wako, lifikirie kwa makini, na kumbuka kila kitu tulichochunguza. Nakuamini. Twende!"
+    }
+  ],
+  "quizCount": 2
+}

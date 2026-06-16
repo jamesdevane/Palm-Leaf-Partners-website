@@ -1,0 +1,37 @@
+{
+  "topic": "solar",
+  "tier": "standard",
+  "certCode": "SOLS",
+  "certTitle": "SOLAR POWER — Standard",
+  "certUnit": "Energy & Infrastructure · Solar · 6–8",
+  "questions": [
+    {
+      "q": "What does the INVERTER do in a solar system?",
+      "choices": [
+        "stores power for the night",
+        "converts the panel's DC into AC",
+        "cleans the solar panel"
+      ],
+      "correct": 1,
+      "why": [
+        "No — that is the battery's job, not the inverter's.",
+        "Correct! The inverter converts the panel's DC into the AC homes use.",
+        "No — the inverter is electrical; it does not clean anything."
+      ]
+    },
+    {
+      "q": "About how many watts does one modern solar panel make in full sun?",
+      "choices": [
+        "about 4 W",
+        "about 400 W",
+        "about 40,000 W"
+      ],
+      "correct": 1,
+      "why": [
+        "No — that is far too small for a rooftop panel.",
+        "Correct! A typical modern panel makes roughly 400 W in full sun.",
+        "No — that is far more than a single panel produces."
+      ]
+    }
+  ]
+}

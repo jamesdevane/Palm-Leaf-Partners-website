@@ -1,0 +1,52 @@
+{
+  "title": "JENERETA YA DIZELI",
+  "topic": "generator",
+  "tier": "deep",
+  "tierLabel": "Kina · 9–12",
+  "lang": "sw",
+  "langName": "Swahili",
+  "slides": [
+    {
+      "img": "slide_1.jpg",
+      "audio": "slide_1.ogg",
+      "narr": "Karibu kwenye uchunguzi wa kina! Leo tunapita brrrr na kuingia kwenye uhandisi halisi — fizikia ya mwako, hesabu ya mafuta, na mizania ya kweli. Nishati papo hapo, mafuta huifanya ifanye kazi. Mwishoni utaweza kupima mzigo, kuhesabu lita, na kueleza kwa nini mashine hii ni daraja, si kituo cha mwisho. Tuingie!"
+    },
+    {
+      "img": "slide_2.jpg",
+      "audio": "slide_2.ogg",
+      "narr": "Hapa kuna sehemu nzuri — hakuna plagi ya cheche kabisa! Katika injini ya dizeli, hewa hubanwa hadi iwe na joto kali sana, na mafuta yanapodungwa ndani ya hewa hiyo moto, huwaka yenyewe. Huo ni mwako wa ubanaji. Gesi zinazopanuka husukuma pistoni chini, pistoni huzungusha krankishafti, na hivyo, nishati ya kemikali iliyofungwa kwenye mafuta huwa nishati ya kimakanika inayozunguka. Kemia kuwa mzunguko — huo ndio ujanja wote."
+    },
+    {
+      "img": "slide_3.jpg",
+      "audio": "slide_3.ogg",
+      "narr": "Sasa mzunguko huwa umeme. Krankishafti huzungusha rota ya alternata, ambayo ni sumaku-umeme. Kwa uvutaji wa sumaku-umeme — sheria ya Faraday ikitenda kazi — uga wa sumaku unaotembea huzalisha mkondo kwenye pindi za stata. Na kwa kuwa uga hufagia mbele na nyuma, mkondo hutoka kama AC, hakuna kigeuzi unaohitajika. Kipengele kimoja zaidi kizuri: kasi ya injini hushikiliwa thabiti ili AC ibaki herzi hamsini — kiwango cha gridi ya DRC. Kasi thabiti ni sawa na masafa thabiti."
+    },
+    {
+      "img": "slide_4.jpg",
+      "audio": "slide_4.ogg",
+      "narr": "Tufanye hesabu halisi! Nishati kwa kilowati-saa ni sawa na kilowati mara saa, na nguvu ni sawa na volteji mara mkondo, P ni sawa na V mara A. Jenereta huchoma takriban lita sifuri nukta tatu za dizeli kwa kilowati-saa inayozalishwa. Kwa hiyo endesha mzigo wa kilowati tano kwa saa nane: tano mara nane ni kilowati-saa arobaini. Arobaini mara sifuri nukta tatu ni takriban lita kumi na mbili za dizeli siku hiyo — kila siku. Mafuta hayo ya kila siku mara bei ya mafuta ndiyo hasa gharama ya kuendesha ambayo gridi ingeepuka."
+    },
+    {
+      "img": "slide_5.jpg",
+      "audio": "slide_5.ogg",
+      "narr": "Tuwe wakweli kuhusu pande zote mbili! Faida ni kubwa kweli: nishati papo hapo, mchana au usiku, hali yoyote ya hewa, na inabebeka. Lakini hapa kuna kikwazo, nacho ni cha kweli. Mafuta hugharimu kila saa, na mashine huhitaji matengenezo — mafuta na vichujio. Ina kelele, takriban desibeli themanini na tano hadi mia moja zinapopimwa kwa mita moja. Na hutoa kaboni dioksaidi pamoja na oksaidi za nitrojeni, kaboni monoksaidi, na masizi. Ndiyo maana kanuni ni: jenereta ni bora kama DARAJA au akiba, si chanzo chako cha nishati cha muda mrefu."
+    },
+    {
+      "img": "slide_6.jpg",
+      "audio": "slide_6.ogg",
+      "narr": "Tuitumie nyumbani. Kote DRC, jenereta huziba gridi isiyotegemewa — hilo ni hitaji halisi na la dharura, nazo zinaendeleza zahanati na biashara sasa hivi. Lakini usafirishaji wa mafuta na hewa chafu huzifanya ghali muda mrefu: kila lita lazima inunuliwe na kubebwa, na uchafuzi huangukia moja kwa moja kwenye jamii. Kwa hiyo lengo si kuendesha dizeli milele. Ni kuitumia kama daraja kuelekea jua na maji — kisha kuistaafu. Huo ndio njia ya busara."
+    },
+    {
+      "img": "slide_7.jpg",
+      "audio": "slide_7.ogg",
+      "narr": "Tumuhtasari mlolongo! Mwako wa ubanaji huendesha pistoni, pistoni huzungusha krankishafti, na krankishafti huzungusha alternata. Alternata huzalisha AC ya herzi hamsini moja kwa moja — hakuna kigeuzi. Gharama ya mafuta ni takriban lita sifuri nukta tatu kwa kilowati-saa, ina kelele za desibeli themanini na tano hadi mia moja, na huchafua hewa. Sasa unaelewa fizikia, hesabu, NA mizania. Fanya jaribio ili upate cheti chako!"
+    },
+    {
+      "img": "slide_8.jpg",
+      "audio": "slide_8.ogg",
+      "quiz": true,
+      "narr": "Hapa ndipo — onyesha unachojua! Jibu maswali yote ili upate Cheti chako cha Kukamilisha. Kumbuka mwako wa ubanaji, alternata ikizalisha AC, na hesabu ya lita sifuri nukta tatu kwa kilowati-saa. Chukua muda wako na uamini hoja yako. Twende!"
+    }
+  ],
+  "quizCount": 2
+}

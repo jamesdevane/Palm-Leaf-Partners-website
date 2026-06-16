@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mboka Academy — Demo</title>
+  <link rel="stylesheet" href="mboka_academy_demo.css?v=3" />
+  <style>
+    .lang-bar{position:fixed;top:10px;right:14px;z-index:60;display:flex;gap:6px;align-items:center;
+      background:rgba(30,20,12,.85);border:1px solid #5a4326;border-radius:999px;padding:5px 10px;
+      box-shadow:0 4px 16px rgba(0,0,0,.45);backdrop-filter:blur(4px);}
+    .lang-bar-cap{color:#caa86a;font-size:11px;letter-spacing:.08em;text-transform:uppercase;margin-right:4px;}
+    .lang-btn{background:transparent;border:1px solid transparent;color:#e3c98c;font-family:inherit;
+      font-size:13px;padding:4px 10px;border-radius:999px;cursor:pointer;transition:all .15s;}
+    .lang-btn:hover{background:rgba(233,184,74,.14);}
+    .lang-btn.on{background:linear-gradient(#f6c95e,#e9b84a);color:#2a1d12;font-weight:600;}
+    .lang-btn.soon{opacity:.6;}
+    .soon-tag{font-size:9px;opacity:.7;vertical-align:super;}
+    .lang-note{position:fixed;top:52px;right:14px;z-index:60;background:rgba(30,20,12,.92);
+      border:1px solid #5a4326;border-radius:8px;padding:6px 12px;color:#f0d8a0;font-size:12px;
+      max-width:260px;box-shadow:0 4px 16px rgba(0,0,0,.45);}
+    @media(max-width:560px){.lang-bar{top:6px;right:6px;padding:3px 6px;gap:3px;}
+      .lang-bar-cap{display:none;}.lang-btn{font-size:12px;padding:3px 7px;}}
+  </style>
+</head>
+<body>
+  <!-- language selector (fixed top, visible on menu + player) -->
+  <div id="lang-bar" class="lang-bar"><!-- built by JS --></div>
+  <div id="lang-note" class="lang-note" style="display:none"></div>
+
+  <!-- ===================== MENU ===================== -->
+  <div id="menu" class="screen menu-screen">
+    <header class="brandbar">
+      <div class="brandmark">
+        <span class="kuba"></span>
+        <div>
+          <div class="brandname">MBOKA ACADEMY</div>
+          <div class="brandsub">Energy &amp; Infrastructure · interactive lessons</div>
+        </div>
+      </div>
+      <div class="brandtag">Funding demo</div>
+    </header>
+
+    <div class="menu-hero">
+      <h1>Choose a subject &amp; depth</h1>
+      <p>The same subject, taught at four depths — from a child's first picture
+         to college engineering. Pick one to launch its lesson, then take the
+         quiz to earn a Certificate of Completion.</p>
+    </div>
+
+    <main id="menu-grid" class="menu-grid"><!-- built by JS --></main>
+
+    <footer class="menu-foot">
+      Mboka Academy — “Modernization ≠ Westernization.” · Authored content,
+      verified for accuracy · Honest pros &amp; cons (incl. the solar e-waste story) ·
+      Concept animations where available · Narrated by an enthusiastic teacher voice
+      (per-slide), with the full lesson on every slide.
+    </footer>
+  </div>
+
+  <!-- ===================== PLAYER ===================== -->
+  <div id="player" class="screen t-core">
+    <header class="playerbar">
+      <button id="to-menu" class="navbtn ghost">⌂ Menu</button>
+      <div class="p-titlewrap">
+        <div id="p-title" class="p-title">Lesson</div>
+        <div id="p-tier" class="p-tier">Tier</div>
+      </div>
+      <div id="p-count" class="p-count">Slide 1 / 1</div>
+    </header>
+
+    <div class="stage-wrap">
+      <div class="stage">
+        <img id="stage-img" class="stage-img" alt="lesson slide" />
+        <!-- per-slide animation clip (Manim / vetted CC0). Shown only when the
+             slide's deck entry has an `anim` AND the file actually exists. -->
+        <video id="stage-vid" class="stage-vid" muted loop playsinline preload="none"></video>
+        <button id="vid-toggle" class="vid-toggle" type="button" hidden>▦ Slide</button>
+        <div id="stage-msg" class="stage-msg">Loading…</div>
+        <div id="quiz-panel" class="quiz-panel"></div>
+      </div>
+    </div>
+
+    <div id="p-dots" class="p-dots"></div>
+
+    <div class="playerctl">
+      <button id="prev" class="navbtn">◂ Prev</button>
+      <button id="play" class="navbtn primary">▶ Play</button>
+      <button id="next" class="navbtn">Next ▸</button>
+    </div>
+
+    <audio id="aud" preload="none"></audio>
+  </div>
+
+  <script src="mboka_academy_demo.js?v=3"></script>
+</body>
+</html>

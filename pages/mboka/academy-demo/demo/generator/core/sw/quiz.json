@@ -1,0 +1,25 @@
+{
+  "topic": "generator",
+  "tier": "core",
+  "lang": "sw",
+  "langName": "Swahili",
+  "certCode": "GENC",
+  "certTitle": "JENERETA YA DIZELI — Msingi",
+  "certUnit": "Nishati na Miundombinu · Jenereta · K–5",
+  "questions": [
+    {
+      "q": "Jenereta ya dizeli huchoma nini ili kuzalisha umeme?",
+      "choices": [
+        "mwanga wa jua",
+        "mafuta (dizeli)",
+        "maji"
+      ],
+      "correct": 1,
+      "why": [
+        "Hapana — hiyo ni paneli ya jua. Jenereta huhitaji mafuta.",
+        "Sahihi! Huchoma mafuta ya dizeli katika injini yake ili kuzalisha nishati.",
+        "Hapana — jenereta ya dizeli huendeshwa kwa mafuta, si maji."
+      ]
+    }
+  ]
+}

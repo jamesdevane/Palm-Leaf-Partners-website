@@ -1,0 +1,54 @@
+{
+  "title": "NISHATI YA JUA",
+  "topic": "solar",
+  "tier": "core",
+  "tierLabel": "Msingi · K–5",
+  "lang": "sw",
+  "langName": "Swahili",
+  "slides": [
+    {
+      "img": "slide_1.jpg",
+      "audio": "slide_1.ogg",
+      "anim": "solar/solar_03_photovoltaic_effect.mp4",
+      "narr": "Habari, marafiki! Tazameni juu — mnasikia jua usoni mwenu? Jua hilo lenye joto na mwanga limejaa nishati, na leo tutajifunza aina ya uchawi ambao ni WA KWELI: tunaweza kunasa mwanga wa jua na kuugeuza kuwa umeme — umeme uleule unaowasha taa au kuchaji simu! Twende tukajue jinsi gani."
+    },
+    {
+      "img": "slide_2.jpg",
+      "audio": "slide_2.ogg",
+      "narr": "Paneli ya jua inafanana na sinia kubwa, bapa, na lenye kung'aa la buluu. Watu huziweka juu ya paa ambapo jua huangaza mchana kutwa. Hapa ndipo penye jambo la kushangaza — paneli haichomi kitu chochote wala haitoi sauti. Hunywa tu mwanga wa jua na kimyakimya huzalisha umeme. Si ajabu? Ni kama mmea unaonyonya jua, ila badala ya kuotesha majani, huotesha NISHATI!"
+    },
+    {
+      "img": "slide_3.jpg",
+      "audio": "slide_3.ogg",
+      "anim": "solar/solar_03_photovoltaic_effect.mp4",
+      "narr": "Tufuate safari ya mwanga wa jua! Kwanza, jua huangaza juu ya paneli. Kisha, paneli hunasa mwanga huo na kuzalisha umeme ndani yake. Kisha umeme hupita kwenye waya — zoom! — hadi ndani ya nyumba yako. Na mwishowe huwasha taa yako, huzungusha feni yako, na huchaji redio yako. Jua, paneli, waya, taa — hatua nne rahisi!"
+    },
+    {
+      "img": "slide_4.jpg",
+      "audio": "slide_4.ogg",
+      "narr": "Sasa, hapa kuna kitendawili: paneli ya jua hufanya nini usiku? Hupumzika! Jua linapoenda kulala, paneli nayo hulala. Basi, tunawashaje taa baada ya giza? Kwa betri — kisanduku maalum kinachohifadhi nishati ya ziada wakati wa mchana wa jua, kama kuhifadhi kipande cha chakula chako ili ukile baadaye. Nishati ya mchana, imehifadhiwa kwa usiku. Werevu, sivyo?"
+    },
+    {
+      "img": "slide_5.jpg",
+      "audio": "slide_5.ogg",
+      "narr": "Kila kitu kizuri kina kikwazo kimoja kidogo, na hiki ndicho cha jua: paneli haidumu milele. Baada ya muda kama huo uliokuwa hai — mara mbili zaidi! — huchoka na kuacha kuzalisha nishati. Na hapa ndipo penye ugumu: paneli iliyokufa haiwezi kuoza ardhini kama ganda la ndizi au jani. Tukiitupa tu kwenye lundo, hukaa pale kwa muda mrefu sana, sana. Kwa hiyo jambo la busara — jambo la wema kwa Dunia yetu — ni kuSAFISHA UPYA paneli kuukuu, ili vitu vilevile vitumike tena. Nishati safi inastahili mwisho safi!"
+    },
+    {
+      "img": "slide_6.jpg",
+      "audio": "slide_6.ogg",
+      "narr": "Sasa fikiria kuhusu nyumbani — Kongo! Tuna jua kubwa, zuri, na lenye mwanga karibu kila siku. Jua hilo ni hazina. Kwa paneli za jua, kijiji kilicho mbali na nyaya zozote za umeme bado kinaweza kupata mwanga shuleni, feni katika zahanati, na simu iliyochajiwa ya kupigia msaada. Jua ni la kila mtu, na linaweza kuleta nishati kwa kila mtu pia."
+    },
+    {
+      "img": "slide_7.jpg",
+      "audio": "slide_7.ogg",
+      "narr": "Umefanikiwa! Tukumbuke mawazo yetu makubwa: jua huangaza juu ya paneli, paneli huzalisha umeme safi, betri hutusaidia usiku, na paneli inapozeeka tunaiSAFISHA UPYA. Sasa wewe ni mwanasayansi mdogo wa jua! Uko tayari? Twende tukafanye jaribio na kupata cheti chako!"
+    },
+    {
+      "img": "slide_8.jpg",
+      "audio": "slide_8.ogg",
+      "quiz": true,
+      "narr": "Sawa — wakati wa ukweli! Jibu ili upate cheti chako. Chukua muda wako, lifikirie kwa makini, na kumbuka kila kitu tulichochunguza. Nakuamini. Twende!"
+    }
+  ],
+  "quizCount": 1
+}

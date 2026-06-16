@@ -1,0 +1,51 @@
+{
+  "topic": "solar",
+  "tier": "advanced",
+  "certCode": "SOLA",
+  "certTitle": "SOLAR POWER — Advanced",
+  "certUnit": "Energy & Infrastructure · Solar · College",
+  "questions": [
+    {
+      "q": "What does an MPPT controller do?",
+      "choices": [
+        "converts DC to AC for the grid",
+        "tracks the array's maximum-power point as conditions change",
+        "stores energy chemically"
+      ],
+      "correct": 1,
+      "why": [
+        "No — that is the inverter's role, not the MPPT's.",
+        "Correct! MPPT holds the array at its peak-power point as irradiance/temperature vary.",
+        "No — that describes a battery, not an MPPT."
+      ]
+    },
+    {
+      "q": "A 1 m² panel at ~20% efficiency under ~1 kW/m² of sun outputs about:",
+      "choices": [
+        "about 20 W",
+        "about 200 W",
+        "about 2,000 W"
+      ],
+      "correct": 1,
+      "why": [
+        "No — that is only ~2% efficiency; recompute 20% of 1 kW.",
+        "Correct! 20% of ~1 kW/m² ≈ 200 W from a 1 m² panel.",
+        "No — that would exceed the ~1 kW/m² of incoming sunlight."
+      ]
+    },
+    {
+      "q": "Which metric best compares the lifetime cost of power options?",
+      "choices": [
+        "peak wattage",
+        "LCOE (levelized cost of energy)",
+        "panel colour"
+      ],
+      "correct": 1,
+      "why": [
+        "No — peak wattage ignores fuel, lifetime and energy yield.",
+        "Correct! LCOE = lifetime cost ÷ lifetime kWh — the fair comparison.",
+        "No — colour has nothing to do with cost of energy."
+      ]
+    }
+  ]
+}

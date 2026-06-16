@@ -1,0 +1,45 @@
+{
+  "title": "DIESEL GENERATOR",
+  "topic": "generator",
+  "tier": "core",
+  "tierLabel": "Core · K–5",
+  "slides": [
+    {
+      "img": "slide_1.jpg",
+      "audio": "slide_1.ogg",
+      "narr": "Hello, friends! Have you ever heard a machine go BRRRR and suddenly the lights pop on? That's a diesel generator! It's a clever little machine that burns fuel to make electricity whenever you want it — not just when the sun is out. Power on demand! Let's find out how this noisy little helper works."
+    },
+    {
+      "img": "slide_2.jpg",
+      "audio": "slide_2.ogg",
+      "narr": "A generator is a small engine joined to a power-maker. Here's the recipe: you pour in fuel — that's the diesel — and then you start it up, just like starting a little motorbike. And the best part? It makes electricity day OR night! The solar panel we learned about needs the sun, but this little fellow doesn't care if it's noon or midnight. It just needs fuel."
+    },
+    {
+      "img": "slide_3.jpg",
+      "audio": "slide_3.ogg",
+      "narr": "Let's follow the four steps! First, the fuel burns inside the engine — like a tiny controlled campfire. Next, that burning makes the engine spin very, very fast, round and round. Then all that spinning makes electricity, almost like magic! And finally, a wire carries the power right to your lights. Fuel, spin, electricity, lights — four little steps and the room glows!"
+    },
+    {
+      "img": "slide_4.jpg",
+      "audio": "slide_4.ogg",
+      "narr": "Now, every helper has a not-so-nice side, and here's the generator's: it is NOISY — it roars and rumbles the whole time it runs, brrrr, brrrr! And it puffs out smoke from the fuel it burns. That smoke is not clean for the air we breathe. So while the solar panel is quiet and clean, the generator is a bit of a loud, smoky friend. Good to remember!"
+    },
+    {
+      "img": "slide_5.jpg",
+      "audio": "slide_5.ogg",
+      "narr": "Think about home — the Congo! Lots of shops and houses keep a generator for when the big power lines switch off. It's super handy — you flip it on and POOF, you have light again! But here's the catch: you must buy fuel every single day to keep it running, and all that smoke and noise isn't good for a whole town. Handy for a little while, but it costs and costs."
+    },
+    {
+      "img": "slide_6.jpg",
+      "audio": "slide_6.ogg",
+      "narr": "You did it! Let's remember our big ideas: fuel burns in the engine, the engine makes electricity, and it is loud and smoky. The sun gives us quiet, clean power, and the generator gives us power any time — but with noise and fuel to buy. You're a real little energy scientist now! Are you ready? Let's take the quiz!"
+    },
+    {
+      "img": "slide_7.jpg",
+      "audio": "slide_7.ogg",
+      "quiz": true,
+      "narr": "Alright — here we go! Answer the question to earn your Certificate of Completion. Take your time, think about our roaring little fuel machine, and remember everything we explored. I know you can do it. Go!"
+    }
+  ],
+  "quizCount": 1
+}

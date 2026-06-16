@@ -1,0 +1,23 @@
+{
+  "topic": "generator",
+  "tier": "core",
+  "certCode": "GENC",
+  "certTitle": "DIESEL GENERATOR — Core",
+  "certUnit": "Energy & Infrastructure · Generator · K–5",
+  "questions": [
+    {
+      "q": "What does a diesel generator burn to make electricity?",
+      "choices": [
+        "sunlight",
+        "fuel (diesel)",
+        "water"
+      ],
+      "correct": 1,
+      "why": [
+        "No — that is a solar panel. A generator needs fuel.",
+        "Correct! It burns diesel fuel in its engine to make power.",
+        "No — a diesel generator runs on fuel, not water."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "title": "SOLAR POWER",
+  "topic": "solar",
+  "tier": "core",
+  "tierLabel": "Core · K–5",
+  "slides": [
+    {
+      "img": "slide_1.jpg",
+      "audio": "slide_1.ogg",
+      "anim": "solar/solar_03_photovoltaic_effect.mp4",
+      "narr": "Hello, friends! Look up — do you feel the sun on your face? That warm, bright sunshine is full of energy, and today we get to learn a kind of magic that is REAL: we can catch sunlight and turn it into electricity — the same electricity that lights a lamp or charges a phone! Let's find out how."
+    },
+    {
+      "img": "slide_2.jpg",
+      "audio": "slide_2.ogg",
+      "narr": "A solar panel looks like a big, flat, shiny blue tray. People put them on rooftops where the sun shines all day. Here's the amazing part — the panel doesn't burn anything and it doesn't make a sound. It just drinks in sunlight and quietly makes electricity. Isn't that wonderful? It's like a plant soaking up the sun, except instead of growing leaves, it grows POWER!"
+    },
+    {
+      "img": "slide_3.jpg",
+      "audio": "slide_3.ogg",
+      "anim": "solar/solar_03_photovoltaic_effect.mp4",
+      "narr": "Let's follow the sunshine on its journey! First, the sun shines down on the panel. Next, the panel catches that light and makes electricity inside itself. Then the electricity runs down a wire — zoom! — all the way into your house. And finally it lights your lamp, spins your fan, and charges your radio. Sun, panel, wire, lights — four easy steps!"
+    },
+    {
+      "img": "slide_4.jpg",
+      "audio": "slide_4.ogg",
+      "narr": "Now, here's a riddle: what does a solar panel do at night? It rests! When the sun goes to sleep, the panel sleeps too. So how do we keep the lights on after dark? With a battery — a special box that stores extra power during the sunny day, like saving a piece of your lunch to eat later. Day power, saved for night. Clever, right?"
+    },
+    {
+      "img": "slide_5.jpg",
+      "audio": "slide_5.ogg",
+      "narr": "Every good thing has one little catch, and here is solar's: a panel doesn't last forever. After about as long as you've been alive — twice over! — it gets tired and stops making power. And here's the tricky part: a dead panel can't rot away in the ground like a banana peel or a leaf. If we just toss it in a pile, it sits there for a very, very long time. So the smart thing — the kind thing for our Earth — is to RECYCLE old panels, so the same materials can be used again. Clean power deserves a clean ending!"
+    },
+    {
+      "img": "slide_6.jpg",
+      "audio": "slide_6.ogg",
+      "narr": "Now think about home — the Congo! We have big, beautiful, bright sunshine almost every single day. That sunshine is a treasure. With solar panels, a village far away from any power line can still have light in the school, a fan in the clinic, and a charged phone to call for help. The sun belongs to everyone, and it can bring power to everyone too."
+    },
+    {
+      "img": "slide_7.jpg",
+      "audio": "slide_7.ogg",
+      "narr": "You did it! Let's remember our big ideas: the sun shines on the panel, the panel makes clean electricity, a battery helps us at night, and when a panel gets old we RECYCLE it. You are now a little solar scientist! Are you ready? Let's take the quiz and earn your certificate!"
+    },
+    {
+      "img": "slide_8.jpg",
+      "audio": "slide_8.ogg",
+      "quiz": true,
+      "narr": "Alright — moment of truth! Answer to earn your certificate. Take your time, think it through, and remember everything we just explored. I believe in you. Go!"
+    }
+  ],
+  "quizCount": 1
+}

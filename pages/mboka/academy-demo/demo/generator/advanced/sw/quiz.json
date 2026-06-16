@@ -1,0 +1,53 @@
+{
+  "topic": "generator",
+  "tier": "advanced",
+  "lang": "sw",
+  "langName": "Swahili",
+  "certCode": "GENA",
+  "certTitle": "JENERETA YA DIZELI — Juu",
+  "certUnit": "Nishati na Miundombinu · Jenereta · Chuo",
+  "questions": [
+    {
+      "q": "Takriban ufanisi gani wa jumla (mafuta-kwenda-umeme) jenereta ya dizeli hufikia?",
+      "choices": [
+        "takriban 5–10%",
+        "takriban 35–45%",
+        "takriban 90–95%"
+      ],
+      "correct": 1,
+      "why": [
+        "Hapana — huo ni mdogo mno kwa dizeli ya kisasa.",
+        "Sahihi! Ubanaji wa juu hutoa ~35–45% ufanisi wa jumla wa mafuta-kwenda-shafti.",
+        "Hapana — hakuna injini ya joto inayofikia hapo; nambari hiyo hupuuza vikomo vya thermodinamiki."
+      ]
+    },
+    {
+      "q": "Ili kuunganisha SAMBAMBA jenereta mbili za AC kwa usalama, lazima ulingane volteji, masafa na:",
+      "choices": [
+        "rangi ya rangi",
+        "awamu",
+        "chapa ya mafuta"
+      ],
+      "correct": 1,
+      "why": [
+        "Hapana — rangi haihusiani na ulandanishaji.",
+        "Sahihi! Volteji, masafa NA awamu lazima vilingane kabla ya kufunga breka.",
+        "Hapana — chapa ya mafuta haina uhusiano na ulandanishaji wa umeme."
+      ]
+    },
+    {
+      "q": "Katika gharama ya maisha ya jenereta (LCOE), ni kipengele gani kawaida HUTAWALA?",
+      "choices": [
+        "bei ya ununuzi",
+        "mafuta",
+        "rangi na vibandiko"
+      ],
+      "correct": 1,
+      "why": [
+        "Hapana — capex ni halisi lakini mafuta kawaida huzidi katika maisha.",
+        "Sahihi! Gharama ya mafuta ya mara kwa mara kawaida hutawala LCOE ya jenereta.",
+        "Hapana — hiyo ni gharama isiyo na maana."
+      ]
+    }
+  ]
+}

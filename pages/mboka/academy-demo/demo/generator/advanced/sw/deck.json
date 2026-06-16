@@ -1,0 +1,52 @@
+{
+  "title": "JENERETA YA DIZELI",
+  "topic": "generator",
+  "tier": "advanced",
+  "tierLabel": "Juu · Chuo / Ufundi",
+  "lang": "sw",
+  "langName": "Swahili",
+  "slides": [
+    {
+      "img": "slide_1.jpg",
+      "audio": "slide_1.ogg",
+      "narr": "Karibu kwenye njia ya juu! Hapa tunaichukulia jenereta kama mfumo halisi wa kihandisi — thermodinamiki, uzalishaji wa sinkronia, na uchumi kamili wa mfumo. Nishati papo hapo, mafuta huifanya ifanye kazi. Tutafuatilia mzunguko wa Dizeli, tulandanishe alternata na gridi, tuendeshe nambari za lita kwa kilowati-saa, na tupime gharama ya mzunguko wa maisha. Mwishoni ungeweza kubuni moja kwa eneo la DRC. Tuanze!"
+    },
+    {
+      "img": "slide_2.jpg",
+      "audio": "slide_2.ogg",
+      "narr": "Kithermodinamiki, injini hukaribia mzunguko wa Dizeli: ubanaji wa adiabati, kisha uongezaji wa joto wa shinikizo thabiti mafuta yanapodungwa, ukifuatiwa na upanuzi. Faida nzuri ni kwamba uwiano wa juu wa ubanaji — takriban kumi na nne hadi ishirini na mbili kwa moja — husukuma ufanisi wa joto hadi takriban asilimia thelathini na tano hadi arobaini na tano. Hiyo ni bora kwa kiasi kikubwa kuliko mzunguko wa Otto wa petroli. Na kumbuka, kinachofika krankishafti kweli ni nguvu ya breki — nguvu iliyoonyeshwa toa msuguano na hasara za kusukuma ndani ya injini."
+    },
+    {
+      "img": "slide_3.jpg",
+      "audio": "slide_3.ogg",
+      "narr": "Alternata kawaida ni jenereta ya sinkronia yenye rota iliyozungushiwa waya. Vitanzi viwili vya udhibiti vinaifanya iwe ya kistaarabu: AVR — kidhibiti otomatiki cha volteji — hushikilia volteji ya uzalishaji thabiti, wakati gavana hushikilia kasi kwa elfu moja mia tano au elfu tatu rpm ili kufunga herzi hamsini. Sasa, ili kuunganisha sambamba vifaa viwili lazima ulingane volteji, masafa, NA awamu kabla ya kufunga breka — ukikosea utakata au kuharibu kifaa. Na kipengele cha nguvu ni muhimu: mzigo tendaji hupanga jinsi AVR inavyolazimika kuendesha mkondo wa uga kwa nguvu."
+    },
+    {
+      "img": "slide_4.jpg",
+      "audio": "slide_4.ogg",
+      "narr": "Tuipime kwa nambari. Uzalishaji wa umeme ni sawa na nguvu ya breki mara ufanisi wa alternata, takriban sifuri nukta tisa. Thamani ya chini ya joto ya dizeli ni takriban kilowati-saa kumi kwa lita, kwa hiyo kwa ufanisi wa jumla wa takriban asilimia thelathini na tano unapata takriban kilowati-saa tatu nukta tano za umeme kwa lita. Igeuze: moja gawanya kwa tatu nukta tano ni takriban lita sifuri nukta mbili tisa kwa kilowati-saa — hapo ndipo kanuni yetu ya sifuri-nukta-tatu inapotoka! Na kito kimoja zaidi cha ubunifu: jenereta huwa na ufanisi zaidi karibu asilimia sabini na tano hadi themanini na tano ya mzigo uliokadiriwa. Ziendeshe kwa mzigo mwepesi nao ufanisi huporomoka."
+    },
+    {
+      "img": "slide_5.jpg",
+      "audio": "slide_5.ogg",
+      "narr": "Sasa pesa — sehemu inayoamua kila kitu. Gharama iliyosawazishwa ya nishati, LCOE, ni sawa na gharama ya mtaji jumlisha mafuta ya maisha jumlisha uendeshaji na matengenezo, vyote gawanya kwa kilowati-saa za maisha. Na hapa kuna jambo kuu: kwa jenereta, mafuta kawaida hutawala — tofauti na jua, gharama ya uendeshaji ni kubwa na ya mara kwa mara. Kisha ongeza gharama za nje: kaboni, mzigo wa afya wa NOx na chembechembe, pamoja na kupunguza kelele. Hukumu hujiandika yenyewe — nafuu kusakinisha, ghali kuendesha. Hiyo ndiyo alama ya teknolojia ya daraja, si ya kudumu."
+    },
+    {
+      "img": "slide_6.jpg",
+      "audio": "slide_6.ogg",
+      "narr": "Tubuni kwa muktadha wetu. Buni kwa volti mia mbili na thelathini na herzi hamsini, na upunguze nambari ya bati kwa joto, unyevu, na mwinuko — eneo lenye joto, refu, na lenye unyevu hutoa chini ya nambari ya katalogi. Pima kwa wasifu HALISI wa mzigo na uepuke kuendesha kwa mzigo mwepesi wa kudumu, ambako husababisha 'wet stacking' — mafuta yasiyoungua yakiglaza silinda. Na muundo unaoshinda? Unganisha jenereta na jua jumlisha uhifadhi jumlisha maji, ili dizeli ijaze tu mapengo. Hilo hupunguza mafuta na hewa chafu pamoja huku ukihakikisha taa zinawaka."
+    },
+    {
+      "img": "slide_7.jpg",
+      "audio": "slide_7.ogg",
+      "narr": "Tuvilete vyote pamoja! Mzunguko wa Dizeli — bana, dunga, panua — hufika takriban asilimia thelathini na tano hadi arobaini na tano ufanisi. Alternata ya sinkronia yenye AVR na gavana hutoa AC ya herzi hamsini na hulandanishwa kuunganishwa sambamba. Hesabu ya mafuta kutoka thamani ya chini ya joto hutoa takriban lita sifuri nukta tatu kwa kilowati-saa, na mafuta hutawala LCOE. Hitimisho: jenereta ni daraja, si lengo. Sasa fanya jaribio na upate cheti chako!"
+    },
+    {
+      "img": "slide_8.jpg",
+      "audio": "slide_8.ogg",
+      "quiz": true,
+      "narr": "Hapa ndipo — changamoto kamili ya uhandisi! Jibu maswali yote ili upate Cheti chako cha Kukamilisha. Kumbuka ufanisi wa mzunguko wa Dizeli, ulandanishaji wa AVR na gavana, hesabu ya mafuta ya thamani ya chini ya joto, na kwa nini mafuta hutawala gharama ya mzunguko wa maisha. Iyafikirie kwa makini. Twende!"
+    }
+  ],
+  "quizCount": 3
+}

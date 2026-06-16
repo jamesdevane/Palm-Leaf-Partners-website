@@ -1,0 +1,59 @@
+{
+  "title": "NISHATI YA JUA",
+  "topic": "solar",
+  "tier": "advanced",
+  "tierLabel": "Juu · Chuo / Ufundi",
+  "lang": "sw",
+  "langName": "Swahili",
+  "slides": [
+    {
+      "img": "slide_1.jpg",
+      "audio": "slide_1.ogg",
+      "anim": "solar/solar_03_photovoltaic_effect.mp4",
+      "narr": "Hii ndiyo daraja la uhandisi — hakuna mzunguko wa maneno. Tutaanza kutoka fizikia ya pengo-bendi (band-gap) ya seli ya silikoni, kupitia mkunjo wa I-V na ufuatiliaji wa kilele cha nguvu, hadi utaratibu kamili wa kupima mfumo pamoja na uhuru wa betri, kisha tuhukumu yote kwa gharama iliyosawazishwa ya nishati. Na tutamaliza kwa sehemu inayotofautisha mhandisi halisi na muuzaji: kumiliki mwisho-wa-maisha na tatizo la uchumi wa mzunguko. Tujenge mfano kamili wa kiakili."
+    },
+    {
+      "img": "slide_2.jpg",
+      "audio": "slide_2.ogg",
+      "anim": "solar/solar_03_photovoltaic_effect.mp4",
+      "narr": "Anza kwenye muundo wa bendi. Kudopa silikoni kwa fosforasi hutoa nyenzo ya aina-n yenye elektroni zinazotembea; kudopa kwa boroni hutoa aina-p yenye mashimo yanayotembea. Yaunganishe, na uenezi hujenga eneo la upungufu lenye uga wa umeme uliojengeka. Sasa ukweli muhimu wa quantum: silikoni ina pengo-bendi la takriban elektroni-volti moja nukta moja. Fotoni yenye nishati ZAIDI ya pengo-bendi hilo inaweza kupandisha elektroni kutoka bendi ya valensi hadi bendi ya upitishaji, ikizaa jozi ya elektroni-shimo. Uga wa makutano hufagia wabebaji wakitenganishwe kabla ya kuungana tena — huo ndio mkondo-fotoni wako na volteji yako ya seli. Fotoni chini ya pengo-bendi hupita bila kufanya kitu; fotoni juu sana huipoteza ziada kama joto. Kutolingana huko ndiko hasa kwa nini seli ya silikoni ya makutano-moja hufikia kikomo karibu na kikomo cha Shockley-Queisser."
+    },
+    {
+      "img": "slide_3.jpg",
+      "audio": "slide_3.ogg",
+      "anim": "solar/solar_01_dc_vs_ac.mp4",
+      "narr": "Kila seli hutii mkunjo wa I-V: mkondo wa mzunguko-mfupi upande mmoja, volteji ya mzunguko-wazi upande mwingine, na 'goti' kati yao ambapo kuzidisha kwa V mara I — yaani nguvu — hufikia upeo. Tunaita sehemu hiyo V-m-p, I-m-p. Seli moja ya silikoni hutoa takriban nusu volti tu, kwa hiyo tunaunganisha mfululizo seli sitini hadi sabini na mbili ili kujenga volteji ya moduli inayotumika. Lakini hapa kuna kikwazo: kilele hicho cha nguvu HUHAMA mwanga na halijoto vinapobadilika — na kinyume na matarajio, seli zenye joto zaidi hutoa volteji NDOGO zaidi. Kwa hiyo tunatumia kidhibiti cha MPPT — ufuatiliaji wa kilele cha nguvu — kinachowinda na kushikilia safu kwenye kilele chake cha nguvu kila wakati, kikikamua kila wati inayopatikana hali zinapobadilika mchana kutwa."
+    },
+    {
+      "img": "slide_4.jpg",
+      "audio": "slide_4.ogg",
+      "narr": "Sasa utaratibu wa ubunifu. Mwangaza wa jua usoni hufikia kilele karibu kilowati moja kwa mita ya mraba — tunaita hilo 'jua moja.' Moduli yenye ufanisi wa asilimia ishirini kwa hiyo hutoa takriban wati mia mbili kwa mita ya mraba. Kupima safu: chukua mzigo wa kila siku kwa kilowati-saa, gawanya kwa saa-za-jua-kali, kisha gawanya kwa ufanisi wa mfumo ili kuzingatia hasara za kigeuzi, nyaya, na halijoto — hilo hutoa kilowati za safu. Kwa uhifadhi: uwezo wa betri ni sawa na siku zako za uhuru mara mzigo wa kila siku, gawanya kwa kina cha kutoa kinachoruhusiwa, ili usiharibu seli kwa kuzimaliza kabisa. Fomula mbili, nawe umepima mfumo halisi usio wa gridi."
+    },
+    {
+      "img": "slide_5.jpg",
+      "audio": "slide_5.ogg",
+      "narr": "Tunaihukumuje dhidi ya jenereta au gridi? Gharama iliyosawazishwa ya nishati — LCOE — gharama yote ya maisha gawanya kwa kilowati-saa zote za maisha zilizozalishwa. Hukunja capex, opex, kubadilisha, na mavuno ya maisha kuwa nambari moja ya haki unayoweza kulinganisha kati ya teknolojia yoyote. Kwa jua capex imejaa mbele — paneli, kigeuzi, betri, msingi, na usakinishaji vyote vimelipwa mbele — lakini opex ni karibu sufuri kwa sababu hakuna mafuta. Betri ndiyo gharama moja ya mara kwa mara, inayobadilishwa mara moja au mbili katika maisha ya mfumo. Endesha LCOE nayo PV ya kiwango cha gridi sasa hutoka miongoni mwa vyanzo vya bei nafuu zaidi vya umeme vilivyowahi kujengwa. Hiyo si utetezi; ni hesabu tu."
+    },
+    {
+      "img": "slide_6.jpg",
+      "audio": "slide_6.ogg",
+      "narr": "Na sasa sehemu ambayo mhandisi makini hairuki kamwe: mwisho wa maisha. Inapofanya kazi, alama ya PV ni nzuri sana — hakuna mafuta, hakuna moshi wa kuungua. Lakini moduli ni glasi iliyounganishwa na polima ya EVA juu ya seli za silikoni, fremu ya alumini, na chembe za fedha, shaba, na bati — vimefungwa kwa udumavu hivi kwamba ubora uleule unaoifanya idumu miaka 25 huifanya iwe vigumu kuitenganisha. IRENA, shirika la kimataifa la nishati mbadala, linakadiria taka za fotovoltaiki za jumla zinaweza kufikia takriban tani milioni sabini na nane duniani ifikapo mwaka 2050. Leo moduli nyingi zilizostaafu hutupwa dampo tu, kwa sababu kuzisafisha upya — kutenganisha tabaka na kupata glasi, silikoni, na fedha kiuchumi — bado ni mchakato mchanga na ghali. Hili ndilo tatizo wazi la fani. Agizo kwa kizazi chenu cha wahandisi ni uchumi wa mzunguko wa kweli: buni paneli kwa ajili ya kutenganishwa, jenga mipango ya kurudisha, na pata vitu — ili 'nishati safi' iwe safi katika mzunguko wote wa maisha, si tu jua linapong'aa juu yake."
+    },
+    {
+      "img": "slide_7.jpg",
+      "audio": "slide_7.ogg",
+      "narr": "Kubuni kwa Kongo ya Kati, mahususi: tumia rasilimali ya eneo ya takriban kilowati-saa tano hadi tano na nusu kwa mita ya mraba kwa siku, na utumie upunguzaji muhimu wa halijoto, kwa sababu seli za tropiki zenye joto hupoteza volteji. Hatua ya kimkakati ni gridi-ndogo — jua pamoja na uhifadhi wa betri zikihudumia kijiji au kampasi — ambayo huliruhusu eneo kuRUKA gridi ya zamani ya kati kabisa, kama vile simu za mkononi zilivyoruka nyaya za shaba. Unganisha jua hilo na uwezo mkubwa wa maji wa DRC nawe upate mchanganyiko wa nishati safi, imara, na — neno muhimu zaidi — HURU ambao nchi inajidhibiti yenyewe."
+    },
+    {
+      "img": "slide_8.jpg",
+      "audio": "slide_8.ogg"
+    },
+    {
+      "img": "slide_9.jpg",
+      "audio": "slide_9.ogg",
+      "quiz": true,
+      "narr": "Sawa — wakati wa ukweli! Jibu ili upate cheti chako. Chukua muda wako, lifikirie kwa makini, na kumbuka kila kitu tulichochunguza. Nakuamini. Twende!"
+    }
+  ],
+  "quizCount": 3
+}

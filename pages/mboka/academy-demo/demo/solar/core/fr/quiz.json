@@ -1,0 +1,24 @@
+{
+  "topic": "solar",
+  "tier": "core",
+  "lang": "fr",
+  "certCode": "SOLC",
+  "certTitle": "ÉNERGIE SOLAIRE — Base",
+  "certUnit": "Énergie et infrastructure · Solaire · K–5",
+  "questions": [
+    {
+      "q": "De quoi un panneau solaire a-t-il besoin pour produire de l'électricité ?",
+      "choices": [
+        "la lumière du soleil",
+        "du carburant et de la fumée",
+        "le vent"
+      ],
+      "correct": 0,
+      "why": [
+        "Correct ! La lumière du soleil arrive sur le panneau et il produit de l'électricité propre.",
+        "Non — c'est un générateur. Un panneau solaire ne brûle rien.",
+        "Non — les panneaux utilisent la lumière du soleil, pas le vent."
+      ]
+    }
+  ]
+}

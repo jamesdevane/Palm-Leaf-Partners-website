@@ -1,0 +1,50 @@
+{
+  "title": "DIESEL GENERATOR",
+  "topic": "generator",
+  "tier": "advanced",
+  "tierLabel": "Advanced · College / Vocational",
+  "slides": [
+    {
+      "img": "slide_1.jpg",
+      "audio": "slide_1.ogg",
+      "narr": "Welcome to the advanced track! Here we treat the genset as a real engineered system — thermodynamics, synchronous generation, and full system economics. Power on demand, fuel makes it run. We'll trace the Diesel cycle, sync an alternator to the grid, run the litres-per-kilowatt-hour numbers, and weigh lifecycle cost. By the end you could spec one for a DRC site. Let's begin!"
+    },
+    {
+      "img": "slide_2.jpg",
+      "audio": "slide_2.ogg",
+      "narr": "Thermodynamically, the engine approximates the Diesel cycle: adiabatic compression, then constant-pressure heat addition as fuel is injected, followed by expansion. The elegant payoff is that high compression ratios — roughly fourteen to twenty-two to one — push thermal efficiency up to about thirty-five to forty-five percent. That's notably better than a gasoline Otto cycle. And remember, what actually reaches the crankshaft is brake power — the indicated power minus friction and pumping losses inside the engine."
+    },
+    {
+      "img": "slide_3.jpg",
+      "audio": "slide_3.ogg",
+      "narr": "The alternator is usually a synchronous generator with a wound rotor. Two control loops keep it civilised: an AVR — automatic voltage regulator — holds the output voltage steady, while a governor holds the speed at fifteen hundred or three thousand rpm to lock fifty hertz. Now, to parallel two units you must match voltage, frequency, AND phase before closing the breaker — get that wrong and you'll trip or damage the set. And power factor matters: the reactive load sets how hard the AVR must drive the field current."
+    },
+    {
+      "img": "slide_4.jpg",
+      "audio": "slide_4.ogg",
+      "narr": "Let's quantify it. Electrical output equals brake power times alternator efficiency, around zero point nine. Diesel's lower heating value is about ten kilowatt-hours per litre, so at roughly thirty-five percent overall efficiency you get about three point five kilowatt-hours of electricity per litre. Invert that: one divided by three point five is about zero point two nine litres per kilowatt-hour — that's where our zero-point-three rule of thumb comes from! And one more design gem: gensets are most efficient near seventy-five to eighty-five percent of rated load. Run them lightly loaded and efficiency collapses."
+    },
+    {
+      "img": "slide_5.jpg",
+      "audio": "slide_5.ogg",
+      "narr": "Now the money — the part that decides everything. Levelised cost of energy, LCOE, equals capital cost plus lifetime fuel plus operations and maintenance, all divided by lifetime kilowatt-hours. And here's the kicker: for a genset, fuel usually dominates — unlike solar, the operating cost is high and recurring. Then add the external costs: carbon, the health burden of NOx and particulates, plus noise mitigation. The verdict writes itself — cheap to install, expensive to run. That's the signature of a bridge technology, not a permanent one."
+    },
+    {
+      "img": "slide_6.jpg",
+      "audio": "slide_6.ogg",
+      "narr": "Let's design for our context. Spec for two hundred thirty volts and fifty hertz, and derate the nameplate for heat, humidity, and altitude — a hot, high, humid site delivers less than the catalogue number. Size to the REAL load profile and avoid chronic light-load running, which causes 'wet stacking' — unburned fuel glazing the cylinders. And the winning architecture? Pair the genset with solar plus storage plus hydro, so diesel only fills the gaps. That slashes both fuel and emissions while keeping the lights guaranteed."
+    },
+    {
+      "img": "slide_7.jpg",
+      "audio": "slide_7.ogg",
+      "narr": "Let's bring it all together! The Diesel cycle — compress, inject, expand — lands around thirty-five to forty-five percent efficient. A synchronous alternator with an AVR and governor delivers fifty hertz alternating current and syncs to parallel. The fuel math from the lower heating value gives about zero point three litres per kilowatt-hour, and fuel dominates the LCOE. The bottom line: a generator is a bridge, not the goal. Now take the quiz and earn your certificate!"
+    },
+    {
+      "img": "slide_8.jpg",
+      "audio": "slide_8.ogg",
+      "quiz": true,
+      "narr": "This is it — the full engineering challenge! Answer all the questions to earn your Certificate of Completion. Recall the Diesel cycle efficiency, AVR and governor sync, the lower-heating-value fuel math, and why fuel dominates the lifecycle cost. Reason it through carefully. Go!"
+    }
+  ],
+  "quizCount": 3
+}

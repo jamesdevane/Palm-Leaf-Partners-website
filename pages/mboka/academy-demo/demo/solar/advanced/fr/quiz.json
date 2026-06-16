@@ -1,0 +1,52 @@
+{
+  "topic": "solar",
+  "tier": "advanced",
+  "lang": "fr",
+  "certCode": "SOLA",
+  "certTitle": "ÉNERGIE SOLAIRE — Avancé",
+  "certUnit": "Énergie et infrastructure · Solaire · Supérieur",
+  "questions": [
+    {
+      "q": "Que fait un régulateur MPPT ?",
+      "choices": [
+        "convertit le CC en CA pour le réseau",
+        "suit le point de puissance maximale du champ quand les conditions changent",
+        "stocke l'énergie chimiquement"
+      ],
+      "correct": 1,
+      "why": [
+        "Non — c'est le rôle de l'onduleur, pas du MPPT.",
+        "Correct ! Le MPPT maintient le champ à son point de puissance maximale quand l'irradiance/la température varient.",
+        "Non — cela décrit une batterie, pas un MPPT."
+      ]
+    },
+    {
+      "q": "Un panneau de 1 m² à ~20 % de rendement sous ~1 kW/m² de soleil produit environ :",
+      "choices": [
+        "environ 20 W",
+        "environ 200 W",
+        "environ 2 000 W"
+      ],
+      "correct": 1,
+      "why": [
+        "Non — cela fait seulement ~2 % de rendement ; recalcule 20 % de 1 kW.",
+        "Correct ! 20 % de ~1 kW/m² ≈ 200 W pour un panneau de 1 m².",
+        "Non — cela dépasserait les ~1 kW/m² de lumière solaire reçue."
+      ]
+    },
+    {
+      "q": "Quelle mesure compare le mieux le coût des options d'énergie sur la durée de vie ?",
+      "choices": [
+        "la puissance de pointe",
+        "LCOE (coût actualisé de l'énergie)",
+        "la couleur du panneau"
+      ],
+      "correct": 1,
+      "why": [
+        "Non — la puissance de pointe ignore le carburant, la durée de vie et l'énergie produite.",
+        "Correct ! LCOE = coût sur la durée de vie ÷ kWh sur la durée de vie — la comparaison équitable.",
+        "Non — la couleur n'a rien à voir avec le coût de l'énergie."
+      ]
+    }
+  ]
+}

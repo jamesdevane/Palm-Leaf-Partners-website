@@ -1,0 +1,37 @@
+{
+  "topic": "generator",
+  "tier": "standard",
+  "certCode": "GENS",
+  "certTitle": "DIESEL GENERATOR — Standard",
+  "certUnit": "Energy & Infrastructure · Generator · 6–8",
+  "questions": [
+    {
+      "q": "Why does a generator need NO inverter?",
+      "choices": [
+        "it stores power in a battery",
+        "the alternator makes AC directly",
+        "it only runs in daylight"
+      ],
+      "correct": 1,
+      "why": [
+        "No — a generator burns fuel on demand; it does not store in a battery.",
+        "Correct! The alternator already produces AC, so no DC-to-AC inverter is needed.",
+        "No — a generator runs any time it has fuel, day or night."
+      ]
+    },
+    {
+      "q": "About how much diesel does a generator burn per kilowatt-hour?",
+      "choices": [
+        "about 0.3 litres",
+        "about 3 litres",
+        "about 30 litres"
+      ],
+      "correct": 0,
+      "why": [
+        "Correct! Roughly 0.3 L of diesel per kWh for a typical genset.",
+        "No — that is about ten times too much fuel.",
+        "No — that is far too much; a genset is more efficient than that."
+      ]
+    }
+  ]
+}

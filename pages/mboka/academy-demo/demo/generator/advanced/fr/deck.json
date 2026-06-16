@@ -1,0 +1,52 @@
+{
+  "title": "DIESEL GENERATOR",
+  "topic": "generator",
+  "tier": "advanced",
+  "tierLabel": "Advanced · College / Vocational",
+  "lang": "fr",
+  "langName": "French",
+  "slides": [
+    {
+      "img": "slide_1.jpg",
+      "audio": "slide_1.ogg",
+      "narr": "Bienvenue dans le parcours avancé ! Ici, nous traitons le groupe électrogène comme un vrai système d'ingénierie — thermodynamique, génération synchrone et économie complète du système. De l'énergie à la demande, le carburant le fait fonctionner. Nous suivrons le cycle Diesel, synchroniserons un alternateur au réseau, calculerons les litres par kilowattheure et pèserons le coût du cycle de vie. À la fin, tu pourrais en spécifier un pour un site en RDC. Commençons !"
+    },
+    {
+      "img": "slide_2.jpg",
+      "audio": "slide_2.ogg",
+      "narr": "Sur le plan thermodynamique, le moteur approxime le cycle Diesel : compression adiabatique, puis apport de chaleur à pression constante quand le carburant est injecté, suivi d'une détente. Le résultat élégant, c'est que des taux de compression élevés — environ quatorze à vingt-deux pour un — portent le rendement thermique jusqu'à environ trente-cinq à quarante-cinq pour cent. C'est nettement mieux qu'un cycle Otto à essence. Et souviens-toi, ce qui atteint réellement le vilebrequin, c'est la puissance au frein — la puissance indiquée moins les pertes par frottement et par pompage à l'intérieur du moteur."
+    },
+    {
+      "img": "slide_3.jpg",
+      "audio": "slide_3.ogg",
+      "narr": "L'alternateur est généralement un générateur synchrone à rotor bobiné. Deux boucles de contrôle le maintiennent en ordre : un AVR — régulateur automatique de tension — garde la tension de sortie stable, tandis qu'un régulateur de vitesse tient le régime à mille cinq cents ou trois mille tours par minute pour verrouiller cinquante hertz. Maintenant, pour coupler deux unités, tu dois faire correspondre la tension, la fréquence ET la phase avant de fermer le disjoncteur — manque cela et tu déclencheras ou abîmeras le groupe. Et le facteur de puissance compte : la charge réactive détermine à quel point l'AVR doit pousser le courant d'excitation."
+    },
+    {
+      "img": "slide_4.jpg",
+      "audio": "slide_4.ogg",
+      "narr": "Quantifions cela. La sortie électrique égale la puissance au frein fois le rendement de l'alternateur, autour de zéro virgule neuf. Le pouvoir calorifique inférieur du diesel est d'environ dix kilowattheures par litre, donc à environ trente-cinq pour cent de rendement global tu obtiens environ trois virgule cinq kilowattheures d'électricité par litre. Inverse cela : un divisé par trois virgule cinq fait environ zéro virgule vingt-neuf litre par kilowattheure — voilà d'où vient notre règle des zéro virgule trois ! Et un autre joyau de conception : les groupes électrogènes sont les plus efficaces vers soixante-quinze à quatre-vingt-cinq pour cent de la charge nominale. Fais-les tourner faiblement chargés et le rendement s'effondre."
+    },
+    {
+      "img": "slide_5.jpg",
+      "audio": "slide_5.ogg",
+      "narr": "Maintenant l'argent — la partie qui décide de tout. Le coût actualisé de l'énergie, LCOE, égale le coût d'investissement plus le carburant sur la durée de vie plus l'exploitation et la maintenance, le tout divisé par les kilowattheures sur la durée de vie. Et voici le point décisif : pour un groupe électrogène, le carburant domine généralement — contrairement au solaire, le coût d'exploitation est élevé et récurrent. Ajoute ensuite les coûts externes : le carbone, le fardeau sanitaire des NOx et des particules, plus l'atténuation du bruit. Le verdict s'écrit de lui-même — bon marché à installer, cher à faire fonctionner. C'est la signature d'une technologie de transition, pas d'une technologie permanente."
+    },
+    {
+      "img": "slide_6.jpg",
+      "audio": "slide_6.ogg",
+      "narr": "Concevons pour notre contexte. Spécifie pour deux cent trente volts et cinquante hertz, et déclasse la valeur de plaque pour la chaleur, l'humidité et l'altitude — un site chaud, en altitude et humide fournit moins que le chiffre du catalogue. Dimensionne selon le profil de charge RÉEL et évite le fonctionnement chronique à faible charge, qui provoque le « wet stacking » — du carburant imbrûlé qui vitrifie les cylindres. Et l'architecture gagnante ? Associe le groupe électrogène au solaire plus stockage plus hydroélectricité, pour que le diesel ne comble que les manques. Cela réduit fortement le carburant et les émissions tout en garantissant la lumière."
+    },
+    {
+      "img": "slide_7.jpg",
+      "audio": "slide_7.ogg",
+      "narr": "Rassemblons tout ! Le cycle Diesel — comprimer, injecter, détendre — atteint environ trente-cinq à quarante-cinq pour cent de rendement. Un alternateur synchrone avec un AVR et un régulateur fournit du CA à cinquante hertz et se synchronise pour le couplage. Le calcul du carburant à partir du pouvoir calorifique inférieur donne environ zéro virgule trois litre par kilowattheure, et le carburant domine le LCOE. La conclusion : un générateur est un pont, pas le but. Passe maintenant le quiz et obtiens ton certificat !"
+    },
+    {
+      "img": "slide_8.jpg",
+      "quiz": true,
+      "audio": "slide_8.ogg",
+      "narr": "C'est le moment — le défi complet d'ingénierie ! Réponds à toutes les questions pour obtenir ton certificat de réussite. Rappelle-toi le rendement du cycle Diesel, la synchronisation AVR et régulateur, le calcul du carburant à partir du pouvoir calorifique inférieur, et pourquoi le carburant domine le coût du cycle de vie. Raisonne avec soin. Vas-y !"
+    }
+  ],
+  "quizCount": 3
+}

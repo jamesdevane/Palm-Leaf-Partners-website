@@ -1,0 +1,50 @@
+{
+  "title": "DIESEL GENERATOR",
+  "topic": "generator",
+  "tier": "deep",
+  "tierLabel": "Deep · 9–12",
+  "slides": [
+    {
+      "img": "slide_1.jpg",
+      "audio": "slide_1.ogg",
+      "narr": "Welcome to the deep dive! Today we go past the brrrr and into the real engineering — the physics of combustion, the math of fuel, and the honest trade-offs. Power on demand, fuel makes it run. By the end you'll be able to size a load, count the litres, and explain exactly why this machine is a bridge, not a final destination. Let's get into it!"
+    },
+    {
+      "img": "slide_2.jpg",
+      "audio": "slide_2.ogg",
+      "narr": "Here's the beautiful part — there's no spark plug at all! In a diesel engine, air is compressed until it gets ferociously hot, and when fuel is injected into that hot air, it ignites on its own. That's compression ignition. The expanding gases shove the pistons down, the pistons turn the crankshaft, and just like that, the chemical energy locked in the fuel becomes rotating mechanical energy. Chemistry into spin — that's the whole trick."
+    },
+    {
+      "img": "slide_3.jpg",
+      "audio": "slide_3.ogg",
+      "narr": "Now the spin becomes electricity. The crankshaft turns the alternator's rotor, which is an electromagnet. By electromagnetic induction — Faraday's law in action — that moving magnetic field induces a current in the stator coils. And because the field sweeps back and forth, the current comes out as alternating current, no inverter required. One more elegant detail: the engine speed is held steady so the alternating current stays at fifty hertz — the DRC grid standard. Constant speed equals constant frequency."
+    },
+    {
+      "img": "slide_4.jpg",
+      "audio": "slide_4.ogg",
+      "narr": "Let's do the real arithmetic! Energy in kilowatt-hours equals kilowatts times hours, and power equals voltage times current, P equals V times A. A genset burns roughly zero point three litres of diesel per kilowatt-hour produced. So run a five kilowatt load for eight hours: five times eight is forty kilowatt-hours. Forty times zero point three is about twelve litres of diesel that day — every day. That daily fuel times the fuel price is exactly the running cost the grid would have avoided."
+    },
+    {
+      "img": "slide_5.jpg",
+      "audio": "slide_5.ogg",
+      "narr": "Let's be honest about both sides! The pros are genuinely strong: power on demand, day or night, in any weather, and it's portable. But here's the catch, and it's a real one. Fuel costs you every single hour, and the machine needs maintenance — oil and filters. It's loud, around eighty-five to a hundred decibels measured at one metre. And it emits carbon dioxide plus nitrogen oxides, carbon monoxide, and soot. That's why the rule of thumb is: a generator is best as a BRIDGE or backup, not your long-term power source."
+    },
+    {
+      "img": "slide_6.jpg",
+      "audio": "slide_6.ogg",
+      "narr": "Let's apply it at home. Across the DRC, gensets bridge an unreliable grid — that's a real, pressing need, and they're keeping clinics and businesses alive right now. But the fuel logistics and the emissions make them costly over the long term: every litre has to be bought and hauled, and the pollution lands right in the community. So the goal isn't to run diesel forever. It's to use it as a bridge to solar and hydro — and then retire it. That's the smart path."
+    },
+    {
+      "img": "slide_7.jpg",
+      "audio": "slide_7.ogg",
+      "narr": "Let's recap the chain! Compression ignition drives the pistons, the pistons turn the crankshaft, and the crankshaft spins the alternator. The alternator makes fifty hertz alternating current directly — no inverter. The fuel cost runs about zero point three litres per kilowatt-hour, it's loud at eighty-five to a hundred decibels, and it pollutes the air. You now understand the physics, the math, AND the trade-offs. Take the quiz to earn your certificate!"
+    },
+    {
+      "img": "slide_8.jpg",
+      "audio": "slide_8.ogg",
+      "quiz": true,
+      "narr": "Here it is — show what you know! Answer all the questions to earn your Certificate of Completion. Remember compression ignition, the alternator making alternating current, and that zero point three litres per kilowatt-hour fuel math. Take your time and trust your reasoning. Go!"
+    }
+  ],
+  "quizCount": 2
+}

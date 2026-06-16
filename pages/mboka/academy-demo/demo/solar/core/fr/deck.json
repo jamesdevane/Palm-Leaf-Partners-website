@@ -1,0 +1,54 @@
+{
+  "title": "SOLAR POWER",
+  "topic": "solar",
+  "tier": "core",
+  "tierLabel": "Core · K–5",
+  "lang": "fr",
+  "langName": "French",
+  "slides": [
+    {
+      "img": "slide_1.jpg",
+      "audio": "slide_1.ogg",
+      "anim": "solar/solar_03_photovoltaic_effect.mp4",
+      "narr": "Bonjour les amis ! Lève les yeux — sens-tu le soleil sur ton visage ? Ce soleil chaud et brillant est plein d'énergie, et aujourd'hui nous allons apprendre une sorte de magie qui est VRAIE : on peut attraper la lumière du soleil et la transformer en électricité — la même électricité qui allume une lampe ou recharge un téléphone ! Découvrons comment."
+    },
+    {
+      "img": "slide_2.jpg",
+      "audio": "slide_2.ogg",
+      "narr": "Un panneau solaire ressemble à un grand plateau plat, bleu et brillant. On les installe sur les toits, là où le soleil brille toute la journée. Et voici le plus étonnant — le panneau ne brûle rien et ne fait aucun bruit. Il boit simplement la lumière du soleil et fabrique de l'électricité en silence. N'est-ce pas merveilleux ? C'est comme une plante qui absorbe le soleil, sauf qu'au lieu de faire pousser des feuilles, elle fait pousser de l'ÉNERGIE !"
+    },
+    {
+      "img": "slide_3.jpg",
+      "audio": "slide_3.ogg",
+      "anim": "solar/solar_03_photovoltaic_effect.mp4",
+      "narr": "Suivons le soleil dans son voyage ! D'abord, le soleil brille sur le panneau. Ensuite, le panneau capte cette lumière et fabrique de l'électricité à l'intérieur. Puis l'électricité descend le long d'un fil — zoum ! — jusque dans ta maison. Et enfin elle allume ta lampe, fait tourner ton ventilateur et recharge ta radio. Soleil, panneau, fil, lumière — quatre étapes faciles !"
+    },
+    {
+      "img": "slide_4.jpg",
+      "audio": "slide_4.ogg",
+      "narr": "Voici maintenant une devinette : que fait un panneau solaire la nuit ? Il se repose ! Quand le soleil va dormir, le panneau dort aussi. Alors comment garder la lumière allumée après la tombée de la nuit ? Avec une batterie — une boîte spéciale qui stocke l'énergie en surplus pendant la journée ensoleillée, comme garder un morceau de ton déjeuner pour le manger plus tard. L'énergie du jour, gardée pour la nuit. Malin, non ?"
+    },
+    {
+      "img": "slide_5.jpg",
+      "audio": "slide_5.ogg",
+      "narr": "Chaque bonne chose a un petit hic, et voici celui du solaire : un panneau ne dure pas éternellement. Après à peu près le temps que tu as vécu — deux fois ! — il se fatigue et cesse de produire de l'énergie. Et voici le côté délicat : un panneau mort ne peut pas se décomposer dans le sol comme une peau de banane ou une feuille. Si on le jette simplement sur un tas, il reste là très, très longtemps. Alors la chose intelligente — la chose gentille pour notre Terre — c'est de RECYCLER les vieux panneaux, pour que les mêmes matériaux puissent resservir. Une énergie propre mérite une fin propre !"
+    },
+    {
+      "img": "slide_6.jpg",
+      "audio": "slide_6.ogg",
+      "narr": "Pense maintenant à chez nous — le Congo ! Nous avons un grand et beau soleil éclatant presque tous les jours. Ce soleil est un trésor. Avec des panneaux solaires, un village loin de toute ligne électrique peut quand même avoir de la lumière à l'école, un ventilateur à la clinique et un téléphone chargé pour appeler à l'aide. Le soleil appartient à tout le monde, et il peut apporter l'énergie à tout le monde aussi."
+    },
+    {
+      "img": "slide_7.jpg",
+      "audio": "slide_7.ogg",
+      "narr": "Tu as réussi ! Rappelons-nous nos grandes idées : le soleil brille sur le panneau, le panneau produit de l'électricité propre, une batterie nous aide la nuit, et quand un panneau devient vieux, on le RECYCLE. Tu es maintenant un petit scientifique du solaire ! Es-tu prêt ? Passons le quiz et obtenons ton certificat !"
+    },
+    {
+      "img": "slide_8.jpg",
+      "quiz": true,
+      "audio": "slide_8.ogg",
+      "narr": "Très bien — le moment de vérité ! Réponds pour obtenir ton certificat. Prends ton temps, réfléchis bien et souviens-toi de tout ce que nous venons d'explorer. Je crois en toi. C'est parti !"
+    }
+  ],
+  "quizCount": 1
+}

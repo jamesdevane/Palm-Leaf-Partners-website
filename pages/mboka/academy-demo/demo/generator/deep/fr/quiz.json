@@ -1,0 +1,38 @@
+{
+  "topic": "generator",
+  "tier": "deep",
+  "lang": "fr",
+  "certCode": "GEND",
+  "certTitle": "GÉNÉRATEUR DIESEL — Approfondi",
+  "certUnit": "Énergie et infrastructure · Générateur · 9–12",
+  "questions": [
+    {
+      "q": "Comment un moteur diesel enflamme-t-il son carburant ?",
+      "choices": [
+        "une bougie d'allumage l'enflamme",
+        "l'air chaud comprimé enflamme le diesel injecté",
+        "la lumière du soleil le chauffe"
+      ],
+      "correct": 1,
+      "why": [
+        "Non — c'est un moteur à essence ; les diesels utilisent l'allumage par compression.",
+        "Correct ! L'air est comprimé jusqu'à être assez chaud pour enflammer le diesel injecté.",
+        "Non — la lumière du soleil n'a rien à voir avec la combustion du moteur."
+      ]
+    },
+    {
+      "q": "Quels sont les deux grands INCONVÉNIENTS de faire fonctionner un générateur ?",
+      "choices": [
+        "il est silencieux et propre",
+        "le bruit (~85–100 dB) et la pollution de l'air",
+        "il ne fonctionne que la nuit"
+      ],
+      "correct": 1,
+      "why": [
+        "Non — c'est l'inverse : un générateur diesel est bruyant et dégage des fumées.",
+        "Correct ! Il est bruyant (~85–100 dB) et son échappement pollue l'air (CO₂, NOx, suie).",
+        "Non — il fonctionne dès qu'il a du carburant ; ce n'est pas un inconvénient."
+      ]
+    }
+  ]
+}

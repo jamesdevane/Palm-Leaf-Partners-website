@@ -1,0 +1,51 @@
+{
+  "topic": "generator",
+  "tier": "advanced",
+  "certCode": "GENA",
+  "certTitle": "DIESEL GENERATOR — Advanced",
+  "certUnit": "Energy & Infrastructure · Generator · College",
+  "questions": [
+    {
+      "q": "Roughly what overall (fuel-to-electricity) efficiency does a diesel genset reach?",
+      "choices": [
+        "about 5–10%",
+        "about 35–45%",
+        "about 90–95%"
+      ],
+      "correct": 1,
+      "why": [
+        "No — that is far too low for a modern diesel.",
+        "Correct! High compression gives ~35–45% overall fuel-to-shaft efficiency.",
+        "No — no heat engine reaches that; that figure ignores thermodynamic limits."
+      ]
+    },
+    {
+      "q": "To PARALLEL two AC generators safely, you must match voltage, frequency and:",
+      "choices": [
+        "paint colour",
+        "phase",
+        "fuel brand"
+      ],
+      "correct": 1,
+      "why": [
+        "No — colour is irrelevant to synchronization.",
+        "Correct! Voltage, frequency AND phase must match before closing the breaker.",
+        "No — fuel brand has nothing to do with electrical sync."
+      ]
+    },
+    {
+      "q": "In a generator's lifetime cost (LCOE), which term usually DOMINATES?",
+      "choices": [
+        "the purchase price",
+        "the fuel",
+        "the paint and decals"
+      ],
+      "correct": 1,
+      "why": [
+        "No — capex is real but fuel typically outweighs it over the life.",
+        "Correct! Recurring fuel cost usually dominates a genset's LCOE.",
+        "No — that is a negligible cost."
+      ]
+    }
+  ]
+}

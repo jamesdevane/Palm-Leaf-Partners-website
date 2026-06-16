@@ -1,0 +1,37 @@
+{
+  "topic": "solar",
+  "tier": "deep",
+  "certCode": "SOLD",
+  "certTitle": "SOLAR POWER — Deep",
+  "certUnit": "Energy & Infrastructure · Solar · 9–12",
+  "questions": [
+    {
+      "q": "In the photovoltaic effect, what frees the electrons that make current?",
+      "choices": [
+        "heat from the panel",
+        "photons of light hitting the silicon junction",
+        "the inverter's AC"
+      ],
+      "correct": 1,
+      "why": [
+        "No — heat actually lowers a cell's output; light does the work.",
+        "Correct! Photons free electrons across the silicon p–n junction, driving DC.",
+        "No — the inverter comes after; it converts DC the cell already made."
+      ]
+    },
+    {
+      "q": "A home uses 6 kWh/day with ~5 peak-sun hours. Roughly how much panel power is needed?",
+      "choices": [
+        "about 0.3 kW",
+        "about 1.2 kW",
+        "about 30 kW"
+      ],
+      "correct": 1,
+      "why": [
+        "No — that is too small; recheck 6 kWh ÷ 5 h.",
+        "Correct! 6 kWh ÷ 5 h ≈ 1.2 kW (about three 400 W panels, plus losses).",
+        "No — that is far oversized for a 6 kWh/day home."
+      ]
+    }
+  ]
+}

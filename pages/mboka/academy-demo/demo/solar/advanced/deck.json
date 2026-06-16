@@ -1,0 +1,57 @@
+{
+  "title": "SOLAR POWER",
+  "topic": "solar",
+  "tier": "advanced",
+  "tierLabel": "Advanced · College / Vocational",
+  "slides": [
+    {
+      "img": "slide_1.jpg",
+      "audio": "slide_1.ogg",
+      "anim": "solar/solar_03_photovoltaic_effect.mp4",
+      "narr": "This is the engineering tier — no hand-waving. We'll work from the band-gap physics of the silicon cell, through the I-V curve and maximum-power-point tracking, into a complete system-sizing procedure with battery autonomy, then judge it all with levelized cost of energy. And we'll close on the part that separates a real engineer from a salesperson: owning the end-of-life and the circular-economy problem. Let's build the whole mental model."
+    },
+    {
+      "img": "slide_2.jpg",
+      "audio": "slide_2.ogg",
+      "anim": "solar/solar_03_photovoltaic_effect.mp4",
+      "narr": "Start at the band structure. Doping silicon with phosphorus gives n-type material with mobile electrons; doping with boron gives p-type with mobile holes. Join them and diffusion creates a depletion region with a built-in electric field. Now the key quantum fact: silicon has a band gap of about one-point-one electron-volts. A photon with energy ABOVE that band gap can promote an electron from the valence band to the conduction band, generating an electron-hole pair. The junction's field sweeps carriers apart before they recombine — that's your photocurrent and your cell voltage. Photons below the band gap pass through doing nothing; photons far above it waste the excess as heat. That mismatch is exactly why a single-junction silicon cell tops out near the Shockley-Queisser limit."
+    },
+    {
+      "img": "slide_3.jpg",
+      "audio": "slide_3.ogg",
+      "anim": "solar/solar_01_dc_vs_ac.mp4",
+      "narr": "Every cell obeys an I-V curve: short-circuit current at one end, open-circuit voltage at the other, and a 'knee' between them where the product V times I — the power — is maximized. We call that point V-m-p, I-m-p. A single silicon cell only makes about half a volt, so we series sixty to seventy-two of them to build a usable module voltage. But here's the catch: that maximum-power point MOVES as sunlight and temperature change — and counter-intuitively, hotter cells produce LESS voltage. So we use an MPPT controller — maximum-power-point tracking — that continuously hunts for and holds the array at its peak-power point, squeezing out every available watt as conditions shift through the day."
+    },
+    {
+      "img": "slide_4.jpg",
+      "audio": "slide_4.ogg",
+      "narr": "Now the design procedure. Solar irradiance at the surface peaks near one kilowatt per square metre — we call that 'one sun.' A module that's twenty percent efficient therefore makes about two hundred watts per square metre. To size the array: take the daily load in kilowatt-hours, divide by the peak-sun-hours, then divide by the system efficiency to account for inverter, wiring, and temperature losses — that gives the array kilowatts. For storage: battery capacity equals your days of autonomy times the daily load, divided by the allowable depth of discharge, so you don't ruin the cells by draining them flat. Two formulas, and you've sized a real off-grid system."
+    },
+    {
+      "img": "slide_5.jpg",
+      "audio": "slide_5.ogg",
+      "narr": "How do we judge it against a generator or the grid? Levelized cost of energy — LCOE — the total lifetime cost divided by the total lifetime kilowatt-hours generated. It folds capex, opex, replacements, and lifetime yield into one fair number you can compare across any technology. For solar the capex is front-loaded — panels, inverter, battery, mounting, and install all paid up front — but the opex is near zero because there's no fuel. The battery is the one recurring cost, replaced once or twice over the system life. Run the LCOE and utility-scale PV now comes out among the cheapest sources of electricity ever built. That's not advocacy; that's just the arithmetic."
+    },
+    {
+      "img": "slide_6.jpg",
+      "audio": "slide_6.ogg",
+      "narr": "And now the part a serious engineer never skips: end of life. In operation, PV's footprint is superb — zero fuel, zero combustion emissions. But a module is glass laminated with EVA polymer over silicon cells, an aluminium frame, and traces of silver, copper, and tin — bonded so durably that the very quality that makes it last twenty-five years makes it hard to take apart. IRENA, the international renewable energy agency, projects cumulative photovoltaic waste could reach roughly seventy-eight million tonnes worldwide by twenty-fifty. Today most retired modules are simply landfilled, because recycling them — delaminating the layers and recovering the glass, silicon, and silver economically — is still a nascent, costly process. This is the open problem of the field. The mandate for your generation of engineers is a genuine circular economy: design panels for disassembly, build take-back schemes, and recover the materials — so that 'clean energy' is clean across the entire life cycle, not just while the sun is shining on it."
+    },
+    {
+      "img": "slide_7.jpg",
+      "audio": "slide_7.ogg",
+      "narr": "Designing for Kongo Central, specifically: use the local resource of about five to five-and-a-half kilowatt-hours per square metre per day, and apply a meaningful temperature derate, because hot tropical cells lose voltage. The strategic move is the mini-grid — solar plus battery storage serving a village or a campus — which lets the region LEAPFROG the legacy centralized grid entirely, the way mobile phones leapfrogged copper landlines. Pair that solar with the DRC's enormous hydro potential and you get a clean, resilient, and — the word that matters most — SOVEREIGN energy mix the country controls itself."
+    },
+    {
+      "img": "slide_8.jpg",
+      "audio": "slide_8.ogg"
+    },
+    {
+      "img": "slide_9.jpg",
+      "audio": "slide_9.ogg",
+      "quiz": true,
+      "narr": "Alright — moment of truth! Answer to earn your certificate. Take your time, think it through, and remember everything we just explored. I believe in you. Go!"
+    }
+  ],
+  "quizCount": 3
+}

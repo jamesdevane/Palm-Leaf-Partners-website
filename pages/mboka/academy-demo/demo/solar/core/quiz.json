@@ -1,0 +1,23 @@
+{
+  "topic": "solar",
+  "tier": "core",
+  "certCode": "SOLC",
+  "certTitle": "SOLAR POWER — Core",
+  "certUnit": "Energy & Infrastructure · Solar · K–5",
+  "questions": [
+    {
+      "q": "What does a solar panel need to make electricity?",
+      "choices": [
+        "sunlight",
+        "fuel and smoke",
+        "wind"
+      ],
+      "correct": 0,
+      "why": [
+        "Correct! Sunlight lands on the panel and it makes clean electricity.",
+        "No — that is a generator. A solar panel burns nothing.",
+        "No — panels use the sun's light, not the wind."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "title": "DIESEL GENERATOR",
+  "topic": "generator",
+  "tier": "deep",
+  "tierLabel": "Deep · 9–12",
+  "lang": "fr",
+  "langName": "French",
+  "slides": [
+    {
+      "img": "slide_1.jpg",
+      "audio": "slide_1.ogg",
+      "narr": "Bienvenue dans l'exploration approfondie ! Aujourd'hui, nous dépassons le brrrr pour entrer dans la vraie ingénierie — la physique de la combustion, les maths du carburant et les compromis honnêtes. De l'énergie à la demande, le carburant le fait fonctionner. À la fin, tu sauras dimensionner une charge, compter les litres et expliquer exactement pourquoi cette machine est un pont, pas une destination finale. Entrons dans le vif du sujet !"
+    },
+    {
+      "img": "slide_2.jpg",
+      "audio": "slide_2.ogg",
+      "narr": "Voici le plus beau — il n'y a aucune bougie d'allumage ! Dans un moteur diesel, l'air est comprimé jusqu'à devenir terriblement chaud, et quand le carburant est injecté dans cet air chaud, il s'enflamme tout seul. C'est l'allumage par compression. Les gaz en expansion poussent les pistons vers le bas, les pistons font tourner le vilebrequin, et comme ça, l'énergie chimique enfermée dans le carburant devient une énergie mécanique de rotation. De la chimie en rotation — c'est tout le tour de magie."
+    },
+    {
+      "img": "slide_3.jpg",
+      "audio": "slide_3.ogg",
+      "narr": "Maintenant la rotation devient électricité. Le vilebrequin fait tourner le rotor de l'alternateur, qui est un électroaimant. Par induction électromagnétique — la loi de Faraday en action — ce champ magnétique en mouvement induit un courant dans les bobines du stator. Et comme le champ balaye d'un sens à l'autre, le courant ressort en CA, sans onduleur nécessaire. Un autre détail élégant : la vitesse du moteur est maintenue stable pour que le CA reste à cinquante hertz — la norme du réseau de la RDC. Vitesse constante égale fréquence constante."
+    },
+    {
+      "img": "slide_4.jpg",
+      "audio": "slide_4.ogg",
+      "narr": "Faisons la vraie arithmétique ! L'énergie en kilowattheures égale les kilowatts fois les heures, et la puissance égale la tension fois le courant, P égale V fois A. Un groupe électrogène brûle environ zéro virgule trois litre de diesel par kilowattheure produit. Fais donc tourner une charge de cinq kilowatts pendant huit heures : cinq fois huit font quarante kilowattheures. Quarante fois zéro virgule trois font environ douze litres de diesel ce jour-là — chaque jour. Ce carburant quotidien fois le prix du carburant, c'est exactement le coût de fonctionnement que le réseau aurait évité."
+    },
+    {
+      "img": "slide_5.jpg",
+      "audio": "slide_5.ogg",
+      "narr": "Soyons honnêtes sur les deux faces ! Les avantages sont vraiment forts : de l'énergie à la demande, de jour comme de nuit, par tous les temps, et c'est portable. Mais voici le hic, et c'en est un vrai. Le carburant te coûte à chaque heure, et la machine demande de l'entretien — huile et filtres. Elle est bruyante, autour de quatre-vingt-cinq à cent décibels mesurés à un mètre. Et elle émet du dioxyde de carbone plus des oxydes d'azote, du monoxyde de carbone et de la suie. C'est pourquoi la règle générale est : un générateur est meilleur comme PONT ou secours, pas comme ta source d'énergie de long terme."
+    },
+    {
+      "img": "slide_6.jpg",
+      "audio": "slide_6.ogg",
+      "narr": "Appliquons cela chez nous. Partout en RDC, les groupes électrogènes pallient un réseau peu fiable — c'est un besoin réel et pressant, et ils maintiennent en vie des cliniques et des commerces en ce moment même. Mais la logistique du carburant et les émissions les rendent coûteux à long terme : chaque litre doit être acheté et transporté, et la pollution retombe directement sur la communauté. Le but n'est donc pas de faire tourner le diesel pour toujours. C'est de l'utiliser comme un pont vers le solaire et l'hydroélectricité — puis de le retirer. Voilà la voie intelligente."
+    },
+    {
+      "img": "slide_7.jpg",
+      "audio": "slide_7.ogg",
+      "narr": "Récapitulons la chaîne ! L'allumage par compression entraîne les pistons, les pistons font tourner le vilebrequin, et le vilebrequin fait tourner l'alternateur. L'alternateur produit du CA à cinquante hertz directement — pas d'onduleur. Le coût du carburant tourne autour de zéro virgule trois litre par kilowattheure, il est bruyant à quatre-vingt-cinq à cent décibels, et il pollue l'air. Tu comprends maintenant la physique, les maths ET les compromis. Passe le quiz pour obtenir ton certificat !"
+    },
+    {
+      "img": "slide_8.jpg",
+      "quiz": true,
+      "audio": "slide_8.ogg",
+      "narr": "Le voici — montre ce que tu sais ! Réponds à toutes les questions pour obtenir ton certificat de réussite. Souviens-toi de l'allumage par compression, de l'alternateur qui produit du CA, et de ce calcul de carburant de zéro virgule trois litre par kilowattheure. Prends ton temps et fais confiance à ton raisonnement. Vas-y !"
+    }
+  ],
+  "quizCount": 2
+}

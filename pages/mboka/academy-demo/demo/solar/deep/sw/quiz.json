@@ -1,0 +1,39 @@
+{
+  "topic": "solar",
+  "tier": "deep",
+  "lang": "sw",
+  "langName": "Swahili",
+  "certCode": "SOLD",
+  "certTitle": "NISHATI YA JUA — Kina",
+  "certUnit": "Nishati na Miundombinu · Jua · 9–12",
+  "questions": [
+    {
+      "q": "Katika athari ya fotovoltaiki, ni nini huachanisha elektroni zinazozalisha mkondo?",
+      "choices": [
+        "joto kutoka paneli",
+        "fotoni za mwanga zinazogonga makutano ya silikoni",
+        "AC ya kigeuzi"
+      ],
+      "correct": 1,
+      "why": [
+        "Hapana — joto kwa kweli hupunguza uzalishaji wa seli; mwanga hufanya kazi.",
+        "Sahihi! Fotoni huachanisha elektroni kupitia makutano ya p–n ya silikoni, zikiendesha DC.",
+        "Hapana — kigeuzi huja baadaye; hubadilisha DC ambayo seli tayari imeizalisha."
+      ]
+    },
+    {
+      "q": "Nyumba hutumia 6 kWh/siku na ~saa 5 za jua kali. Takriban nguvu ngapi ya paneli inahitajika?",
+      "choices": [
+        "takriban 0.3 kW",
+        "takriban 1.2 kW",
+        "takriban 30 kW"
+      ],
+      "correct": 1,
+      "why": [
+        "Hapana — hiyo ni ndogo mno; angalia tena 6 kWh ÷ 5 h.",
+        "Sahihi! 6 kWh ÷ 5 h ≈ 1.2 kW (takriban paneli tatu za 400 W, pamoja na hasara).",
+        "Hapana — hiyo ni kubwa mno kwa nyumba ya 6 kWh/siku."
+      ]
+    }
+  ]
+}

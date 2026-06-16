@@ -1,0 +1,59 @@
+{
+  "title": "SOLAR POWER",
+  "topic": "solar",
+  "tier": "advanced",
+  "tierLabel": "Advanced · College / Vocational",
+  "lang": "fr",
+  "langName": "French",
+  "slides": [
+    {
+      "img": "slide_1.jpg",
+      "audio": "slide_1.ogg",
+      "anim": "solar/solar_03_photovoltaic_effect.mp4",
+      "narr": "C'est le niveau ingénieur — pas d'approximations. Nous partirons de la physique de la bande interdite de la cellule de silicium, en passant par la courbe I-V et le suivi du point de puissance maximale, jusqu'à une procédure complète de dimensionnement de système avec autonomie par batterie, puis nous jugerons le tout par le coût actualisé de l'énergie. Et nous terminerons par ce qui distingue un vrai ingénieur d'un vendeur : assumer la fin de vie et le problème de l'économie circulaire. Construisons tout le modèle mental."
+    },
+    {
+      "img": "slide_2.jpg",
+      "audio": "slide_2.ogg",
+      "anim": "solar/solar_03_photovoltaic_effect.mp4",
+      "narr": "Commençons par la structure de bandes. Doper le silicium au phosphore donne un matériau de type n avec des électrons mobiles ; le doper au bore donne un type p avec des trous mobiles. Réunis-les et la diffusion crée une zone de déplétion dotée d'un champ électrique intégré. Voici maintenant le fait quantique clé : le silicium a une bande interdite d'environ un virgule un électron-volt. Un photon dont l'énergie est AU-DESSUS de cette bande interdite peut faire passer un électron de la bande de valence à la bande de conduction, créant une paire électron-trou. Le champ de la jonction sépare les porteurs avant qu'ils ne se recombinent — c'est ton photocourant et ta tension de cellule. Les photons sous la bande interdite passent sans rien faire ; ceux bien au-dessus gaspillent l'excès en chaleur. C'est précisément ce décalage qui fait qu'une cellule de silicium à simple jonction plafonne près de la limite de Shockley-Queisser."
+    },
+    {
+      "img": "slide_3.jpg",
+      "audio": "slide_3.ogg",
+      "anim": "solar/solar_01_dc_vs_ac.mp4",
+      "narr": "Chaque cellule obéit à une courbe I-V : le courant de court-circuit à une extrémité, la tension en circuit ouvert à l'autre, et un « coude » entre les deux où le produit V fois I — la puissance — est maximal. On appelle ce point V-m-p, I-m-p. Une seule cellule de silicium ne donne qu'environ un demi-volt, alors on en met soixante à soixante-douze en série pour construire une tension de module utilisable. Mais voici le hic : ce point de puissance maximale SE DÉPLACE quand la lumière et la température changent — et, de façon contre-intuitive, des cellules plus chaudes produisent MOINS de tension. On utilise donc un régulateur MPPT — suivi du point de puissance maximale — qui cherche et maintient en continu le champ à son point de puissance maximale, en extrayant chaque watt disponible au fil des conditions de la journée."
+    },
+    {
+      "img": "slide_4.jpg",
+      "audio": "slide_4.ogg",
+      "narr": "Voici maintenant la procédure de dimensionnement. L'irradiance solaire à la surface culmine près d'un kilowatt par mètre carré — on appelle cela « un soleil ». Un module à vingt pour cent de rendement produit donc environ deux cents watts par mètre carré. Pour dimensionner le champ : prends la consommation quotidienne en kilowattheures, divise par les heures de plein soleil, puis divise par le rendement du système pour tenir compte des pertes de l'onduleur, du câblage et de la température — cela donne les kilowatts du champ. Pour le stockage : la capacité de la batterie est égale à tes jours d'autonomie fois la consommation quotidienne, divisée par la profondeur de décharge admissible, pour ne pas abîmer les cellules en les vidant à fond. Deux formules, et tu as dimensionné un vrai système hors réseau."
+    },
+    {
+      "img": "slide_5.jpg",
+      "audio": "slide_5.ogg",
+      "narr": "Comment le juger face à un générateur ou au réseau ? Le coût actualisé de l'énergie — LCOE — c'est le coût total sur la durée de vie divisé par le total des kilowattheures produits sur la durée de vie. Il rassemble le capex, l'opex, les remplacements et la production sur la durée de vie en un seul chiffre équitable, comparable entre toutes les technologies. Pour le solaire, le capex est concentré au départ — panneaux, onduleur, batterie, support et installation, tout est payé d'avance — mais l'opex est quasi nul car il n'y a pas de carburant. La batterie est le seul coût récurrent, remplacée une ou deux fois sur la vie du système. Calcule le LCOE et le photovoltaïque à grande échelle ressort aujourd'hui parmi les sources d'électricité les moins chères jamais construites. Ce n'est pas un plaidoyer ; c'est juste de l'arithmétique."
+    },
+    {
+      "img": "slide_6.jpg",
+      "audio": "slide_6.ogg",
+      "narr": "Et maintenant la partie qu'un ingénieur sérieux ne saute jamais : la fin de vie. En fonctionnement, l'empreinte du photovoltaïque est superbe — zéro carburant, zéro émission de combustion. Mais un module, c'est du verre laminé avec du polymère EVA sur des cellules de silicium, un cadre en aluminium, et des traces d'argent, de cuivre et d'étain — assemblés si durablement que la qualité même qui le fait durer vingt-cinq ans le rend difficile à démonter. L'IRENA, l'agence internationale des énergies renouvelables, prévoit que les déchets photovoltaïques cumulés pourraient atteindre environ soixante-dix-huit millions de tonnes dans le monde d'ici deux mille cinquante. Aujourd'hui, la plupart des modules en fin de vie sont simplement mis en décharge, car les recycler — séparer les couches et récupérer le verre, le silicium et l'argent de façon économique — reste un procédé naissant et coûteux. C'est le problème ouvert de ce domaine. Le devoir de ta génération d'ingénieurs, c'est une véritable économie circulaire : concevoir des panneaux démontables, créer des filières de reprise et récupérer les matériaux — pour que l'« énergie propre » soit propre sur tout son cycle de vie, et pas seulement tant que le soleil brille dessus."
+    },
+    {
+      "img": "slide_7.jpg",
+      "audio": "slide_7.ogg",
+      "narr": "Concevoir pour le Kongo Central, précisément : utilise la ressource locale d'environ cinq à cinq kilowattheures et demi par mètre carré et par jour, et applique un déclassement thermique sérieux, car les cellules tropicales chaudes perdent de la tension. Le mouvement stratégique, c'est le mini-réseau — solaire plus stockage par batterie au service d'un village ou d'un campus — qui permet à la région de SAUTER complètement l'étape du réseau centralisé classique, comme les téléphones mobiles ont sauté l'étape des lignes fixes en cuivre. Associe ce solaire à l'énorme potentiel hydroélectrique de la RDC et tu obtiens un mix énergétique propre, résilient et — le mot qui compte le plus — SOUVERAIN, que le pays maîtrise lui-même."
+    },
+    {
+      "img": "slide_8.jpg",
+      "audio": "slide_8.ogg"
+    },
+    {
+      "img": "slide_9.jpg",
+      "quiz": true,
+      "audio": "slide_9.ogg",
+      "narr": "Très bien — le moment de vérité ! Réponds pour obtenir ton certificat. Prends ton temps, réfléchis bien et souviens-toi de tout ce que nous venons d'explorer. Je crois en toi. C'est parti !"
+    }
+  ],
+  "quizCount": 3
+}

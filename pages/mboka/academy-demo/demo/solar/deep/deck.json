@@ -1,0 +1,57 @@
+{
+  "title": "SOLAR POWER",
+  "topic": "solar",
+  "tier": "deep",
+  "tierLabel": "Deep · 9–12",
+  "slides": [
+    {
+      "img": "slide_1.jpg",
+      "audio": "slide_1.ogg",
+      "anim": "solar/solar_03_photovoltaic_effect.mp4",
+      "narr": "Welcome to the deep dive. You're past 'the panel makes electricity' — now we earn the real understanding: the quantum physics of WHY a photon frees an electron, the math to actually SIZE a system for a home, the honest economics, and the e-waste problem nobody likes to talk about. By the end you could rough-size a solar system for a Congolese clinic on the back of an envelope. Let's go."
+    },
+    {
+      "img": "slide_2.jpg",
+      "audio": "slide_2.ogg",
+      "anim": "solar/solar_03_photovoltaic_effect.mp4",
+      "narr": "Here's the heart of it. A solar cell is a silicon semiconductor with a p-n junction — one side doped to have spare electrons, the other side to have spare 'holes' where electrons are missing. When a photon with enough energy strikes the silicon, it kicks an electron out of its bond, leaving a hole behind. Normally they'd just recombine — but the junction has a built-in electric field that sweeps the freed electrons one way and the holes the other. That separation of charge IS a voltage, and connect a wire and you get direct current. Sunlight, converted to electricity, with absolutely no moving parts. Beautiful physics."
+    },
+    {
+      "img": "slide_3.jpg",
+      "audio": "slide_3.ogg",
+      "anim": "solar/solar_01_dc_vs_ac.mp4",
+      "narr": "Scale it up. Individual cells are wired in series into a module — what we call a panel — and panels wire together into an array. The array produces direct current, but the DRC grid and your appliances run on alternating current at two hundred thirty volts, fifty hertz — the European standard SNEL uses. So the inverter doesn't just convert direct current to alternating current; it must synthesize a clean sine wave at exactly the right voltage and frequency. Add a charge controller and a battery bank to bank the midday surplus, and you have a complete system that serves loads around the clock."
+    },
+    {
+      "img": "slide_4.jpg",
+      "audio": "slide_4.ogg",
+      "narr": "Time for the math that lets you actually design. Power equals voltage times current — P equals V times A. And energy is power times time, measured in kilowatt-hours. Now a real sizing problem: say a home needs six kilowatt-hours a day, and our location gets about five 'peak-sun hours' — the equivalent hours of full-strength sun. Six kilowatt-hours divided by five hours gives one-point-two kilowatts of panels needed. At four hundred watts each, that's about three panels — plus a bit extra for real-world losses. See how a single division turns sunlight into a parts list?"
+    },
+    {
+      "img": "slide_5.jpg",
+      "audio": "slide_5.ogg",
+      "narr": "Let's weigh it honestly. On the plus side: the fuel is free forever, there are no emissions while it runs, a panel lasts about twenty-five years, and it's silent. On the minus side: the upfront cost is high, output sags on cloudy days, and the batteries — the weak link — are expensive and only last five to ten years before they need replacing. But here's the punchline: spread the cost over its whole life and the energy from solar is often the CHEAPEST you can buy. High to install, cheap to run."
+    },
+    {
+      "img": "slide_6.jpg",
+      "audio": "slide_6.ogg",
+      "narr": "Now the story the brochures skip. Fast-forward twenty-five years: your beautiful, clean, silent array is dead. And a solar panel does not biodegrade — it's glass, aluminium, silicon, and small amounts of silver, tin, and lead, laminated together so tightly it's genuinely hard to take apart. The numbers are sobering: studies project tens of millions of tonnes of retired panels worldwide by twenty-fifty. Right now, most of them still go to landfill, because recycling them is technically possible but the industry to do it is barely built. So here's the responsibility that comes with the technology: we have to design for take-back and recycling from the start, or we just trade a smoke problem for a slow-motion mountain of glass and metal. Honest engineering owns the whole life cycle — birth to disposal."
+    },
+    {
+      "img": "slide_7.jpg",
+      "audio": "slide_7.ogg",
+      "narr": "Bring it home. Kongo Central averages roughly five to five-and-a-half peak-sun hours a day — a genuinely strong solar resource. And solar's real superpower here isn't just the sunshine; it's that it sidesteps two hard problems at once: the long, expensive fuel supply lines a generator needs, and an unreliable grid. Put a system on a clinic, a school, or a water pump, and it just works — quietly, with no tanker truck required. That's why solar is a cornerstone of an energy plan the DRC can actually own."
+    },
+    {
+      "img": "slide_8.jpg",
+      "audio": "slide_8.ogg"
+    },
+    {
+      "img": "slide_9.jpg",
+      "audio": "slide_9.ogg",
+      "quiz": true,
+      "narr": "Alright — moment of truth! Answer to earn your certificate. Take your time, think it through, and remember everything we just explored. I believe in you. Go!"
+    }
+  ],
+  "quizCount": 2
+}

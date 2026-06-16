@@ -1,0 +1,24 @@
+{
+  "topic": "generator",
+  "tier": "core",
+  "lang": "fr",
+  "certCode": "GENC",
+  "certTitle": "GÉNÉRATEUR DIESEL — Base",
+  "certUnit": "Énergie et infrastructure · Générateur · K–5",
+  "questions": [
+    {
+      "q": "Que brûle un générateur diesel pour produire de l'électricité ?",
+      "choices": [
+        "la lumière du soleil",
+        "du carburant (diesel)",
+        "l'eau"
+      ],
+      "correct": 1,
+      "why": [
+        "Non — c'est un panneau solaire. Un générateur a besoin de carburant.",
+        "Correct ! Il brûle du diesel dans son moteur pour produire de l'énergie.",
+        "Non — un générateur diesel fonctionne au carburant, pas à l'eau."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "topic": "solar",
+  "tier": "core",
+  "lang": "sw",
+  "langName": "Swahili",
+  "certCode": "SOLC",
+  "certTitle": "NISHATI YA JUA — Msingi",
+  "certUnit": "Nishati na Miundombinu · Jua · K–5",
+  "questions": [
+    {
+      "q": "Paneli ya jua inahitaji nini ili kuzalisha umeme?",
+      "choices": [
+        "mwanga wa jua",
+        "mafuta na moshi",
+        "upepo"
+      ],
+      "correct": 0,
+      "why": [
+        "Sahihi! Mwanga wa jua huangukia paneli nayo huzalisha umeme safi.",
+        "Hapana — hiyo ni jenereta. Paneli ya jua haichomi kitu.",
+        "Hapana — paneli hutumia mwanga wa jua, si upepo."
+      ]
+    }
+  ]
+}

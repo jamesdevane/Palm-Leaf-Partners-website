@@ -1,0 +1,38 @@
+{
+  "topic": "solar",
+  "tier": "standard",
+  "lang": "fr",
+  "certCode": "SOLS",
+  "certTitle": "ÉNERGIE SOLAIRE — Standard",
+  "certUnit": "Énergie et infrastructure · Solaire · 6–8",
+  "questions": [
+    {
+      "q": "Que fait l'ONDULEUR dans une installation solaire ?",
+      "choices": [
+        "stocke l'énergie pour la nuit",
+        "convertit le CC du panneau en CA",
+        "nettoie le panneau solaire"
+      ],
+      "correct": 1,
+      "why": [
+        "Non — c'est le rôle de la batterie, pas de l'onduleur.",
+        "Correct ! L'onduleur convertit le CC du panneau en CA que les maisons utilisent.",
+        "Non — l'onduleur est électrique ; il ne nettoie rien."
+      ]
+    },
+    {
+      "q": "Environ combien de watts produit un panneau solaire moderne en plein soleil ?",
+      "choices": [
+        "environ 4 W",
+        "environ 400 W",
+        "environ 40 000 W"
+      ],
+      "correct": 1,
+      "why": [
+        "Non — c'est bien trop peu pour un panneau de toit.",
+        "Correct ! Un panneau moderne typique produit environ 400 W en plein soleil.",
+        "Non — c'est bien plus qu'un seul panneau ne produit."
+      ]
+    }
+  ]
+}

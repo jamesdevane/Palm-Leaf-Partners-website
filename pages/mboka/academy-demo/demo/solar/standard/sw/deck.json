@@ -1,0 +1,59 @@
+{
+  "title": "NISHATI YA JUA",
+  "topic": "solar",
+  "tier": "standard",
+  "tierLabel": "Wastani · 6–8",
+  "lang": "sw",
+  "langName": "Swahili",
+  "slides": [
+    {
+      "img": "slide_1.jpg",
+      "audio": "slide_1.ogg",
+      "anim": "solar/solar_03_photovoltaic_effect.mp4",
+      "narr": "Karibuni tena, wanasayansi! Tayari mnajua paneli za jua huzalisha umeme kutoka mwanga wa jua. Lakini JINSI GANI? Leo tutaingia ndani ya paneli, tukutane na sehemu ndogo inayofanya kazi, tujifunze tofauti kati ya aina mbili za umeme, na hata tuhesabu wati. Shikamaneni nami — mwishoni mtaelewa mfumo halisi wa jua wa paani, kutoka jua hadi soketi ukutani."
+    },
+    {
+      "img": "slide_2.jpg",
+      "audio": "slide_2.ogg",
+      "anim": "solar/solar_03_photovoltaic_effect.mp4",
+      "narr": "Angalia kwa makini paneli nawe utaona ni gridi ya viwanja — hizo ni SELI za jua, na kila moja imetengenezwa kwa silikoni, kitu kilekile kilichomo kwenye mchanga na chipsi za kompyuta. Hapa kuna wakati wa kichawi: chembe ya mwanga wa jua, inayoitwa fotoni, inapogonga silikoni, huachanisha elektroni. Na mkondo wa elektroni zinazotembea ni nini? Ni mkondo wa umeme! Kwa hiyo mwanga wa jua kihalisi husukuma elektroni zianze kutembea. Huo ndio ujanja wote — hakuna sehemu zinazotembea, hakuna kelele, ni mwanga tu ukisukuma elektroni."
+    },
+    {
+      "img": "slide_3.jpg",
+      "audio": "slide_3.ogg",
+      "anim": "solar/solar_01_dc_vs_ac.mp4",
+      "narr": "Sasa kuna mzunguko! Paneli huzalisha DC — mkondo wa moja kwa moja — ambapo umeme hutiririka katika mwelekeo mmoja thabiti, kama mto. Lakini TV yako, friji, na taa hutumia AC — mkondo geuzi — unaobadilika mbele na nyuma mara hamsini kila sekunde. Havifanani! Kwa hiyo tunaongeza kisanduku werevu kinachoitwa KIGEUZI kinachogeuza DC kuwa AC. Kifikirie kama mfasiri kati ya lugha ya paneli na lugha ya nyumba yako. Mlolongo kamili ni: paneli huzalisha DC, kigeuzi hubadilisha kuwa AC, nyumba yako huitumia."
+    },
+    {
+      "img": "slide_4.jpg",
+      "audio": "slide_4.ogg",
+      "narr": "Tuhesabu nishati! Tunaipima kwa wati. Paneli moja ya kisasa ya paani huzalisha takriban wati 400 kwenye jua kali — inatosha kuwasha taa kadhaa zenye mwanga. Panga paneli kumi za aina hiyo nawe utapata wati 4,000, ambazo tunaziita kilowati 4. Hizo zinatosha taa, feni, friji, na chaja za kila mtu. Kadiri unavyoongeza paneli, ndivyo unavyozalisha wati zaidi — ni kama kuongeza ndoo zaidi za kunasa mvua zaidi."
+    },
+    {
+      "img": "slide_5.jpg",
+      "audio": "slide_5.ogg",
+      "narr": "Lakini ngoja — paneli hufanya kazi jua linapokuwepo tu. Basi vipi kuhusu usiku, au mchana wenye mawingu? Hapo ndipo BETRI inapoingia. Wakati wa mchana wa jua paneli zako mara nyingi huzalisha nishati ZAIDI kuliko nyumba inavyotumia, na betri huhifadhi ziada. Jua linapozama, nyumba hubadilika kimyakimya kuendeshwa kwa betri. Unganisha vyote pamoja — paneli, jumlisha betri, jumlisha kigeuzi — nawe una nishati mchana NA usiku."
+    },
+    {
+      "img": "slide_6.jpg",
+      "audio": "slide_6.ogg",
+      "narr": "Sasa tuwe wakweli — kila teknolojia ina upande wa chini, na mwanasayansi mzuri hujifunza vikwazo, si faida tu. Faida za jua ni kubwa: jua la bure, hakuna bili za mafuta, hakuna moshi, karibu kimya kabisa. Lakini hapa kuna kikwazo wasichokibandika kwenye bango. Paneli hudumu takriban miaka 25 hadi 30, kisha imekwisha. Na paneli iliyokufa imetengenezwa kwa glasi, alumini, na metali — HAIOZI kama mabaki ya chakula. Tukitupa tu paneli dampo, hujilundika kama takataka za kielektroniki, au e-waste, kwa miongo. Wazia mlima unaokua wa paneli za buluu zilizokufa. Habari njema? Tunaweza kuziSAFISHA UPYA — kuponda na kutenganisha glasi na metali ili kutengeneza vitu vipya. Nishati safi ni safi kweli tu kama tunapanga kwa ajili ya mwisho wa maisha ya paneli pia."
+    },
+    {
+      "img": "slide_7.jpg",
+      "audio": "slide_7.ogg",
+      "narr": "Basi kwa nini hili ni muhimu kwetu? Sehemu kubwa ya Kongo ya Kati si msitu mzito — ni savana wazi yenye jua kali, ambayo ni nzuri kwa nishati ya jua. Wazia zahanati ya kijijini isiyo na nyaya za umeme kwa kilomita nyingi. Mfumo wa jua wa paani waweza kuendeleza taa zake na, jambo muhimu, kuweka friji ya chanjo ikiwa baridi — bila mafuta ya kununua wala gridi ya kungoja. Hiyo ni nishati ya jua ikifanya kazi halisi kwa watu halisi, hapa hapa nyumbani."
+    },
+    {
+      "img": "slide_8.jpg",
+      "audio": "slide_8.ogg"
+    },
+    {
+      "img": "slide_9.jpg",
+      "audio": "slide_9.ogg",
+      "quiz": true,
+      "narr": "Sawa — wakati wa ukweli! Jibu ili upate cheti chako. Chukua muda wako, lifikirie kwa makini, na kumbuka kila kitu tulichochunguza. Nakuamini. Twende!"
+    }
+  ],
+  "quizCount": 2
+}

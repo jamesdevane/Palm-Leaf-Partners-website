@@ -1,0 +1,37 @@
+{
+  "topic": "generator",
+  "tier": "deep",
+  "certCode": "GEND",
+  "certTitle": "DIESEL GENERATOR — Deep",
+  "certUnit": "Energy & Infrastructure · Generator · 9–12",
+  "questions": [
+    {
+      "q": "How does a diesel engine ignite its fuel?",
+      "choices": [
+        "a spark plug lights it",
+        "hot compressed air ignites the injected diesel",
+        "sunlight heats it"
+      ],
+      "correct": 1,
+      "why": [
+        "No — that is a petrol engine; diesels use compression ignition.",
+        "Correct! Air is compressed until hot enough to ignite the injected diesel.",
+        "No — sunlight has nothing to do with engine combustion."
+      ]
+    },
+    {
+      "q": "What are the two big DOWNSIDES of running a generator?",
+      "choices": [
+        "it is silent and clean",
+        "noise (~85–100 dB) and air pollution",
+        "it only works at night"
+      ],
+      "correct": 1,
+      "why": [
+        "No — the opposite: a diesel generator is loud and emits fumes.",
+        "Correct! It is noisy (~85–100 dB) and its exhaust pollutes the air (CO₂, NOx, soot).",
+        "No — it runs any time it has fuel; that is not a downside."
+      ]
+    }
+  ]
+}

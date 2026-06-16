@@ -1,0 +1,59 @@
+{
+  "title": "SOLAR POWER",
+  "topic": "solar",
+  "tier": "deep",
+  "tierLabel": "Deep · 9–12",
+  "lang": "fr",
+  "langName": "French",
+  "slides": [
+    {
+      "img": "slide_1.jpg",
+      "audio": "slide_1.ogg",
+      "anim": "solar/solar_03_photovoltaic_effect.mp4",
+      "narr": "Bienvenue dans l'exploration approfondie. Tu as dépassé le stade « le panneau produit de l'électricité » — nous gagnons maintenant la vraie compréhension : la physique quantique de POURQUOI un photon libère un électron, les maths pour vraiment DIMENSIONNER un système pour une maison, l'économie honnête, et le problème des e-déchets dont personne n'aime parler. À la fin, tu pourrais dimensionner approximativement un système solaire pour une clinique congolaise au dos d'une enveloppe. C'est parti."
+    },
+    {
+      "img": "slide_2.jpg",
+      "audio": "slide_2.ogg",
+      "anim": "solar/solar_03_photovoltaic_effect.mp4",
+      "narr": "Voici le cœur du sujet. Une cellule solaire est un semi-conducteur en silicium avec une jonction p-n — un côté dopé pour avoir des électrons en surplus, l'autre côté pour avoir des « trous » en surplus, là où il manque des électrons. Quand un photon assez énergétique frappe le silicium, il arrache un électron à sa liaison, en laissant un trou derrière lui. Normalement, ils se recombineraient — mais la jonction possède un champ électrique intégré qui pousse les électrons libérés d'un côté et les trous de l'autre. Cette séparation des charges EST une tension, et si tu branches un fil, tu obtiens du courant continu. La lumière du soleil convertie en électricité, sans absolument aucune pièce mobile. Une physique magnifique."
+    },
+    {
+      "img": "slide_3.jpg",
+      "audio": "slide_3.ogg",
+      "anim": "solar/solar_01_dc_vs_ac.mp4",
+      "narr": "Passons à plus grande échelle. Les cellules individuelles sont câblées en série pour former un module — ce qu'on appelle un panneau — et les panneaux se câblent ensemble pour former un champ. Le champ produit du CC, mais le réseau de la RDC et tes appareils fonctionnent en CA à deux cent trente volts, cinquante hertz — la norme européenne qu'utilise la SNEL. L'onduleur ne se contente donc pas de convertir le CC en CA ; il doit synthétiser une onde sinusoïdale propre exactement à la bonne tension et à la bonne fréquence. Ajoute un régulateur de charge et un parc de batteries pour stocker le surplus de la mi-journée, et tu as un système complet qui alimente les charges à toute heure."
+    },
+    {
+      "img": "slide_4.jpg",
+      "audio": "slide_4.ogg",
+      "narr": "Place aux maths qui te permettent vraiment de concevoir. La puissance égale la tension fois le courant — P égale V fois A. Et l'énergie, c'est la puissance fois le temps, mesurée en kilowattheures. Voici maintenant un vrai problème de dimensionnement : disons qu'une maison a besoin de six kilowattheures par jour, et que notre lieu reçoit environ cinq « heures de plein soleil » — l'équivalent en heures de soleil à pleine puissance. Six kilowattheures divisés par cinq heures donnent un virgule deux kilowatts de panneaux nécessaires. À quatre cents watts chacun, cela fait environ trois panneaux — plus un petit supplément pour les pertes réelles. Tu vois comment une simple division transforme la lumière du soleil en liste de pièces ?"
+    },
+    {
+      "img": "slide_5.jpg",
+      "audio": "slide_5.ogg",
+      "narr": "Pesons cela honnêtement. Du côté positif : le carburant est gratuit pour toujours, il n'y a aucune émission pendant le fonctionnement, un panneau dure environ vingt-cinq ans, et c'est silencieux. Du côté négatif : le coût initial est élevé, la production faiblit les jours nuageux, et les batteries — le maillon faible — sont chères et ne durent que cinq à dix ans avant de devoir être remplacées. Mais voici la conclusion : répartis le coût sur toute sa durée de vie et l'énergie solaire est souvent la MOINS CHÈRE que tu puisses acheter. Cher à installer, bon marché à faire fonctionner."
+    },
+    {
+      "img": "slide_6.jpg",
+      "audio": "slide_6.ogg",
+      "narr": "Voici maintenant l'histoire que les brochures oublient. Avance de vingt-cinq ans : ton beau champ propre et silencieux est mort. Et un panneau solaire ne se biodégrade pas — c'est du verre, de l'aluminium, du silicium et de petites quantités d'argent, d'étain et de plomb, laminés si étroitement qu'il est vraiment difficile à démonter. Les chiffres donnent à réfléchir : des études prévoient des dizaines de millions de tonnes de panneaux en fin de vie dans le monde d'ici deux mille cinquante. Pour l'instant, la plupart finissent encore en décharge, car les recycler est techniquement possible mais l'industrie pour le faire est à peine en place. Voici donc la responsabilité qui vient avec la technologie : nous devons concevoir dès le départ pour la reprise et le recyclage, sinon nous échangeons simplement un problème de fumée contre une montagne au ralenti de verre et de métal. L'ingénierie honnête assume tout le cycle de vie — de la naissance à l'élimination."
+    },
+    {
+      "img": "slide_7.jpg",
+      "audio": "slide_7.ogg",
+      "narr": "Ramenons cela chez nous. Le Kongo Central reçoit en moyenne environ cinq à cinq heures et demie de plein soleil par jour — une ressource solaire vraiment forte. Et le vrai super-pouvoir du solaire ici, ce n'est pas seulement l'ensoleillement ; c'est qu'il contourne deux problèmes difficiles à la fois : les longues et coûteuses chaînes d'approvisionnement en carburant dont un générateur a besoin, et un réseau peu fiable. Installe un système sur une clinique, une école ou une pompe à eau, et ça marche tout simplement — en silence, sans camion-citerne. Voilà pourquoi le solaire est une pierre angulaire d'un plan énergétique que la RDC peut vraiment posséder."
+    },
+    {
+      "img": "slide_8.jpg",
+      "audio": "slide_8.ogg"
+    },
+    {
+      "img": "slide_9.jpg",
+      "quiz": true,
+      "audio": "slide_9.ogg",
+      "narr": "Très bien — le moment de vérité ! Réponds pour obtenir ton certificat. Prends ton temps, réfléchis bien et souviens-toi de tout ce que nous venons d'explorer. Je crois en toi. C'est parti !"
+    }
+  ],
+  "quizCount": 2
+}

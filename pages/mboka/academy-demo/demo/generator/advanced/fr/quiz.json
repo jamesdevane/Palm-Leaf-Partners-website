@@ -1,0 +1,52 @@
+{
+  "topic": "generator",
+  "tier": "advanced",
+  "lang": "fr",
+  "certCode": "GENA",
+  "certTitle": "GÉNÉRATEUR DIESEL — Avancé",
+  "certUnit": "Énergie et infrastructure · Générateur · Supérieur",
+  "questions": [
+    {
+      "q": "Quel rendement global (carburant-vers-électricité) atteint à peu près un groupe électrogène diesel ?",
+      "choices": [
+        "environ 5–10 %",
+        "environ 35–45 %",
+        "environ 90–95 %"
+      ],
+      "correct": 1,
+      "why": [
+        "Non — c'est bien trop faible pour un diesel moderne.",
+        "Correct ! Une compression élevée donne ~35–45 % de rendement global carburant-vers-arbre.",
+        "Non — aucun moteur thermique n'atteint cela ; ce chiffre ignore les limites thermodynamiques."
+      ]
+    },
+    {
+      "q": "Pour COUPLER deux générateurs CA en toute sécurité, tu dois faire correspondre la tension, la fréquence et :",
+      "choices": [
+        "la couleur de la peinture",
+        "la phase",
+        "la marque du carburant"
+      ],
+      "correct": 1,
+      "why": [
+        "Non — la couleur n'a aucun rapport avec la synchronisation.",
+        "Correct ! La tension, la fréquence ET la phase doivent correspondre avant de fermer le disjoncteur.",
+        "Non — la marque du carburant n'a rien à voir avec la synchronisation électrique."
+      ]
+    },
+    {
+      "q": "Dans le coût sur la durée de vie d'un générateur (LCOE), quel terme DOMINE généralement ?",
+      "choices": [
+        "le prix d'achat",
+        "le carburant",
+        "la peinture et les autocollants"
+      ],
+      "correct": 1,
+      "why": [
+        "Non — le capex est réel mais le carburant l'emporte généralement sur la durée de vie.",
+        "Correct ! Le coût récurrent du carburant domine généralement le LCOE d'un groupe électrogène.",
+        "Non — c'est un coût négligeable."
+      ]
+    }
+  ]
+}

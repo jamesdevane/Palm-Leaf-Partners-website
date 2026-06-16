@@ -1,0 +1,39 @@
+{
+  "topic": "generator",
+  "tier": "deep",
+  "lang": "sw",
+  "langName": "Swahili",
+  "certCode": "GEND",
+  "certTitle": "JENERETA YA DIZELI — Kina",
+  "certUnit": "Nishati na Miundombinu · Jenereta · 9–12",
+  "questions": [
+    {
+      "q": "Injini ya dizeli huwasha vipi mafuta yake?",
+      "choices": [
+        "plagi ya cheche huyawasha",
+        "hewa moto iliyobanwa huwasha dizeli iliyodungwa",
+        "mwanga wa jua huyapasha"
+      ],
+      "correct": 1,
+      "why": [
+        "Hapana — hiyo ni injini ya petroli; dizeli hutumia mwako wa ubanaji.",
+        "Sahihi! Hewa hubanwa hadi iwe moto wa kutosha kuwasha dizeli iliyodungwa.",
+        "Hapana — mwanga wa jua hauna uhusiano na mwako wa injini."
+      ]
+    },
+    {
+      "q": "Ni HASARA gani mbili kubwa za kuendesha jenereta?",
+      "choices": [
+        "ni kimya na safi",
+        "kelele (~85–100 dB) na uchafuzi wa hewa",
+        "hufanya kazi usiku tu"
+      ],
+      "correct": 1,
+      "why": [
+        "Hapana — kinyume chake: jenereta ya dizeli ina kelele na hutoa moshi.",
+        "Sahihi! Ina kelele (~85–100 dB) na moshi wake huchafua hewa (CO₂, NOx, masizi).",
+        "Hapana — hufanya kazi wakati wowote ina mafuta; hiyo si hasara."
+      ]
+    }
+  ]
+}

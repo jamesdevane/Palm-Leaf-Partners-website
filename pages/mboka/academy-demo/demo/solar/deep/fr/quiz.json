@@ -1,0 +1,38 @@
+{
+  "topic": "solar",
+  "tier": "deep",
+  "lang": "fr",
+  "certCode": "SOLD",
+  "certTitle": "ÉNERGIE SOLAIRE — Approfondi",
+  "certUnit": "Énergie et infrastructure · Solaire · 9–12",
+  "questions": [
+    {
+      "q": "Dans l'effet photovoltaïque, qu'est-ce qui libère les électrons qui produisent le courant ?",
+      "choices": [
+        "la chaleur du panneau",
+        "des photons de lumière frappant la jonction en silicium",
+        "le CA de l'onduleur"
+      ],
+      "correct": 1,
+      "why": [
+        "Non — la chaleur baisse en fait la production d'une cellule ; c'est la lumière qui fait le travail.",
+        "Correct ! Les photons libèrent des électrons à travers la jonction p–n en silicium, produisant du CC.",
+        "Non — l'onduleur vient après ; il convertit le CC que la cellule a déjà produit."
+      ]
+    },
+    {
+      "q": "Une maison utilise 6 kWh/jour avec ~5 heures de plein soleil. Quelle puissance de panneaux faut-il à peu près ?",
+      "choices": [
+        "environ 0.3 kW",
+        "environ 1.2 kW",
+        "environ 30 kW"
+      ],
+      "correct": 1,
+      "why": [
+        "Non — c'est trop peu ; revérifie 6 kWh ÷ 5 h.",
+        "Correct ! 6 kWh ÷ 5 h ≈ 1.2 kW (environ trois panneaux de 400 W, plus les pertes).",
+        "Non — c'est largement surdimensionné pour une maison de 6 kWh/jour."
+      ]
+    }
+  ]
+}

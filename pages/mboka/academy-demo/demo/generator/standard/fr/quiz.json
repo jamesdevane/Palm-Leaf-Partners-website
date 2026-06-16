@@ -1,0 +1,38 @@
+{
+  "topic": "generator",
+  "tier": "standard",
+  "lang": "fr",
+  "certCode": "GENS",
+  "certTitle": "GÉNÉRATEUR DIESEL — Standard",
+  "certUnit": "Énergie et infrastructure · Générateur · 6–8",
+  "questions": [
+    {
+      "q": "Pourquoi un générateur n'a-t-il besoin d'AUCUN onduleur ?",
+      "choices": [
+        "il stocke l'énergie dans une batterie",
+        "l'alternateur produit du CA directement",
+        "il ne fonctionne qu'à la lumière du jour"
+      ],
+      "correct": 1,
+      "why": [
+        "Non — un générateur brûle du carburant à la demande ; il ne stocke pas dans une batterie.",
+        "Correct ! L'alternateur produit déjà du CA, donc aucun onduleur CC-vers-CA n'est nécessaire.",
+        "Non — un générateur fonctionne dès qu'il a du carburant, de jour comme de nuit."
+      ]
+    },
+    {
+      "q": "Environ combien de diesel un générateur brûle-t-il par kilowattheure ?",
+      "choices": [
+        "environ 0.3 litre",
+        "environ 3 litres",
+        "environ 30 litres"
+      ],
+      "correct": 0,
+      "why": [
+        "Correct ! Environ 0.3 L de diesel par kWh pour un groupe électrogène typique.",
+        "Non — c'est environ dix fois trop de carburant.",
+        "Non — c'est bien trop ; un groupe électrogène est plus efficace que cela."
+      ]
+    }
+  ]
+}

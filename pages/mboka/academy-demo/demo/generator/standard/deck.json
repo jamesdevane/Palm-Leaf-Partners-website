@@ -1,0 +1,45 @@
+{
+  "title": "DIESEL GENERATOR",
+  "topic": "generator",
+  "tier": "standard",
+  "tierLabel": "Standard · 6–8",
+  "slides": [
+    {
+      "img": "slide_1.jpg",
+      "audio": "slide_1.ogg",
+      "narr": "Welcome back! Today's machine is a powerhouse you can carry: the diesel generator. The big idea is beautifully simple — burning fuel spins a machine, and that spinning makes your electricity. Power on demand, fuel makes it run! Remember the solar lesson? This is solar's opposite twin — no sun required, but it does drink fuel. Let's open it up."
+    },
+    {
+      "img": "slide_2.jpg",
+      "audio": "slide_2.ogg",
+      "narr": "A generator really has two main parts working as a team. First, a DIESEL ENGINE that burns fuel and spins — that's the muscle doing the hard work. Second, an ALTERNATOR that turns all that spinning into electricity — that's the power-maker. So picture it like this: engine equals the muscle, alternator equals the power-maker. The engine does the sweating, and the alternator does the magic."
+    },
+    {
+      "img": "slide_3.jpg",
+      "audio": "slide_3.ogg",
+      "narr": "Here's a detail that ties straight back to solar! Inside the alternator, a magnet spins past coils of wire. That spinning pushes the current back and forth, back and forth — and current that goes back and forth is called alternating current. And guess what? Alternating current is exactly what your home already uses! So a generator needs NO inverter — unlike solar, which makes direct current and has to convert it. The generator skips that whole step."
+    },
+    {
+      "img": "slide_4.jpg",
+      "audio": "slide_4.ogg",
+      "narr": "Now let's count the power! Generators are rated in watts, W, or kilowatts, kW. A small home unit might make about three thousand watts — that's three kilowatts. But here's the part that adds up: every kilowatt-hour of electricity burns about zero point three litres of diesel. So the more you run it, the more fuel you pay for. The sun is free; diesel is not — and that bill grows every hour."
+    },
+    {
+      "img": "slide_5.jpg",
+      "audio": "slide_5.ogg",
+      "narr": "Let's bring it home. When the SNEL grid drops — and across the DRC it often does — generators keep shops and clinics running. That reliability is real and valuable! But there's a cost story: fuel has to be bought and trucked in, sometimes over rough roads, and the exhaust dirties the air of busy towns. So a generator is reliable, yes — but it leans on a fuel supply chain and it pollutes the neighbourhood. Honest trade-offs."
+    },
+    {
+      "img": "slide_6.jpg",
+      "audio": "slide_6.ogg",
+      "narr": "Let's lock it in! The engine burns diesel and the alternator makes alternating current directly. Because it's already alternating current, no inverter is needed — it's ready to use. And about zero point three litres of diesel per kilowatt-hour means fuel is the ongoing cost that never stops. Engine, alternator, alternating current, fuel bill — you've got it! Ready? Take the quiz and earn your certificate!"
+    },
+    {
+      "img": "slide_7.jpg",
+      "audio": "slide_7.ogg",
+      "quiz": true,
+      "narr": "Here we go — moment of truth! Answer all the questions to earn your Certificate of Completion. Think back to the engine and alternator, why there's no inverter, and that fuel cost. You've got this. Go for it!"
+    }
+  ],
+  "quizCount": 2
+}

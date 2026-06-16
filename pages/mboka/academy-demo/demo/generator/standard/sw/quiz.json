@@ -1,0 +1,39 @@
+{
+  "topic": "generator",
+  "tier": "standard",
+  "lang": "sw",
+  "langName": "Swahili",
+  "certCode": "GENS",
+  "certTitle": "JENERETA YA DIZELI — Wastani",
+  "certUnit": "Nishati na Miundombinu · Jenereta · 6–8",
+  "questions": [
+    {
+      "q": "Kwa nini jenereta HAIHITAJI kigeuzi?",
+      "choices": [
+        "huhifadhi nishati katika betri",
+        "alternata huzalisha AC moja kwa moja",
+        "hufanya kazi mchana tu"
+      ],
+      "correct": 1,
+      "why": [
+        "Hapana — jenereta huchoma mafuta papo hapo; haihifadhi katika betri.",
+        "Sahihi! Alternata tayari huzalisha AC, kwa hiyo hakuna kigeuzi cha DC-kwenda-AC kinachohitajika.",
+        "Hapana — jenereta hufanya kazi wakati wowote ina mafuta, mchana au usiku."
+      ]
+    },
+    {
+      "q": "Takriban dizeli kiasi gani jenereta huchoma kwa kilowati-saa?",
+      "choices": [
+        "takriban lita 0.3",
+        "takriban lita 3",
+        "takriban lita 30"
+      ],
+      "correct": 0,
+      "why": [
+        "Sahihi! Takriban lita 0.3 za dizeli kwa kWh kwa jenereta ya kawaida.",
+        "Hapana — hiyo ni mafuta mara kumi zaidi.",
+        "Hapana — hiyo ni nyingi mno; jenereta ina ufanisi zaidi ya hapo."
+      ]
+    }
+  ]
+}
