@@ -28,6 +28,12 @@ function renderNav() {
           </ul>
         </li>
         <li><a href="https://communities.palmleafpartners.com">Communities</a></li>
+        <li class="nav-dropdown">
+          <a href="#" class="nav-dropdown-toggle">Work With Us <span class="nav-arrow">▾</span></a>
+          <ul class="nav-dropdown-menu">
+            <li><a href="https://opportunities.palmleafpartners.com">Contract Opportunities</a></li>
+          </ul>
+        </li>
         <li><a href="about.html" data-i18n="nav.about">About</a></li>
         <li><a href="partnership.html" data-i18n="nav.partnership">Partnership</a></li>
         <li><a href="contact.html" class="nav-cta" data-i18n="nav.contact">Contact</a></li>
@@ -52,6 +58,7 @@ function renderNav() {
       <li><a href="cellular.html" data-i18n="nav.cellular">SCPT Mobile</a></li>
       <li><a href="mboka.html" data-i18n="nav.mboka">🎮 Mboka · The Game</a></li>
       <li><a href="https://communities.palmleafpartners.com">Communities</a></li>
+      <li><a href="https://opportunities.palmleafpartners.com">Contract Opportunities</a></li>
       <li><a href="about.html" data-i18n="nav.about">About</a></li>
       <li><a href="partnership.html" data-i18n="nav.partnership">Partnership &amp; Governance</a></li>
       <li><a href="contact.html" data-i18n="nav.contact">Contact</a></li>
@@ -90,6 +97,12 @@ function renderHomeNav() {
           </ul>
         </li>
         <li><a href="https://communities.palmleafpartners.com">Communities</a></li>
+        <li class="nav-dropdown">
+          <a href="#" class="nav-dropdown-toggle">Work With Us <span class="nav-arrow">▾</span></a>
+          <ul class="nav-dropdown-menu">
+            <li><a href="https://opportunities.palmleafpartners.com">Contract Opportunities</a></li>
+          </ul>
+        </li>
         <li><a href="pages/about.html" data-i18n="nav.about">About</a></li>
         <li><a href="pages/partnership.html" data-i18n="nav.partnership">Partnership</a></li>
         <li><a href="pages/contact.html" class="nav-cta" data-i18n="nav.contact">Contact</a></li>
@@ -114,6 +127,7 @@ function renderHomeNav() {
       <li><a href="pages/cellular.html" data-i18n="nav.cellular">SCPT Mobile</a></li>
       <li><a href="pages/mboka.html" data-i18n="nav.mboka">🎮 Mboka · The Game</a></li>
       <li><a href="https://communities.palmleafpartners.com">Communities</a></li>
+      <li><a href="https://opportunities.palmleafpartners.com">Contract Opportunities</a></li>
       <li><a href="pages/about.html" data-i18n="nav.about">About</a></li>
       <li><a href="pages/partnership.html" data-i18n="nav.partnership">Partnership &amp; Governance</a></li>
       <li><a href="pages/contact.html" data-i18n="nav.contact">Contact</a></li>
