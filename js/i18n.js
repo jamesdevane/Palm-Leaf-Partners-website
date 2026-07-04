@@ -469,7 +469,19 @@ const translations = {
 // moment the user explicitly clicks the EN/FR toggle, we save that choice
 // to localStorage and it takes precedence forever — auto-detection never
 // overrides a deliberate user preference.
+// Shared cross-site language cookie (scoped to .palmleafpartners.com) so the
+// EN/FR choice is synced with the careers / opportunities / communities sites.
+function readLangCookie() {
+  try {
+    const m = document.cookie.match(/(?:^|;\s*)lang=(en|fr)\b/);
+    return m ? m[1] : null;
+  } catch { return null; }
+}
+
 function detectInitialLang() {
+  // A choice made on any Palm Leaf site (via the shared cookie) wins first.
+  const cookie = readLangCookie();
+  if (cookie === 'en' || cookie === 'fr') return cookie;
   let saved = null;
   try { saved = localStorage.getItem('plp_lang'); } catch {}
   if (saved === 'en' || saved === 'fr') return saved;
@@ -498,6 +510,13 @@ const I18N = {
   setLang(lang) {
     this.currentLang = lang;
     localStorage.setItem('plp_lang', lang);
+    // Mirror the choice into the shared cross-site cookie so the careers,
+    // opportunities, and communities sites pick it up too.
+    try {
+      const host = location.hostname;
+      const domain = host.endsWith('palmleafpartners.com') ? '; domain=.palmleafpartners.com' : '';
+      document.cookie = 'lang=' + lang + '; path=/; max-age=31536000; samesite=lax' + domain;
+    } catch {}
     this.applyAll();
     this.updateToggle();
     document.documentElement.lang = lang;
