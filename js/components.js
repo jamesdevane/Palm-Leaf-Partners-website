@@ -51,18 +51,26 @@ function renderNav() {
   <div class="mobile-menu" id="mobile-nav" role="navigation" aria-label="Mobile navigation">
     <ul>
       <li><a href="../index.html" data-i18n="nav.home">Home</a></li>
-      <li data-i18n="nav.projects" style="border-bottom:none;padding:.85rem 0 .2rem;font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);opacity:.9;">Projects</li>
-      <li><a href="mapping.html" data-i18n="nav.mapping" style="padding-left:.75rem;">Mapping</a></li>
-      <li><a href="data-center.html" data-i18n="nav.datacenter" style="padding-left:.75rem;">Data Center</a></li>
-      <li><a href="call-centers.html" data-i18n="nav.callcenters" style="padding-left:.75rem;">Call Centers</a></li>
-      <li><a href="fiber-backbone.html" data-i18n="nav.fiber" style="padding-left:.75rem;">Fiber Backbone</a></li>
-      <li><a href="memorial-city.html" data-i18n="nav.memorial" style="padding-left:.75rem;">Memorial City</a></li>
-      <li><a href="cellular.html" data-i18n="nav.cellular" style="padding-left:.75rem;">SCPT Mobile</a></li>
-      <li><a href="mboka.html" data-i18n="nav.mboka" style="padding-left:.75rem;">🎮 Mboka · The Game</a></li>
+      <li class="m-group">
+        <button type="button" class="m-group-btn" aria-expanded="false"><span data-i18n="nav.projects">Projects</span><span class="m-group-caret">▾</span></button>
+        <ul class="m-group-list">
+          <li><a href="mapping.html" data-i18n="nav.mapping">Mapping</a></li>
+          <li><a href="data-center.html" data-i18n="nav.datacenter">Data Center</a></li>
+          <li><a href="call-centers.html" data-i18n="nav.callcenters">Call Centers</a></li>
+          <li><a href="fiber-backbone.html" data-i18n="nav.fiber">Fiber Backbone</a></li>
+          <li><a href="memorial-city.html" data-i18n="nav.memorial">Memorial City</a></li>
+          <li><a href="cellular.html" data-i18n="nav.cellular">SCPT Mobile</a></li>
+          <li><a href="mboka.html" data-i18n="nav.mboka">🎮 Mboka · The Game</a></li>
+        </ul>
+      </li>
       <li><a href="https://communities.palmleafpartners.com">Communities</a></li>
-      <li style="border-bottom:none;padding:.85rem 0 .2rem;font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);opacity:.9;">Work With Us</li>
-      <li><a href="https://opportunities.palmleafpartners.com" style="padding-left:.75rem;">Contract Opportunities</a></li>
-      <li><a href="https://careers.palmleafpartners.com" style="padding-left:.75rem;">Careers</a></li>
+      <li class="m-group">
+        <button type="button" class="m-group-btn" aria-expanded="false"><span>Work With Us</span><span class="m-group-caret">▾</span></button>
+        <ul class="m-group-list">
+          <li><a href="https://opportunities.palmleafpartners.com">Contract Opportunities</a></li>
+          <li><a href="https://careers.palmleafpartners.com">Careers</a></li>
+        </ul>
+      </li>
       <li><a href="about.html" data-i18n="nav.about">About</a></li>
       <li><a href="partnership.html" data-i18n="nav.partnership">Partnership &amp; Governance</a></li>
       <li><a href="contact.html" data-i18n="nav.contact">Contact</a></li>
@@ -124,18 +132,26 @@ function renderHomeNav() {
   <div class="mobile-menu" id="mobile-nav-home" role="navigation" aria-label="Mobile navigation">
     <ul>
       <li><a href="index.html" data-i18n="nav.home">Home</a></li>
-      <li data-i18n="nav.projects" style="border-bottom:none;padding:.85rem 0 .2rem;font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);opacity:.9;">Projects</li>
-      <li><a href="pages/mapping.html" data-i18n="nav.mapping" style="padding-left:.75rem;">Mapping</a></li>
-      <li><a href="pages/data-center.html" data-i18n="nav.datacenter" style="padding-left:.75rem;">Data Center</a></li>
-      <li><a href="pages/call-centers.html" data-i18n="nav.callcenters" style="padding-left:.75rem;">Call Centers</a></li>
-      <li><a href="pages/fiber-backbone.html" data-i18n="nav.fiber" style="padding-left:.75rem;">Fiber Backbone</a></li>
-      <li><a href="pages/memorial-city.html" data-i18n="nav.memorial" style="padding-left:.75rem;">Memorial City</a></li>
-      <li><a href="pages/cellular.html" data-i18n="nav.cellular" style="padding-left:.75rem;">SCPT Mobile</a></li>
-      <li><a href="pages/mboka.html" data-i18n="nav.mboka" style="padding-left:.75rem;">🎮 Mboka · The Game</a></li>
+      <li class="m-group">
+        <button type="button" class="m-group-btn" aria-expanded="false"><span data-i18n="nav.projects">Projects</span><span class="m-group-caret">▾</span></button>
+        <ul class="m-group-list">
+          <li><a href="pages/mapping.html" data-i18n="nav.mapping">Mapping</a></li>
+          <li><a href="pages/data-center.html" data-i18n="nav.datacenter">Data Center</a></li>
+          <li><a href="pages/call-centers.html" data-i18n="nav.callcenters">Call Centers</a></li>
+          <li><a href="pages/fiber-backbone.html" data-i18n="nav.fiber">Fiber Backbone</a></li>
+          <li><a href="pages/memorial-city.html" data-i18n="nav.memorial">Memorial City</a></li>
+          <li><a href="pages/cellular.html" data-i18n="nav.cellular">SCPT Mobile</a></li>
+          <li><a href="pages/mboka.html" data-i18n="nav.mboka">🎮 Mboka · The Game</a></li>
+        </ul>
+      </li>
       <li><a href="https://communities.palmleafpartners.com">Communities</a></li>
-      <li style="border-bottom:none;padding:.85rem 0 .2rem;font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);opacity:.9;">Work With Us</li>
-      <li><a href="https://opportunities.palmleafpartners.com" style="padding-left:.75rem;">Contract Opportunities</a></li>
-      <li><a href="https://careers.palmleafpartners.com" style="padding-left:.75rem;">Careers</a></li>
+      <li class="m-group">
+        <button type="button" class="m-group-btn" aria-expanded="false"><span>Work With Us</span><span class="m-group-caret">▾</span></button>
+        <ul class="m-group-list">
+          <li><a href="https://opportunities.palmleafpartners.com">Contract Opportunities</a></li>
+          <li><a href="https://careers.palmleafpartners.com">Careers</a></li>
+        </ul>
+      </li>
       <li><a href="pages/about.html" data-i18n="nav.about">About</a></li>
       <li><a href="pages/partnership.html" data-i18n="nav.partnership">Partnership &amp; Governance</a></li>
       <li><a href="pages/contact.html" data-i18n="nav.contact">Contact</a></li>

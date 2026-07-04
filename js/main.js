@@ -35,6 +35,14 @@ document.addEventListener('DOMContentLoaded', () => {
         hamburger.querySelectorAll('span').forEach(s => { s.style.transform = ''; s.style.opacity = ''; });
       });
     });
+    // Collapsible groups (Projects, Work With Us) — tap the heading to expand/collapse.
+    mobileMenu.querySelectorAll('.m-group-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const group = btn.closest('.m-group');
+        const open = group.classList.toggle('open');
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+    });
   }
 
   /* ── Active Nav Link ── */
